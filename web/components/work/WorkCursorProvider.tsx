@@ -25,20 +25,22 @@ export function useWorkCursor() {
 }
 
 /**
- * Figma `pointer` 인스턴스(82 / 104) — 기본이 너무 작지 않게, 호버 시 확장.
+ * Figma `pointer` — Property 1: 기본(82) / Property 2: target(104).
+ * 라이트 WORK 페이지에서도 보이도록 다크 스트로크 + 호버 시 물방울이 커지는 스프링.
  */
 function CursorVisual({ hovering }: { hovering: boolean }) {
   return (
     <motion.div
-      className="-translate-x-1/2 -translate-y-1/2"
+      className="-translate-x-1/2 -translate-y-1/2 will-change-transform"
       initial={false}
       animate={{
-        scale: hovering ? 1.12 : 1,
+        scale: hovering ? 1.22 : 1,
       }}
-      transition={{ type: "spring", stiffness: 420, damping: 28, mass: 0.6 }}
+      transition={{ type: "spring", stiffness: 320, damping: 24, mass: 0.5 }}
     >
       <motion.div
         className="relative flex items-center justify-center"
+        initial={false}
         animate={{
           width: hovering ? 104 : 82,
           height: hovering ? 104 : 82,
@@ -46,22 +48,35 @@ function CursorVisual({ hovering }: { hovering: boolean }) {
         transition={{ type: "spring", stiffness: 380, damping: 26 }}
       >
         <motion.div
-          className="absolute rounded-full border-2 border-white bg-white/10 backdrop-blur-[2px]"
+          className="absolute rounded-full border-2 border-zinc-900/80 bg-gradient-to-b from-zinc-900/[0.07] to-zinc-900/[0.14] shadow-[0_4px_20px_rgba(0,0,0,0.12)] backdrop-blur-[3px]"
+          initial={false}
           animate={{
-            width: hovering ? 88 : 56,
-            height: hovering ? 88 : 56,
-            opacity: hovering ? 1 : 0.92,
+            width: hovering ? 92 : 58,
+            height: hovering ? 92 : 58,
+            opacity: hovering ? 1 : 0.88,
           }}
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
         />
         <motion.div
-          className="absolute rounded-full border border-white/70"
+          className="absolute rounded-full border border-zinc-900/35"
+          initial={false}
           animate={{
-            width: hovering ? 100 : 76,
-            height: hovering ? 100 : 76,
-            opacity: hovering ? 0.55 : 0.4,
+            width: hovering ? 100 : 74,
+            height: hovering ? 100 : 74,
+            opacity: hovering ? 0.65 : 0.4,
+            scale: hovering ? 1.05 : 1,
           }}
-          transition={{ type: "spring", stiffness: 320, damping: 24 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        />
+        <motion.div
+          className="absolute rounded-full bg-zinc-900/[0.06] blur-[6px]"
+          initial={false}
+          animate={{
+            width: hovering ? 48 : 32,
+            height: hovering ? 48 : 32,
+            opacity: hovering ? 0.9 : 0.5,
+          }}
+          transition={{ type: "spring", stiffness: 420, damping: 18 }}
         />
       </motion.div>
     </motion.div>

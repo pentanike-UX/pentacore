@@ -16,7 +16,15 @@ function PortfolioCardViewInner() {
   const { setPortfolioHover } = useWorkCursor();
 
   return (
-    <div className="mx-auto w-full max-w-[820px]" data-figma="portfolio_card_view | img_sub">
+    <Link
+      href={`/works/${WORK_DETAIL_SLUG}`}
+      data-figma="portfolio_card_view"
+      className="group mx-auto block w-full max-w-[820px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]"
+      onMouseEnter={() => setPortfolioHover(true)}
+      onMouseLeave={() => setPortfolioHover(false)}
+      onFocus={() => setPortfolioHover(true)}
+      onBlur={() => setPortfolioHover(false)}
+    >
       <div className="mb-8 flex justify-center px-2">
         <Image
           src={GROUP_LOGO_SRC}
@@ -27,15 +35,8 @@ function PortfolioCardViewInner() {
           unoptimized
         />
       </div>
-      <Link
-        href={`/works/${WORK_DETAIL_SLUG}`}
-        className="group relative block w-full"
-        onMouseEnter={() => setPortfolioHover(true)}
-        onMouseLeave={() => setPortfolioHover(false)}
-        onFocus={() => setPortfolioHover(true)}
-        onBlur={() => setPortfolioHover(false)}
-      >
-        {/* Figma Thumb: 외곽 베젤 + inner 스크린 ~15px 라운드 */}
+      {/* Figma Thumb: 외곽 베젤 + inner 스크린 ~15px 라운드 */}
+      <div data-figma="img_sub">
         <div className="rounded-[15px] bg-zinc-400/35 p-2 shadow-[0_24px_60px_rgba(15,23,42,0.14)] ring-1 ring-zinc-900/10">
           <div className="relative aspect-[820/629] overflow-hidden rounded-xl bg-zinc-900">
             <div
@@ -66,8 +67,8 @@ function PortfolioCardViewInner() {
             </div>
           </div>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }
 

@@ -6,9 +6,16 @@ export const workImages = {
   thumbHmgBack: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=2560&q=85",
   thumbHmgFront: "https://images.unsplash.com/photo-1489827904720-24f2adbf6d6f?w=2560&q=85",
   portfolioThumb: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1200&q=80",
+  /** 썸네일용 짧은 샘플 — 보더 루프에는 *_full 사용 */
   loop005: "https://picsum.photos/id/106/375/3800",
   loop024: "https://picsum.photos/id/119/375/2800",
   loop111: "https://picsum.photos/id/29/900/3400",
+  /** Figma ST-FO-005_BIC_m_full — 11px 보더 내부 세로 루프 */
+  loop005Full: "https://picsum.photos/id/106/324/4200",
+  /** Figma ST-FO-024_m_full */
+  loop024Full: "https://picsum.photos/id/119/324/4000",
+  /** Figma ST-FO-111_full — 20px 보더 내부 루프 */
+  loop111Full: "https://picsum.photos/id/29/898/3800",
 } as const;
 
 /**

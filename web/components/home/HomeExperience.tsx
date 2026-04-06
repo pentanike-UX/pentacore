@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { HOME_CARDS_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { assets } from "./figma-assets";
 import { FooterBar } from "./FooterBar";
 import { HeaderBar } from "./HeaderBar";
@@ -172,6 +173,7 @@ export function HomeExperience() {
   const headerCompact = bp !== "desktop";
   const footerVariant =
     bp === "mobile" ? "mobile" : bp === "tablet" ? "tablet" : "desktop";
+  const lightHomeSurface = phase === "home-cards";
 
   const preload = phase === "intro-load" || phase === "intro-ready";
   const reveal = phase === "intro-reveal";
@@ -204,9 +206,25 @@ export function HomeExperience() {
           : 0
         : 0;
 
+  const videoOpacityFinal =
+    phase === "home-cards" ? 0 : videoOpacity;
+
   return (
-    <div className="relative min-h-dvh overflow-hidden bg-black text-white">
-      <HeaderBar compact={headerCompact} />
+    <div
+      className={cn(
+        "relative min-h-dvh overflow-hidden transition-colors duration-500",
+        lightHomeSurface
+          ? "text-zinc-950"
+          : "bg-black text-white",
+      )}
+      style={
+        lightHomeSurface ? { backgroundColor: HOME_CARDS_PAGE_BG } : undefined
+      }
+    >
+      <HeaderBar
+        compact={headerCompact}
+        surface={lightHomeSurface ? "light" : "dark"}
+      />
 
       {/* 단일 비디오: 풀스크린/마스크 전환 시 크기 애니메이션 없음 — opacity 페이드만 */}
       <video
@@ -222,14 +240,15 @@ export function HomeExperience() {
             !(reveal || home) &&
             "pointer-events-none left-0 top-0 h-px w-px overflow-hidden",
           (reveal || home) && "inset-0 h-full w-full",
-          (reveal || home) && "transition-opacity duration-[600ms] ease-out",
+          (reveal || home) &&
+            "transition-[opacity,transform] duration-[600ms] ease-out",
           home &&
             phase === "home-cards" &&
-            "transition-transform duration-700 ease-out-quart",
+            "duration-700 ease-out-quart",
         )}
         style={{
           ...(home ? maskStyle : {}),
-          opacity: videoOpacity,
+          opacity: videoOpacityFinal,
           ...(home && phase === "home-cards"
             ? { transform: "translateY(calc(-1 * min(28vh, 320px)))" }
             : {}),
@@ -290,14 +309,26 @@ export function HomeExperience() {
 
       {reveal || home ? (
         <div
-          className={`pointer-events-none fixed inset-0 z-20 bg-black ${
-            home ? "bg-black" : ""
-          }`}
+          className={cn(
+            "pointer-events-none fixed inset-0 z-20 transition-colors duration-500",
+            phase === "home-cards" ? "" : "bg-black",
+          )}
+          style={
+            phase === "home-cards"
+              ? { backgroundColor: HOME_CARDS_PAGE_BG }
+              : undefined
+          }
           aria-hidden
         />
       ) : null}
 
-      {home ? <FooterBar visible variant={footerVariant} /> : null}
+      {home ? (
+        <FooterBar
+          visible
+          variant={footerVariant}
+          surface={lightHomeSurface ? "light" : "dark"}
+        />
+      ) : null}
 
       {phase === "home-cards" ? (
         <HomeSectionCards visible={cardsVisible} />

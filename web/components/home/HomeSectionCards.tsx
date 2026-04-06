@@ -22,6 +22,8 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramSrc: "/home/pentagram-work.svg",
     pentagramW: 56,
     pentagramH: 43,
+    gridClassName: "" as const,
+    minHClass: "min-h-[254px]" as const,
   },
   {
     href: "/about",
@@ -31,6 +33,8 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramSrc: "/home/pentagram-about.svg",
     pentagramW: 58,
     pentagramH: 50,
+    gridClassName: "" as const,
+    minHClass: "min-h-[254px]" as const,
   },
   {
     href: "/hiring",
@@ -40,6 +44,8 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramSrc: "/home/pentagram-hiring.svg",
     pentagramW: 59,
     pentagramH: 55,
+    gridClassName: "" as const,
+    minHClass: "min-h-[254px]" as const,
   },
   {
     href: "/inquiry",
@@ -49,6 +55,10 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramSrc: "/home/pentagram-inquiry.svg",
     pentagramW: 78,
     pentagramH: 41,
+    /** Figma `sect_inquiry`: PAD 2열에서 가로폭 확장 후 PC에서 4열 복귀 */
+    gridClassName:
+      "w-full max-w-[min(100%,360px)] justify-self-center md:col-span-2 md:max-w-[580px] lg:col-span-1 lg:max-w-none lg:justify-self-stretch" as const,
+    minHClass: "min-h-[280px] md:min-h-[254px]" as const,
   },
 ] as const;
 
@@ -70,12 +80,14 @@ export function HomeSectionCards({ visible }: Props) {
             href={c.href}
             aria-label={`${c.titleEn} — ${c.titleKo}`}
             className={cn(
-              "group relative isolate flex min-h-[254px] w-[280px] max-w-full flex-col items-center overflow-hidden rounded-[24px] p-10 text-zinc-900 outline-none transition-[opacity,transform,box-shadow] duration-500 ease-out-quart",
+              "group relative isolate flex w-[280px] max-w-full flex-col items-center overflow-hidden rounded-[24px] p-10 text-zinc-900 outline-none transition-[opacity,transform,box-shadow] duration-500 ease-out-quart",
+              c.minHClass,
               "shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_40px_rgba(15,23,42,0.12)]",
               "focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
               visible
                 ? "translate-y-0 opacity-100"
                 : "translate-y-6 opacity-0",
+              c.gridClassName,
             )}
             style={{
               ...liquidGlassHomeCard,

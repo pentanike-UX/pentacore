@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeaderBar } from "@/components/home/HeaderBar";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import { cn } from "@/lib/utils";
 import { BorderedVerticalLoop } from "./BorderedVerticalLoop";
+import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { hyundaiWorksViewImages, workImages } from "./work-assets";
 
 /** Figma `Rectangle 27` — sec_4~ 하단 밴드 */
@@ -138,6 +140,21 @@ function FigImage({
   );
 }
 
+/** Figma `GRID12` — 1280 내 12컬럼, gutter ~16–24px */
+function Grid12({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("grid grid-cols-12 gap-x-4 md:gap-x-6", className)}>
+      {children}
+    </div>
+  );
+}
+
 /**
  * Figma `/works_view` (node 279:22974) — 라이트 베이스 + Rectangle 27 밴드, 섹션 순서·카피 정합.
  */
@@ -162,60 +179,77 @@ export function WorksDetailView() {
         </div>
       </div>
 
+      <ParallaxViewport yRange={[0, -42]} className="block">
       {/* Title + summery + divider — SUB_WORK 동일 베이스 */}
       <div className="mx-auto max-w-[1280px] px-4 pb-10 md:px-[76px] md:pb-14">
-        <header className="max-w-[609px] space-y-[60px]" data-figma="Title">
-          <p
-            className="text-[28px] font-normal leading-tight tracking-tight"
-            style={{ color: TEXT }}
+        <Grid12>
+          <ParallaxLayer
+            yRange={[40, -18]}
+            className="col-span-12 lg:col-span-8"
           >
-            현대자동차 그룹
-          </p>
-          <h1
-            className="text-[clamp(1.75rem,5vw,2.625rem)] font-bold leading-tight tracking-tight md:text-[42px]"
-            style={{ color: TEXT }}
-          >
-            내비게이션 업데이트 공식 홈페이지
-          </h1>
-        </header>
-
-        <dl
-          className="mt-10 flex max-w-[756px] flex-wrap gap-x-10 gap-y-3 md:mt-12"
-          data-figma="summery"
-        >
-          {META_ROWS.map((row) => (
-            <div key={row.label} className="min-w-[140px]">
-              <dt
-                className="text-xs font-normal leading-none"
-                style={{ color: MUTED }}
-              >
-                {row.label}
-              </dt>
-              <dd
-                className="mt-1 text-sm font-bold leading-tight"
+            <header className="max-w-[609px] space-y-[60px]" data-figma="Title">
+              <p
+                className="text-[28px] font-normal leading-tight tracking-tight"
                 style={{ color: TEXT }}
               >
-                {row.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
+                현대자동차 그룹
+              </p>
+              <h1
+                className="text-[clamp(1.75rem,5vw,2.625rem)] font-bold leading-tight tracking-tight md:text-[42px]"
+                style={{ color: TEXT }}
+              >
+                내비게이션 업데이트 공식 홈페이지
+              </h1>
+            </header>
+          </ParallaxLayer>
+          <ParallaxLayer
+            yRange={[22, -28]}
+            className="col-span-12"
+          >
+            <dl
+              className="mt-10 flex max-w-[756px] flex-wrap gap-x-10 gap-y-3 md:mt-12"
+              data-figma="summery"
+            >
+              {META_ROWS.map((row) => (
+                <div key={row.label} className="min-w-[140px]">
+                  <dt
+                    className="text-xs font-normal leading-none"
+                    style={{ color: MUTED }}
+                  >
+                    {row.label}
+                  </dt>
+                  <dd
+                    className="mt-1 text-sm font-bold leading-tight"
+                    style={{ color: TEXT }}
+                  >
+                    {row.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </ParallaxLayer>
+        </Grid12>
       </div>
 
-      <div className="mx-auto w-full max-w-[1280px]" data-figma="중간구분 이미지">
-        <FigImage
-          src={hyundaiWorksViewImages.sectionDivider}
-          alt=""
-          ratio="1280/605"
-        />
-      </div>
+      <ParallaxLayer yRange={[18, -22]} className="w-full">
+        <div className="mx-auto w-full max-w-[1280px]" data-figma="중간구분 이미지">
+          <FigImage
+            src={hyundaiWorksViewImages.sectionDivider}
+            alt=""
+            ratio="1280/605"
+          />
+        </div>
+      </ParallaxLayer>
 
       {/* sec_1 */}
       <section
         className="mx-auto max-w-[1280px] px-4 py-14 md:px-[76px] md:py-20"
         data-figma="sec_1"
       >
-        <div className="mx-auto max-w-[964px]">
+        <ParallaxLayer yRange={[32, -24]} className="w-full">
+        <Grid12>
+          <div className="col-span-12 flex justify-center lg:col-span-10 lg:col-start-2">
+        <div className="w-full max-w-[964px]">
           <FigImage
             src={hyundaiWorksViewImages.heroHome}
             alt="Genesis navigation update — home"
@@ -228,6 +262,9 @@ export function WorksDetailView() {
             Official U.S. Genesis Update Website – Home Screen
           </p>
         </div>
+          </div>
+        </Grid12>
+        </ParallaxLayer>
       </section>
 
       {/* sec_2 */}
@@ -235,7 +272,9 @@ export function WorksDetailView() {
         className="mx-auto max-w-[1280px] px-4 pb-16 md:px-[76px] md:pb-24"
         data-figma="sec_2"
       >
-        <div className="mx-auto max-w-[1113px] space-y-10">
+        <ParallaxLayer yRange={[26, -30]} className="w-full">
+        <Grid12>
+          <div className="col-span-12 space-y-10 lg:col-span-11">
           <p
             className="whitespace-pre-line text-sm font-bold leading-relaxed"
             style={{ color: TEXT }}
@@ -298,7 +337,9 @@ export function WorksDetailView() {
               </div>
             </BrandRow>
           </div>
-        </div>
+          </div>
+        </Grid12>
+        </ParallaxLayer>
       </section>
 
       {/* sec_3 — 라이트 */}
@@ -306,7 +347,9 @@ export function WorksDetailView() {
         className="mx-auto max-w-[1280px] px-4 pb-12 md:px-[76px] md:pb-16"
         data-figma="sec_3"
       >
-        <div className="mx-auto max-w-[1128px]">
+        <ParallaxLayer yRange={[34, -26]} className="w-full">
+        <Grid12>
+          <div className="col-span-12 space-y-0 lg:col-span-12">
           <h2
             className="max-w-[1128px] text-[clamp(2rem,7vw,5rem)] font-bold leading-[1.05] tracking-tight lg:text-[80px]"
             style={{ color: TEXT }}
@@ -336,16 +379,20 @@ export function WorksDetailView() {
               Screen
             </p>
           </div>
-        </div>
+          </div>
+        </Grid12>
+        </ParallaxLayer>
       </section>
 
-      <div className="mx-auto w-full max-w-[1280px]" data-figma="중간구분 이미지_2">
-        <FigImage
-          src={hyundaiWorksViewImages.sectionDivider}
-          alt=""
-          ratio="1280/605"
-        />
-      </div>
+      <ParallaxLayer yRange={[16, -24]} className="w-full">
+        <div className="mx-auto w-full max-w-[1280px]" data-figma="중간구분 이미지_2">
+          <FigImage
+            src={hyundaiWorksViewImages.sectionDivider}
+            alt=""
+            ratio="1280/605"
+          />
+        </div>
+      </ParallaxLayer>
 
       {/* Rectangle 27 밴드: sec_4 ~ 크레딧 */}
       <div style={{ backgroundColor: WORKS_VIEW_BAND_BG }}>
@@ -354,22 +401,25 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 py-14 md:px-[76px] md:py-20"
           data-figma="sec_4"
         >
-          <div className="mx-auto max-w-[1128px]">
+          <ParallaxLayer yRange={[38, -20]} className="w-full">
+          <Grid12>
+            <div className="col-span-12">
             <h2
               className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold leading-[1.08] tracking-tight lg:text-[80px]"
               style={{ color: TEXT }}
             >
               An Intuitive Download Flow, Without the Complexity.
             </h2>
+            </div>
 
-            <div className="mt-10 flex flex-col gap-12 lg:mt-16 lg:flex-row lg:items-start lg:gap-10">
+            <div className="col-span-12 mt-10 grid grid-cols-12 gap-y-10 lg:mt-16 lg:gap-x-6">
               <p
-                className="max-w-[355px] shrink-0 text-base leading-relaxed"
+                className="col-span-12 max-w-[355px] text-base leading-relaxed lg:col-span-4"
                 style={{ color: TEXT }}
               >
                 {SEC4_BODY}
               </p>
-              <div className="flex flex-1 flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-end lg:gap-6">
+              <div className="col-span-12 flex flex-col items-center gap-10 lg:col-span-8 lg:flex-row lg:items-start lg:justify-end lg:gap-6">
                 <div className="w-full max-w-[324px] shrink-0 lg:w-[324px]">
                   <p className="mb-2 text-xs" style={{ color: MUTED }}>
                     ST-FO-005_BIC_m
@@ -377,7 +427,7 @@ export function WorksDetailView() {
                   <BorderedVerticalLoop
                     borderWidth={11}
                     aspectRatio="324/800"
-                    src={workImages.loop005}
+                    src={workImages.loop005Full}
                     alt=""
                     slowDuration={13}
                     fastDuration={2.8}
@@ -390,7 +440,7 @@ export function WorksDetailView() {
                   <BorderedVerticalLoop
                     borderWidth={11}
                     aspectRatio="324/800"
-                    src={workImages.loop024}
+                    src={workImages.loop024Full}
                     alt=""
                     slowDuration={11}
                     fastDuration={3}
@@ -398,7 +448,8 @@ export function WorksDetailView() {
                 </div>
               </div>
             </div>
-          </div>
+          </Grid12>
+          </ParallaxLayer>
         </section>
 
         {/* sec_4/in */}
@@ -406,7 +457,9 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 py-12 md:px-[76px] md:py-16"
           data-figma="sec_4/in_sec_"
         >
-          <div className="mx-auto max-w-[1128px]">
+          <ParallaxLayer yRange={[30, -32]} className="w-full">
+          <Grid12>
+          <div className="col-span-12 space-y-0">
             <h2
               className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-bold leading-[1.1] tracking-tight lg:text-[60px]"
               style={{ color: TEXT }}
@@ -448,6 +501,8 @@ export function WorksDetailView() {
               </div>
             </div>
           </div>
+          </Grid12>
+          </ParallaxLayer>
         </section>
 
         {/* sec_4in */}
@@ -455,7 +510,9 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 py-12 md:px-[76px] md:py-16"
           data-figma="sec_4in_sec_"
         >
-          <div className="mx-auto max-w-[1128px]">
+          <ParallaxLayer yRange={[28, -30]} className="w-full">
+          <Grid12>
+          <div className="col-span-12 space-y-0">
             <h2
               className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-bold leading-[1.1] tracking-tight lg:text-[60px]"
               style={{ color: TEXT }}
@@ -479,6 +536,8 @@ export function WorksDetailView() {
               </p>
             </div>
           </div>
+          </Grid12>
+          </ParallaxLayer>
         </section>
 
         {/* sec_5 */}
@@ -486,7 +545,9 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 py-12 md:px-[76px] md:py-20"
           data-figma="sec_5"
         >
-          <div className="mx-auto max-w-[1128px]">
+          <ParallaxLayer yRange={[36, -24]} className="w-full">
+          <Grid12>
+          <div className="col-span-12 space-y-0">
             <h2
               className="text-[clamp(2rem,7vw,5rem)] font-bold leading-[1.05] tracking-tight lg:text-[80px]"
               style={{ color: TEXT }}
@@ -507,7 +568,7 @@ export function WorksDetailView() {
                 <BorderedVerticalLoop
                   borderWidth={20}
                   aspectRatio="898/686"
-                  src={workImages.loop111}
+                  src={workImages.loop111Full}
                   alt=""
                   slowDuration={16}
                   fastDuration={3.5}
@@ -519,14 +580,18 @@ export function WorksDetailView() {
               </p>
             </div>
           </div>
+          </Grid12>
+          </ParallaxLayer>
         </section>
 
         {/* HD / HAE */}
         <section
-          className="mx-auto grid max-w-[1280px] gap-10 px-4 py-10 md:grid-cols-2 md:px-[76px] md:py-12"
+          className="mx-auto max-w-[1280px] px-4 py-10 md:px-[76px] md:py-12"
           data-figma="HD | HAE"
         >
-          <div>
+          <ParallaxLayer yRange={[20, -28]} className="w-full">
+          <Grid12 className="gap-y-10">
+          <div className="col-span-12 md:col-span-6">
             <p className="text-sm font-bold" style={{ color: TEXT }}>
               HD
             </p>
@@ -541,7 +606,7 @@ export function WorksDetailView() {
               </div>
             </dl>
           </div>
-          <div>
+          <div className="col-span-12 md:col-span-6">
             <p className="text-sm font-bold" style={{ color: TEXT }}>
               HAE
             </p>
@@ -556,6 +621,8 @@ export function WorksDetailView() {
               </div>
             </dl>
           </div>
+          </Grid12>
+          </ParallaxLayer>
         </section>
 
         {/* Frame 1739335350 */}
@@ -563,6 +630,7 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 pb-20 pt-4 md:px-[76px] md:pb-24"
           data-figma="Frame 1739335350"
         >
+          <ParallaxLayer yRange={[14, -22]} className="w-full">
           <div className="mx-auto max-w-[503px] space-y-10">
             <p
               className="whitespace-pre-line text-[clamp(1.5rem,4vw,2.25rem)] font-normal leading-tight tracking-tight"
@@ -591,8 +659,10 @@ export function WorksDetailView() {
               ⓒ PENTACORE.
             </p>
           </div>
+          </ParallaxLayer>
         </footer>
       </div>
+      </ParallaxViewport>
     </main>
   );
 }
