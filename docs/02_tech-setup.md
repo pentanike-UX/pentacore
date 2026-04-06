@@ -18,6 +18,25 @@
 ## 환경 변수
 자세한 키 목록은 [07_api-env.md](./07_api-env.md).
 
+## Figma MCP (Cursor)
+
+### 권장: 공식 플러그인
+Cursor **에이전트 채팅**에 다음을 입력하면 Figma 공식 플러그인(MCP·스킬·룰 번들)이 설치된다.
+
+```text
+/add-plugin figma
+```
+
+설치 후 안내에 따라 **Connect / Allow access**로 OAuth를 완료한다. 자세한 절차는 [Figma — Remote MCP (Cursor)](https://developers.figma.com/docs/figma-mcp-server/remote-server-installation/) 참고.
+
+### 이 리포지토리: `.cursor/mcp.json`
+팀과 동일한 **원격 MCP 엔드포인트**를 쓰도록 워크스페이스에 [`.cursor/mcp.json`](../.cursor/mcp.json)을 두었다. Cursor **설정 → MCP**에서 `figma` 서버가 보이면 **연결·인증**만 하면 된다.
+
+- 공식 플러그인과 **동시에** 켜면 항목이 중복될 수 있다. 한쪽만 사용하거나, 중복 항목을 끈다.
+- **데스크톱 전용** MCP는 Figma 앱에서 Dev Mode의 desktop MCP를 켠 뒤 `http://127.0.0.1:3845/mcp` 등 로컬 URL을 쓰는 방식이다(원격 URL과 택일).
+
+UI 구현 시 SoT는 [05_design-rules.md](./05_design-rules.md) · [04_screen-spec.md](./04_screen-spec.md)와 Figma를 함께 본다.
+
 ## 작업 로그 (npm)
 ```bash
 npm run log:work -- "Cursor" "작업 한 줄 요약"

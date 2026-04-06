@@ -36,9 +36,13 @@ npm run log:adr -- "의사결정 제목"
 npm run hooks:install
 ```
 
+## Figma MCP (Cursor)
+- **권장**: 에이전트 채팅에 `/add-plugin figma` 입력 → 공식 플러그인 설치 후 OAuth.
+- **또는**: 루트 [`.cursor/mcp.json`](.cursor/mcp.json)의 원격 서버를 Cursor MCP에서 연결(중복 시 하나만 사용). 상세는 [docs/02_tech-setup.md](docs/02_tech-setup.md).
+
 ## Cursor에 시킬 때
 - 맥락: “목표는 …, 관련 문서는 docs/0x … 참고”처럼 문서 경로를 짚어준다.
-- UI 작업: 모바일 우선, 상태값(loading/empty/error/disabled) 명시를 요구한다.
+- UI 작업: Figma MCP 연결 시 프레임·컴포넌트·annotation 먼저 확인; `docs/04`·`docs/05`와 SoT 유지.
 - 큰 설계 변경: 먼저 `docs/09_decision-log.md`에 ADR 추가를 요청할 수 있다.
 
 ## package-lock.json

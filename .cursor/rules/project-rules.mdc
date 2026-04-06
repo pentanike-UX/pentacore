@@ -1,7 +1,17 @@
 ---
-description: pentacore 공통 개발 규칙 (모바일 우선, 문서 연동)
+description: pentacore 공통 개발 규칙 (Figma+docs SoT, 모바일 우선)
 alwaysApply: true
 ---
+
+## UI 소스 오브 트루스 (Figma + docs)
+UI 구현은 **Figma 디자인**과 **`docs/`**를 함께 source of truth로 쓴다. 아래는 **반드시** 지킨다.
+
+1. **Figma MCP가 연결되어 있으면** 관련 프레임·컴포넌트·annotation을 **먼저** 확인한다.
+2. **UI 구현 전** `docs/04_screen-spec.md`와 `docs/05_design-rules.md`를 **먼저** 검토한다.
+3. 확인되지 않은 디자인은 추정 사실처럼 구현하지 않고, **TODO** 또는 **assumption**(가정)으로 분리해 코드·문서에 남긴다.
+4. **프레임 이름·Figma 컴포넌트 이름·코드 컴포넌트 이름**이 서로 추적 가능하도록 유지한다 (`04_screen-spec`에 링크·이름을 맞춘다).
+5. **모바일/데스크톱** 브레이크포인트와 **loading / empty / error / disabled** 상태를 빠뜨리지 않는다.
+6. 구현이 끝나면 **Figma 기준과의 차이**를 짧게 보고한다 (PR 본문 또는 작업 요약에 bullet로).
 
 ## 제품·UI
 - 모바일 우선으로 설계한다. 데스크톱은 확장으로 다룬다.
