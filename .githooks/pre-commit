@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# 안내만 출력합니다. 커밋을 막지 않습니다.
+
+CHANGED="$(git diff --cached --name-only 2>/dev/null || true)"
+count="$(printf '%s\n' "$CHANGED" | sed '/^$/d' | wc -l | tr -d '[:space:]')"
+
+if [[ "${count:-0}" -ge 8 ]]; then
+  echo ""
+  echo "[pentacore] 스테이징된 파일이 많습니다 (${count}개)."
+  echo "            구조/범위가 크게 바뀌었다면 docs/09_decision-log.md · docs/11_release-log.md 를 확인하세요."
+  echo ""
+fi
+
+if printf '%s\n' "$CHANGED" | grep -qE '^(src/|app/)'; then
+  echo ""
+  echo "[pentacore] src/ 또는 app/ 변경이 포함되었습니다."
+  echo "            필요 시 docs/04_screen-spec.md · docs/10_qa-checklist.md · docs/09_decision-log.md 반영 여부를 봐 주세요."
+  echo ""
+fi
+
+exit 0

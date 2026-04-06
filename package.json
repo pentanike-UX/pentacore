@@ -1,0 +1,12 @@
+{
+  "name": "pentacore",
+  "version": "0.0.0",
+  "private": true,
+  "description": "TODO: 한 줄 설명",
+  "scripts": {
+    "log:work": "./scripts/log-work.sh",
+    "log:release": "./scripts/log-release.sh",
+    "log:adr": "./scripts/new-adr.sh",
+    "hooks:install": "./scripts/install-hooks.sh"
+  }
+}
