@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR, Geist } from "next/font/google";
+import { Geist, Inter, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const noto = Noto_Sans_KR({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-noto",
+  display: "swap",
+});
+
+/** SUB_WORK HERO 영문 대형 타이틀 — Figma Inter Black */
+const interDisplay = Inter({
+  subsets: ["latin"],
+  weight: ["900"],
+  variable: "--font-inter-display",
   display: "swap",
 });
 
@@ -25,7 +33,12 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={cn("dark font-sans", geist.variable, noto.variable)}
+      className={cn(
+        "dark font-sans",
+        geist.variable,
+        noto.variable,
+        interDisplay.variable,
+      )}
       suppressHydrationWarning
     >
       <body className="min-h-dvh font-sans">{children}</body>

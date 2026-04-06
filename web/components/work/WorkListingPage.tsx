@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { HeaderBar } from "@/components/home/HeaderBar";
+import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG, workImages } from "./work-assets";
+import { WorkPortfolioGlassRow } from "./WorkPortfolioGlassRow";
+import { WORK_PORTFOLIO_ROWS } from "./work-portfolio-data";
 import { useWorkCursor, WorkCursorProvider } from "./WorkCursorProvider";
 
 function PortfolioCardViewInner() {
@@ -13,34 +16,34 @@ function PortfolioCardViewInner() {
     <Link
       href={`/works/${WORK_DETAIL_SLUG}`}
       className="group relative mx-auto block w-full max-w-[820px]"
-      data-figma="portfolio_card_view"
+      data-figma="img_sub"
       onMouseEnter={() => setPortfolioHover(true)}
       onMouseLeave={() => setPortfolioHover(false)}
       onFocus={() => setPortfolioHover(true)}
       onBlur={() => setPortfolioHover(false)}
     >
-      <div className="relative aspect-[820/629] overflow-hidden rounded-sm border border-white/10 bg-zinc-900 shadow-2xl">
+      <div className="relative aspect-[820/629] overflow-hidden rounded-[15px] border border-zinc-900/10 bg-zinc-200 shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
+          className="absolute inset-0 bg-cover bg-center opacity-95 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
           style={{ backgroundImage: `url(${workImages.portfolioThumb})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
         <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-12">
-          <p className="text-xs font-medium uppercase tracking-widest text-white/60">
+          <p className="text-xs font-medium uppercase tracking-widest text-white/70">
             Portfolio
           </p>
-          <h2 className="mt-2 max-w-md text-2xl font-bold leading-tight text-white md:text-3xl">
+          <h2 className="mt-2 max-w-xl text-2xl font-bold leading-tight text-white md:text-3xl">
             현대자동차 그룹 내비게이션 업데이트 공식 홈페이지
           </h2>
           <div className="mt-4 flex flex-wrap gap-2">
-            <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs text-white/90">
+            <span className="rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs text-white backdrop-blur-sm">
               구축
             </span>
-            <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs text-white/90">
+            <span className="rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs text-white backdrop-blur-sm">
               연간운영
             </span>
           </div>
-          <p className="mt-6 text-sm text-white/70 transition group-hover:text-white">
+          <p className="mt-6 text-sm text-white/75 transition group-hover:text-white">
             상세 보기 →
           </p>
         </div>
@@ -49,95 +52,78 @@ function PortfolioCardViewInner() {
   );
 }
 
-const listTitles = [
-  "프로젝트 리스트 A",
-  "프로젝트 리스트 B",
-  "프로젝트 리스트 C",
-  "프로젝트 리스트 D",
-  "프로젝트 리스트 E",
-  "프로젝트 리스트 F",
-  "프로젝트 리스트 G",
-  "프로젝트 리스트 H",
-  "프로젝트 리스트 I",
-  "프로젝트 리스트 J",
-  "프로젝트 리스트 K",
-  "프로젝트 리스트 L",
-  "프로젝트 리스트 M",
-] as const;
-
 function WorkPageBody() {
   return (
-    <main className="bg-black text-white">
-      <HeaderBar compact={false} />
+    <main
+      className="min-h-dvh text-zinc-950 antialiased"
+      style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+      data-figma="SUB_WORK"
+    >
+      <HeaderBar compact={false} surface="light" />
 
-      <section className="relative px-4 pb-16 pt-28 md:px-8 lg:px-[5.5rem] lg:pt-32">
-        <ParallaxViewport yRange={[0, -36]} className="max-w-[2174px]">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:gap-8">
-            <ParallaxLayer yRange={[24, -24]} className="shrink-0">
-              <span className="text-sm font-medium text-white/50">WORK</span>
-            </ParallaxLayer>
-            <div>
-              <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
-                디지털 프로덕트와 브랜드 경험을 설계합니다.
-              </h1>
-              <p className="mt-4 max-w-2xl text-base text-white/65 md:text-lg">
-                Figma SUB_WORK / SUB_WORK_Tablet / SUB_WORK_Mobile 레이아웃을 참고한
-                리스트 페이지입니다. 스크롤 시 섹션별 시차를 둡니다.
+      {/* HERO: 1740×256, 첫 행 HORIZONTAL padding 80 · gap ~96.8 */}
+      <section className="relative px-5 pb-10 pt-[92px] md:px-10 md:pb-14 md:pt-[124px] lg:px-20">
+        <div className="mx-auto max-w-[1740px]">
+          <div className="flex flex-col gap-0">
+            <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:gap-[min(6rem,5.04vw)] lg:gap-[96.8px]">
+              <p className="shrink-0 text-[19.2px] font-semibold leading-none tracking-tight text-zinc-950">
+                (WORK)
               </p>
+              <h1 className="font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-tight text-zinc-950">
+                Builds with intent.
+              </h1>
             </div>
+            <p className="mt-2 font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-tight text-zinc-950 md:mt-0">
+              Runs in reality.
+            </p>
           </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden">
+        <ParallaxLayer
+          yRange={[-12, 12]}
+          className="relative min-h-[28vh] w-full md:min-h-[36vh] lg:min-h-[42vh]"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${workImages.heroWide})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[rgb(229,231,235)]/40 via-transparent to-[rgb(229,231,235)]/30" />
+        </ParallaxLayer>
+      </section>
+
+      <section className="relative z-10 px-5 py-16 md:px-10 md:py-24 lg:px-20 lg:py-28">
+        <ParallaxViewport yRange={[0, -20]} className="mx-auto max-w-[1280px]">
+          <ParallaxLayer yRange={[16, -16]}>
+            <PortfolioCardViewInner />
+          </ParallaxLayer>
         </ParallaxViewport>
       </section>
 
-      <section className="relative -mt-8 overflow-hidden">
-        <ParallaxLayer yRange={[-20, 20]} className="relative min-h-[40vh] w-full md:min-h-[50vh] lg:min-h-[60vh]">
-          <div
-            className="absolute inset-0 scale-105 bg-cover bg-center"
-            style={{ backgroundImage: `url(${workImages.heroWide})` }}
-          />
-        </ParallaxLayer>
-        <ParallaxLayer yRange={[30, -40]} className="pointer-events-none absolute inset-0">
-          <div
-            className="absolute inset-0 opacity-40 mix-blend-screen"
-            style={{
-              backgroundImage: `url(${workImages.heroParallax})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          />
-        </ParallaxLayer>
-        <div className="pointer-events-none absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-      </section>
+      <div className="mx-auto max-w-[1280px] px-5 md:px-10 lg:px-20">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-400/50 to-transparent" />
+      </div>
 
-      <section className="relative z-10 px-4 py-20 md:px-8 lg:px-[5.5rem] lg:py-28">
-        <ParallaxLayer yRange={[40, -40]}>
-          <PortfolioCardViewInner />
-        </ParallaxLayer>
-      </section>
-
+      {/* portfolio_group: VERTICAL itemSpacing 40 */}
       <section
-        className="border-t border-white/10 px-4 py-16 md:px-8 lg:px-40 lg:py-24"
+        className="px-5 py-12 md:px-10 md:py-16 lg:px-20 lg:py-20"
         data-figma="portfolio_group"
       >
-        <h2 className="mb-10 text-lg font-semibold text-white/80">
-          더 많은 프로젝트
-        </h2>
-        <ul className="flex flex-col gap-3 md:gap-4">
-          {listTitles.map((title, i) => (
+        <div className="mx-auto flex max-w-[1280px] flex-col items-center gap-10">
+          {WORK_PORTFOLIO_ROWS.map((row, i) => (
             <ParallaxLayer
-              key={title}
-              yRange={[12 + (i % 4) * 4, -12 - (i % 4) * 4]}
+              key={row.title}
+              yRange={[8 + (i % 5) * 3, -8 - (i % 5) * 3]}
+              className="flex w-full justify-center"
             >
-              <li className="flex items-center justify-between border-b border-white/10 py-4 text-sm text-white/70 transition hover:border-white/25 hover:text-white md:text-base">
-                <span>{title}</span>
-                <span className="text-white/40">—</span>
-              </li>
+              <WorkPortfolioGlassRow row={row} />
             </ParallaxLayer>
           ))}
-        </ul>
+        </div>
       </section>
 
-      <footer className="border-t border-white/10 px-4 py-12 text-center text-xs text-white/40 md:px-8">
+      <footer className="border-t border-zinc-300/80 px-5 py-10 text-center text-xs text-zinc-500 md:px-10">
         ⓒ PENTACORE · WORK
       </footer>
     </main>

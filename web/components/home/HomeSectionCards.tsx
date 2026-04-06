@@ -4,6 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, CircleArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { liquidGlassHomeCard } from "@/lib/figma-liquid-glass";
+
+/** `type=with icon` 버튼 fill — rgb(15,23,42) */
+const VIEW_DETAILS_BG = "#0f172a";
+/** `type=just icon` stroke — rgb(226,232,240) */
+const ICON_BTN_BORDER = "#e2e8f0";
 
 /**
  * Figma `HOME_LAYOUT-2` / `section` (node 2003:55933).
@@ -60,61 +66,71 @@ export function HomeSectionCards({ visible }: Props) {
       data-figma="HOME_LAYOUT-2 section"
     >
       {/* 1240×254 기준: 280×4 + 40×3 gap (Figma section 프레임) */}
-      <div className="grid w-full max-w-[1240px] grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid w-full max-w-[1240px] grid-cols-1 justify-items-center gap-10 md:grid-cols-2 lg:grid-cols-4">
         {HOME_LAYOUT_2_CARDS.map((c, i) => (
           <Link
             key={c.href}
             href={c.href}
+            aria-label={`${c.titleEn} — ${c.titleKo}`}
             className={cn(
-              "group mx-auto flex h-[254px] w-full max-w-[280px] flex-row items-start justify-between text-white outline-none transition-[opacity,transform] duration-500 ease-out-quart focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-black lg:mx-0",
+              "group isolate flex min-h-[254px] w-[280px] max-w-full flex-col items-center gap-[10px] overflow-hidden rounded-[24px] p-10 text-zinc-900 outline-none transition-[opacity,transform,box-shadow] duration-500 ease-out-quart",
+              "shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_40px_rgba(15,23,42,0.12)]",
+              "focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
               visible
                 ? "translate-y-0 opacity-100"
                 : "translate-y-6 opacity-0",
             )}
             style={{
+              ...liquidGlassHomeCard,
               transitionDelay: visible ? `${i * 200}ms` : "0ms",
             }}
             data-figma={`HOME_LAYOUT-2 sect_${c.href.slice(1)}`}
           >
-            <div className="flex min-w-0 flex-1 flex-col pr-2">
+            {/*
+              Figma sect_*: VERTICAL itemSpacing 10 — Frame 6(heads·copy·View Details, gap 40) + icon button
+              카피 색: 제목/영문 #000, 한글 부제 rgb(107,114,128)
+            */}
+            <div className="flex w-full max-w-[200px] flex-col gap-10">
               <div className="flex flex-col gap-3">
-                <div className="flex h-[110px] flex-col justify-start gap-3">
-                  <Image
-                    src={c.pentagramSrc}
-                    alt=""
-                    width={c.pentagramW}
-                    height={c.pentagramH}
-                    className="h-[50px] w-auto max-w-[77px] object-contain object-left"
-                    unoptimized
-                  />
-                  <div className="space-y-1">
-                    <h3 className="text-2xl font-bold leading-8 tracking-tight text-white">
-                      {c.titleEn}
-                    </h3>
-                    <p className="text-sm font-normal leading-5 text-white">
-                      {c.titleKo}
-                    </p>
-                  </div>
-                </div>
-                <div className="space-y-0 text-[12px] font-normal leading-[12px] text-white">
-                  <p>{c.lines[0]}</p>
-                  <p>{c.lines[1]}</p>
+                <Image
+                  src={c.pentagramSrc}
+                  alt=""
+                  width={c.pentagramW}
+                  height={c.pentagramH}
+                  className="h-[50px] w-auto max-w-[77px] object-contain object-left brightness-0"
+                  unoptimized
+                />
+                <div className="space-y-1">
+                  <h3 className="text-2xl font-bold leading-8 tracking-tight text-black">
+                    {c.titleEn}
+                  </h3>
+                  <p className="text-sm font-normal leading-5 text-gray-500">
+                    {c.titleKo}
+                  </p>
                 </div>
               </div>
-              <span className="mt-3 inline-flex h-10 w-[137px] max-w-full items-center gap-2 text-sm font-normal leading-6 text-white">
+              <div className="text-[12px] font-normal leading-3 text-black">
+                <p>{c.lines[0]}</p>
+                <p>{c.lines[1]}</p>
+              </div>
+              <span
+                className="inline-flex h-10 w-[137px] max-w-full shrink-0 items-center gap-2 rounded-md px-4 py-2 text-sm font-medium leading-6 text-white [&_svg]:text-white"
+                style={{ backgroundColor: VIEW_DETAILS_BG }}
+              >
                 View Details
                 <CircleArrowRight
-                  className="size-4 shrink-0 text-white"
-                  strokeWidth={1.5}
+                  className="size-4 shrink-0"
+                  strokeWidth={2}
                   aria-hidden
                 />
               </span>
             </div>
             <span
-              className="flex size-11 shrink-0 items-center justify-center rounded-full border border-white/25 bg-transparent text-white transition group-hover:border-white/50"
+              className="flex size-11 shrink-0 items-center justify-center rounded-[8.25px] border-[1.375px] bg-white text-black shadow-none transition group-hover:border-zinc-300"
+              style={{ borderColor: ICON_BTN_BORDER }}
               aria-hidden
             >
-              <ArrowUpRight className="size-[22px]" strokeWidth={1.5} />
+              <ArrowUpRight className="size-[22px]" strokeWidth={2.75} />
             </span>
           </Link>
         ))}

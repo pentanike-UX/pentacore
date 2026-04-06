@@ -17,6 +17,11 @@ module.exports = {
           "system-ui",
           "sans-serif",
         ],
+        display: [
+          "var(--font-inter-display)",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       colors: {
         border: "var(--border)",
