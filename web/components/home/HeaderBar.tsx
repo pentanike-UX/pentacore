@@ -9,7 +9,10 @@ import { assets } from "./figma-assets";
 type Props = {
   /** 패드/모바일 헤더 높이·패딩 축소 */
   compact?: boolean;
-  /** SUB_WORK 등 라이트 배경 — Figma Header_PC (검정 로고·메뉴) */
+  /**
+   * 라이트 페이지(SUB_WORK 등): 다크와 **동일 레이아웃**, 색만 반전
+   * (메뉴 bg / 테두리 / 라인 — Figma Header_PC)
+   */
   surface?: "dark" | "light";
 };
 
@@ -24,9 +27,8 @@ export function HeaderBar({ compact, surface = "dark" }: Props) {
       className={cn(
         "fixed left-0 right-0 top-0 z-40 flex items-center justify-between",
         p,
-        light && "text-zinc-950",
       )}
-      data-figma={light ? "Header_PC (light surface)" : "Header_PC | Header_PAD&Mobile"}
+      data-figma="Header_PC | Header_PAD&Mobile"
     >
       <Link
         href="/"
@@ -53,47 +55,42 @@ export function HeaderBar({ compact, surface = "dark" }: Props) {
         size="icon-lg"
         aria-label="메뉴"
         className={cn(
-          "relative size-11 shrink-0 overflow-hidden rounded-none",
+          "relative size-11 shrink-0 overflow-hidden rounded-none border-0",
           light
-            ? "border-2 border-zinc-950 bg-white text-zinc-950 hover:bg-zinc-50 hover:text-zinc-950"
-            : "border-0 bg-white/20 text-white hover:bg-white/30 hover:text-white",
+            ? "bg-zinc-950/10 text-zinc-950 hover:bg-zinc-950/[0.14] hover:text-zinc-950"
+            : "bg-white/20 text-white hover:bg-white/30 hover:text-white",
         )}
       >
-        {!light ? (
-          <>
-            <span className="absolute left-1 top-1 size-9 border-2 border-white" />
-            <Image
-              src={assets.homeMenuUnion}
-              alt=""
-              width={16}
-              height={2}
-              className="absolute left-[14px] top-[14px]"
-              unoptimized
-            />
-            <Image
-              src={assets.homeMenuUnion}
-              alt=""
-              width={16}
-              height={2}
-              className="absolute left-[14px] top-[21px]"
-              unoptimized
-            />
-            <Image
-              src={assets.homeMenuUnion}
-              alt=""
-              width={16}
-              height={2}
-              className="absolute left-[14px] top-[28px]"
-              unoptimized
-            />
-          </>
-        ) : (
-          <span className="absolute left-[14px] top-[14px] flex w-4 flex-col gap-[7px]">
-            <span className="h-0.5 w-full bg-zinc-950" />
-            <span className="h-0.5 w-full bg-zinc-950" />
-            <span className="h-0.5 w-full bg-zinc-950" />
-          </span>
-        )}
+        <span
+          className={cn(
+            "absolute left-1 top-1 size-9 border-2",
+            light ? "border-zinc-950" : "border-white",
+          )}
+        />
+        <Image
+          src={assets.homeMenuUnion}
+          alt=""
+          width={16}
+          height={2}
+          className={cn("absolute left-[14px] top-[14px]", light && "brightness-0")}
+          unoptimized
+        />
+        <Image
+          src={assets.homeMenuUnion}
+          alt=""
+          width={16}
+          height={2}
+          className={cn("absolute left-[14px] top-[21px]", light && "brightness-0")}
+          unoptimized
+        />
+        <Image
+          src={assets.homeMenuUnion}
+          alt=""
+          width={16}
+          height={2}
+          className={cn("absolute left-[14px] top-[28px]", light && "brightness-0")}
+          unoptimized
+        />
       </Button>
     </header>
   );

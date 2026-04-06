@@ -1,138 +1,609 @@
 "use client";
 
+import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { HeaderBar } from "@/components/home/HeaderBar";
+import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { BorderedVerticalLoop } from "./BorderedVerticalLoop";
-import { ParallaxLayer, ParallaxViewport } from "./Parallax";
-import { workImages } from "./work-assets";
+import { hyundaiWorksViewImages, workImages } from "./work-assets";
+
+/** Figma `Rectangle 27` — sec_4~ 하단 밴드 */
+const WORKS_VIEW_BAND_BG = "#858585";
+
+const HMG_GROUP_LOGO_SRC = "/work/group-logo-hmg.svg";
+
+const TEXT = "#1e1e1e";
+const MUTED = "#757575";
+
+const META_ROWS = [
+  { label: "Renewal Project Timeline", value: "2024.06 ~ 2025.03" },
+  { label: "Maintenance Timeline", value: "2020 ~ 2025" },
+  { label: "Industry", value: "Automobile Manufacturer" },
+  { label: "Deliverables", value: "Website Renewal" },
+] as const;
+
+const ROLES_BLOCK =
+  "Website Renewal\nUX/UI Redesign\nFront-end Development\nBack-end Integration\nQA & Performance Optimization";
+
+const INTRO_BODY =
+  "현대자동차그룹 주요 브랜드의 내비게이션 업데이트 공식 홈페이지를 전면 리뉴얼하며, 브랜드별 사용자 흐름을 통합적으로 재정리하고 업데이트 경험을 더 직관적으로 개선했습니다. UI 디자인은 현대자동차 내부 디자인 시스템 및 가이드라인을 준수하여 브랜드 일관성을 유지하는 동시에 다양한 차량·기기 환경에서 안정적인 사용자 경험을 제공하도록 구축했습니다.";
+
+const BRAND_LINKS = {
+  hyundai: {
+    kr: "https://update.hyundai.com",
+    us: "https://update.hyundaiusa.com",
+  },
+  kia: {
+    kr: "https://update.kia.com/kr",
+    us: "https://update.kia.com/us/en",
+  },
+  genesis: {
+    kr: "https://www.genesis.com/kr/ko/support/download-center",
+    us: "https://update.genesis.com",
+  },
+} as const;
+
+const SEC3_BODY_A =
+  "심플한 텍스트와 이미지를 활용한 효과적인 정보전달.\n복잡하고 어려운 기존의 내비게이션 업데이트 방식을 \n찾기 쉽고, 간편하게 설치할 수 있도록 가이드 방법을 개선하는데 주력했습니다.";
+
+const SEC3_BODY_B =
+  "심플하고 명확한 메시지를 중심으로 새롭게 선보이는\n기능과 콘텐츠를 쉽고 효과적으로 콘텐츠를 탐색하고 이해할 수 있도록 각 섹션을 구성하였습니다. ";
+
+const SEC4_BODY =
+  "빌트인 캠·디스플레이오디오·내비게이션 업데이트 프로그램을 찾고 내 차량과의 호환 여부를 자연스러운 흐름 속에서 확인할 수 있습니다. 다운로드 전 필수 검증 과정을 더 명확하고 직관적으로 정리해 사용자가 흔들림 없이 올바른 소프트웨어를 받을 수 있도록 UX를 재설계했습니다.";
+
+const SEC4IN_BODY =
+  "통합된 Pleos 계정으로 로그인하면 등록된 차량의 소프트웨어 정보를 더 정확하게 확인할 수 있으며, 업데이트 가능 여부도 더욱 직관적으로 파악할 수 있습니다. 사용자별 차량 데이터를 기반으로 불필요한 검색 단계를 줄이고 가장 적합한 업데이트 경험을 제공하도록 설계했습니다.";
+
+const SEC5_BODY =
+  "업데이트 리뷰는 로그인한 사용자의 보유 차량 정보를 기반으로 소프트웨어 업데이트 기능과 실제 주행 경험을 함께 기록할 수 있는 기능입니다. 사용자는 업데이트 이후 차량의 변화와 만족도를 직접 남기며 더 나은 서비스 개선 방향에 기여할 수 있습니다. 이를 통해 사용자 실사용 데이터를 바탕으로 한 진정성 있는 업데이트 경험 생태계를 구축합니다.";
+
+function ChipLinkRow({ label, href }: { label: string; href: string }) {
+  return (
+    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-black/10 py-2.5 last:border-b-0">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="max-w-[min(100%,520px)] text-[14px] leading-snug text-[#1e1e1e] underline-offset-4 hover:underline"
+        style={{ color: TEXT }}
+      >
+        {label}
+      </a>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="shrink-0 text-[14px] font-medium text-[#1e1e1e]"
+        style={{ color: TEXT }}
+      >
+        Visit Website
+      </a>
+    </div>
+  );
+}
+
+function BrandRow({
+  title,
+  children,
+}: {
+  title: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-4 border-t border-black/10 pt-8 first:border-t-0 first:pt-0 md:flex-row md:gap-10">
+      <div className="flex h-[50px] w-[170px] shrink-0 items-center">
+        {typeof title === "string" ? (
+          <span
+            className="text-[15px] font-bold tracking-tight"
+            style={{ color: TEXT }}
+          >
+            {title}
+          </span>
+        ) : (
+          title
+        )}
+      </div>
+      <div className="min-w-0 flex-1">{children}</div>
+    </div>
+  );
+}
+
+function FigImage({
+  src,
+  alt,
+  ratio,
+  className,
+}: {
+  src: string;
+  alt: string;
+  ratio: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`relative w-full overflow-hidden bg-black/5 ${className ?? ""}`}
+      style={{ aspectRatio: ratio }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover object-top"
+        sizes="(max-width: 1280px) 100vw, 1280px"
+        unoptimized={src.startsWith("https://picsum.photos")}
+      />
+    </div>
+  );
+}
 
 /**
- * Figma `/works_view` — 12 컬럼 그리드 + 페럴렉스 + sec_4/sec_5 보더 루프
+ * Figma `/works_view` (node 279:22974) — 라이트 베이스 + Rectangle 27 밴드, 섹션 순서·카피 정합.
  */
 export function WorksDetailView() {
   return (
-    <main className="bg-black text-white">
-      <HeaderBar compact={false} />
-      <div className="border-b border-white/10 px-4 py-4 md:px-8">
-        <Link
-          href="/work"
-          className="text-sm text-white/60 transition hover:text-white"
-        >
-          ← WORK 목록
-        </Link>
+    <main
+      className="min-h-dvh antialiased"
+      style={{ backgroundColor: SUB_WORK_PAGE_BG, color: TEXT }}
+      data-figma="/works_view"
+    >
+      <HeaderBar compact={false} surface="light" />
+
+      <div className="border-b border-zinc-900/10 px-4 pb-4 pt-[92px] md:px-[76px] md:pb-5 md:pt-[124px]">
+        <div className="mx-auto max-w-[1280px]">
+          <Link
+            href="/work"
+            className="text-sm font-medium transition hover:opacity-70"
+            style={{ color: MUTED }}
+          >
+            ← WORK 목록
+          </Link>
+        </div>
       </div>
 
-      <article className="mx-auto max-w-[1280px] px-4 pb-32 pt-12 md:px-6 md:pt-16">
-        <ParallaxViewport yRange={[0, -24]} className="mb-16">
-          <p className="text-xs font-medium uppercase tracking-widest text-white/45">
-            Case study
+      {/* Title + summery + divider — SUB_WORK 동일 베이스 */}
+      <div className="mx-auto max-w-[1280px] px-4 pb-10 md:px-[76px] md:pb-14">
+        <header className="max-w-[609px] space-y-[60px]" data-figma="Title">
+          <p
+            className="text-[28px] font-normal leading-tight tracking-tight"
+            style={{ color: TEXT }}
+          >
+            현대자동차 그룹
           </p>
-          <h1 className="mt-3 text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
-            현대자동차 그룹 내비게이션 업데이트
+          <h1
+            className="text-[clamp(1.75rem,5vw,2.625rem)] font-bold leading-tight tracking-tight md:text-[42px]"
+            style={{ color: TEXT }}
+          >
+            내비게이션 업데이트 공식 홈페이지
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/65">
-            공식 홈페이지 구축 및 연간 운영. 아래 섹션은 12 그리드 기준 배치와
-            스크롤 시차, 그리고 Figma에 명시된 보더 고정 + 내부 이미지 루프를
-            반영한 플레이스홀더입니다.
+        </header>
+
+        <dl
+          className="mt-10 flex max-w-[756px] flex-wrap gap-x-10 gap-y-3 md:mt-12"
+          data-figma="summery"
+        >
+          {META_ROWS.map((row) => (
+            <div key={row.label} className="min-w-[140px]">
+              <dt
+                className="text-xs font-normal leading-none"
+                style={{ color: MUTED }}
+              >
+                {row.label}
+              </dt>
+              <dd
+                className="mt-1 text-sm font-bold leading-tight"
+                style={{ color: TEXT }}
+              >
+                {row.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div className="mx-auto w-full max-w-[1280px]" data-figma="중간구분 이미지">
+        <FigImage
+          src={hyundaiWorksViewImages.sectionDivider}
+          alt=""
+          ratio="1280/605"
+        />
+      </div>
+
+      {/* sec_1 */}
+      <section
+        className="mx-auto max-w-[1280px] px-4 py-14 md:px-[76px] md:py-20"
+        data-figma="sec_1"
+      >
+        <div className="mx-auto max-w-[964px]">
+          <FigImage
+            src={hyundaiWorksViewImages.heroHome}
+            alt="Genesis navigation update — home"
+            ratio="964/731"
+          />
+          <p
+            className="mt-3 text-xs font-normal"
+            style={{ color: MUTED }}
+          >
+            Official U.S. Genesis Update Website – Home Screen
           </p>
-        </ParallaxViewport>
+        </div>
+      </section>
 
-        <div className="grid grid-cols-12 gap-x-4 gap-y-12 md:gap-x-6">
-          <ParallaxLayer
-            yRange={[32, -32]}
-            className="col-span-12 lg:col-span-8"
+      {/* sec_2 */}
+      <section
+        className="mx-auto max-w-[1280px] px-4 pb-16 md:px-[76px] md:pb-24"
+        data-figma="sec_2"
+      >
+        <div className="mx-auto max-w-[1113px] space-y-10">
+          <p
+            className="whitespace-pre-line text-sm font-bold leading-relaxed"
+            style={{ color: TEXT }}
           >
-            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-6 md:p-10">
-              <h2 className="text-xl font-semibold">Overview</h2>
-              <p className="mt-4 text-sm leading-relaxed text-white/70">
-                그리드 12 — 본문은 8칸 차지. 좌측 메인 컬럼에 텍스트와 이미지를
-                배치합니다.
-              </p>
-            </div>
-          </ParallaxLayer>
+            {ROLES_BLOCK}
+          </p>
+          <p
+            className="max-w-[730px] text-base font-normal leading-relaxed"
+            style={{ color: TEXT }}
+          >
+            {INTRO_BODY}
+          </p>
 
-          <ParallaxLayer
-            yRange={[48, -48]}
-            className="col-span-12 lg:col-span-4"
-          >
-            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-6">
-              <h3 className="text-sm font-semibold text-white/80">Meta</h3>
-              <ul className="mt-4 space-y-2 text-sm text-white/55">
-                <li>역할: UX · UI · 구축</li>
-                <li>클라이언트: 현대자동차 그룹</li>
-                <li>범위: 구축 / 연간운영</li>
-              </ul>
-            </div>
-          </ParallaxLayer>
-
-          <div
-            className="col-span-12 border-t border-white/10 pt-16"
-            data-figma="sec_4"
-          >
-            <h2 className="mb-10 text-lg font-semibold text-white/85">
-              sec_4 — 보더 11px 루프
-            </h2>
-            <div className="grid grid-cols-12 gap-8 lg:gap-10">
-              <ParallaxLayer
-                yRange={[24, -24]}
-                className="col-span-12 md:col-span-6"
-              >
-                <p className="mb-4 text-xs text-white/45">
-                  ST-FO-005_BIC_m / ST-FO-005_BIC_m_full
-                </p>
-                <BorderedVerticalLoop
-                  borderWidth={11}
-                  aspectRatio="324/800"
-                  src={workImages.loop005}
-                  alt=""
-                  slowDuration={13}
-                  fastDuration={2.8}
+          <div className="space-y-0 pt-4">
+            <BrandRow
+              title={
+                <Image
+                  src={HMG_GROUP_LOGO_SRC}
+                  alt="Hyundai Motor Group"
+                  width={170}
+                  height={30}
+                  className="h-[30px] w-auto max-w-[170px] object-contain object-left"
+                  unoptimized
                 />
-              </ParallaxLayer>
-              <ParallaxLayer
-                yRange={[40, -40]}
-                className="col-span-12 md:col-span-6"
-              >
-                <p className="mb-4 text-xs text-white/45">
-                  ST-FO-030_m / ST-FO-024_m_full
-                </p>
-                <BorderedVerticalLoop
-                  borderWidth={11}
-                  aspectRatio="324/800"
-                  src={workImages.loop024}
-                  alt=""
-                  slowDuration={11}
-                  fastDuration={3}
+              }
+            >
+              <div className="space-y-0">
+                <ChipLinkRow
+                  label="Official Hyundai Motors Navigation Update Website - KOREA"
+                  href={BRAND_LINKS.hyundai.kr}
                 />
-              </ParallaxLayer>
-            </div>
-          </div>
-
-          <div
-            className="col-span-12 border-t border-white/10 pt-16"
-            data-figma="sec_5"
-          >
-            <ParallaxLayer yRange={[20, -20]} className="mb-8">
-              <h2 className="text-lg font-semibold text-white/85">
-                sec_5 — ST-FO-111 (보더 20px)
-              </h2>
-              <p className="mt-2 text-sm text-white/50">
-                ST-FO-111_full 그룹 루프
-              </p>
-            </ParallaxLayer>
-            <ParallaxLayer yRange={[36, -36]} className="mx-auto max-w-[898px]">
-              <BorderedVerticalLoop
-                borderWidth={20}
-                aspectRatio="898/686"
-                src={workImages.loop111}
-                alt=""
-                slowDuration={16}
-                fastDuration={3.5}
-              />
-            </ParallaxLayer>
+                <ChipLinkRow
+                  label="Official Hyundai Motors Navigation Update Website - USA"
+                  href={BRAND_LINKS.hyundai.us}
+                />
+              </div>
+            </BrandRow>
+            <BrandRow title="KIA">
+              <div className="space-y-0">
+                <ChipLinkRow
+                  label="Official Kia Navigation Update Website - KOREA"
+                  href={BRAND_LINKS.kia.kr}
+                />
+                <ChipLinkRow
+                  label="Official Kia Navigation Update Website - USA"
+                  href={BRAND_LINKS.kia.us}
+                />
+              </div>
+            </BrandRow>
+            <BrandRow title="GENESIS">
+              <div className="space-y-0">
+                <ChipLinkRow
+                  label="Official Genesis Navigation Update Website - KOREA"
+                  href={BRAND_LINKS.genesis.kr}
+                />
+                <ChipLinkRow
+                  label="Official Genesis Navigation Update Website - USA"
+                  href={BRAND_LINKS.genesis.us}
+                />
+              </div>
+            </BrandRow>
           </div>
         </div>
-      </article>
+      </section>
+
+      {/* sec_3 — 라이트 */}
+      <section
+        className="mx-auto max-w-[1280px] px-4 pb-12 md:px-[76px] md:pb-16"
+        data-figma="sec_3"
+      >
+        <div className="mx-auto max-w-[1128px]">
+          <h2
+            className="max-w-[1128px] text-[clamp(2rem,7vw,5rem)] font-bold leading-[1.05] tracking-tight lg:text-[80px]"
+            style={{ color: TEXT }}
+          >
+            Redefining the Future of Movement with Human-Centered Innovation
+          </h2>
+          <p
+            className="mt-10 max-w-[730px] whitespace-pre-line text-base leading-relaxed md:mt-14"
+            style={{ color: TEXT }}
+          >
+            {SEC3_BODY_A}
+          </p>
+          <p
+            className="mt-8 max-w-[730px] whitespace-pre-line text-base leading-relaxed"
+            style={{ color: TEXT }}
+          >
+            {SEC3_BODY_B}
+          </p>
+          <div className="mt-12">
+            <FigImage
+              src={hyundaiWorksViewImages.latestUpdateSample}
+              alt="Latest update screen sample"
+              ratio="898/686"
+            />
+            <p className="mt-3 text-xs" style={{ color: MUTED }}>
+              Official Notice Content Templating and UI Design – Latest Update
+              Screen
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto w-full max-w-[1280px]" data-figma="중간구분 이미지_2">
+        <FigImage
+          src={hyundaiWorksViewImages.sectionDivider}
+          alt=""
+          ratio="1280/605"
+        />
+      </div>
+
+      {/* Rectangle 27 밴드: sec_4 ~ 크레딧 */}
+      <div style={{ backgroundColor: WORKS_VIEW_BAND_BG }}>
+        {/* sec_4 */}
+        <section
+          className="mx-auto max-w-[1280px] px-4 py-14 md:px-[76px] md:py-20"
+          data-figma="sec_4"
+        >
+          <div className="mx-auto max-w-[1128px]">
+            <h2
+              className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold leading-[1.08] tracking-tight lg:text-[80px]"
+              style={{ color: TEXT }}
+            >
+              An Intuitive Download Flow, Without the Complexity.
+            </h2>
+
+            <div className="mt-10 flex flex-col gap-12 lg:mt-16 lg:flex-row lg:items-start lg:gap-10">
+              <p
+                className="max-w-[355px] shrink-0 text-base leading-relaxed"
+                style={{ color: TEXT }}
+              >
+                {SEC4_BODY}
+              </p>
+              <div className="flex flex-1 flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-end lg:gap-6">
+                <div className="w-full max-w-[324px] shrink-0 lg:w-[324px]">
+                  <p className="mb-2 text-xs" style={{ color: MUTED }}>
+                    ST-FO-005_BIC_m
+                  </p>
+                  <BorderedVerticalLoop
+                    borderWidth={11}
+                    aspectRatio="324/800"
+                    src={workImages.loop005}
+                    alt=""
+                    slowDuration={13}
+                    fastDuration={2.8}
+                  />
+                </div>
+                <div className="w-full max-w-[324px] shrink-0 lg:mt-[653px] lg:w-[324px]">
+                  <p className="mb-2 text-xs" style={{ color: MUTED }}>
+                    ST-FO-030_m
+                  </p>
+                  <BorderedVerticalLoop
+                    borderWidth={11}
+                    aspectRatio="324/800"
+                    src={workImages.loop024}
+                    alt=""
+                    slowDuration={11}
+                    fastDuration={3}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* sec_4/in */}
+        <section
+          className="mx-auto max-w-[1280px] px-4 py-12 md:px-[76px] md:py-16"
+          data-figma="sec_4/in_sec_"
+        >
+          <div className="mx-auto max-w-[1128px]">
+            <h2
+              className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-bold leading-[1.1] tracking-tight lg:text-[60px]"
+              style={{ color: TEXT }}
+            >
+              Update the software optimized for your vehicle
+              <br className="hidden sm:block" />
+              —all in one step.
+            </h2>
+            <div className="mt-12 space-y-10 md:mt-16">
+              <div>
+                <FigImage
+                  src={hyundaiWorksViewImages.flowStep1}
+                  alt="Select model — step 1"
+                  ratio="893/573"
+                />
+                <p className="mt-3 text-xs" style={{ color: MUTED }}>
+                  Select Model – Step 1
+                </p>
+              </div>
+              <div>
+                <FigImage
+                  src={hyundaiWorksViewImages.flowStep2}
+                  alt="Select year — step 2"
+                  ratio="893/573"
+                />
+                <p className="mt-3 text-xs" style={{ color: MUTED }}>
+                  Select Year – Step 2
+                </p>
+              </div>
+              <div>
+                <FigImage
+                  src={hyundaiWorksViewImages.flowStep3}
+                  alt="Results and download — step 3"
+                  ratio="893/573"
+                />
+                <p className="mt-3 text-xs" style={{ color: MUTED }}>
+                  Results &amp; Download – Step 3
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* sec_4in */}
+        <section
+          className="mx-auto max-w-[1280px] px-4 py-12 md:px-[76px] md:py-16"
+          data-figma="sec_4in_sec_"
+        >
+          <div className="mx-auto max-w-[1128px]">
+            <h2
+              className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-bold leading-[1.1] tracking-tight lg:text-[60px]"
+              style={{ color: TEXT }}
+            >
+              Precision Updates, Powered by Your Registered Vehicle.
+            </h2>
+            <p
+              className="mt-8 max-w-[730px] text-base leading-relaxed md:mt-10"
+              style={{ color: TEXT }}
+            >
+              {SEC4IN_BODY}
+            </p>
+            <div className="mt-12">
+              <FigImage
+                src={hyundaiWorksViewImages.myPageFlow}
+                alt="My page — check updates"
+                ratio="893/1117"
+              />
+              <p className="mt-3 text-xs" style={{ color: MUTED }}>
+                Check Updates for Your Vehicle – My Page Screen
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* sec_5 */}
+        <section
+          className="mx-auto max-w-[1280px] px-4 py-12 md:px-[76px] md:py-20"
+          data-figma="sec_5"
+        >
+          <div className="mx-auto max-w-[1128px]">
+            <h2
+              className="text-[clamp(2rem,7vw,5rem)] font-bold leading-[1.05] tracking-tight lg:text-[80px]"
+              style={{ color: TEXT }}
+            >
+              Understanding the Update Through Your Journey.
+            </h2>
+            <p
+              className="mt-10 max-w-[730px] text-base leading-relaxed md:mt-14"
+              style={{ color: TEXT }}
+            >
+              {SEC5_BODY}
+            </p>
+            <div className="mt-12 md:mt-16">
+              <p className="mb-2 text-xs" style={{ color: MUTED }}>
+                ST-FO-111
+              </p>
+              <div className="mx-auto max-w-[898px]">
+                <BorderedVerticalLoop
+                  borderWidth={20}
+                  aspectRatio="898/686"
+                  src={workImages.loop111}
+                  alt=""
+                  slowDuration={16}
+                  fastDuration={3.5}
+                />
+              </div>
+              <p className="mt-3 text-xs" style={{ color: MUTED }}>
+                Share Your Update Experience and View Insights – Update Review
+                Screen
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* HD / HAE */}
+        <section
+          className="mx-auto grid max-w-[1280px] gap-10 px-4 py-10 md:grid-cols-2 md:px-[76px] md:py-12"
+          data-figma="HD | HAE"
+        >
+          <div>
+            <p className="text-sm font-bold" style={{ color: TEXT }}>
+              HD
+            </p>
+            <dl className="mt-4 space-y-3 text-sm">
+              <div>
+                <dt style={{ color: MUTED }}>PM</dt>
+                <dd className="font-semibold">Doo won Yoo</dd>
+              </div>
+              <div>
+                <dt style={{ color: MUTED }}>Tech PL</dt>
+                <dd className="font-semibold">Ji hoon Jung</dd>
+              </div>
+            </dl>
+          </div>
+          <div>
+            <p className="text-sm font-bold" style={{ color: TEXT }}>
+              HAE
+            </p>
+            <dl className="mt-4 space-y-3 text-sm">
+              <div>
+                <dt style={{ color: MUTED }}>PMO</dt>
+                <dd className="font-semibold">Se jong Lee</dd>
+              </div>
+              <div>
+                <dt style={{ color: MUTED }}>Tech PL</dt>
+                <dd className="font-semibold">Ji hoon Jung</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        {/* Frame 1739335350 */}
+        <footer
+          className="mx-auto max-w-[1280px] px-4 pb-20 pt-4 md:px-[76px] md:pb-24"
+          data-figma="Frame 1739335350"
+        >
+          <div className="mx-auto max-w-[503px] space-y-10">
+            <p
+              className="whitespace-pre-line text-[clamp(1.5rem,4vw,2.25rem)] font-normal leading-tight tracking-tight"
+              style={{ color: TEXT }}
+            >
+              Thanks{"\n"}for watching.
+            </p>
+            <div className="space-y-4 text-sm leading-relaxed">
+              <CreditLine role="Project Lead (PM &amp; UX Lead)" names="Tae hun OH" />
+              <CreditLine role="UIUX" names="Kyung hoon Park" />
+              <CreditLine
+                role="Front-end Developer"
+                names="Kwang hee Kwon, Gun tae Lim"
+              />
+              <CreditLine role="Publisher" names="Ji seung Na" />
+              <CreditLine
+                role="Service Planner &amp; Delivery Coordinator"
+                names="Tae hun OH, Seung ki Park"
+              />
+              <CreditLine
+                role="Back-end Developer"
+                names="Seok hyun Cho, Seon joo Kim, Eun hye Ahn, Ji yong Cheon, Jae hong Lee"
+              />
+            </div>
+            <p className="text-xs font-light" style={{ color: TEXT }}>
+              ⓒ PENTACORE.
+            </p>
+          </div>
+        </footer>
+      </div>
     </main>
+  );
+}
+
+function CreditLine({ role, names }: { role: string; names: string }) {
+  return (
+    <div>
+      <p style={{ color: MUTED }}>{role}</p>
+      <p className="mt-1 font-medium" style={{ color: TEXT }}>
+        {names}
+      </p>
+    </div>
   );
 }

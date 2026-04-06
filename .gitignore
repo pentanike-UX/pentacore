@@ -10,3 +10,4 @@ web/.env*.local
 # OS / editor
 .DS_Store
 .vscode/
+web/tsconfig.tsbuildinfo

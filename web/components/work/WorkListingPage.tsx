@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { HeaderBar } from "@/components/home/HeaderBar";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
@@ -9,46 +10,64 @@ import { WorkPortfolioGlassRow } from "./WorkPortfolioGlassRow";
 import { WORK_PORTFOLIO_ROWS } from "./work-portfolio-data";
 import { useWorkCursor, WorkCursorProvider } from "./WorkCursorProvider";
 
+const GROUP_LOGO_SRC = "/work/group-logo-hmg.svg";
+
 function PortfolioCardViewInner() {
   const { setPortfolioHover } = useWorkCursor();
 
   return (
-    <Link
-      href={`/works/${WORK_DETAIL_SLUG}`}
-      className="group relative mx-auto block w-full max-w-[820px]"
-      data-figma="img_sub"
-      onMouseEnter={() => setPortfolioHover(true)}
-      onMouseLeave={() => setPortfolioHover(false)}
-      onFocus={() => setPortfolioHover(true)}
-      onBlur={() => setPortfolioHover(false)}
-    >
-      <div className="relative aspect-[820/629] overflow-hidden rounded-[15px] border border-zinc-900/10 bg-zinc-200 shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-95 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
-          style={{ backgroundImage: `url(${workImages.portfolioThumb})` }}
+    <div className="mx-auto w-full max-w-[820px]" data-figma="portfolio_card_view | img_sub">
+      <div className="mb-8 flex justify-center px-2">
+        <Image
+          src={GROUP_LOGO_SRC}
+          alt=""
+          width={280}
+          height={30}
+          className="h-[30px] w-[min(280px,100%)] object-contain"
+          unoptimized
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-12">
-          <p className="text-xs font-medium uppercase tracking-widest text-white/70">
-            Portfolio
-          </p>
-          <h2 className="mt-2 max-w-xl text-2xl font-bold leading-tight text-white md:text-3xl">
-            현대자동차 그룹 내비게이션 업데이트 공식 홈페이지
-          </h2>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <span className="rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs text-white backdrop-blur-sm">
-              구축
-            </span>
-            <span className="rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs text-white backdrop-blur-sm">
-              연간운영
-            </span>
-          </div>
-          <p className="mt-6 text-sm text-white/75 transition group-hover:text-white">
-            상세 보기 →
-          </p>
-        </div>
       </div>
-    </Link>
+      <Link
+        href={`/works/${WORK_DETAIL_SLUG}`}
+        className="group relative block w-full"
+        onMouseEnter={() => setPortfolioHover(true)}
+        onMouseLeave={() => setPortfolioHover(false)}
+        onFocus={() => setPortfolioHover(true)}
+        onBlur={() => setPortfolioHover(false)}
+      >
+        {/* Figma Thumb: 외곽 베젤 + inner 스크린 ~15px 라운드 */}
+        <div className="rounded-[15px] bg-zinc-400/35 p-2 shadow-[0_24px_60px_rgba(15,23,42,0.14)] ring-1 ring-zinc-900/10">
+          <div className="relative aspect-[820/629] overflow-hidden rounded-xl bg-zinc-900">
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-95 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
+              style={{
+                backgroundImage: `url(${workImages.portfolioThumb})`,
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-12">
+              <p className="text-xs font-medium uppercase tracking-widest text-white/70">
+                Portfolio
+              </p>
+              <h2 className="mt-2 max-w-xl text-2xl font-bold leading-tight text-white md:text-3xl">
+                현대자동차 그룹 내비게이션 업데이트 공식 홈페이지
+              </h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs text-white backdrop-blur-sm">
+                  구축
+                </span>
+                <span className="rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs text-white backdrop-blur-sm">
+                  연간운영
+                </span>
+              </div>
+              <p className="mt-6 text-sm text-white/75 transition group-hover:text-white">
+                상세 보기 →
+              </p>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </div>
   );
 }
 
@@ -61,7 +80,6 @@ function WorkPageBody() {
     >
       <HeaderBar compact={false} surface="light" />
 
-      {/* HERO: 1740×256, 첫 행 HORIZONTAL padding 80 · gap ~96.8 */}
       <section className="relative px-5 pb-10 pt-[92px] md:px-10 md:pb-14 md:pt-[124px] lg:px-20">
         <div className="mx-auto max-w-[1740px]">
           <div className="flex flex-col gap-0">
@@ -80,16 +98,24 @@ function WorkPageBody() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden">
+      {/* thumb_HMG: Figma `image 13` + `image 14` 이중 레이어 */}
+      <section className="relative overflow-hidden" data-figma="thumb_HMG">
         <ParallaxLayer
           yRange={[-12, 12]}
-          className="relative min-h-[28vh] w-full md:min-h-[36vh] lg:min-h-[42vh]"
+          className="relative min-h-[32vh] w-full md:min-h-[40vh] lg:min-h-[48vh]"
         >
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${workImages.heroWide})` }}
+            style={{ backgroundImage: `url(${workImages.thumbHmgBack})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[rgb(229,231,235)]/40 via-transparent to-[rgb(229,231,235)]/30" />
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-85 mix-blend-multiply"
+            style={{
+              backgroundImage: `url(${workImages.thumbHmgFront})`,
+              backgroundPosition: "center 40%",
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[rgb(229,231,235)]/55 via-transparent to-[rgb(229,231,235)]/45" />
         </ParallaxLayer>
       </section>
 
@@ -105,7 +131,6 @@ function WorkPageBody() {
         <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-400/50 to-transparent" />
       </div>
 
-      {/* portfolio_group: VERTICAL itemSpacing 40 */}
       <section
         className="px-5 py-12 md:px-10 md:py-16 lg:px-20 lg:py-20"
         data-figma="portfolio_group"

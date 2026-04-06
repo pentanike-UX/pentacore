@@ -17,6 +17,16 @@ const nextConfig: NextConfig = {
         hostname: "www.figma.com",
         pathname: "/api/mcp/asset/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        pathname: "/**",
+      },
     ],
   },
 };

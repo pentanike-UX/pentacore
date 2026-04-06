@@ -24,40 +24,42 @@ export function useWorkCursor() {
   return c;
 }
 
-/** Figma `pointer` — 기본(작게) / target(물방울 확장) */
+/**
+ * Figma `pointer` 인스턴스(82 / 104) — 기본이 너무 작지 않게, 호버 시 확장.
+ */
 function CursorVisual({ hovering }: { hovering: boolean }) {
   return (
     <motion.div
       className="-translate-x-1/2 -translate-y-1/2"
       initial={false}
       animate={{
-        scale: hovering ? 1 : 0.45,
+        scale: hovering ? 1.12 : 1,
       }}
       transition={{ type: "spring", stiffness: 420, damping: 28, mass: 0.6 }}
     >
       <motion.div
         className="relative flex items-center justify-center"
         animate={{
-          width: hovering ? 104 : 44,
-          height: hovering ? 104 : 44,
+          width: hovering ? 104 : 82,
+          height: hovering ? 104 : 82,
         }}
         transition={{ type: "spring", stiffness: 380, damping: 26 }}
       >
         <motion.div
           className="absolute rounded-full border-2 border-white bg-white/10 backdrop-blur-[2px]"
           animate={{
-            width: hovering ? 88 : 12,
-            height: hovering ? 88 : 12,
-            opacity: hovering ? 1 : 0.95,
+            width: hovering ? 88 : 56,
+            height: hovering ? 88 : 56,
+            opacity: hovering ? 1 : 0.92,
           }}
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
         />
         <motion.div
           className="absolute rounded-full border border-white/70"
           animate={{
-            width: hovering ? 100 : 36,
-            height: hovering ? 100 : 36,
-            opacity: hovering ? 0.55 : 0.35,
+            width: hovering ? 100 : 76,
+            height: hovering ? 100 : 76,
+            opacity: hovering ? 0.55 : 0.4,
           }}
           transition={{ type: "spring", stiffness: 320, damping: 24 }}
         />
