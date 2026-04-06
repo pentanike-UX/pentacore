@@ -107,6 +107,10 @@ export function HomeExperience() {
   const [roll, setRoll] = useState(0);
   const [readyTypedDone, setReadyTypedDone] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
+  /** 풀스크린 인트로 구간: 크기 키우지 않고 페이드인만 */
+  const [revealFadeIn, setRevealFadeIn] = useState(false);
+  /** 로고 마스크 구간: 마스크 영상 페이드인 */
+  const [maskFadeIn, setMaskFadeIn] = useState(false);
 
   const statusPhrase = roll % 2 === 0 ? "LOADING..." : "화면에 감성을 더하는 중";
   const typedStatus = useTyping(statusPhrase, phase === "intro-load");
@@ -153,16 +157,36 @@ export function HomeExperience() {
 
   useEffect(() => {
     if (phase !== "intro-reveal") return;
+    setRevealFadeIn(false);
+    setMaskFadeIn(false);
     const v = videoRef.current;
     void v?.play().catch(() => {});
-    const t = window.setTimeout(() => setPhase("home-masked"), 380);
-    return () => window.clearTimeout(t);
+    const fadeStart = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setRevealFadeIn(true));
+    });
+    const t = window.setTimeout(() => setPhase("home-masked"), 820);
+    return () => {
+      cancelAnimationFrame(fadeStart);
+      window.clearTimeout(t);
+    };
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase !== "home-masked" && phase !== "home-cards") return;
+    if (phase === "home-masked") {
+      setMaskFadeIn(false);
+      const start = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setMaskFadeIn(true));
+      });
+      const v = videoRef.current;
+      void v?.play().catch(() => {});
+      return () => cancelAnimationFrame(start);
+    }
+    setMaskFadeIn(true);
   }, [phase]);
 
   useEffect(() => {
     if (phase !== "home-masked") return;
-    const v = videoRef.current;
-    void v?.play().catch(() => {});
     const t = window.setTimeout(() => setPhase("home-cards"), 3000);
     return () => window.clearTimeout(t);
   }, [phase]);
@@ -186,28 +210,38 @@ export function HomeExperience() {
   const reveal = phase === "intro-reveal";
   const home = phase === "home-masked" || phase === "home-cards";
 
+  /** Figma LOGOTYPE 마스크: 프레임 1001×114.4 — 뷰포트에서는 너비만 상한·비율은 마스크 에셋에 따름 */
   const maskStyle =
     home
       ? {
           maskImage: `url('${assets.logoMaskAlpha}')`,
           WebkitMaskImage: `url('${assets.logoMaskAlpha}')`,
-          maskSize: "contain" as const,
+          maskSize: "min(1001px, 92vw) auto" as const,
+          WebkitMaskSize: "min(1001px, 92vw) auto" as const,
           maskRepeat: "no-repeat" as const,
+          WebkitMaskRepeat: "no-repeat" as const,
           maskPosition: "center" as const,
+          WebkitMaskPosition: "center" as const,
         }
       : undefined;
 
-  const videoTransform =
-    home && phase === "home-cards"
-      ? "translate(-50%, calc(-50% - min(28vh, 320px)))"
+  const videoOpacity = preload
+    ? 0
+    : reveal
+      ? revealFadeIn
+        ? 1
+        : 0
       : home
-        ? "translate(-50%, -50%)"
-        : undefined;
+        ? maskFadeIn
+          ? 1
+          : 0
+        : 0;
 
   return (
     <div className="relative min-h-dvh overflow-hidden bg-black text-white">
       <HeaderBar compact={headerCompact} />
 
+      {/* 단일 비디오: 풀스크린/마스크 전환 시 크기 애니메이션 없음 — opacity 페이드만 */}
       <video
         ref={videoRef}
         src={videoSrc}
@@ -215,18 +249,23 @@ export function HomeExperience() {
         playsInline
         loop
         preload="auto"
-        className={`fixed z-30 object-cover transition-[transform,opacity,width,height] duration-700 ease-out-quart ${
-          preload
-            ? "left-0 top-0 h-px w-px opacity-0"
-            : reveal
-              ? "inset-0 h-full w-full max-h-none max-w-none"
-              : home
-                ? "left-1/2 top-1/2 h-[min(220vw,2400px)] w-[min(220vw,2400px)] max-w-none"
-                : "left-0 top-0 h-px w-px opacity-0"
-        }`}
+        className={cn(
+          "fixed z-30 object-cover",
+          preload &&
+            !(reveal || home) &&
+            "pointer-events-none left-0 top-0 h-px w-px overflow-hidden",
+          (reveal || home) && "inset-0 h-full w-full",
+          (reveal || home) && "transition-opacity duration-[600ms] ease-out",
+          home &&
+            phase === "home-cards" &&
+            "transition-transform duration-700 ease-out-quart",
+        )}
         style={{
-          ...maskStyle,
-          transform: videoTransform,
+          ...(home ? maskStyle : {}),
+          opacity: videoOpacity,
+          ...(home && phase === "home-cards"
+            ? { transform: "translateY(calc(-1 * min(28vh, 320px)))" }
+            : {}),
         }}
         aria-hidden
       />
