@@ -1,19 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { assets } from "./figma-assets";
 import { FooterBar } from "./FooterBar";
 import { HeaderBar } from "./HeaderBar";
+import { HomeSectionCards } from "./HomeSectionCards";
 
 type Phase =
   | "intro-load"
@@ -30,33 +24,6 @@ const TAGLINE = [
 /** `web/public/video/hero.mp4` → `/video/hero.mp4`. 배포/스테이징은 `NEXT_PUBLIC_HERO_VIDEO_URL`로 덮어쓸 수 있음. */
 const DEFAULT_VIDEO =
   process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "/video/hero.mp4";
-
-const cards = [
-  {
-    href: "/work",
-    title: "워크",
-    subtitle: "WORK",
-    lines: ["프로젝트 비주얼", "요약 · 상세 · 다음 프로젝트"],
-  },
-  {
-    href: "/about",
-    title: "어바웃",
-    subtitle: "ABOUT",
-    lines: ["개발 · 인프라 · UX", "역량과 접근 소개"],
-  },
-  {
-    href: "/hiring",
-    title: "채용",
-    subtitle: "HIRING",
-    lines: ["업무 영역 · 인재상", "함께할 팀을 찾습니다"],
-  },
-  {
-    href: "/inquiry",
-    title: "프로젝트 문의",
-    subtitle: "INQUIRY",
-    lines: ["새 프로젝트 상담", "견적 · 일정 안내"],
-  },
-] as const;
 
 function useTyping(full: string, active: boolean, msPerChar = 36) {
   const [len, setLen] = useState(0);
@@ -210,14 +177,14 @@ export function HomeExperience() {
   const reveal = phase === "intro-reveal";
   const home = phase === "home-masked" || phase === "home-cards";
 
-  /** Figma LOGOTYPE 마스크: 프레임 1001×114.4 — 뷰포트에서는 너비만 상한·비율은 마스크 에셋에 따름 */
+  /** Figma `HOME_LAYOUT-1` Mask group — 표기 1000×114, export viewBox 1001×115 */
   const maskStyle =
     home
       ? {
-          maskImage: `url('${assets.logoMaskAlpha}')`,
-          WebkitMaskImage: `url('${assets.logoMaskAlpha}')`,
-          maskSize: "min(1001px, 92vw) auto" as const,
-          WebkitMaskSize: "min(1001px, 92vw) auto" as const,
+          maskImage: `url('${assets.logoMaskSvg}')`,
+          WebkitMaskImage: `url('${assets.logoMaskSvg}')`,
+          maskSize: "min(1000px, 92vw) auto" as const,
+          WebkitMaskSize: "min(1000px, 92vw) auto" as const,
           maskRepeat: "no-repeat" as const,
           WebkitMaskRepeat: "no-repeat" as const,
           maskPosition: "center" as const,
@@ -333,57 +300,7 @@ export function HomeExperience() {
       {home ? <FooterBar visible variant={footerVariant} /> : null}
 
       {phase === "home-cards" ? (
-        <section
-          className="pointer-events-auto fixed inset-0 z-40 flex items-center justify-center px-4 pb-36 pt-24 md:px-8 lg:px-10"
-          aria-label="주요 페이지"
-        >
-          <div
-            className={`grid w-full max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-5 ${
-              bp === "mobile" ? "grid-cols-1" : ""
-            }`}
-          >
-            {cards.map((c, i) => (
-              <Link
-                key={c.href}
-                href={c.href}
-                className={cn(
-                  "group block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                )}
-              >
-                <Card
-                  className={cn(
-                    "h-full gap-3 border-white/15 bg-white/[0.04] py-5 ring-1 ring-white/10 transition-[opacity,transform,border-color,background-color] duration-300 ease-out-quart hover:border-white/30 hover:bg-white/[0.08]",
-                    cardsVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-6 opacity-0",
-                  )}
-                  style={{
-                    transitionDelay: cardsVisible ? `${i * 200}ms` : "0ms",
-                  }}
-                >
-                  <CardHeader className="space-y-1 px-5 pb-0 pt-0">
-                    <p className="text-[12px] font-medium uppercase tracking-wide text-muted-foreground">
-                      {c.subtitle}
-                    </p>
-                    <CardTitle className="text-[22px] font-bold leading-tight text-foreground lg:text-[24px]">
-                      {c.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 px-5 pb-0 pt-0">
-                    <div className="space-y-1 text-[13px] font-medium leading-snug text-foreground/80">
-                      {c.lines.map((line) => (
-                        <p key={line}>{line}</p>
-                      ))}
-                    </div>
-                    <span className="inline-block text-[12px] text-muted-foreground transition group-hover:text-foreground">
-                      이동 →
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
+        <HomeSectionCards visible={cardsVisible} />
       ) : null}
     </div>
   );
