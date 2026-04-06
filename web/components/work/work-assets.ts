@@ -1,40 +1,21 @@
-/** WORK / works_view용 플레이스홀더 이미지 — Figma ST-FO-*_full 에셋으로 교체 */
+import { figmaHyundaiCase, figmaWorksViewDivider } from "./figma-work-assets";
+
+/** ST-FO 루프 풀스크린 에셋 — Figma MCP URL */
 export const workImages = {
-  heroWide: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=2560&q=80",
-  heroParallax: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=3200&q=80",
-  /** thumb_HMG: Figma `image 13` / `image 14` 이중 레이어 근사 */
-  thumbHmgBack: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=2560&q=85",
-  thumbHmgFront: "https://images.unsplash.com/photo-1489827904720-24f2adbf6d6f?w=2560&q=85",
-  portfolioThumb: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1200&q=80",
-  /** 썸네일용 짧은 샘플 — 보더 루프에는 *_full 사용 */
-  loop005: "https://picsum.photos/id/106/375/3800",
-  loop024: "https://picsum.photos/id/119/375/2800",
-  loop111: "https://picsum.photos/id/29/900/3400",
-  /** Figma ST-FO-005_BIC_m_full — 11px 보더 내부 세로 루프 */
-  loop005Full: "https://picsum.photos/id/106/324/4200",
-  /** Figma ST-FO-024_m_full */
-  loop024Full: "https://picsum.photos/id/119/324/4000",
-  /** Figma ST-FO-111_full — 20px 보더 내부 루프 */
-  loop111Full: "https://picsum.photos/id/29/898/3800",
+  loop005Full: figmaHyundaiCase.stFo005Full,
+  loop024Full: figmaHyundaiCase.stFo024Full,
+  loop111Full: figmaHyundaiCase.stFo111Full,
 } as const;
 
-/**
- * Figma `/works_view` RECTANGLE·IMAGE fill 근사 (해시보내기 전까지 원격 URL).
- * 로컬 `public/works/hyundai-navigation/` 에 PNG 배치 시 이 객체를 파일 경로로 교체하면 됨.
- */
+/** `/works_view` 정적 이미지 — 전부 Figma MCP */
 export const hyundaiWorksViewImages = {
-  /** `중간구분 이미지` ×2 동일 해시 */
-  sectionDivider: workImages.heroWide,
-  /** sec_1 스크린샷 — 리스트 썸과 동일 톤 */
-  heroHome: workImages.portfolioThumb,
-  /** sec_3 `최신업데이트_샘플` — Figma는 VIDEO 노드 */
-  latestUpdateSample: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1800&q=85",
-  /** sec_4/in 단계별 스크린 (893×573) */
-  flowStep1: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1800&q=80",
-  flowStep2: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1800&q=80",
-  flowStep3: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1800&q=80",
-  /** sec_4in 통합 화면 (893×1117) */
-  myPageFlow: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1800&q=85",
+  sectionDivider: figmaWorksViewDivider,
+  heroHome: figmaHyundaiCase.sec1Hero,
+  latestUpdateSample: figmaHyundaiCase.sec3LatestSample,
+  flowStep1: figmaHyundaiCase.flowStep1,
+  flowStep2: figmaHyundaiCase.flowStep2,
+  flowStep3: figmaHyundaiCase.flowStep3,
+  myPageFlow: figmaHyundaiCase.myPageFlow,
 } as const;
 
 export const WORK_DETAIL_SLUG = "hyundai-navigation";

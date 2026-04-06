@@ -5,12 +5,22 @@ import Link from "next/link";
 import { HeaderBar } from "@/components/home/HeaderBar";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
-import { WORK_DETAIL_SLUG, workImages } from "./work-assets";
+import { WORK_DETAIL_SLUG } from "./work-assets";
+import { figmaPentagramSmall, figmaPortfolioCardThumb } from "./figma-work-assets";
+import { FigmaLogos } from "./FigmaLogos";
 import { WorkPortfolioGlassRow } from "./WorkPortfolioGlassRow";
 import { WORK_PORTFOLIO_ROWS } from "./work-portfolio-data";
 import { useWorkCursor, WorkCursorProvider } from "./WorkCursorProvider";
+import { WorkThumbHmg } from "./WorkThumbHmg";
 
-const GROUP_LOGO_SRC = "/work/group-logo-hmg.svg";
+/**
+ * Figma `txt` — EN/KR 본문은 파일 내 텍스트 레이어와 1:1 대조 필요 시 교체 (assumption).
+ */
+const WORK_HERO_TXT_EN =
+  "Pentacore partners with leading brands to ship navigation, platform, and web experiences that stay coherent from strategy through delivery.";
+
+const WORK_HERO_TXT_KO =
+  "펜타코어는 전략부터 실행까지 일관된 내비게이션·플랫폼·웹 경험을 선도 브랜드와 함께 완성합니다.";
 
 function PortfolioCardViewInner() {
   const { setPortfolioHover } = useWorkCursor();
@@ -26,25 +36,50 @@ function PortfolioCardViewInner() {
       onBlur={() => setPortfolioHover(false)}
     >
       <div className="mb-8 flex justify-center px-2">
-        <Image
-          src={GROUP_LOGO_SRC}
-          alt=""
-          width={280}
-          height={30}
-          className="h-[30px] w-[min(280px,100%)] object-contain"
-          unoptimized
-        />
+        <div className="flex items-center gap-[10px]">
+          <FigmaLogos variant="logo_HM" />
+          <FigmaLogos variant="logo_GN" />
+          <FigmaLogos variant="logo_KM" />
+        </div>
       </div>
-      {/* Figma Thumb: 외곽 베젤 + inner 스크린 ~15px 라운드 */}
       <div data-figma="img_sub">
         <div className="rounded-[15px] bg-zinc-400/35 p-2 shadow-[0_24px_60px_rgba(15,23,42,0.14)] ring-1 ring-zinc-900/10">
           <div className="relative aspect-[820/629] overflow-hidden rounded-xl bg-zinc-900">
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-95 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
-              style={{
-                backgroundImage: `url(${workImages.portfolioThumb})`,
-              }}
+            <Image
+              src={figmaPortfolioCardThumb.tablet}
+              alt=""
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 820px) 100vw, 820px"
+              unoptimized
             />
+            <div
+              className="absolute inset-[2.5%] overflow-hidden rounded-[10px] md:inset-[3%]"
+              aria-hidden
+            >
+              <div
+                className="absolute inset-0"
+                style={{
+                  WebkitMaskImage: `url('${figmaPortfolioCardThumb.screenMask}')`,
+                  maskImage: `url('${figmaPortfolioCardThumb.screenMask}')`,
+                  WebkitMaskSize: "100% 100%",
+                  maskSize: "100% 100%",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  maskPosition: "center",
+                }}
+              >
+                <Image
+                  src={figmaPortfolioCardThumb.screenContent}
+                  alt=""
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 800px) 95vw, 760px"
+                  unoptimized
+                />
+              </div>
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
             <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-12">
               <p className="text-xs font-medium uppercase tracking-widest text-white/70">
@@ -96,29 +131,56 @@ function WorkPageBody() {
               Runs in reality.
             </p>
           </div>
+
+          <div
+            className="mt-12 space-y-6 md:mt-16 lg:mt-20"
+            data-figma="PENTAGRAM"
+          >
+            <div className="w-full max-w-[min(100%,1040px)]">
+              <Image
+                src="/work/pentagram-pf05.svg"
+                alt=""
+                width={1040}
+                height={400}
+                className="h-auto w-full"
+                priority
+              />
+            </div>
+            <div className="relative h-[48px] w-[200px] md:h-[56px] md:w-[240px]">
+              <Image
+                src={figmaPentagramSmall.a}
+                alt=""
+                fill
+                className="object-contain object-left"
+                sizes="240px"
+                unoptimized
+              />
+              <Image
+                src={figmaPentagramSmall.b}
+                alt=""
+                fill
+                className="object-contain object-left opacity-95 mix-blend-multiply"
+                sizes="240px"
+                unoptimized
+              />
+            </div>
+          </div>
+
+          <div
+            className="mt-8 max-w-[min(100%,640px)] space-y-4"
+            data-figma="txt"
+          >
+            <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
+              {WORK_HERO_TXT_EN}
+            </p>
+            <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
+              {WORK_HERO_TXT_KO}
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* thumb_HMG: Figma `image 13` + `image 14` 이중 레이어 */}
-      <section className="relative overflow-hidden" data-figma="thumb_HMG">
-        <ParallaxLayer
-          yRange={[-12, 12]}
-          className="relative min-h-[32vh] w-full md:min-h-[40vh] lg:min-h-[48vh]"
-        >
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${workImages.thumbHmgBack})` }}
-          />
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-85 mix-blend-multiply"
-            style={{
-              backgroundImage: `url(${workImages.thumbHmgFront})`,
-              backgroundPosition: "center 40%",
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[rgb(229,231,235)]/55 via-transparent to-[rgb(229,231,235)]/45" />
-        </ParallaxLayer>
-      </section>
+      <WorkThumbHmg />
 
       <section className="relative z-10 px-5 py-16 md:px-10 md:py-24 lg:px-20 lg:py-28">
         <ParallaxViewport yRange={[0, -20]} className="mx-auto max-w-[1280px]">
@@ -136,7 +198,7 @@ function WorkPageBody() {
         className="px-5 py-12 md:px-10 md:py-16 lg:px-20 lg:py-20"
         data-figma="portfolio_group"
       >
-        <div className="mx-auto flex max-w-[1280px] flex-col items-center gap-10">
+        <div className="mx-auto flex w-full max-w-[1280px] flex-col items-stretch gap-10">
           {WORK_PORTFOLIO_ROWS.map((row, i) => (
             <ParallaxLayer
               key={row.title}

@@ -9,11 +9,11 @@ import { cn } from "@/lib/utils";
 import { BorderedVerticalLoop } from "./BorderedVerticalLoop";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { hyundaiWorksViewImages, workImages } from "./work-assets";
+import { FigmaBtnChip } from "./FigmaBtnChip";
+import { FigmaLogos } from "./FigmaLogos";
 
 /** Figma `Rectangle 27` — sec_4~ 하단 밴드 */
 const WORKS_VIEW_BAND_BG = "#858585";
-
-const HMG_GROUP_LOGO_SRC = "/work/group-logo-hmg.svg";
 
 const TEXT = "#1e1e1e";
 const MUTED = "#757575";
@@ -61,31 +61,6 @@ const SEC4IN_BODY =
 const SEC5_BODY =
   "업데이트 리뷰는 로그인한 사용자의 보유 차량 정보를 기반으로 소프트웨어 업데이트 기능과 실제 주행 경험을 함께 기록할 수 있는 기능입니다. 사용자는 업데이트 이후 차량의 변화와 만족도를 직접 남기며 더 나은 서비스 개선 방향에 기여할 수 있습니다. 이를 통해 사용자 실사용 데이터를 바탕으로 한 진정성 있는 업데이트 경험 생태계를 구축합니다.";
 
-function ChipLinkRow({ label, href }: { label: string; href: string }) {
-  return (
-    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-black/10 py-2.5 last:border-b-0">
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="max-w-[min(100%,520px)] text-[14px] leading-snug text-[#1e1e1e] underline-offset-4 hover:underline"
-        style={{ color: TEXT }}
-      >
-        {label}
-      </a>
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="shrink-0 text-[14px] font-medium text-[#1e1e1e]"
-        style={{ color: TEXT }}
-      >
-        Visit Website
-      </a>
-    </div>
-  );
-}
-
 function BrandRow({
   title,
   children,
@@ -95,7 +70,7 @@ function BrandRow({
 }) {
   return (
     <div className="flex flex-col gap-4 border-t border-black/10 pt-8 first:border-t-0 first:pt-0 md:flex-row md:gap-10">
-      <div className="flex h-[50px] w-[170px] shrink-0 items-center">
+      <div className="flex min-h-[50px] w-full max-w-[280px] shrink-0 flex-wrap items-center gap-[10px]">
         {typeof title === "string" ? (
           <span
             className="text-[15px] font-bold tracking-tight"
@@ -134,7 +109,7 @@ function FigImage({
         fill
         className="object-cover object-top"
         sizes="(max-width: 1280px) 100vw, 1280px"
-        unoptimized={src.startsWith("https://picsum.photos")}
+        unoptimized={src.startsWith("https://")}
       />
     </div>
   );
@@ -231,8 +206,11 @@ export function WorksDetailView() {
         </Grid12>
       </div>
 
-      <ParallaxLayer yRange={[18, -22]} className="w-full">
-        <div className="mx-auto w-full max-w-[1280px]" data-figma="중간구분 이미지">
+      <ParallaxLayer
+        yRange={[18, -22]}
+        className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      >
+        <div className="w-full" data-figma="중간구분 이미지">
           <FigImage
             src={hyundaiWorksViewImages.sectionDivider}
             alt=""
@@ -288,49 +266,46 @@ export function WorksDetailView() {
             {INTRO_BODY}
           </p>
 
-          <div className="space-y-0 pt-4">
+          <div className="space-y-3 pt-4" data-figma="sec_2 chips">
             <BrandRow
               title={
-                <Image
-                  src={HMG_GROUP_LOGO_SRC}
-                  alt="Hyundai Motor Group"
-                  width={170}
-                  height={30}
-                  className="h-[30px] w-auto max-w-[170px] object-contain object-left"
-                  unoptimized
-                />
+                <>
+                  <FigmaLogos variant="logo_HM" />
+                  <FigmaLogos variant="logo_GN" />
+                  <FigmaLogos variant="logo_KM" />
+                </>
               }
             >
-              <div className="space-y-0">
-                <ChipLinkRow
+              <div className="flex flex-col gap-2">
+                <FigmaBtnChip
                   label="Official Hyundai Motors Navigation Update Website - KOREA"
                   href={BRAND_LINKS.hyundai.kr}
                 />
-                <ChipLinkRow
+                <FigmaBtnChip
                   label="Official Hyundai Motors Navigation Update Website - USA"
                   href={BRAND_LINKS.hyundai.us}
                 />
               </div>
             </BrandRow>
-            <BrandRow title="KIA">
-              <div className="space-y-0">
-                <ChipLinkRow
+            <BrandRow title={<FigmaLogos variant="logo_KM" />}>
+              <div className="flex flex-col gap-2">
+                <FigmaBtnChip
                   label="Official Kia Navigation Update Website - KOREA"
                   href={BRAND_LINKS.kia.kr}
                 />
-                <ChipLinkRow
+                <FigmaBtnChip
                   label="Official Kia Navigation Update Website - USA"
                   href={BRAND_LINKS.kia.us}
                 />
               </div>
             </BrandRow>
-            <BrandRow title="GENESIS">
-              <div className="space-y-0">
-                <ChipLinkRow
+            <BrandRow title={<FigmaLogos variant="logo_GN" />}>
+              <div className="flex flex-col gap-2">
+                <FigmaBtnChip
                   label="Official Genesis Navigation Update Website - KOREA"
                   href={BRAND_LINKS.genesis.kr}
                 />
-                <ChipLinkRow
+                <FigmaBtnChip
                   label="Official Genesis Navigation Update Website - USA"
                   href={BRAND_LINKS.genesis.us}
                 />
@@ -384,8 +359,11 @@ export function WorksDetailView() {
         </ParallaxLayer>
       </section>
 
-      <ParallaxLayer yRange={[16, -24]} className="w-full">
-        <div className="mx-auto w-full max-w-[1280px]" data-figma="중간구분 이미지_2">
+      <ParallaxLayer
+        yRange={[16, -24]}
+        className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+      >
+        <div className="w-full" data-figma="중간구분 이미지_2">
           <FigImage
             src={hyundaiWorksViewImages.sectionDivider}
             alt=""
