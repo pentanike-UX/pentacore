@@ -1,0 +1,11 @@
+# Dependencies & build
+web/node_modules/
+web/.next/
+web/out/
+
+# Env & local
+web/.env
+web/.env*.local
+
+# OS / editor
+.DS_Store
