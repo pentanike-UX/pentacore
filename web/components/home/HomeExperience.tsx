@@ -27,9 +27,9 @@ const TAGLINE = [
   "Pentacore crafts your future with technology and design.",
 ] as const;
 
+/** `web/public/video/hero.mp4` → `/video/hero.mp4`. 배포/스테이징은 `NEXT_PUBLIC_HERO_VIDEO_URL`로 덮어쓸 수 있음. */
 const DEFAULT_VIDEO =
-  process.env.NEXT_PUBLIC_HERO_VIDEO_URL ||
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm";
+  process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "/video/hero.mp4";
 
 const cards = [
   {
