@@ -15,6 +15,13 @@ import { FigmaLogos } from "./FigmaLogos";
 const TEXT = "#1e1e1e";
 const MUTED = "#757575";
 
+/**
+ * 작품 상세(SUB_WORK): 섹션별 `translateY` 페럴렉스는 **레이아웃 박스는 그대로** 두고 그리기만 이동한다.
+ * 스크롤 구간에 따라 아래 섹션이 위 섹션 위로 겹쳐 그려져 margin/padding이 “덮인 것처럼” 보인다(sec_2↔sec_3 등).
+ * 이 뷰에서는 페럴렉스를 끄고 픽셀 스펙 간격을 그대로 쓴다.
+ */
+const WORKS_DETAIL_PARALLAX_Y = [0, 0] as const;
+
 const META_ROWS = [
   { label: "Renewal Project Timeline", value: "2024.06 ~ 2025.03" },
   { label: "Maintenance Timeline", value: "2020 ~ 2025" },
@@ -188,12 +195,12 @@ export function WorksDetailView() {
         </div>
       </div>
 
-      <ParallaxViewport yRange={[0, -42]} className="block">
+      <ParallaxViewport yRange={WORKS_DETAIL_PARALLAX_Y} className="block">
       {/* Title + summery + divider — SUB_WORK 동일 베이스 */}
       <div className="mx-auto max-w-[1280px] px-4 pb-14 md:px-[76px] md:pb-20">
         <Grid12>
           <ParallaxLayer
-            yRange={[40, -18]}
+            yRange={WORKS_DETAIL_PARALLAX_Y}
             className="col-span-12 lg:col-span-8"
           >
             <header className="max-w-[609px] space-y-16 md:space-y-24" data-figma="Title">
@@ -212,7 +219,7 @@ export function WorksDetailView() {
             </header>
           </ParallaxLayer>
           <ParallaxLayer
-            yRange={[22, -28]}
+            yRange={WORKS_DETAIL_PARALLAX_Y}
             className="col-span-12"
           >
             <dl
@@ -241,7 +248,7 @@ export function WorksDetailView() {
       </div>
 
       <ParallaxLayer
-        yRange={[18, -22]}
+        yRange={WORKS_DETAIL_PARALLAX_Y}
         className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
       >
         <div className="w-full" data-figma="중간구분 이미지">
@@ -258,7 +265,7 @@ export function WorksDetailView() {
         className="mx-auto max-w-[1280px] px-4 py-20 md:px-[76px] md:py-28"
         data-figma="sec_1"
       >
-        <ParallaxLayer yRange={[32, -24]} className="w-full">
+        <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
         <Grid12>
           <div className="col-span-12 flex justify-center lg:col-span-10 lg:col-start-2">
         <div className="w-full max-w-[964px]">
@@ -284,7 +291,7 @@ export function WorksDetailView() {
         className="mx-auto max-w-[1280px] px-4 pb-20 md:px-[76px] md:pb-32"
         data-figma="sec_2"
       >
-        <ParallaxLayer yRange={[26, -30]} className="w-full">
+        <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
         <Grid12>
           <div className="col-span-12 space-y-0">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 xl:gap-x-24">
@@ -362,7 +369,7 @@ export function WorksDetailView() {
         className="mx-auto max-w-[1280px] px-4 pb-16 md:px-[76px] md:pb-24"
         data-figma="sec_3"
       >
-        <ParallaxLayer yRange={[34, -26]} className="w-full">
+        <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
         <Grid12>
           <div className="col-span-12 space-y-0">
           <WorksSectionDivider />
@@ -408,7 +415,7 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 pb-0 pt-20 md:px-[76px] md:pb-0 md:pt-28"
           data-figma="sec_4"
         >
-          <ParallaxLayer yRange={[38, -20]} className="w-full">
+          <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
             <div className="col-span-12">
             <WorksSectionDivider />
@@ -467,7 +474,7 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 pb-16 pt-[300px] md:px-[76px] md:pb-24"
           data-figma="sec_4/in_sec_"
         >
-          <ParallaxLayer yRange={[30, -32]} className="w-full">
+          <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
           <div className="col-span-12 space-y-0">
             <h2
@@ -520,7 +527,7 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 py-16 md:px-[76px] md:py-24"
           data-figma="sec_4in_sec_"
         >
-          <ParallaxLayer yRange={[28, -30]} className="w-full">
+          <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
           <div className="col-span-12 space-y-0">
             <h2
@@ -555,7 +562,7 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 py-16 md:px-[76px] md:py-28"
           data-figma="sec_5"
         >
-          <ParallaxLayer yRange={[36, -24]} className="w-full">
+          <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
           <div className="col-span-12 space-y-0">
             <WorksSectionDivider />
@@ -601,7 +608,7 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 py-14 md:px-[76px] md:py-20"
           data-figma="HD | HAE"
         >
-          <ParallaxLayer yRange={[20, -28]} className="w-full">
+          <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12 className="gap-y-16">
           <div className="col-span-12 md:col-span-6">
             <p className="text-sm font-bold" style={{ color: TEXT }}>
@@ -642,7 +649,7 @@ export function WorksDetailView() {
           className="mx-auto max-w-[1280px] px-4 pb-24 pt-8 md:px-[76px] md:pb-32"
           data-figma="Frame 1739335350"
         >
-          <ParallaxLayer yRange={[14, -22]} className="w-full">
+          <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <div className="mx-auto max-w-[503px] space-y-14 md:space-y-16">
             <p
               className="whitespace-pre-line text-[clamp(1.5rem,4vw,2.25rem)] font-normal leading-tight tracking-tight"
