@@ -2,25 +2,34 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Toast } from "@base-ui/react/toast";
 import { HeaderBar } from "@/components/home/HeaderBar";
-import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import {
+  liquidGlassPortfolioRow,
+  SUB_WORK_PAGE_BG,
+  workPortfolioImgSubInteractionClassName,
+} from "@/lib/figma-liquid-glass";
+import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
-import { figmaPentagramSmall, figmaPortfolioCardThumb } from "./figma-work-assets";
+import { figmaPentagramSmall } from "./figma-work-assets";
 import { FigmaLogos } from "./FigmaLogos";
 import { WorkPortfolioGlassRow } from "./WorkPortfolioGlassRow";
 import { WORK_PORTFOLIO_ROWS } from "./work-portfolio-data";
 import { useWorkCursor, WorkCursorProvider } from "./WorkCursorProvider";
 import { WorkThumbHmg } from "./WorkThumbHmg";
+import { WorkToastStack } from "./WorkToastStack";
 
-/**
- * Figma `txt` — 문구·타이포 고정 (변경 시 Figma와 동기화).
- */
-const WORK_HERO_TXT_EN =
-  "Pentacore partners with leading brands to ship navigation, platform, and web experiences that stay coherent from strategy through delivery.";
+/** Figma `txt` — 문구 고정 (변경 시 Figma와 동기화). 줄바꿈 유지 */
+const WORK_TXT_EN = `This is the moment when imagination becomes reality,
+when abstract ideas are translated into clear structure,
+shaped through design and development,
+and proven through real-world use and operation.`;
 
-const WORK_HERO_TXT_KO =
-  "펜타코어는 전략부터 실행까지 일관된 내비게이션·플랫폼·웹 경험을 선도 브랜드와 함께 완성합니다.";
+const WORK_TXT_KO = `이곳은 상상이 현실이 되는 순간입니다.
+추상적인 아이디어는 명확한 구조로 정리되고,
+디자인과 개발을 통해 구현되며,
+실제 사용과 운영을 통해 그 가치를 증명합니다.`;
 
 /** 모바일 24px / 태블릿 40px / 데스크톱 가터 없이 max-width 블록만 중앙 */
 const WORK_GUTTER = "px-6 md:px-10 lg:px-0";
@@ -45,65 +54,23 @@ function PortfolioCardViewInner() {
           <FigmaLogos variant="logo_KM" />
         </div>
       </div>
-      <div data-figma="img_sub">
-        <div className="rounded-[15px] bg-zinc-400/35 p-2 shadow-[0_24px_60px_rgba(15,23,42,0.14)] ring-1 ring-zinc-900/10">
-          <div className="relative aspect-[820/629] overflow-hidden rounded-xl bg-zinc-900">
-            <Image
-              src={figmaPortfolioCardThumb.tablet}
-              alt=""
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 820px) 100vw, 820px"
-              unoptimized
-            />
-            <div
-              className="absolute inset-[2.5%] overflow-hidden rounded-[10px] md:inset-[3%]"
-              aria-hidden
-            >
-              <div
-                className="absolute inset-0"
-                style={{
-                  WebkitMaskImage: `url('${figmaPortfolioCardThumb.screenMask}')`,
-                  maskImage: `url('${figmaPortfolioCardThumb.screenMask}')`,
-                  WebkitMaskSize: "100% 100%",
-                  maskSize: "100% 100%",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                  maskPosition: "center",
-                }}
-              >
-                <Image
-                  src={figmaPortfolioCardThumb.screenContent}
-                  alt=""
-                  fill
-                  className="object-cover object-top"
-                  sizes="(max-width: 800px) 95vw, 760px"
-                  unoptimized
-                />
-              </div>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-12">
-              <p className="text-xs font-medium uppercase tracking-widest text-white/70">
-                Portfolio
-              </p>
-              <h2 className="mt-2 max-w-xl text-2xl font-bold leading-tight text-white md:text-3xl">
-                현대자동차 그룹 내비게이션 업데이트 공식 홈페이지
-              </h2>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <span className="rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs text-white backdrop-blur-sm">
-                  구축
-                </span>
-                <span className="rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs text-white backdrop-blur-sm">
-                  연간운영
-                </span>
-              </div>
-              <p className="mt-6 text-sm text-white/75 transition group-hover:text-white">
-                상세 보기 →
-              </p>
-            </div>
-          </div>
+      <div
+        data-figma="img_sub"
+        className={cn(
+          "isolate overflow-hidden rounded-[50px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
+          workPortfolioImgSubInteractionClassName,
+        )}
+        style={liquidGlassPortfolioRow}
+      >
+        <div className="relative aspect-[1000/819] w-full">
+          <Image
+            src="/work/img_sub.png"
+            alt=""
+            fill
+            className="object-contain object-center"
+            sizes="(max-width: 820px) 100vw, 820px"
+            unoptimized
+          />
         </div>
       </div>
     </Link>
@@ -124,7 +91,10 @@ function WorkPageBody() {
         style={{ backgroundColor: SUB_WORK_PAGE_BG }}
       >
         <div className="mx-auto max-w-[min(100%,1740px)] lg:mx-auto">
-          <div className="flex flex-col gap-0">
+          <div
+            className="flex flex-col gap-0 uppercase"
+            data-figma="HERO"
+          >
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:gap-[min(6rem,5.04vw)] lg:gap-[96.8px]">
               <p className="shrink-0 text-[19.2px] font-semibold leading-none tracking-tight text-zinc-950">
                 (WORK)
@@ -139,56 +109,60 @@ function WorkPageBody() {
           </div>
 
           <div
-            className="mt-12 space-y-6 md:mt-16 lg:mt-20"
+            className="relative left-1/2 mt-12 w-screen max-w-[100vw] -translate-x-1/2 pr-10 lg:mt-20 lg:pr-[100px]"
             data-figma="PENTAGRAM"
           >
-            <div className="w-full max-w-[171.6px] lg:max-w-[429px]">
-              <Image
-                src="/work/pentagram-pf05.svg"
-                alt=""
-                width={429}
-                height={324}
-                className="h-auto w-full"
-                priority
-              />
-            </div>
-            <div className="relative aspect-[200/48] w-full max-w-[80px] lg:max-w-[200px]">
-              <Image
-                src={figmaPentagramSmall.a}
-                alt=""
-                fill
-                className="object-contain object-left"
-                sizes="(max-width: 1023px) 80px, 200px"
-                unoptimized
-              />
-              <Image
-                src={figmaPentagramSmall.b}
-                alt=""
-                fill
-                className="object-contain object-left opacity-95 mix-blend-multiply"
-                sizes="(max-width: 1023px) 80px, 200px"
-                unoptimized
-              />
+            <div className="flex flex-col items-end space-y-6 md:mt-16">
+              <div className="w-full max-w-[171.6px] lg:max-w-[429px]">
+                <Image
+                  src="/work/pentagram-pf05.svg"
+                  alt=""
+                  width={429}
+                  height={324}
+                  className="h-auto w-full"
+                  priority
+                />
+              </div>
+              <div className="relative aspect-[200/48] w-full max-w-[80px] lg:max-w-[200px]">
+                <Image
+                  src={figmaPentagramSmall.a}
+                  alt=""
+                  fill
+                  className="object-contain object-left"
+                  sizes="(max-width: 1023px) 80px, 200px"
+                  unoptimized
+                />
+                <Image
+                  src={figmaPentagramSmall.b}
+                  alt=""
+                  fill
+                  className="object-contain object-left opacity-95 mix-blend-multiply"
+                  sizes="(max-width: 1023px) 80px, 200px"
+                  unoptimized
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* 12컬럼 중앙 6칸(col 4–9) · 모바일은 섹션 px-6 기준 좌측 정렬 */}
-        <div className="mx-auto mt-8 max-w-[1280px] md:mt-10 lg:mx-auto">
-          <div className="grid grid-cols-12 gap-x-4 md:gap-x-6">
-            <div
-              className="col-span-12 text-left md:col-span-6 md:col-start-4"
-              data-figma="txt"
-            >
-              <div className="space-y-4">
-                <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
-                  {WORK_HERO_TXT_EN}
-                </p>
-                <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
-                  {WORK_HERO_TXT_KO}
-                </p>
-              </div>
-            </div>
+        {/* 뷰포트 가로 50% 지점에서 텍스트 시작 · 모바일은 px-6 내 pl-[50vw] 보정 */}
+        <div
+          className="relative left-1/2 mt-8 w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:mt-10 md:pr-10"
+          data-figma="txt"
+        >
+          <div className="max-w-[min(640px,calc(50vw-1.5rem))] md:max-w-[min(640px,calc(50vw-2.5rem))]">
+            <h3 className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:hidden">
+              {WORK_TXT_EN}
+            </h3>
+            <h2 className="hidden whitespace-pre-line text-3xl font-semibold tracking-tight text-zinc-950 md:block">
+              {WORK_TXT_EN}
+            </h2>
+            <p className="mt-4 whitespace-pre-line text-base font-normal leading-relaxed text-zinc-800 md:hidden">
+              {WORK_TXT_KO}
+            </p>
+            <p className="mt-6 hidden whitespace-pre-line text-lg font-normal leading-relaxed text-zinc-600 md:block">
+              {WORK_TXT_KO}
+            </p>
           </div>
         </div>
       </section>
@@ -218,14 +192,14 @@ function WorkPageBody() {
         style={{ backgroundColor: SUB_WORK_PAGE_BG }}
         data-figma="portfolio_group"
       >
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col items-stretch gap-10 lg:mx-auto">
+        <div className="mx-auto flex w-full max-w-[1280px] flex-col items-stretch lg:mx-auto">
           {WORK_PORTFOLIO_ROWS.map((row, i) => (
             <ParallaxLayer
               key={row.title}
               yRange={[8 + (i % 5) * 3, -8 - (i % 5) * 3]}
               className="flex w-full justify-center"
             >
-              <WorkPortfolioGlassRow row={row} />
+              <WorkPortfolioGlassRow row={row} tripleLogos={i === 0} />
             </ParallaxLayer>
           ))}
         </div>
@@ -243,8 +217,11 @@ function WorkPageBody() {
 
 export function WorkListingPage() {
   return (
-    <WorkCursorProvider>
-      <WorkPageBody />
-    </WorkCursorProvider>
+    <Toast.Provider>
+      <WorkCursorProvider>
+        <WorkPageBody />
+        <WorkToastStack />
+      </WorkCursorProvider>
+    </Toast.Provider>
   );
 }

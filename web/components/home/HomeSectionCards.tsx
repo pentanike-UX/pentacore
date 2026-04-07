@@ -4,7 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { liquidGlassHomeCard } from "@/lib/figma-liquid-glass";
+import {
+  liquidGlassHomeCard,
+  workHomeCardHoverInteractionClassName,
+} from "@/lib/figma-liquid-glass";
 
 /** `type=just icon` stroke — rgb(226,232,240) */
 const ICON_BTN_BORDER = "#e2e8f0";
@@ -80,9 +83,10 @@ export function HomeSectionCards({ visible }: Props) {
             href={c.href}
             aria-label={`${c.titleEn} — ${c.titleKo}`}
             className={cn(
-              "group relative isolate flex w-[280px] max-w-full flex-col items-center overflow-hidden rounded-[24px] p-10 text-zinc-900 outline-none transition-[opacity,transform,box-shadow] duration-500 ease-out-quart",
+              "group relative isolate flex w-[280px] max-w-full flex-col items-center overflow-hidden rounded-[24px] p-10 text-zinc-900 outline-none transition-[opacity,transform,box-shadow] duration-300 ease-out-quart",
               c.minHClass,
               "shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_40px_rgba(15,23,42,0.12)]",
+              workHomeCardHoverInteractionClassName,
               "focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
               visible
                 ? "translate-y-0 opacity-100"
