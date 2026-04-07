@@ -13,14 +13,10 @@ import {
 /** `type=just icon` stroke — rgb(226,232,240) */
 const ICON_BTN_BORDER = "#e2e8f0";
 
-/** 화살표 영역: right 20px + 버튼 폭 + 여유 → heads/copy가 우측으로 밀리지 않도록 */
-const CONTENT_PAD_RIGHT_MOBILE = "pr-[52px]"; /* 20 + 32(size-8) */
-const CONTENT_PAD_RIGHT_DESKTOP = "lg:pr-[56px]"; /* 20 + 36(size-9) */
-
 /**
  * Figma `HOME_LAYOUT-2` / `section` (node 2003:55933).
- * - 뷰포트 정중앙 그리드, 카드 max-h 136(<lg) / 254(lg+)
- * - heads↔copy 간격 16px / 40px, 화살표 `absolute` top/right 20px (카드 프레임 기준)
+ * - 뷰포트 정중앙 그리드: <lg 가로 그리드 셀에 맞춤·높이 136·radius 16 / lg+ 280×254·radius 24
+ * - heads↔copy 간격 16px / 40px, 화살표 `absolute` top/right 20px, 카드·내부 패딩 없음(p-0)
  */
 export const HOME_LAYOUT_2_CARDS = [
   {
@@ -62,14 +58,15 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramW: 78,
     pentagramH: 41,
     gridClassName:
-      "w-full md:col-span-2 md:max-w-[580px] md:justify-self-center lg:col-span-1 lg:w-[280px] lg:max-w-full lg:justify-self-center" as const,
+      "w-full md:col-span-2 md:max-w-[580px] md:justify-self-center lg:col-span-1 lg:justify-self-center" as const,
   },
 ] as const;
 
 const cardShellClassName = cn(
-  "group relative isolate flex w-full min-h-0 flex-col overflow-hidden text-zinc-900 outline-none",
-  "max-h-[136px] max-lg:max-w-[min(100%,380px)] lg:max-h-[254px]",
-  "rounded-[36px] max-lg:pl-4 max-lg:pr-4 max-lg:pt-3 max-lg:pb-3 lg:rounded-[24px] lg:w-[280px] lg:max-w-full lg:px-6 lg:py-5",
+  "group relative isolate flex w-full flex-col overflow-hidden text-zinc-900 outline-none",
+  "p-0",
+  "max-lg:h-[136px] max-lg:min-h-[136px] max-lg:max-h-[136px] max-lg:rounded-[16px]",
+  "lg:h-[254px] lg:min-h-[254px] lg:max-h-[254px] lg:w-[280px] lg:max-w-[280px] lg:shrink-0 lg:rounded-[24px]",
   "shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_40px_rgba(15,23,42,0.12)]",
   "transition-[backdrop-filter,box-shadow,transform] duration-300 ease-out",
   interactivePressableTransformClassName,
@@ -120,8 +117,6 @@ export function HomeSectionCards() {
               <div
                 className={cn(
                   "flex min-h-0 w-full flex-1 flex-col overflow-hidden text-left",
-                  CONTENT_PAD_RIGHT_MOBILE,
-                  CONTENT_PAD_RIGHT_DESKTOP,
                   "max-lg:gap-4 lg:items-center lg:gap-10 lg:text-center",
                 )}
               >
