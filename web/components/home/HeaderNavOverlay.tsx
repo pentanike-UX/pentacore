@@ -66,10 +66,20 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
         WebkitBackdropFilter: "blur(28px) saturate(140%)",
       };
 
+  /** 라인 두께: 최대 10px, 뷰포트에 맞게 축소 */
+  const lineThickness = "clamp(4px, 2.2vw, 10px)";
+
   const linkClass = cn(
-    "block py-2 text-[clamp(2rem,10vw,4.5rem)] font-black uppercase leading-[0.95] tracking-tight transition-opacity hover:opacity-75",
+    "group relative inline-block py-1 text-[clamp(2rem,10vw,4.5rem)] font-black uppercase leading-[0.95] tracking-tight",
     "font-display",
     light ? "text-zinc-950" : "text-white",
+  );
+
+  const lineClass = cn(
+    "pointer-events-none absolute left-0 right-0 top-1/2 z-0 origin-center -translate-y-1/2 scale-x-0 rounded-full",
+    "transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:duration-0",
+    "group-hover:scale-x-100",
+    light ? "bg-zinc-950/80" : "bg-white/85",
   );
 
   return createPortal(
@@ -90,13 +100,14 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
           onClick={onClose}
         >
           <nav
-            className="pointer-events-auto flex max-w-4xl flex-col items-center gap-1 text-center md:gap-2"
+            className="pointer-events-auto flex max-w-4xl flex-col items-center gap-10 text-center md:gap-16 lg:gap-24"
             onClick={(e) => e.stopPropagation()}
             aria-label="주요 메뉴"
           >
             {MENU_LINKS.map((item, i) => (
               <motion.div
                 key={item.href}
+                className="flex justify-center"
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 12 }}
@@ -113,7 +124,12 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
                   className={linkClass}
                   onClick={onClose}
                 >
-                  {item.label}
+                  <span
+                    aria-hidden
+                    className={lineClass}
+                    style={{ height: lineThickness }}
+                  />
+                  <span className="relative z-10">{item.label}</span>
                 </Link>
               </motion.div>
             ))}
