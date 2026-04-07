@@ -1,16 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { PentacoreWordmark } from "@/components/brand/PentacoreWordmark";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
+import { HeaderMenuIcon } from "./HeaderMenuIcon";
+import { HeaderNavOverlay } from "./HeaderNavOverlay";
 import {
   liquidGlassInteractiveHoverDark,
   liquidGlassInteractiveHoverLight,
 } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
-import { assets } from "./figma-assets";
 
 type Props = {
   /** 패드/모바일 헤더 높이·패딩 축소 */
@@ -54,6 +54,7 @@ export function HeaderBar({
   overVideo = false,
   scrollGlass = true,
 }: Props) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [entered, setEntered] = useState(!slideInFromTop);
   const scrolled = useSyncExternalStore(
     subscribeScroll,
@@ -91,9 +92,16 @@ export function HeaderBar({
   if (!visible) return null;
 
   return (
+    <>
+    <HeaderNavOverlay
+      open={menuOpen}
+      onClose={() => setMenuOpen(false)}
+      light={light}
+    />
     <header
       className={cn(
-        "fixed left-0 right-0 top-0 z-[100] flex items-center justify-between transition-[transform,background-color,backdrop-filter,border-color,box-shadow] duration-300 ease-out",
+        "fixed left-0 right-0 top-0 flex items-center justify-between transition-[transform,background-color,backdrop-filter,border-color,box-shadow] duration-300 ease-out",
+        menuOpen ? "z-[110]" : "z-[100]",
         slideInFromTop && !entered && "-translate-y-full",
         glassShell &&
           light &&
@@ -126,9 +134,12 @@ export function HeaderBar({
         type="button"
         variant="ghost"
         size="icon-lg"
-        aria-label="메뉴"
+        aria-expanded={menuOpen}
+        aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
+        aria-controls="header-fullscreen-nav"
+        onClick={() => setMenuOpen((o) => !o)}
         className={cn(
-          "relative size-11 shrink-0 overflow-hidden rounded-md border-0",
+          "relative size-11 shrink-0 overflow-visible rounded-md border-0",
           glassHover,
           light
             ? "bg-zinc-950/10 text-zinc-950 hover:bg-zinc-950/[0.14] hover:text-zinc-950"
@@ -137,35 +148,13 @@ export function HeaderBar({
       >
         <span
           className={cn(
-            "absolute left-1 top-1 size-9 border-2",
+            "pointer-events-none absolute left-1 top-1 size-9 border-2",
             light ? "border-zinc-950" : "border-white",
           )}
         />
-        <Image
-          src={assets.homeMenuUnion}
-          alt=""
-          width={16}
-          height={2}
-          className={cn("absolute left-[14px] top-[14px]", light && "brightness-0")}
-          unoptimized
-        />
-        <Image
-          src={assets.homeMenuUnion}
-          alt=""
-          width={16}
-          height={2}
-          className={cn("absolute left-[14px] top-[21px]", light && "brightness-0")}
-          unoptimized
-        />
-        <Image
-          src={assets.homeMenuUnion}
-          alt=""
-          width={16}
-          height={2}
-          className={cn("absolute left-[14px] top-[28px]", light && "brightness-0")}
-          unoptimized
-        />
+        <HeaderMenuIcon open={menuOpen} light={light} />
       </Button>
     </header>
+    </>
   );
 }

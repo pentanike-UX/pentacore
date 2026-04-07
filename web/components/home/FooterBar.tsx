@@ -95,12 +95,18 @@ export function FooterBar({
   if (!visible) return null;
 
   const isMobile = variant === "mobile";
-  const pad = isMobile ? "px-6 pb-8 pt-4" : "px-10 pb-10 pt-4";
   const light = surface === "light";
   const onVideo = overVideo && !light;
   const isFixed = placement === "fixed";
   /** 인라인 서브 푸터는 항상 흰 배경·다크 타이포 */
   const inlineSub = !isFixed;
+  const pad = inlineSub
+    ? isMobile
+      ? "px-6 py-12"
+      : "px-10 py-12"
+    : isMobile
+      ? "px-6 pb-8 pt-4"
+      : "px-10 pb-10 pt-4";
   const glassShell =
     isFixed && (onVideo || (scrollGlass && scrolled));
   const glassHover =
