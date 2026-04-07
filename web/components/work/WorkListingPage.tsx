@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Toast } from "@base-ui/react/toast";
 import { HeaderBar } from "@/components/home/HeaderBar";
 import {
-  interactivePressableTransformGroupClassName,
+  interactivePressableTransformClassName,
   liquidGlassImgSubHoverClassName,
   SUB_WORK_PAGE_BG,
 } from "@/lib/figma-liquid-glass";
@@ -37,13 +37,15 @@ function PortfolioCardViewInner() {
     <Link
       href={`/works/${WORK_DETAIL_SLUG}`}
       data-figma="portfolio_card_view"
-      className="group mx-auto block w-full max-w-[820px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]"
+      className={cn(
+        "group relative z-20 mx-auto block w-full max-w-[820px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
+        interactivePressableTransformClassName,
+      )}
     >
       <div
         data-figma="img_sub"
         className={cn(
           "isolate overflow-hidden rounded-[50px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
-          interactivePressableTransformGroupClassName,
           liquidGlassImgSubHoverClassName,
         )}
       >
@@ -135,7 +137,7 @@ function WorkPageBody() {
 
       {/* overflow-visible: 플로팅 카드가 thumb 위로 올라갈 때 잘리지 않음 */}
       <div
-        className="relative z-0 w-full shrink-0 overflow-visible"
+        className="relative z-20 w-full shrink-0 overflow-visible"
         data-figma="thumb_sub_stack"
       >
         <WorkThumbHmg className="relative z-0 overflow-visible" />
@@ -150,16 +152,16 @@ function WorkPageBody() {
         </div>
       </div>
 
-      <div className="relative flex min-h-0 flex-1 flex-col">
-        <div className={`relative z-10 flex flex-1 flex-col ${WORK_GUTTER}`}>
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+        <div className={`relative flex flex-1 flex-col ${WORK_GUTTER}`}>
           <section
             className="relative flex flex-1 flex-col pt-[clamp(200px,36vw,400px)] pb-14 md:pb-20 lg:pb-24"
             data-figma="portfolio_group"
           >
             <SubWorkGridBg />
-            {/* 행(z-10) 위에 그려져 중앙축이 보이도록; 포인터는 행으로 통과 */}
+            {/* 그리드(z-0) 위 · portfolio_card_view·행(z-10) 아래 */}
             <div
-              className="pointer-events-none absolute left-1/2 top-0 z-[15] h-full w-[2px] -translate-x-1/2 bg-black"
+              className="pointer-events-none absolute left-1/2 top-0 z-[2] h-full w-[2px] -translate-x-1/2 bg-black"
               aria-hidden
               data-figma="portfolio_vertical_rule"
             />
