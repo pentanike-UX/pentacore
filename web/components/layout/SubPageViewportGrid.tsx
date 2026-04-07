@@ -1,25 +1,24 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 
-const WHITE_LINE = "rgba(255, 255, 255, 0.22)";
+/** 라이트 그레이 위에서도 보이도록 흰색 계열(요청: white) */
+const WHITE_LINE = "rgba(255, 255, 255, 0.42)";
 
 /**
- * 서브페이지(공통 크롬) 전역 — SUB_WORK 12컬럼 세로 가이드와 동일 패턴.
- * 배경 위 · 본문(이미지·텍스트) 아래 (`AppChrome`에서 z-[1], 콘텐츠 래퍼 z-[2]).
+ * 12컬 세로 가이드 — 부모에 `relative` + `absolute inset-0`로 두는 전제(뷰포트 고정 아님).
+ * 스크롤 시 문서 높이만큼 그리드가 이어짐.
  */
 export function SubPageViewportGrid({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "pointer-events-none fixed inset-0 z-[1] flex justify-center",
+        "pointer-events-none flex h-full min-h-full w-full justify-center",
         className,
       )}
       aria-hidden
       data-figma="SUB_WORK grid12 viewport"
     >
       <div
-        className="h-full w-full max-w-[1280px]"
+        className="h-full min-h-full w-full max-w-[1280px]"
         style={{
           backgroundImage: `repeating-linear-gradient(
             to right,

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { cn } from "@/lib/utils";
 import { BorderedVerticalLoop } from "./BorderedVerticalLoop";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
@@ -176,12 +177,11 @@ function Grid12({
  */
 export function WorksDetailView() {
   return (
-    <main
-      className="min-h-dvh antialiased"
-      style={{
-        backgroundColor: SUB_WORK_PAGE_BG,
-        color: TEXT,
-      }}
+    <SubPageScaffold
+      as="main"
+      backgroundColor={SUB_WORK_PAGE_BG}
+      className="antialiased"
+      style={{ color: TEXT }}
       data-figma="/works_view"
     >
       <div className="border-b border-zinc-900/10 px-4 pb-6 pt-[92px] md:px-[76px] md:pb-8 md:pt-[124px]">
@@ -320,74 +320,80 @@ export function WorksDetailView() {
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
         <Grid12>
           <div className="col-span-12">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 xl:gap-x-24">
-            <p
-              className="whitespace-pre-line text-sm font-bold leading-relaxed"
-              style={{ color: TEXT }}
-            >
-              {ROLES_BLOCK}
-            </p>
-            <p
-              className="max-w-[730px] text-base font-normal leading-relaxed lg:max-w-none"
-              style={{ color: TEXT }}
-            >
-              {INTRO_BODY}
-            </p>
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 xl:gap-x-24">
+              <p
+                className="whitespace-pre-line text-sm font-bold leading-relaxed"
+                style={{ color: TEXT }}
+              >
+                {ROLES_BLOCK}
+              </p>
+              <p
+                className="max-w-[730px] text-base font-normal leading-relaxed lg:max-w-none"
+                style={{ color: TEXT }}
+              >
+                {INTRO_BODY}
+              </p>
+            </div>
           </div>
 
-          {/* 본문↔칩 400px — margin-top 유틸은 다른 소스의 mt-40 등과 병합 시 CSS 순서로 밀릴 수 있어 블록 간격은 고정 높이로 분리 */}
-          <div className="h-[400px] min-h-[400px] w-full shrink-0" aria-hidden />
-
+          {/* 본문↔칩 400px */}
           <div
-            className="space-y-32 md:space-y-40 lg:space-y-48"
+            className="col-span-12 h-[400px] min-h-[400px] w-full shrink-0"
+            aria-hidden
+          />
+
+          {/* 데스크톱(lg+): 12컬 중 5~12열(8칸 ≈ 67%)만 사용 · 모바일/태블릿은 전폭 */}
+          <div
+            className="col-span-12 lg:col-span-8 lg:col-start-5"
             data-figma="sec_2 chips"
           >
-            <BrandRow
-              noDivider
-              title={
-                <>
-                  <FigmaLogos variant="logo_HM" />
-                  <FigmaLogos variant="logo_GN" />
-                  <FigmaLogos variant="logo_KM" />
-                </>
-              }
-            >
-              <div className="flex flex-col gap-[14px]">
-                <FigmaBtnChip
-                  label="Official Hyundai Motors Navigation Update Website - KOREA"
-                  href={BRAND_LINKS.hyundai.kr}
-                />
-                <FigmaBtnChip
-                  label="Official Hyundai Motors Navigation Update Website - USA"
-                  href={BRAND_LINKS.hyundai.us}
-                />
-              </div>
-            </BrandRow>
-            <BrandRow noDivider title={<FigmaLogos variant="logo_KM" />}>
-              <div className="flex flex-col gap-[14px]">
-                <FigmaBtnChip
-                  label="Official Kia Navigation Update Website - KOREA"
-                  href={BRAND_LINKS.kia.kr}
-                />
-                <FigmaBtnChip
-                  label="Official Kia Navigation Update Website - USA"
-                  href={BRAND_LINKS.kia.us}
-                />
-              </div>
-            </BrandRow>
-            <BrandRow noDivider title={<FigmaLogos variant="logo_GN" />}>
-              <div className="flex flex-col gap-[14px]">
-                <FigmaBtnChip
-                  label="Official Genesis Navigation Update Website - KOREA"
-                  href={BRAND_LINKS.genesis.kr}
-                />
-                <FigmaBtnChip
-                  label="Official Genesis Navigation Update Website - USA"
-                  href={BRAND_LINKS.genesis.us}
-                />
-              </div>
-            </BrandRow>
-          </div>
+            <div className="space-y-32 md:space-y-40 lg:space-y-48">
+              <BrandRow
+                noDivider
+                title={
+                  <>
+                    <FigmaLogos variant="logo_HM" />
+                    <FigmaLogos variant="logo_GN" />
+                    <FigmaLogos variant="logo_KM" />
+                  </>
+                }
+              >
+                <div className="flex flex-col gap-[14px]">
+                  <FigmaBtnChip
+                    label="Official Hyundai Motors Navigation Update Website - KOREA"
+                    href={BRAND_LINKS.hyundai.kr}
+                  />
+                  <FigmaBtnChip
+                    label="Official Hyundai Motors Navigation Update Website - USA"
+                    href={BRAND_LINKS.hyundai.us}
+                  />
+                </div>
+              </BrandRow>
+              <BrandRow noDivider title={<FigmaLogos variant="logo_KM" />}>
+                <div className="flex flex-col gap-[14px]">
+                  <FigmaBtnChip
+                    label="Official Kia Navigation Update Website - KOREA"
+                    href={BRAND_LINKS.kia.kr}
+                  />
+                  <FigmaBtnChip
+                    label="Official Kia Navigation Update Website - USA"
+                    href={BRAND_LINKS.kia.us}
+                  />
+                </div>
+              </BrandRow>
+              <BrandRow noDivider title={<FigmaLogos variant="logo_GN" />}>
+                <div className="flex flex-col gap-[14px]">
+                  <FigmaBtnChip
+                    label="Official Genesis Navigation Update Website - KOREA"
+                    href={BRAND_LINKS.genesis.kr}
+                  />
+                  <FigmaBtnChip
+                    label="Official Genesis Navigation Update Website - USA"
+                    href={BRAND_LINKS.genesis.us}
+                  />
+                </div>
+              </BrandRow>
+            </div>
           </div>
         </Grid12>
         </ParallaxLayer>
@@ -710,7 +716,7 @@ export function WorksDetailView() {
           </ParallaxLayer>
         </footer>
       </ParallaxViewport>
-    </main>
+    </SubPageScaffold>
   );
 }
 

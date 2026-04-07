@@ -70,9 +70,12 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
         WebkitBackdropFilter: "blur(28px) saturate(140%)",
       };
 
+  /** 좁은 뷰포트에서 오버플로 방지: vmin + clamp로 타입·간격 동시 스케일 */
   const linkClass = cn(
-    "group relative inline-block py-1 text-[clamp(2rem,10vw,4.5rem)] font-black uppercase leading-[0.95] tracking-tight",
+    "group relative inline-block max-w-full py-1 text-center font-black uppercase leading-[0.95] tracking-tight",
+    "text-[clamp(1.125rem,min(5.5vmin,11vw),4.5rem)]",
     "font-display",
+    "break-words [overflow-wrap:anywhere]",
     light ? "text-zinc-950" : "text-white",
   );
 
@@ -98,7 +101,7 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
           aria-modal="true"
           aria-label="전체 메뉴"
           id="header-fullscreen-nav"
-          className="fixed inset-0 z-[90] flex flex-col items-center justify-center px-6 py-28"
+          className="fixed inset-0 z-[90] flex flex-col items-center justify-center overflow-x-hidden px-[clamp(1rem,4vw,1.5rem)] py-[clamp(4rem,10vmin,7rem)]"
           style={glassStyle}
           initial={{ clipPath: "inset(0 0 100% 0)" }}
           animate={{ clipPath: "inset(0 0 0% 0)" }}
@@ -107,7 +110,7 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
           onClick={onClose}
         >
           <nav
-            className="pointer-events-auto flex max-w-4xl flex-col items-center gap-10 text-center md:gap-16 lg:gap-24"
+            className="pointer-events-auto flex w-full max-w-[min(100%,56rem)] flex-col items-center gap-[clamp(0.75rem,min(3.5vmin,1.25rem),2.5rem)] text-center md:gap-[clamp(1rem,min(4vmin,1.75rem),4rem)] lg:gap-[clamp(1.25rem,min(4.5vmin,2rem),6rem)]"
             onClick={(e) => e.stopPropagation()}
             aria-label="주요 메뉴"
           >

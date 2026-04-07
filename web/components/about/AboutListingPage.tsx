@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { cn } from "@/lib/utils";
 import { liquidGlassHomeCard, SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { ParallaxLayer } from "@/components/work/Parallax";
@@ -45,9 +46,11 @@ const VALUE_CARDS = [
 
 export function AboutListingPage() {
   return (
-    <main
+    <SubPageScaffold
+      as="main"
+      backgroundColor={SUB_WORK_PAGE_BG}
       className="min-h-dvh text-zinc-950 antialiased"
-      style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+      contentClassName="min-h-dvh"
       data-figma="SUB_ABOUT"
     >
       {/* —— SUB_WORK와 동일 톤의 히어로 트랙 —— */}
@@ -206,6 +209,6 @@ export function AboutListingPage() {
         </div>
       </section>
 
-    </main>
+    </SubPageScaffold>
   );
 }

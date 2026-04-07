@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { FooterBar } from "@/components/home/FooterBar";
 import { HeaderBar } from "@/components/home/HeaderBar";
-import { SubPageViewportGrid } from "@/components/layout/SubPageViewportGrid";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 /**
@@ -29,17 +28,14 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
   return (
     <>
       <HeaderBar compact={compact} surface={surface} scrollGlass />
-      <SubPageViewportGrid />
       <div
         className={
           subInlineFooter
-            ? "relative z-[2] flex min-h-dvh flex-col pb-0"
-            : "relative z-[2] min-h-dvh pb-32 md:pb-36"
+            ? "flex min-h-dvh flex-col pb-0"
+            : "min-h-dvh pb-32 md:pb-36"
         }
       >
-        <div className={subInlineFooter ? "relative flex-1" : "relative"}>
-          {children}
-        </div>
+        <div className={subInlineFooter ? "flex-1" : undefined}>{children}</div>
         <FooterBar
           surface={surface}
           variant={footerVariant}

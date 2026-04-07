@@ -8,6 +8,7 @@ import {
   liquidGlassImgSubHoverClassName,
   SUB_WORK_PAGE_BG,
 } from "@/lib/figma-liquid-glass";
+import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
@@ -64,9 +65,11 @@ function PortfolioCardViewInner() {
 
 function WorkPageBody() {
   return (
-    <main
+    <SubPageScaffold
+      as="main"
+      backgroundColor={SUB_WORK_PAGE_BG}
       className="flex min-h-dvh flex-col text-zinc-950 antialiased"
-      style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+      contentClassName="flex min-h-dvh flex-col"
       data-figma="SUB_WORK"
     >
       <section
@@ -154,7 +157,7 @@ function WorkPageBody() {
             className="relative flex flex-1 flex-col pt-[clamp(200px,36vw,400px)] pb-14 md:pb-20 lg:pb-24"
             data-figma="portfolio_group"
           >
-            {/* 12컬 그리드는 `AppChrome` `SubPageViewportGrid` 전역 */}
+            {/* 12컬 그리드: `SubPageScaffold` 내 `SubPageViewportGrid` */}
             <div
               className="pointer-events-none absolute left-1/2 top-0 z-[2] h-full w-[2px] -translate-x-1/2 bg-black"
               aria-hidden
@@ -175,7 +178,7 @@ function WorkPageBody() {
 
         </div>
       </div>
-    </main>
+    </SubPageScaffold>
   );
 }
 
