@@ -58,8 +58,8 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramSrc: "/home/pentagram-inquiry.svg",
     pentagramW: 78,
     pentagramH: 41,
-    gridClassName:
-      "w-full md:col-span-2 md:max-w-[580px] md:justify-self-center lg:col-span-1 lg:justify-self-center" as const,
+    /** 태블릿 2열에서 `col-span-2`면 4번째만 한 줄로 떨어짐 → 2×2 유지 위해 다른 카드와 동일 */
+    gridClassName: "" as const,
   },
 ] as const;
 

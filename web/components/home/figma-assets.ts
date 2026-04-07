@@ -9,6 +9,7 @@ export const assets = {
   heroStill: "https://www.figma.com/api/mcp/asset/257cda8f-1d9f-4f0a-8f7e-50764087d047",
   /** HOME_LAYOUT-1 `Mask group` — Figma export viewBox 1001×115 (스펙 표기 1000×114와 동일 에셋) */
   logoMaskSvg: "/home/logo-mask.svg",
+  /** 레거시 MCP — 헤더는 `PentacoreWordmark` + `public/home/pentacore-symbol.svg` 사용 */
   homeHeaderLogo: "https://www.figma.com/api/mcp/asset/35f6a58d-25b1-46e6-94ab-d87a42f986a8",
   homeHeaderLine: "https://www.figma.com/api/mcp/asset/62e738eb-2a3c-4b28-bc8a-95212558741e",
   homeMenuUnion: "https://www.figma.com/api/mcp/asset/5e070f1f-8e2a-462f-b763-314eff743da0",

@@ -306,8 +306,11 @@ export function WorksDetailView() {
             </p>
           </div>
 
+          {/* 본문↔칩 400px — margin-top 유틸은 다른 소스의 mt-40 등과 병합 시 CSS 순서로 밀릴 수 있어 블록 간격은 고정 높이로 분리 */}
+          <div className="h-[400px] min-h-[400px] w-full shrink-0" aria-hidden />
+
           <div
-            className="mt-[400px] space-y-32 md:space-y-40 lg:space-y-48"
+            className="space-y-32 md:space-y-40 lg:space-y-48"
             data-figma="sec_2 chips"
           >
             <BrandRow

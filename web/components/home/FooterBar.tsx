@@ -1,14 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { PentacoreWordmark } from "@/components/brand/PentacoreWordmark";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import {
   liquidGlassInteractiveHoverDark,
   liquidGlassInteractiveHoverLight,
 } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
-import { assets } from "./figma-assets";
 
 const nav = [
   { href: "/about", label: "ABOUT" },
@@ -45,36 +44,15 @@ function getScrollY() {
   );
 }
 
-function Divider({ light, onVideo }: { light?: boolean; onVideo?: boolean }) {
-  if (light) {
-    return (
-      <span
-        className="inline-block h-3 w-px shrink-0 bg-zinc-300"
-        aria-hidden
-      />
-    );
-  }
-  if (onVideo) {
-    return (
-      <span
-        className="inline-block h-3 w-px shrink-0 bg-white/35"
-        aria-hidden
-      />
-    );
-  }
+function Divider({ light }: { light?: boolean }) {
   return (
-    <div className="flex h-2.5 w-0 items-center justify-center">
-      <div className="h-px w-2.5 rotate-90">
-        <Image
-          src={assets.footerDivider}
-          alt=""
-          width={10}
-          height={1}
-          className="block h-px w-2.5"
-          unoptimized
-        />
-      </div>
-    </div>
+    <span
+      className={cn(
+        "inline-block h-3 w-px shrink-0",
+        light ? "bg-zinc-900/20" : "bg-white/40",
+      )}
+      aria-hidden
+    />
   );
 }
 
@@ -120,6 +98,10 @@ export function FooterBar({
     onVideo || !light
       ? liquidGlassInteractiveHoverDark
       : liquidGlassInteractiveHoverLight;
+  const logoTone = light ? "text-zinc-950" : "text-white";
+  const navTone = light ? "text-zinc-950" : "text-white";
+  const bodyTone = light ? "text-zinc-800" : "text-white/90";
+  const fineTone = light ? "text-zinc-600" : "text-white/80";
 
   return (
     <footer
@@ -144,16 +126,25 @@ export function FooterBar({
         }
       >
         <div className="flex max-w-xl flex-col gap-5">
+          <Link
+            href="/"
+            className={cn("inline-flex w-fit rounded-sm", glassHover)}
+            aria-label="PENTACORE 홈"
+          >
+            <PentacoreWordmark
+              decorative
+              className={cn("h-3.5 w-auto sm:h-4", logoTone)}
+            />
+          </Link>
           <nav
-            className={
-              light
-                ? "flex flex-wrap items-center gap-3 text-[16px] font-bold leading-4 text-zinc-950"
-                : "flex flex-wrap items-center gap-3 text-[16px] font-bold leading-4 text-white"
-            }
+            className={cn(
+              "flex flex-wrap items-center gap-3 text-[16px] font-bold leading-4",
+              navTone,
+            )}
           >
             {nav.map((item, i) => (
               <span key={item.href} className="flex items-center gap-3">
-                {i > 0 ? <Divider light={light} onVideo={onVideo} /> : null}
+                {i > 0 ? <Divider light={light} /> : null}
                 <Link
                   href={item.href}
                   className={cn(
@@ -167,11 +158,10 @@ export function FooterBar({
             ))}
           </nav>
           <p
-            className={
-              light
-                ? "text-[14px] font-medium leading-snug text-zinc-600"
-                : "text-[14px] font-medium leading-[14px] text-white"
-            }
+            className={cn(
+              "text-[14px] font-medium leading-snug",
+              bodyTone,
+            )}
           >
             Pentacore weaves the essence of users, partners, and businesses into
             transformative experiences, connecting today to tomorrow with trust and
@@ -179,11 +169,10 @@ export function FooterBar({
           </p>
         </div>
         <p
-          className={
-            light
-              ? "text-[12px] font-medium leading-5 text-zinc-500 md:text-right"
-              : "text-[12px] font-medium leading-5 text-white md:text-right"
-          }
+          className={cn(
+            "text-[12px] font-medium leading-5 md:text-right",
+            fineTone,
+          )}
         >
           ⓒ PENTACORE.
         </p>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { PentacoreWordmark } from "@/components/brand/PentacoreWordmark";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -85,8 +86,7 @@ export function HeaderBar({
       ? liquidGlassInteractiveHoverDark
       : liquidGlassInteractiveHoverLight;
   const p = compact ? "px-6 py-5" : "px-10 py-10";
-  const logoH = compact ? 14 : 17;
-  const logoW = compact ? 118 : 143;
+  const logoTone = light ? "text-zinc-950" : "text-white";
 
   if (!visible) return null;
 
@@ -108,41 +108,18 @@ export function HeaderBar({
       <Link
         href="/"
         className={cn(
-          "relative flex shrink-0 flex-col items-stretch justify-center rounded-md",
+          "relative inline-flex shrink-0 items-center rounded-md",
           glassHover,
         )}
-        style={{ width: logoW }}
         aria-label="홈"
       >
-        <span
-          className="relative block w-full shrink-0 overflow-hidden"
-          style={{ height: logoH }}
-        >
-          <Image
-            src={assets.homeHeaderLogo}
-            alt="PENTACORE"
-            width={143}
-            height={17}
-            className={cn(
-              "h-full w-auto max-w-none object-contain object-left",
-              light && "brightness-0",
-              onVideo && "brightness-0 invert",
-            )}
-            priority
-            unoptimized
-          />
-        </span>
-        <Image
-          src={assets.homeHeaderLine}
-          alt=""
-          width={143}
-          height={2}
+        <PentacoreWordmark
+          decorative
           className={cn(
-            "mt-[3px] block h-px w-full object-cover object-left",
-            light && "brightness-0 opacity-90",
-            onVideo && "opacity-90 invert",
+            "w-auto",
+            compact ? "h-3.5" : "h-[17px]",
+            logoTone,
           )}
-          unoptimized
         />
       </Link>
       <Button
