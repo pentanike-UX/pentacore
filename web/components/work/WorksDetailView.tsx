@@ -319,7 +319,7 @@ export function WorksDetailView() {
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
         <Grid12>
-          <div className="col-span-12 space-y-0">
+          <div className="col-span-12">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 xl:gap-x-24">
             <p
               className="whitespace-pre-line text-sm font-bold leading-relaxed"
@@ -400,7 +400,7 @@ export function WorksDetailView() {
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
         <Grid12>
-          <div className="col-span-12 space-y-0">
+          <div className="col-span-12">
           <WorksSectionDivider />
           <h2
             className="mt-10 max-w-[1128px] text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
@@ -505,7 +505,7 @@ export function WorksDetailView() {
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
-          <div className="col-span-12 space-y-0">
+          <div className="col-span-12">
             <h2
               className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-normal not-italic tracking-tight lg:text-[60px]"
               style={{ color: TEXT, lineHeight: "100%", fontWeight: 400 }}
@@ -558,7 +558,7 @@ export function WorksDetailView() {
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
-          <div className="col-span-12 space-y-0">
+          <div className="col-span-12">
             <h2
               className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-bold uppercase leading-[1.1] tracking-tight lg:text-[60px]"
               style={{ color: TEXT }}
@@ -593,7 +593,7 @@ export function WorksDetailView() {
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
-          <div className="col-span-12 space-y-0">
+          <div className="col-span-12">
             <WorksSectionDivider />
             <h2
               className="mt-10 text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
