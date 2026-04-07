@@ -286,9 +286,9 @@ export function WorksDetailView() {
         </div>
       </ParallaxLayer>
 
-      {/* sec_1 */}
+      {/* sec_1 — 위·아래 14rem */}
       <section
-        className="mx-auto max-w-[1280px] px-4 py-20 md:px-[76px] md:py-28"
+        className="mx-auto max-w-[1280px] px-4 py-[14rem] md:px-[76px]"
         data-figma="sec_1"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -312,9 +312,9 @@ export function WorksDetailView() {
         </ParallaxLayer>
       </section>
 
-      {/* sec_2 */}
+      {/* sec_2 — 위·아래 14rem; 칩 영역도 상·하 14rem */}
       <section
-        className="mx-auto max-w-[1280px] px-4 pb-20 md:px-[76px] md:pb-32"
+        className="mx-auto max-w-[1280px] px-4 py-[14rem] md:px-[76px]"
         data-figma="sec_2"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -336,15 +336,9 @@ export function WorksDetailView() {
             </div>
           </div>
 
-          {/* 본문↔칩 400px */}
+          {/* 데스크톱(lg+): 12컬 중 5~12열 · 칩 영역 상·하 14rem 패딩(본문↔칩 구간 포함) */}
           <div
-            className="col-span-12 h-[400px] min-h-[400px] w-full shrink-0"
-            aria-hidden
-          />
-
-          {/* 데스크톱(lg+): 12컬 중 5~12열(8칸 ≈ 67%)만 사용 · 모바일/태블릿은 전폭 */}
-          <div
-            className="col-span-12 lg:col-span-8 lg:col-start-5"
+            className="col-span-12 py-[14rem] lg:col-span-8 lg:col-start-5"
             data-figma="sec_2 chips"
           >
             <div className="space-y-32 md:space-y-40 lg:space-y-48">
@@ -407,29 +401,29 @@ export function WorksDetailView() {
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
         <Grid12>
           <div className="col-span-12">
-          <WorksSectionDivider />
-          <h2
-            className="mt-10 max-w-[1128px] text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
-            style={{ color: TEXT }}
-          >
-            Redefining the Future of Movement with Human-Centered Innovation
-          </h2>
+            <WorksSectionDivider />
+            <h2
+              className="mt-10 max-w-[1128px] text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
+              style={{ color: TEXT }}
+            >
+              Redefining the Future of Movement with Human-Centered Innovation
+            </h2>
+          </div>
+          {/* Philosophy 1: Grid12 직계 — lg에서 3칸·중앙(col 5–7), 본문 좌측 정렬 */}
           <p
-            className="mx-auto mt-[200px] max-w-[730px] whitespace-pre-line text-center text-base leading-relaxed"
+            className="col-span-12 mt-[200px] whitespace-pre-line text-left text-base leading-relaxed lg:col-span-3 lg:col-start-5"
             style={{ color: TEXT }}
           >
             {SEC3_BODY_A}
           </p>
-          <div className="mt-[60px] grid w-full grid-cols-12 gap-x-5 md:gap-x-8">
-            <p
-              className="col-span-12 max-w-[730px] whitespace-pre-line text-base leading-relaxed lg:col-span-5 lg:col-start-8"
-              style={{ color: TEXT }}
-            >
-              {SEC3_BODY_B}
-            </p>
-          </div>
-          {/* 두 번째 Philosophy 본문 ↔ 이미지 240px — `public/work/latest-update-sample-1.png` (원본: 최신업데이트_샘플 1.png) */}
-          <div className="mt-[240px] w-full">
+          {/* Philosophy 2: 동일 3칸 너비 */}
+          <p
+            className="col-span-12 mt-[60px] whitespace-pre-line text-left text-base leading-relaxed lg:col-span-3 lg:col-start-5"
+            style={{ color: TEXT }}
+          >
+            {SEC3_BODY_B}
+          </p>
+          <div className="col-span-12 mt-[240px] w-full">
             <FigImage
               src={hyundaiWorksViewImages.latestUpdateSample}
               alt="Latest update screen sample"
@@ -439,7 +433,6 @@ export function WorksDetailView() {
               Official Notice Content Templating and UI Design – Latest Update
               Screen
             </p>
-          </div>
           </div>
         </Grid12>
         </ParallaxLayer>
@@ -564,20 +557,22 @@ export function WorksDetailView() {
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
-          <div className="col-span-12">
-            <h2
-              className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-bold uppercase leading-[1.1] tracking-tight lg:text-[60px]"
-              style={{ color: TEXT }}
-            >
-              Precision Updates, Powered by Your Registered Vehicle.
-            </h2>
+            <div className="col-span-12">
+              <h2
+                className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-bold uppercase leading-[1.1] tracking-tight lg:text-[60px]"
+                style={{ color: TEXT }}
+              >
+                Precision Updates, Powered by Your Registered Vehicle.
+              </h2>
+            </div>
+            {/* Philosophy: 우측 3칸(col 10–12) · 모바일 전폭 */}
             <p
-              className="mt-[100px] max-w-[730px] text-base leading-relaxed"
+              className="col-span-12 mt-[100px] text-left text-base leading-relaxed lg:col-span-3 lg:col-start-10"
               style={{ color: TEXT }}
             >
               {SEC4IN_BODY}
             </p>
-            <div className="mt-[100px]">
+            <div className="col-span-12 mt-[100px]">
               <FigImage
                 src={hyundaiWorksViewImages.myPageFlow}
                 alt="My page — check updates"
@@ -587,7 +582,6 @@ export function WorksDetailView() {
                 Check Updates for Your Vehicle – My Page Screen
               </p>
             </div>
-          </div>
           </Grid12>
           </ParallaxLayer>
         </section>
@@ -599,21 +593,22 @@ export function WorksDetailView() {
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
           <Grid12>
-          <div className="col-span-12">
-            <WorksSectionDivider />
-            <h2
-              className="mt-10 text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
-              style={{ color: TEXT }}
-            >
-              Understanding the Update Through Your Journey.
-            </h2>
+            <div className="col-span-12">
+              <WorksSectionDivider />
+              <h2
+                className="mt-10 text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
+                style={{ color: TEXT }}
+              >
+                Understanding the Update Through Your Journey.
+              </h2>
+            </div>
             <p
-              className="mt-[200px] max-w-[730px] text-base leading-relaxed"
+              className="col-span-12 mt-[200px] text-left text-base leading-relaxed lg:col-span-3 lg:col-start-5"
               style={{ color: TEXT }}
             >
               {SEC5_BODY}
             </p>
-            <div className="mt-[200px]">
+            <div className="col-span-12 mt-[200px]">
               <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                 ST-FO-111
               </p>
@@ -633,7 +628,6 @@ export function WorksDetailView() {
                 Screen
               </p>
             </div>
-          </div>
           </Grid12>
           </ParallaxLayer>
         </section>
