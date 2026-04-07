@@ -76,7 +76,7 @@ function WorkPageBody() {
         className={`relative pb-10 pt-[92px] md:pb-14 md:pt-[124px] ${WORK_GUTTER}`}
         style={{ backgroundColor: SUB_WORK_PAGE_BG }}
       >
-        <div className="mx-auto max-w-[min(100%,1740px)] lg:mx-auto">
+        <div className="w-full">
           <div
             className="flex flex-col gap-0 uppercase"
             data-figma="HERO"

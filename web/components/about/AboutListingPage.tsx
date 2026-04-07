@@ -55,7 +55,7 @@ export function AboutListingPage() {
     >
       {/* —— SUB_WORK와 동일 톤의 히어로 트랙 —— */}
       <section className="relative px-5 pb-12 pt-[92px] md:px-10 md:pb-16 md:pt-[124px] lg:px-20">
-        <div className="mx-auto max-w-[1740px]">
+        <div className="w-full">
           <div className="flex flex-col gap-0">
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:gap-[min(6rem,5.04vw)] lg:gap-[96.8px]">
               <p className="shrink-0 text-[19.2px] font-semibold leading-none tracking-tight text-zinc-950">
