@@ -11,7 +11,6 @@ import {
 import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
-import { SubWorkGridBg } from "./SubWorkGridBg";
 import { WorkPortfolioGlassRow } from "./WorkPortfolioGlassRow";
 import { WORK_PORTFOLIO_ROWS } from "./work-portfolio-data";
 import { WorkThumbHmg } from "./WorkThumbHmg";
@@ -155,8 +154,7 @@ function WorkPageBody() {
             className="relative flex flex-1 flex-col pt-[clamp(200px,36vw,400px)] pb-14 md:pb-20 lg:pb-24"
             data-figma="portfolio_group"
           >
-            <SubWorkGridBg />
-            {/* 그리드(z-0) 위 · portfolio_card_view·행(z-10) 아래 */}
+            {/* 12컬 그리드는 `AppChrome` `SubPageViewportGrid` 전역 */}
             <div
               className="pointer-events-none absolute left-1/2 top-0 z-[2] h-full w-[2px] -translate-x-1/2 bg-black"
               aria-hidden
