@@ -10,14 +10,13 @@ import {
   liquidGlassInteractiveHoverLight,
 } from "@/lib/figma-liquid-glass";
 
-/** `type=just icon` stroke — rgb(226,232,240) */
+/** `type=just icon` stroke — rgb(226,232,240)·슬레이트 톤 (첨부 PAD/M) */
 const ICON_BTN_BORDER = "#e2e8f0";
 
 /**
  * Figma `HOME_LAYOUT-2` / `section` (node 2003:55933).
- * - lg+: 4열, 펜타그램·카피 중앙 정렬 (기존 데스크톱).
- * - md~lg: 2열, 첨부 PAD — 좌측 정렬·펜타그램 숨김·태그라인 하단.
- * - 모바일: 1열 동일 내부 배치.
+ * - `lg+` 데스크톱: 4열·280px 카드·펜타그램·타이포 세로 스택·중앙 정렬.
+ * - `<lg` 태블릿/모바일: 1~2열·**좌측 정렬**·**펜타그램 숨김**·슬로건 `mt-auto`·더 큰 라운딩·스쿼어에 가까운 비율.
  */
 export const HOME_LAYOUT_2_CARDS = [
   {
@@ -29,7 +28,8 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramW: 56,
     pentagramH: 43,
     gridClassName: "" as const,
-    minHClass: "min-h-[220px] md:min-h-[248px] lg:min-h-[254px]" as const,
+    minHClass:
+      "aspect-square min-h-0 max-lg:w-full max-lg:max-w-[min(100%,380px)] lg:aspect-auto lg:min-h-[254px] lg:max-w-none" as const,
   },
   {
     href: "/about",
@@ -40,7 +40,8 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramW: 58,
     pentagramH: 50,
     gridClassName: "" as const,
-    minHClass: "min-h-[220px] md:min-h-[248px] lg:min-h-[254px]" as const,
+    minHClass:
+      "aspect-square min-h-0 max-lg:w-full max-lg:max-w-[min(100%,380px)] lg:aspect-auto lg:min-h-[254px] lg:max-w-none" as const,
   },
   {
     href: "/hiring",
@@ -51,7 +52,8 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramW: 59,
     pentagramH: 55,
     gridClassName: "" as const,
-    minHClass: "min-h-[220px] md:min-h-[248px] lg:min-h-[254px]" as const,
+    minHClass:
+      "aspect-square min-h-0 max-lg:w-full max-lg:max-w-[min(100%,380px)] lg:aspect-auto lg:min-h-[254px] lg:max-w-none" as const,
   },
   {
     href: "/inquiry",
@@ -63,7 +65,8 @@ export const HOME_LAYOUT_2_CARDS = [
     pentagramH: 41,
     gridClassName:
       "w-full md:col-span-2 md:max-w-[580px] md:justify-self-center lg:col-span-1 lg:w-[280px] lg:max-w-full lg:justify-self-center" as const,
-    minHClass: "min-h-[240px] md:min-h-[260px] lg:min-h-[254px]" as const,
+    minHClass:
+      "aspect-square w-full max-w-[min(100%,380px)] min-h-0 md:aspect-auto md:max-w-[min(100%,580px)] md:min-h-[288px] lg:aspect-auto lg:min-h-[254px] lg:max-w-none" as const,
   },
 ] as const;
 
@@ -86,14 +89,15 @@ export function HomeSectionCards() {
           "lg:justify-center lg:px-8 lg:pb-[calc(13rem+100px+env(safe-area-inset-bottom,0px))] lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))]",
         )}
       >
-        <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-4 lg:justify-items-center lg:gap-10">
+        <div className="grid w-full grid-cols-1 justify-items-center gap-7 md:grid-cols-2 md:gap-9 lg:grid-cols-4 lg:gap-10">
           {HOME_LAYOUT_2_CARDS.map((c) => (
             <Link
               key={c.href}
               href={c.href}
               aria-label={`${c.titleEn} — ${c.titleKo}`}
               className={cn(
-                "group relative isolate flex w-full max-w-full flex-col overflow-hidden rounded-[24px] p-8 text-zinc-900 outline-none md:p-9 lg:w-[280px] lg:max-w-full lg:p-10",
+                "group relative isolate flex flex-col overflow-hidden text-zinc-900 outline-none",
+                "w-full max-w-full rounded-[36px] p-9 max-lg:p-10 lg:w-[280px] lg:max-w-full lg:rounded-[24px] lg:p-10",
                 "shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_40px_rgba(15,23,42,0.12)]",
                 "transition-[backdrop-filter,box-shadow] duration-300 ease-out",
                 liquidGlassInteractiveHoverLight,
@@ -111,22 +115,20 @@ export function HomeSectionCards() {
                 )}
               >
                 <span
-                  className="absolute right-4 top-4 z-[1] flex size-10 items-center justify-center rounded-[8px] border-[1.375px] bg-white text-black shadow-none transition-colors duration-300 ease-out group-hover:border-zinc-300 md:right-5 md:top-5 md:size-11 md:rounded-[8.25px] lg:right-5 lg:top-5"
+                  className="absolute right-5 top-5 z-[1] flex size-11 items-center justify-center rounded-[10px] border-[1.375px] bg-white text-black shadow-none transition-colors duration-300 ease-out group-hover:border-slate-300 lg:right-5 lg:top-5 lg:rounded-[8.25px]"
                   style={{ borderColor: ICON_BTN_BORDER }}
                   aria-hidden
                 >
-                  <ArrowUpRight
-                    className="size-[20px] md:size-[22px]"
-                    strokeWidth={2.75}
-                  />
+                  <ArrowUpRight className="size-[22px]" strokeWidth={2.75} />
                 </span>
                 <div
                   className={cn(
-                    "flex min-h-0 w-full flex-1 flex-col gap-6 pr-11 text-left md:gap-8 md:pr-12",
-                    "lg:items-center lg:gap-10 lg:pr-0 lg:text-center",
+                    "flex min-h-0 w-full flex-1 flex-col pr-14 max-lg:pr-14",
+                    "max-lg:text-left",
+                    "lg:items-center lg:pr-0 lg:text-center",
                   )}
                 >
-                  <div className="flex flex-col gap-3 lg:items-center">
+                  <div className="flex flex-col gap-2 lg:items-center lg:gap-3">
                     <Image
                       src={c.pentagramSrc}
                       alt=""
@@ -135,11 +137,11 @@ export function HomeSectionCards() {
                       className="hidden h-[50px] w-auto max-w-[77px] object-contain brightness-0 lg:block"
                       unoptimized
                     />
-                    <div className="space-y-1">
-                      <h3 className="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl md:leading-8 lg:text-2xl">
+                    <div className="max-lg:space-y-1.5 lg:space-y-1">
+                      <h3 className="text-2xl font-bold leading-[1.12] tracking-tight text-black lg:text-2xl lg:leading-8">
                         {c.titleEn}
                       </h3>
-                      <p className="text-sm font-normal leading-5 text-gray-500">
+                      <p className="text-[15px] font-normal leading-snug text-gray-500 lg:text-sm lg:leading-5">
                         {c.titleKo}
                       </p>
                     </div>
@@ -147,7 +149,8 @@ export function HomeSectionCards() {
                   <div
                     className={cn(
                       "mt-auto uppercase text-black not-italic",
-                      "text-left lg:mt-0 lg:text-center",
+                      "max-lg:mt-auto max-lg:pt-10 max-lg:text-left",
+                      "lg:mt-10 lg:pt-0 lg:text-center",
                     )}
                     style={{
                       fontSize: "12px",
