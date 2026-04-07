@@ -7,7 +7,10 @@ import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { BorderedVerticalLoop } from "./BorderedVerticalLoop";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
-import { WORKS_VIEW_PF_06_SRC } from "./figma-work-assets";
+import {
+  WORKS_LIST_BACK_ICON_SRC,
+  WORKS_VIEW_PF_06_SRC,
+} from "./figma-work-assets";
 import { hyundaiWorksViewImages, workImages } from "./work-assets";
 import { FigmaBtnChip } from "./FigmaBtnChip";
 import { FigmaLogos } from "./FigmaLogos";
@@ -185,10 +188,17 @@ export function WorksDetailView() {
         <div className="mx-auto max-w-[1280px]">
           <Link
             href="/work"
-            className="text-sm font-medium transition hover:opacity-70"
-            style={{ color: MUTED }}
+            className="inline-flex size-[50px] shrink-0 items-center justify-center transition-opacity hover:opacity-70"
+            aria-label="WORK 목록"
           >
-            ← WORK 목록
+            <Image
+              src={WORKS_LIST_BACK_ICON_SRC}
+              alt=""
+              width={50}
+              height={50}
+              className="block"
+              unoptimized
+            />
           </Link>
         </div>
       </div>
@@ -202,11 +212,15 @@ export function WorksDetailView() {
             className="col-span-12 lg:col-span-8"
           >
             <header
-              className="flex max-w-[609px] flex-col gap-5"
+              className="flex max-w-[609px] flex-col"
               data-figma="Title"
             >
-              {/* PENTAGRAM PF_06 — Figma 116×60 */}
-              <div className="relative h-[60px] w-[116px] shrink-0" aria-hidden>
+              {/* PENTAGRAM PF_06 — P 위, 116×60, 상단 여백 ~100px */}
+              <div
+                className="relative mt-[100px] h-[60px] w-[116px] shrink-0"
+                aria-hidden
+                data-figma="PF_06"
+              >
                 <Image
                   src={WORKS_VIEW_PF_06_SRC}
                   alt=""
@@ -214,17 +228,16 @@ export function WorksDetailView() {
                   height={60}
                   className="object-contain object-left"
                   unoptimized
-                  data-figma="PF_06"
                 />
               </div>
               <p
-                className="text-[28px] font-normal leading-tight tracking-tight"
+                className="mt-5 text-[28px] font-normal leading-tight tracking-tight"
                 style={{ color: TEXT }}
               >
                 현대자동차 그룹
               </p>
               <h1
-                className="text-[clamp(1.75rem,5vw,2.625rem)] font-bold leading-tight tracking-tight md:text-[42px]"
+                className="mt-5 text-[clamp(1.75rem,5vw,2.625rem)] font-bold leading-tight tracking-tight md:text-[42px]"
                 style={{ color: TEXT }}
               >
                 내비게이션 업데이트 공식 홈페이지
