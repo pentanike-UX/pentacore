@@ -1,15 +1,36 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle, PenLine } from "lucide-react";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { SubWorkStyleHero } from "@/components/subpages/SubWorkStyleHero";
 import { buttonVariants } from "@/components/ui/button";
 import { HIRING_JOB_SLUG_BACKEND, HIRING_PF05_SRC } from "@/components/hiring/hiring-assets";
-import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import {
+  FixedImageWithSkeleton,
+  IntrinsicWidthImageWithSkeleton,
+} from "@/components/media/ImageWithSkeleton";
+import {
+  HeroCopyTextSkeleton,
+  JobCardSkeleton,
+  ProcessCardsSkeleton,
+  ProcessSectionHeaderSkeleton,
+} from "@/components/media/TextSkeleton";
+import {
+  liquidGlassHomeCard,
+  SUB_WORK_PAGE_BG,
+  workPortfolioRowChromeClassName,
+} from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
+
+/** `/public/hire/img_hire1.png` 실제 픽셀 */
+const HIRE_IMG1_W = 1024;
+const HIRE_IMG1_H = 442;
+/** `/public/hire/img_hire2.png` 실제 픽셀 */
+const HIRE_IMG2_W = 1024;
+const HIRE_IMG2_H = 576;
 
 const HERO_EN = `We hire for curiosity, clarity, and ownership.
 Small teams move fast when everyone understands the “why” behind the work.`;
@@ -42,6 +63,8 @@ const CULTURE_BULLETS = [
 ] as const;
 
 export function HiringPageView() {
+  const [hireImg1Ready, setHireImg1Ready] = useState(false);
+
   return (
     <SubPageScaffold
       as="main"
@@ -60,150 +83,170 @@ export function HiringPageView() {
       />
 
       <div className={fullBleedImg}>
-        <Image
+        <IntrinsicWidthImageWithSkeleton
           src="/hire/img_hire1.png"
           alt=""
-          width={1920}
-          height={1080}
-          className="h-auto w-full object-cover"
+          width={HIRE_IMG1_W}
+          height={HIRE_IMG1_H}
           sizes="100vw"
           priority
+          objectFit="contain"
+          onLoadComplete={() => setHireImg1Ready(true)}
         />
       </div>
 
       <section
         className="mx-auto w-full max-w-[1280px] px-6 pt-12 md:px-[76px] md:pt-14"
         aria-label="채용 메시지"
+        aria-busy={!hireImg1Ready}
       >
         <h2 className="sr-only">We hire for curiosity</h2>
-        <p className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
-          {HERO_EN}
-        </p>
-        <p className="mt-6 whitespace-pre-line text-base leading-relaxed text-zinc-700 md:text-lg md:leading-relaxed">
-          {HERO_KO}
-        </p>
+        {hireImg1Ready ? (
+          <>
+            <p className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
+              {HERO_EN}
+            </p>
+            <p className="mt-6 whitespace-pre-line text-base leading-relaxed text-zinc-700 md:text-lg md:leading-relaxed">
+              {HERO_KO}
+            </p>
+          </>
+        ) : (
+          <HeroCopyTextSkeleton />
+        )}
       </section>
 
       <section
         className="mx-auto w-full max-w-[1280px] px-6 pb-8 pt-16 md:px-[76px] md:pb-12 md:pt-20"
         aria-labelledby="hiring-open-roles"
+        aria-busy={!hireImg1Ready}
       >
-        <h2
-          id="hiring-open-roles"
-          className="text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-zinc-950"
-        >
-          열린 포지션
-        </h2>
-        <p className="mt-2 max-w-[42rem] text-[15px] leading-relaxed text-zinc-600">
-          아래 카드를 눌러 상세 요건과 업무를 확인하세요.
-        </p>
-        <Link
-          href={`/hiring/${HIRING_JOB_SLUG_BACKEND}`}
-          className={cn(
-            "group mt-10 flex flex-col gap-4 transition-[transform,box-shadow] duration-300 ease-out md:flex-row md:items-center md:justify-between",
-            shell,
-            "hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_20px_48px_rgba(15,23,42,0.1)]",
-          )}
-        >
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-              Engineering
+        {hireImg1Ready ? (
+          <>
+            <h2
+              id="hiring-open-roles"
+              className="text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-zinc-950"
+            >
+              열린 포지션
+            </h2>
+            <p className="mt-2 max-w-[42rem] text-[15px] leading-relaxed text-zinc-600">
+              아래 카드를 눌러 상세 요건과 업무를 확인하세요.
             </p>
-            <p className="mt-2 text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl">
-              Back-end Developer
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <span className="rounded-full bg-zinc-950/[0.06] px-3 py-1 text-xs font-medium text-zinc-800 ring-1 ring-zinc-900/10">
-                Java
+            <Link
+              href={`/hiring/${HIRING_JOB_SLUG_BACKEND}`}
+              className={cn(
+                "group mt-10 flex flex-col gap-4 transition-[transform,box-shadow] duration-300 ease-out md:flex-row md:items-center md:justify-between",
+                shell,
+                "hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_20px_48px_rgba(15,23,42,0.1)]",
+              )}
+            >
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                  Engineering
+                </p>
+                <p className="mt-2 text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl">
+                  Back-end Developer
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="rounded-full bg-zinc-950/[0.06] px-3 py-1 text-xs font-medium text-zinc-800 ring-1 ring-zinc-900/10">
+                    Java
+                  </span>
+                  <span className="rounded-full bg-zinc-950/[0.06] px-3 py-1 text-xs font-medium text-zinc-800 ring-1 ring-zinc-900/10">
+                    React
+                  </span>
+                </div>
+              </div>
+              <span className="text-sm font-medium text-zinc-500 transition group-hover:text-zinc-900 md:shrink-0">
+                상세 보기 →
               </span>
-              <span className="rounded-full bg-zinc-950/[0.06] px-3 py-1 text-xs font-medium text-zinc-800 ring-1 ring-zinc-900/10">
-                React
-              </span>
+            </Link>
+          </>
+        ) : (
+          <>
+            <div className="space-y-3" aria-hidden>
+              <div className="h-[clamp(1.5rem,4vw,2.25rem)] w-36 rounded-lg bg-zinc-200/[0.72]" />
+              <div className="h-4 w-full max-w-[42rem] rounded-md bg-zinc-200/60" />
             </div>
-          </div>
-          <span className="text-sm font-medium text-zinc-500 transition group-hover:text-zinc-900 md:shrink-0">
-            상세 보기 →
-          </span>
-        </Link>
+            <JobCardSkeleton className="mt-10" />
+          </>
+        )}
       </section>
 
-      <div className={fullBleedImg}>
-        <Image
-          src="/hire/img_hire2.png"
-          alt=""
-          width={1920}
-          height={1080}
-          className="h-auto w-full object-cover"
-          sizes="100vw"
-        />
-      </div>
-
       <section
-        className="mx-auto w-full max-w-[1280px] px-6 pb-20 pt-[200px] md:px-[76px] md:pb-28"
+        className="mx-auto w-full max-w-[1280px] px-6 pb-20 pt-20 md:px-[76px] md:pb-28 md:pt-28"
         aria-labelledby="hiring-process"
+        aria-busy={!hireImg1Ready}
       >
-        <h2
-          id="hiring-process"
-          className="text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-zinc-950"
-        >
-          프로세스
-        </h2>
-        <p className="mt-2 max-w-[42rem] text-[15px] leading-relaxed text-zinc-600">
-          단계를 짧게 유지하고, 서로의 시간을 존중하는 방식으로 진행합니다.
-        </p>
-        <ol className="mt-12 grid gap-5 md:grid-cols-3 md:gap-6">
-          {[
-            {
-              step: "01",
-              title: "대화",
-              body: "포트폴리오와 관심 분야를 중심으로 가볍게 이야기를 나눕니다.",
-              icon: (
-                <MessageCircle
-                  className="size-[26px]"
-                  strokeWidth={1.35}
-                  aria-hidden
-                />
-              ),
-            },
-            {
-              step: "02",
-              title: "실무 과제",
-              body: "짧은 과제로 협업 방식과 사고의 깊이를 함께 확인합니다.",
-              icon: (
-                <PenLine
-                  className="size-[26px]"
-                  strokeWidth={1.35}
-                  aria-hidden
-                />
-              ),
-            },
-            {
-              step: "03",
-              title: "오퍼",
-              body: "합류 시 기대 역할·환경을 투명하게 공유하고 결정을 돕습니다.",
-              icon: (
-                <CheckCircle2
-                  className="size-[26px]"
-                  strokeWidth={1.35}
-                  aria-hidden
-                />
-              ),
-            },
-          ].map((item) => (
-            <li key={item.step} className={cn(shell, "flex flex-col")}>
-              <ProcessIcon>{item.icon}</ProcessIcon>
-              <span className="text-xs font-semibold tabular-nums text-zinc-400">
-                {item.step}
-              </span>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight text-zinc-950">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-zinc-600">
-                {item.body}
-              </p>
-            </li>
-          ))}
-        </ol>
+        {hireImg1Ready ? (
+          <>
+            <h2
+              id="hiring-process"
+              className="text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-zinc-950"
+            >
+              프로세스
+            </h2>
+            <p className="mt-2 max-w-[42rem] text-[15px] leading-relaxed text-zinc-600">
+              단계를 짧게 유지하고, 서로의 시간을 존중하는 방식으로 진행합니다.
+            </p>
+            <ol className="mt-12 grid gap-5 md:grid-cols-3 md:gap-6">
+              {[
+                {
+                  step: "01",
+                  title: "대화",
+                  body: "포트폴리오와 관심 분야를 중심으로 가볍게 이야기를 나눕니다.",
+                  icon: (
+                    <MessageCircle
+                      className="size-[26px]"
+                      strokeWidth={1.35}
+                      aria-hidden
+                    />
+                  ),
+                },
+                {
+                  step: "02",
+                  title: "실무 과제",
+                  body: "짧은 과제로 협업 방식과 사고의 깊이를 함께 확인합니다.",
+                  icon: (
+                    <PenLine
+                      className="size-[26px]"
+                      strokeWidth={1.35}
+                      aria-hidden
+                    />
+                  ),
+                },
+                {
+                  step: "03",
+                  title: "오퍼",
+                  body: "합류 시 기대 역할·환경을 투명하게 공유하고 결정을 돕습니다.",
+                  icon: (
+                    <CheckCircle2
+                      className="size-[26px]"
+                      strokeWidth={1.35}
+                      aria-hidden
+                    />
+                  ),
+                },
+              ].map((item) => (
+                <li key={item.step} className={cn(shell, "flex flex-col")}>
+                  <ProcessIcon>{item.icon}</ProcessIcon>
+                  <span className="text-xs font-semibold tabular-nums text-zinc-400">
+                    {item.step}
+                  </span>
+                  <h3 className="mt-2 text-lg font-semibold tracking-tight text-zinc-950">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-zinc-600">
+                    {item.body}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </>
+        ) : (
+          <>
+            <ProcessSectionHeaderSkeleton />
+            <ProcessCardsSkeleton className="mt-12" />
+          </>
+        )}
       </section>
 
       <section
@@ -213,14 +256,15 @@ export function HiringPageView() {
         <div className={cn(shell)}>
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-14">
             <div className="shrink-0">
-              <Image
+              <FixedImageWithSkeleton
                 src={HIRING_PF05_SRC}
                 alt=""
                 width={83}
                 height={63}
-                className="h-[63px] w-[83px] object-contain object-left"
+                className="block h-[63px] w-[83px] object-contain object-left"
                 data-figma="PF_05"
                 unoptimized
+                skeletonClassName="rounded-md"
               />
               <h2
                 id="hiring-culture-fit"
@@ -244,12 +288,14 @@ export function HiringPageView() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1280px] px-6 pb-24 md:px-[76px] md:pb-32">
+      <section className="mx-auto w-full max-w-[1280px] px-6 pb-10 pt-16 md:px-[76px] md:pb-12 md:pt-20">
         <div
           className={cn(
-            shell,
-            "flex flex-col gap-6 md:flex-row md:items-center md:justify-between",
+            "flex flex-col gap-6 rounded-[20px] border border-white/55 p-8 ring-1 ring-zinc-900/[0.06] supports-[backdrop-filter]:border-white/40 md:flex-row md:items-center md:justify-between md:rounded-[28px] md:p-10",
+            workPortfolioRowChromeClassName,
           )}
+          style={liquidGlassHomeCard}
+          data-figma="HIRING_inquiry_cta"
         >
           <div>
             <h2 className="text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl">
@@ -271,6 +317,17 @@ export function HiringPageView() {
           </Link>
         </div>
       </section>
+
+      <div className={cn(fullBleedImg, "pb-24 md:pb-32")}>
+        <IntrinsicWidthImageWithSkeleton
+          src="/hire/img_hire2.png"
+          alt=""
+          width={HIRE_IMG2_W}
+          height={HIRE_IMG2_H}
+          sizes="100vw"
+          objectFit="contain"
+        />
+      </div>
     </SubPageScaffold>
   );
 }

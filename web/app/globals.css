@@ -54,3 +54,25 @@
     @apply bg-background text-foreground antialiased;
   }
 }
+
+@layer utilities {
+  /* 이미지 로드 전 부드러운 쉬머(스켈레톤) */
+  @keyframes skeleton-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-skeleton-shimmer {
+    animation: skeleton-shimmer 1.85s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-skeleton-shimmer {
+      animation: none;
+    }
+  }
+}

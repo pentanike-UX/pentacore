@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ImageFillWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { cn } from "@/lib/utils";
@@ -141,19 +142,16 @@ function FigImage({
   className?: string;
 }) {
   return (
-    <div
-      className={`relative w-full overflow-hidden bg-transparent ${className ?? ""}`}
-      style={{ aspectRatio: ratio }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        className="object-cover object-top"
-        sizes="(max-width: 1280px) 100vw, 1280px"
-        unoptimized={src.startsWith("https://")}
-      />
-    </div>
+    <ImageFillWithSkeleton
+      src={src}
+      alt={alt}
+      aspectRatio={ratio}
+      className={cn("bg-transparent", className)}
+      imageClassName="object-top"
+      objectFit="cover"
+      sizes="(max-width: 1280px) 100vw, 1280px"
+      unoptimized={src.startsWith("https://")}
+    />
   );
 }
 

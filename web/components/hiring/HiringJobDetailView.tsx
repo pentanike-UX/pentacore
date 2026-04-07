@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { FixedImageWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import {
@@ -78,7 +78,7 @@ export function HiringJobDetailView() {
             className="inline-flex size-[50px] shrink-0 items-center justify-center transition-opacity hover:opacity-70"
             aria-label="HIRING 목록"
           >
-            <Image
+            <FixedImageWithSkeleton
               src={WORKS_LIST_BACK_ICON_SRC}
               alt=""
               width={50}
@@ -99,13 +99,14 @@ export function HiringJobDetailView() {
                 aria-hidden
                 data-figma="PF_06"
               >
-                <Image
+                <FixedImageWithSkeleton
                   src={WORKS_VIEW_PF_06_SRC}
                   alt=""
                   width={116}
                   height={60}
                   className="object-contain object-left"
                   unoptimized
+                  skeletonClassName="rounded-sm"
                 />
               </div>
               <p

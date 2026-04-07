@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -13,9 +14,39 @@ import {
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { cn } from "@/lib/utils";
 import { liquidGlassHomeCard, SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import { ShimmerOverlay } from "@/components/media/ImageWithSkeleton";
 import { ParallaxLayer } from "@/components/work/Parallax";
 import { AboutPentagramFigma } from "./AboutPentagramFigma";
 import { figmaAboutScrollReference } from "./figma-about-assets";
+
+/** Figma `315:78019` 레퍼런스 — 반응형 비율 유지 + 로드 전 쉬머 */
+function AboutScrollReferenceImage() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLoaded(true);
+    }
+  }, []);
+
+  return (
+    <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40 md:aspect-[2/1]">
+      {!loaded && <ShimmerOverlay className="rounded-[inherit] bg-zinc-800/50" />}
+      <Image
+        src={figmaAboutScrollReference}
+        alt=""
+        fill
+        unoptimized
+        className={cn(
+          "object-cover object-top transition-opacity duration-700 ease-out motion-reduce:duration-150",
+          loaded ? "opacity-100" : "opacity-0",
+        )}
+        sizes="(max-width: 1280px) 100vw, 1280px"
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
+}
 
 /** Figma 텍스트 레이어 미동기화 — 카피는 assumption */
 const ABOUT_TXT_EN =
@@ -142,16 +173,7 @@ export function AboutListingPage() {
           </div>
 
           <div className="overflow-hidden rounded-2xl ring-1 ring-white/10">
-            <div className="relative aspect-[16/10] w-full bg-black/40 md:aspect-[2/1]">
-              <Image
-                src={figmaAboutScrollReference}
-                alt=""
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 1280px) 100vw, 1280px"
-                unoptimized
-              />
-            </div>
+            <AboutScrollReferenceImage />
           </div>
 
           <motion.div

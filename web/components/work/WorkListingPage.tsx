@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Toast } from "@base-ui/react/toast";
 import {
@@ -9,6 +8,10 @@ import {
   SUB_WORK_PAGE_BG,
 } from "@/lib/figma-liquid-glass";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
+import {
+  ImageFillWithSkeleton,
+  IntrinsicWidthImageWithSkeleton,
+} from "@/components/media/ImageWithSkeleton";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
@@ -48,16 +51,16 @@ function PortfolioCardViewInner() {
           liquidGlassImgSubHoverClassName,
         )}
       >
-        <div className="relative aspect-[1000/819] w-full">
-          <Image
-            src="/work/img_sub.png"
-            alt=""
-            fill
-            className="object-contain object-center"
-            sizes="(max-width: 820px) 100vw, 820px"
-            unoptimized
-          />
-        </div>
+        <ImageFillWithSkeleton
+          src="/work/img_sub.png"
+          alt=""
+          aspectRatio="1000/819"
+          className="bg-zinc-200/10"
+          imageClassName="object-center"
+          objectFit="contain"
+          sizes="(max-width: 820px) 100vw, 820px"
+          unoptimized
+        />
       </div>
     </Link>
   );
@@ -100,13 +103,15 @@ function WorkPageBody() {
           >
             <div className="flex flex-col items-end">
               <div className="w-full max-w-[171.6px] lg:max-w-[429px]">
-                <Image
+                <IntrinsicWidthImageWithSkeleton
                   src="/work/pentagram-pf05.svg"
                   alt=""
-                  width={429}
-                  height={324}
-                  className="h-auto w-full"
+                  width={434}
+                  height={328}
+                  sizes="(max-width: 1024px) 30vw, 429px"
                   priority
+                  objectFit="contain"
+                  className="bg-transparent"
                 />
               </div>
             </div>

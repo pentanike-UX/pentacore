@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ImageFillWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer } from "./Parallax";
@@ -18,15 +18,17 @@ export function WorkThumbHmg({ className }: { className?: string }) {
     >
       <ParallaxLayer yRange={[-12, 12]} className="w-full">
         <div
-          className="relative aspect-[1024/429] w-full"
+          className="relative w-full"
           style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+          data-figma="img_thumb_HMG"
         >
-          <Image
+          <ImageFillWithSkeleton
             src="/work/img_thumb_HMG.png"
             alt=""
-            fill
-            className="object-contain object-center"
-            data-figma="img_thumb_HMG"
+            aspectRatio="1024/429"
+            className="bg-transparent"
+            imageClassName="object-center"
+            objectFit="contain"
             sizes="100vw"
             priority
             unoptimized

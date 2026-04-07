@@ -89,9 +89,14 @@ export function HomeExperience() {
     const el = videoRef.current;
     if (!el) return;
     const onReady = () => setVideoReady(true);
+    /* canplaythrough는 대용량 파일에서 늦게 올 수 있어 canplay도 함께 사용 */
     el.addEventListener("canplaythrough", onReady);
+    el.addEventListener("canplay", onReady);
     el.load();
-    return () => el.removeEventListener("canplaythrough", onReady);
+    return () => {
+      el.removeEventListener("canplaythrough", onReady);
+      el.removeEventListener("canplay", onReady);
+    };
   }, [videoSrc]);
 
   /** 동영상 준비 후 원형 shrink — 뒤에는 마스크 없는 풀스크린 영상 */
