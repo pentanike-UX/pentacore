@@ -17,13 +17,13 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
-  const darkSurface = pathname === "/hiring" || pathname === "/inquiry";
-  const surface = darkSurface ? "dark" : "light";
+  /** HIRING·INQUIRY — SUB_WORK 톤 라이트 서브(헤더·인라인 푸터) */
+  const surface = "light";
   const compact = bp !== "desktop";
   const footerVariant =
     bp === "mobile" ? "mobile" : bp === "tablet" ? "tablet" : "desktop";
-  /** 라이트 서브(ABOUT·WORK·작품 상세) — 문서 하단 흰색 서브 푸터 */
-  const subInlineFooter = !darkSurface;
+  /** 라이트 서브 — 문서 하단 인라인 푸터 */
+  const subInlineFooter = true;
 
   return (
     <>
