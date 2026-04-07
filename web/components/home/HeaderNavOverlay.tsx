@@ -54,20 +54,21 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
 
   if (!mounted) return null;
 
+  const glassBackground = light
+    ? "rgba(255, 255, 255, 0.78)"
+    : "rgba(8, 8, 10, 0.62)";
+
   const glassStyle: CSSProperties = light
     ? {
-        background: "rgba(255, 255, 255, 0.78)",
+        background: glassBackground,
         backdropFilter: "blur(28px) saturate(165%)",
         WebkitBackdropFilter: "blur(28px) saturate(165%)",
       }
     : {
-        background: "rgba(8, 8, 10, 0.62)",
+        background: glassBackground,
         backdropFilter: "blur(28px) saturate(140%)",
         WebkitBackdropFilter: "blur(28px) saturate(140%)",
       };
-
-  /** 라인 두께: 최대 10px, 뷰포트에 맞게 축소 */
-  const lineThickness = "clamp(4px, 2.2vw, 10px)";
 
   const linkClass = cn(
     "group relative inline-block py-1 text-[clamp(2rem,10vw,4.5rem)] font-black uppercase leading-[0.95] tracking-tight",
@@ -75,12 +76,18 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
     light ? "text-zinc-950" : "text-white",
   );
 
+  /** 호버: 상·하 4px 직각 보더만, 색 = 글래스 배경과 동일 · 중앙→좌우 scaleX */
   const lineClass = cn(
-    "pointer-events-none absolute left-0 right-0 top-1/2 z-0 origin-center -translate-y-1/2 scale-x-0 rounded-full",
+    "pointer-events-none absolute left-0 right-0 top-1/2 z-0 box-border h-0 origin-center -translate-y-1/2 scale-x-0",
+    "border-x-0 border-y-[4px] border-solid bg-transparent",
     "transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:duration-0",
     "group-hover:scale-x-100",
-    light ? "bg-zinc-950/80" : "bg-white/85",
   );
+
+  const lineStyle: CSSProperties = {
+    borderTopColor: glassBackground,
+    borderBottomColor: glassBackground,
+  };
 
   return createPortal(
     <AnimatePresence>
@@ -127,7 +134,7 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
                   <span
                     aria-hidden
                     className={lineClass}
-                    style={{ height: lineThickness }}
+                    style={lineStyle}
                   />
                   <span className="relative z-10">{item.label}</span>
                 </Link>

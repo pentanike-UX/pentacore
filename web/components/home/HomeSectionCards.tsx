@@ -88,10 +88,12 @@ export function HomeSectionCards() {
     >
       <div
         className={cn(
-          "mx-auto flex min-h-[calc(100dvh-1px)] w-full max-w-[1240px] flex-col items-center justify-center",
-          "px-6 pb-[calc(11rem+100px+env(safe-area-inset-bottom,0px))] pt-[calc(5.5rem+env(safe-area-inset-top,0px))]",
-          "md:px-10 md:pb-[calc(12rem+100px+env(safe-area-inset-bottom,0px))] md:pt-[calc(6.25rem+env(safe-area-inset-top,0px))]",
-          "lg:px-8 lg:pb-[calc(13rem+100px+env(safe-area-inset-bottom,0px))] lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))]",
+          "mx-auto flex min-h-dvh w-full max-w-[1240px] flex-col items-center justify-center",
+          "px-6 md:px-10 lg:px-8",
+          /* 기존은 pt ≪ pb 라 flex 박스의 수직 중심이 뷰포트보다 위였음 → py 동일값으로 정렬 */
+          "py-[calc(11rem+100px+max(env(safe-area-inset-top,0px),env(safe-area-inset-bottom,0px)))]",
+          "md:py-[calc(12rem+100px+max(env(safe-area-inset-top,0px),env(safe-area-inset-bottom,0px)))]",
+          "lg:py-[calc(13rem+100px+max(env(safe-area-inset-top,0px),env(safe-area-inset-bottom,0px)))]",
         )}
       >
         <div className="grid w-full grid-cols-1 justify-items-center gap-7 md:grid-cols-2 md:gap-9 lg:grid-cols-4 lg:gap-10">
