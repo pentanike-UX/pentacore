@@ -12,7 +12,7 @@ export const workImages = {
 export const hyundaiWorksViewImages = {
   sectionDivider: figmaWorksViewDivider,
   heroHome: figmaHyundaiCase.sec1Hero,
-  /** sec_3 — 최신업데이트 샘플 1 (로컬) */
+  /** sec_3 — 최신업데이트 샘플 1: `public/work/latest-update-sample-1.png` (Figma/보내기명 `최신업데이트_샘플 1.png` 동일 에셋) */
   latestUpdateSample: "/work/latest-update-sample-1.png",
   flowStep1: figmaHyundaiCase.flowStep1,
   flowStep2: figmaHyundaiCase.flowStep2,

@@ -268,7 +268,7 @@ export function WorksDetailView() {
             ratio="964/731"
           />
           <p
-            className="mt-3 text-xs font-normal"
+            className="mt-5 text-xs font-normal leading-snug"
             style={{ color: MUTED }}
           >
             Official U.S. Genesis Update Website – Home Screen
@@ -286,7 +286,7 @@ export function WorksDetailView() {
       >
         <ParallaxLayer yRange={[26, -30]} className="w-full">
         <Grid12>
-          <div className="col-span-12 space-y-0 lg:col-span-12">
+          <div className="col-span-12 space-y-0">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 xl:gap-x-24">
             <p
               className="whitespace-pre-line text-sm font-bold leading-relaxed"
@@ -364,7 +364,7 @@ export function WorksDetailView() {
       >
         <ParallaxLayer yRange={[34, -26]} className="w-full">
         <Grid12>
-          <div className="col-span-12 space-y-0 lg:col-span-12">
+          <div className="col-span-12 space-y-0">
           <WorksSectionDivider />
           <h2
             className="mt-10 max-w-[1128px] text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
@@ -386,18 +386,18 @@ export function WorksDetailView() {
               {SEC3_BODY_B}
             </p>
           </div>
-          <div className="mt-0 w-full">
+          {/* 두 번째 Philosophy 본문 ↔ 이미지 240px — `public/work/latest-update-sample-1.png` (원본: 최신업데이트_샘플 1.png) */}
+          <div className="mt-[240px] w-full">
             <FigImage
               src={hyundaiWorksViewImages.latestUpdateSample}
               alt="Latest update screen sample"
               ratio="938/726"
             />
-            <p className="mt-3 text-xs" style={{ color: MUTED }}>
+            <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
               Official Notice Content Templating and UI Design – Latest Update
               Screen
             </p>
           </div>
-          <div className="h-[240px] shrink-0" aria-hidden />
           </div>
         </Grid12>
         </ParallaxLayer>
@@ -472,7 +472,7 @@ export function WorksDetailView() {
           <div className="col-span-12 space-y-0">
             <h2
               className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-normal not-italic tracking-tight lg:text-[60px]"
-              style={{ color: TEXT, lineHeight: "100%" }}
+              style={{ color: TEXT, lineHeight: "100%", fontWeight: 400 }}
             >
               Update the software optimized for your vehicle
               <br className="hidden sm:block" />
@@ -485,7 +485,7 @@ export function WorksDetailView() {
                   alt="Select model — step 1"
                   ratio="893/573"
                 />
-                <p className="mt-3 text-xs" style={{ color: MUTED }}>
+                <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
                   Select Model – Step 1
                 </p>
               </div>
@@ -495,7 +495,7 @@ export function WorksDetailView() {
                   alt="Select year — step 2"
                   ratio="893/573"
                 />
-                <p className="mt-3 text-xs" style={{ color: MUTED }}>
+                <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
                   Select Year – Step 2
                 </p>
               </div>
@@ -505,7 +505,7 @@ export function WorksDetailView() {
                   alt="Results and download — step 3"
                   ratio="893/573"
                 />
-                <p className="mt-3 text-xs" style={{ color: MUTED }}>
+                <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
                   Results &amp; Download – Step 3
                 </p>
               </div>
@@ -541,7 +541,7 @@ export function WorksDetailView() {
                 alt="My page — check updates"
                 ratio="893/1117"
               />
-              <p className="mt-3 text-xs" style={{ color: MUTED }}>
+              <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
                 Check Updates for Your Vehicle – My Page Screen
               </p>
             </div>
@@ -586,7 +586,7 @@ export function WorksDetailView() {
                   stfo111Shadow
                 />
               </div>
-              <p className="mt-3 text-xs" style={{ color: MUTED }}>
+              <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
                 Share Your Update Experience and View Insights – Update Review
                 Screen
               </p>
