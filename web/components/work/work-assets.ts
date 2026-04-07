@@ -8,11 +8,12 @@ export const workImages = {
   loop111Full: "/work/ST-FO-111_full.png",
 } as const;
 
-/** `/works_view` 정적 이미지 — 전부 Figma MCP */
+/** `/works_view` 정적 이미지 — Figma MCP + 로컬 PNG 일부 */
 export const hyundaiWorksViewImages = {
   sectionDivider: figmaWorksViewDivider,
   heroHome: figmaHyundaiCase.sec1Hero,
-  latestUpdateSample: figmaHyundaiCase.sec3LatestSample,
+  /** sec_3 — 최신업데이트 샘플 1 (로컬) */
+  latestUpdateSample: "/work/latest-update-sample-1.png",
   flowStep1: figmaHyundaiCase.flowStep1,
   flowStep2: figmaHyundaiCase.flowStep2,
   flowStep3: figmaHyundaiCase.flowStep3,

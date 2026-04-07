@@ -58,15 +58,49 @@ const SEC4IN_BODY =
 const SEC5_BODY =
   "업데이트 리뷰는 로그인한 사용자의 보유 차량 정보를 기반으로 소프트웨어 업데이트 기능과 실제 주행 경험을 함께 기록할 수 있는 기능입니다. 사용자는 업데이트 이후 차량의 변화와 만족도를 직접 남기며 더 나은 서비스 개선 방향에 기여할 수 있습니다. 이를 통해 사용자 실사용 데이터를 바탕으로 한 진정성 있는 업데이트 경험 생태계를 구축합니다.";
 
+/** 중간구분 — fill #000, stroke #FFF 4px (Figma 스펙) */
+function WorksSectionDivider({ className }: { className?: string }) {
+  return (
+    <div className={cn("w-full", className)} aria-hidden>
+      <svg
+        className="block h-4 w-full md:h-[18px]"
+        viewBox="0 0 1280 16"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="2"
+          y="2"
+          width="1276"
+          height="12"
+          fill="#000000"
+          stroke="#FFFFFF"
+          strokeWidth={4}
+        />
+      </svg>
+    </div>
+  );
+}
+
 function BrandRow({
   title,
   children,
+  noDivider,
 }: {
   title: ReactNode;
   children: ReactNode;
+  /** sec_2 chips — 행 사이 보더 구분선 없음 */
+  noDivider?: boolean;
 }) {
   return (
-    <div className="flex flex-col gap-6 border-t border-black/10 pt-14 first:border-t-0 first:pt-0 md:flex-row md:gap-14">
+    <div
+      className={cn(
+        "flex flex-col gap-6 md:flex-row md:gap-14",
+        noDivider
+          ? "pt-0"
+          : "border-t border-black/10 pt-14 first:border-t-0 first:pt-0",
+      )}
+    >
       <div className="flex min-h-[50px] w-full max-w-[280px] shrink-0 flex-wrap items-center gap-[10px]">
         {typeof title === "string" ? (
           <span
@@ -252,7 +286,7 @@ export function WorksDetailView() {
       >
         <ParallaxLayer yRange={[26, -30]} className="w-full">
         <Grid12>
-          <div className="col-span-12 space-y-0 lg:col-span-11">
+          <div className="col-span-12 space-y-0 lg:col-span-12">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 xl:gap-x-24">
             <p
               className="whitespace-pre-line text-sm font-bold leading-relaxed"
@@ -268,8 +302,12 @@ export function WorksDetailView() {
             </p>
           </div>
 
-          <div className="mt-40 space-y-32 md:mt-48 md:space-y-40 lg:mt-56 lg:space-y-48" data-figma="sec_2 chips">
+          <div
+            className="mt-[400px] space-y-32 md:space-y-40 lg:space-y-48"
+            data-figma="sec_2 chips"
+          >
             <BrandRow
+              noDivider
               title={
                 <>
                   <FigmaLogos variant="logo_HM" />
@@ -278,7 +316,7 @@ export function WorksDetailView() {
                 </>
               }
             >
-              <div className="flex flex-col gap-24 md:gap-28">
+              <div className="flex flex-col gap-[14px]">
                 <FigmaBtnChip
                   label="Official Hyundai Motors Navigation Update Website - KOREA"
                   href={BRAND_LINKS.hyundai.kr}
@@ -289,8 +327,8 @@ export function WorksDetailView() {
                 />
               </div>
             </BrandRow>
-            <BrandRow title={<FigmaLogos variant="logo_KM" />}>
-              <div className="flex flex-col gap-24 md:gap-28">
+            <BrandRow noDivider title={<FigmaLogos variant="logo_KM" />}>
+              <div className="flex flex-col gap-[14px]">
                 <FigmaBtnChip
                   label="Official Kia Navigation Update Website - KOREA"
                   href={BRAND_LINKS.kia.kr}
@@ -301,8 +339,8 @@ export function WorksDetailView() {
                 />
               </div>
             </BrandRow>
-            <BrandRow title={<FigmaLogos variant="logo_GN" />}>
-              <div className="flex flex-col gap-24 md:gap-28">
+            <BrandRow noDivider title={<FigmaLogos variant="logo_GN" />}>
+              <div className="flex flex-col gap-[14px]">
                 <FigmaBtnChip
                   label="Official Genesis Navigation Update Website - KOREA"
                   href={BRAND_LINKS.genesis.kr}
@@ -327,63 +365,55 @@ export function WorksDetailView() {
         <ParallaxLayer yRange={[34, -26]} className="w-full">
         <Grid12>
           <div className="col-span-12 space-y-0 lg:col-span-12">
+          <WorksSectionDivider />
           <h2
-            className="max-w-[1128px] text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:text-[80px]"
+            className="mt-10 max-w-[1128px] text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
             style={{ color: TEXT }}
           >
             Redefining the Future of Movement with Human-Centered Innovation
           </h2>
           <p
-            className="mt-14 max-w-[730px] whitespace-pre-line text-base leading-relaxed md:mt-20"
+            className="mx-auto mt-[200px] max-w-[730px] whitespace-pre-line text-center text-base leading-relaxed"
             style={{ color: TEXT }}
           >
             {SEC3_BODY_A}
           </p>
-          <p
-            className="mt-12 max-w-[730px] whitespace-pre-line text-base leading-relaxed md:mt-14"
-            style={{ color: TEXT }}
-          >
-            {SEC3_BODY_B}
-          </p>
-          <div className="mt-16 md:mt-20">
+          <div className="mt-[60px] grid w-full grid-cols-12 gap-x-5 md:gap-x-8">
+            <p
+              className="col-span-12 max-w-[730px] whitespace-pre-line text-base leading-relaxed lg:col-span-5 lg:col-start-8"
+              style={{ color: TEXT }}
+            >
+              {SEC3_BODY_B}
+            </p>
+          </div>
+          <div className="mt-0 w-full">
             <FigImage
               src={hyundaiWorksViewImages.latestUpdateSample}
               alt="Latest update screen sample"
-              ratio="898/686"
+              ratio="938/726"
             />
             <p className="mt-3 text-xs" style={{ color: MUTED }}>
               Official Notice Content Templating and UI Design – Latest Update
               Screen
             </p>
           </div>
+          <div className="h-[240px] shrink-0" aria-hidden />
           </div>
         </Grid12>
         </ParallaxLayer>
       </section>
 
-      <ParallaxLayer
-        yRange={[16, -24]}
-        className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
-      >
-        <div className="w-full" data-figma="중간구분 이미지_2">
-          <FigImage
-            src={hyundaiWorksViewImages.sectionDivider}
-            alt=""
-            ratio="1280/605"
-          />
-        </div>
-      </ParallaxLayer>
-
       {/* sec_4 ~ 크레딧 — 페이지 단일 배경 */}
         <section
-          className="mx-auto max-w-[1280px] px-4 py-20 md:px-[76px] md:py-28"
+          className="mx-auto max-w-[1280px] px-4 pb-0 pt-20 md:px-[76px] md:pb-0 md:pt-28"
           data-figma="sec_4"
         >
           <ParallaxLayer yRange={[38, -20]} className="w-full">
           <Grid12>
             <div className="col-span-12">
+            <WorksSectionDivider />
             <h2
-              className="text-[clamp(1.75rem,5vw,3.75rem)] font-bold uppercase leading-[1.08] tracking-tight lg:text-[80px]"
+              className="mt-10 text-[clamp(1.75rem,5vw,3.75rem)] font-bold uppercase leading-[1.08] tracking-tight lg:mt-12 lg:text-[80px]"
               style={{ color: TEXT }}
             >
               An Intuitive Download Flow, Without the Complexity.
@@ -434,21 +464,21 @@ export function WorksDetailView() {
 
         {/* sec_4/in */}
         <section
-          className="mx-auto max-w-[1280px] px-4 py-16 md:px-[76px] md:py-24"
+          className="mx-auto max-w-[1280px] px-4 pb-16 pt-[300px] md:px-[76px] md:pb-24"
           data-figma="sec_4/in_sec_"
         >
           <ParallaxLayer yRange={[30, -32]} className="w-full">
           <Grid12>
           <div className="col-span-12 space-y-0">
             <h2
-              className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-bold uppercase leading-[1.1] tracking-tight lg:text-[60px]"
-              style={{ color: TEXT }}
+              className="max-w-[893px] text-[clamp(1.5rem,4vw,3.75rem)] font-normal not-italic tracking-tight lg:text-[60px]"
+              style={{ color: TEXT, lineHeight: "100%" }}
             >
               Update the software optimized for your vehicle
               <br className="hidden sm:block" />
               —all in one step.
             </h2>
-            <div className="mt-16 space-y-14 md:mt-24 md:space-y-20">
+            <div className="mt-[200px] space-y-[200px]">
               <div>
                 <FigImage
                   src={hyundaiWorksViewImages.flowStep1}
@@ -500,12 +530,12 @@ export function WorksDetailView() {
               Precision Updates, Powered by Your Registered Vehicle.
             </h2>
             <p
-              className="mt-12 max-w-[730px] text-base leading-relaxed md:mt-16"
+              className="mt-[100px] max-w-[730px] text-base leading-relaxed"
               style={{ color: TEXT }}
             >
               {SEC4IN_BODY}
             </p>
-            <div className="mt-16 md:mt-20">
+            <div className="mt-[100px]">
               <FigImage
                 src={hyundaiWorksViewImages.myPageFlow}
                 alt="My page — check updates"
@@ -528,19 +558,20 @@ export function WorksDetailView() {
           <ParallaxLayer yRange={[36, -24]} className="w-full">
           <Grid12>
           <div className="col-span-12 space-y-0">
+            <WorksSectionDivider />
             <h2
-              className="text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:text-[80px]"
+              className="mt-10 text-[clamp(2rem,7vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight lg:mt-12 lg:text-[80px]"
               style={{ color: TEXT }}
             >
               Understanding the Update Through Your Journey.
             </h2>
             <p
-              className="mt-14 max-w-[730px] text-base leading-relaxed md:mt-20"
+              className="mt-[200px] max-w-[730px] text-base leading-relaxed"
               style={{ color: TEXT }}
             >
               {SEC5_BODY}
             </p>
-            <div className="mt-16 md:mt-24">
+            <div className="mt-[200px]">
               <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                 ST-FO-111
               </p>
