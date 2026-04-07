@@ -64,6 +64,12 @@ export const HOME_LAYOUT_2_CARDS = [
   },
 ] as const;
 
+/** 홈 히어로 — 카드 그리드 상단 키카피 */
+const HOME_KEY_COPY = {
+  line1: "Shapes the core.",
+  line2: "Makes it work.",
+} as const;
+
 const cardShellClassName = cn(
   "group relative isolate flex w-full flex-col overflow-hidden text-zinc-900 outline-none",
   "p-6 lg:p-10",
@@ -96,7 +102,20 @@ export function HomeSectionCards() {
           "lg:py-[calc(13rem+100px+max(env(safe-area-inset-top,0px),env(safe-area-inset-bottom,0px)))]",
         )}
       >
-        <div className="grid w-full grid-cols-1 justify-items-center gap-7 md:grid-cols-2 md:gap-9 lg:grid-cols-4 lg:gap-10">
+        <div className="flex w-full flex-col items-center gap-12 md:gap-14 lg:gap-16">
+          <div
+            className="max-w-[min(100%,36rem)] text-center"
+            data-figma="HOME_LAYOUT-2 key_copy"
+          >
+            <p className="font-display text-[clamp(1.625rem,4.8vw,2.75rem)] font-semibold leading-[1.08] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
+              {HOME_KEY_COPY.line1}
+            </p>
+            <p className="mt-1 font-display text-[clamp(1.625rem,4.8vw,2.75rem)] font-semibold leading-[1.08] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:mt-1.5">
+              {HOME_KEY_COPY.line2}
+            </p>
+          </div>
+
+          <div className="grid w-full grid-cols-1 justify-items-center gap-7 md:grid-cols-2 md:gap-9 lg:grid-cols-4 lg:gap-10">
           {HOME_LAYOUT_2_CARDS.map((c) => (
             <Link
               key={c.href}
@@ -160,6 +179,7 @@ export function HomeSectionCards() {
               </div>
             </Link>
           ))}
+          </div>
         </div>
       </div>
     </section>

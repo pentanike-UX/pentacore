@@ -160,6 +160,9 @@ export function HomeExperience() {
 
   const preload = phase === "intro-load";
 
+  /** 영상 톤 다운: 살짝 어둡게 + 채도↓ + 균일 딤 오버레이(비디오·카드 사이 공간) */
+  const videoDimmed = showHeroVideo && !preload;
+
   return (
     <div className="relative min-h-dvh overflow-hidden bg-black text-white antialiased">
       <HeaderBar
@@ -184,13 +187,23 @@ export function HomeExperience() {
           showHeroVideo && !preload && "inset-0 h-full w-full",
           showHeroVideo &&
             !preload &&
-            "transition-opacity duration-[500ms] ease-out",
+            "transition-[opacity,filter] duration-[500ms] ease-out",
         )}
         style={{
-          opacity: showHeroVideo && !preload ? 1 : 0,
+          opacity: videoDimmed ? 0.86 : 0,
+          filter: videoDimmed
+            ? "brightness(0.8) saturate(0.84) contrast(0.97)"
+            : "none",
         }}
         aria-hidden
       />
+
+      {videoDimmed ? (
+        <div
+          className="pointer-events-none fixed inset-0 z-[31] bg-black/[0.18]"
+          aria-hidden
+        />
+      ) : null}
 
       {/* INTRO: 검정 원형 레이어 축소 */}
       {phase === "intro-shrink" ? (

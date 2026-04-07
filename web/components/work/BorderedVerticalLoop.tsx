@@ -14,7 +14,7 @@ type Props = {
   fastDuration?: number;
   /** ST-FO-005_BIC_m / ST-FO-030_m — 30px radius + 지정 드롭섀도 */
   sdsFrame?: boolean;
-  /** sec_5 ST-FO-111 — 프레임 corner radius 20px */
+  /** sec_5 ST-FO-111 — 외곽 프레임 radius 40px, 내부 이미지 클립 20px */
   stfo111Frame?: boolean;
   /** sec_5 ST-FO-111 — Y36 / blur50 / spread0 / #0C0C0D 40% */
   stfo111Shadow?: boolean;
@@ -101,10 +101,26 @@ export function BorderedVerticalLoop({
     return () => ro.disconnect();
   }, []);
 
+  const scrollBody = (
+    <motion.div style={{ y }} className="will-change-transform">
+      {/* eslint-disable-next-line @next/next/no-img-element -- 동적 높이 측정용 */}
+      <img
+        src={src}
+        alt={alt}
+        {...(imgIntrinsicWidth != null && imgIntrinsicHeight != null
+          ? { width: imgIntrinsicWidth, height: imgIntrinsicHeight }
+          : {})}
+        className="pointer-events-none block h-auto w-full max-w-full select-none"
+        onLoad={measure}
+        draggable={false}
+      />
+    </motion.div>
+  );
+
   return (
     <div
       ref={containerRef}
-      className={`relative box-border w-full overflow-hidden bg-transparent ${sdsFrame ? "rounded-[30px]" : ""} ${stfo111Frame ? "rounded-[20px]" : ""} ${className ?? ""}`}
+      className={`relative box-border w-full overflow-hidden bg-transparent ${sdsFrame ? "rounded-[30px]" : ""} ${stfo111Frame ? "rounded-[40px]" : ""} ${className ?? ""}`}
       style={{
         aspectRatio,
         borderWidth,
@@ -118,7 +134,7 @@ export function BorderedVerticalLoop({
           : {}),
         ...(stfo111Frame && !sdsFrame
           ? {
-              borderRadius: "20px",
+              borderRadius: "40px",
             }
           : {}),
         ...(stfo111Shadow
@@ -128,19 +144,16 @@ export function BorderedVerticalLoop({
           : {}),
       }}
     >
-      <motion.div style={{ y }} className="will-change-transform">
-        {/* eslint-disable-next-line @next/next/no-img-element -- 동적 높이 측정용 */}
-        <img
-          src={src}
-          alt={alt}
-          {...(imgIntrinsicWidth != null && imgIntrinsicHeight != null
-            ? { width: imgIntrinsicWidth, height: imgIntrinsicHeight }
-            : {})}
-          className="pointer-events-none block h-auto w-full max-w-full select-none"
-          onLoad={measure}
-          draggable={false}
-        />
-      </motion.div>
+      {stfo111Frame ? (
+        <div
+          className="h-full min-h-0 w-full overflow-hidden rounded-[20px]"
+          style={{ borderRadius: "20px" }}
+        >
+          {scrollBody}
+        </div>
+      ) : (
+        scrollBody
+      )}
     </div>
   );
 }

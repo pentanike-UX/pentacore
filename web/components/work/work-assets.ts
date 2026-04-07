@@ -4,11 +4,11 @@ import { figmaHyundaiCase, figmaWorksViewDivider } from "./figma-work-assets";
 export const workImages = {
   loop005Full: figmaHyundaiCase.stFo005Full,
   loop024Full: figmaHyundaiCase.stFo024Full,
-  /** ST-FO-111 — 로컬 풀 프레임 PNG (`public/work/ST-FO-111_full.png`) */
-  loop111Full: "/work/ST-FO-111_full.png",
+  /** ST-FO-111 — 로컬 롱 스크롤 (`public/work/ST-FO-111_full.jpg`) */
+  loop111Full: "/work/ST-FO-111_full.jpg",
 } as const;
 
-/** `ST-FO-111_full.png` 실제 픽셀 — 에셋 교체 시 동기화 */
+/** `ST-FO-111_full.jpg` 실제 픽셀 — 고해상도 에셋으로 교체 시 동기화 */
 export const ST_FO_111_FULL_INTRINSIC = { width: 286, height: 1024 } as const;
 
 /** `/works_view` 정적 이미지 — Figma MCP + 로컬 PNG 일부 */
