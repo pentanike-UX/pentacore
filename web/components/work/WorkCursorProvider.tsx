@@ -31,7 +31,7 @@ export function useWorkCursor() {
 function CursorVisual({ hovering }: { hovering: boolean }) {
   return (
     <motion.div
-      className="-translate-x-1/2 -translate-y-1/2 will-change-transform"
+      className="will-change-transform"
       initial={false}
       animate={{
         scale: hovering ? 1.22 : 1,
@@ -124,16 +124,15 @@ export function WorkCursorProvider({
         {children}
       </div>
       {finePointer ? (
-        <div
-          className="pointer-events-none fixed inset-0 z-[200]"
-          aria-hidden
-        >
-          <motion.div
-            className="absolute left-0 top-0"
-            style={{ x: pos.x, y: pos.y }}
+        <div className="pointer-events-none fixed inset-0 z-[200]" aria-hidden>
+          <div
+            className="absolute left-0 top-0 will-change-[transform]"
+            style={{
+              transform: `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%)`,
+            }}
           >
             <CursorVisual hovering={portfolioHover} />
-          </motion.div>
+          </div>
         </div>
       ) : null}
     </WorkCursorContext.Provider>

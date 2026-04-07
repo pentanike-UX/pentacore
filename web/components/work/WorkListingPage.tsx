@@ -14,13 +14,16 @@ import { useWorkCursor, WorkCursorProvider } from "./WorkCursorProvider";
 import { WorkThumbHmg } from "./WorkThumbHmg";
 
 /**
- * Figma `txt` — EN/KR 본문은 파일 내 텍스트 레이어와 1:1 대조 필요 시 교체 (assumption).
+ * Figma `txt` — 문구·타이포 고정 (변경 시 Figma와 동기화).
  */
 const WORK_HERO_TXT_EN =
   "Pentacore partners with leading brands to ship navigation, platform, and web experiences that stay coherent from strategy through delivery.";
 
 const WORK_HERO_TXT_KO =
   "펜타코어는 전략부터 실행까지 일관된 내비게이션·플랫폼·웹 경험을 선도 브랜드와 함께 완성합니다.";
+
+/** 모바일 24px / 태블릿 40px / 데스크톱 가터 없이 max-width 블록만 중앙 */
+const WORK_GUTTER = "px-6 md:px-10 lg:px-0";
 
 function PortfolioCardViewInner() {
   const { setPortfolioHover } = useWorkCursor();
@@ -116,8 +119,11 @@ function WorkPageBody() {
     >
       <HeaderBar compact={false} surface="light" />
 
-      <section className="relative px-5 pb-10 pt-[92px] md:px-10 md:pb-14 md:pt-[124px] lg:px-20">
-        <div className="mx-auto max-w-[1740px]">
+      <section
+        className={`relative pb-10 pt-[92px] md:pb-14 md:pt-[124px] ${WORK_GUTTER}`}
+        style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+      >
+        <div className="mx-auto max-w-[min(100%,1740px)] lg:mx-auto">
           <div className="flex flex-col gap-0">
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:gap-[min(6rem,5.04vw)] lg:gap-[96.8px]">
               <p className="shrink-0 text-[19.2px] font-semibold leading-none tracking-tight text-zinc-950">
@@ -136,23 +142,23 @@ function WorkPageBody() {
             className="mt-12 space-y-6 md:mt-16 lg:mt-20"
             data-figma="PENTAGRAM"
           >
-            <div className="w-full max-w-[min(100%,1040px)]">
+            <div className="w-full max-w-[171.6px] lg:max-w-[429px]">
               <Image
                 src="/work/pentagram-pf05.svg"
                 alt=""
-                width={1040}
-                height={400}
+                width={429}
+                height={324}
                 className="h-auto w-full"
                 priority
               />
             </div>
-            <div className="relative h-[48px] w-[200px] md:h-[56px] md:w-[240px]">
+            <div className="relative aspect-[200/48] w-full max-w-[80px] lg:max-w-[200px]">
               <Image
                 src={figmaPentagramSmall.a}
                 alt=""
                 fill
                 className="object-contain object-left"
-                sizes="240px"
+                sizes="(max-width: 1023px) 80px, 200px"
                 unoptimized
               />
               <Image
@@ -160,45 +166,59 @@ function WorkPageBody() {
                 alt=""
                 fill
                 className="object-contain object-left opacity-95 mix-blend-multiply"
-                sizes="240px"
+                sizes="(max-width: 1023px) 80px, 200px"
                 unoptimized
               />
             </div>
           </div>
+        </div>
 
-          <div
-            className="mt-8 max-w-[min(100%,640px)] space-y-4"
-            data-figma="txt"
-          >
-            <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
-              {WORK_HERO_TXT_EN}
-            </p>
-            <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
-              {WORK_HERO_TXT_KO}
-            </p>
+        {/* 12컬럼 중앙 6칸(col 4–9) · 모바일은 섹션 px-6 기준 좌측 정렬 */}
+        <div className="mx-auto mt-8 max-w-[1280px] md:mt-10 lg:mx-auto">
+          <div className="grid grid-cols-12 gap-x-4 md:gap-x-6">
+            <div
+              className="col-span-12 text-left md:col-span-6 md:col-start-4"
+              data-figma="txt"
+            >
+              <div className="space-y-4">
+                <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
+                  {WORK_HERO_TXT_EN}
+                </p>
+                <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
+                  {WORK_HERO_TXT_KO}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <WorkThumbHmg />
 
-      <section className="relative z-10 px-5 py-16 md:px-10 md:py-24 lg:px-20 lg:py-28">
-        <ParallaxViewport yRange={[0, -20]} className="mx-auto max-w-[1280px]">
+      <section
+        className={`relative z-10 py-16 md:py-24 lg:py-28 ${WORK_GUTTER}`}
+        style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+      >
+        <ParallaxViewport
+          yRange={[0, -20]}
+          className="mx-auto w-full max-w-[1280px] lg:mx-auto"
+        >
           <ParallaxLayer yRange={[16, -16]}>
             <PortfolioCardViewInner />
           </ParallaxLayer>
         </ParallaxViewport>
       </section>
 
-      <div className="mx-auto max-w-[1280px] px-5 md:px-10 lg:px-20">
+      <div className={`mx-auto max-w-[1280px] lg:mx-auto ${WORK_GUTTER}`}>
         <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-400/50 to-transparent" />
       </div>
 
       <section
-        className="px-5 py-12 md:px-10 md:py-16 lg:px-20 lg:py-20"
+        className={`py-12 md:py-16 lg:py-20 ${WORK_GUTTER}`}
+        style={{ backgroundColor: SUB_WORK_PAGE_BG }}
         data-figma="portfolio_group"
       >
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col items-stretch gap-10">
+        <div className="mx-auto flex w-full max-w-[1280px] flex-col items-stretch gap-10 lg:mx-auto">
           {WORK_PORTFOLIO_ROWS.map((row, i) => (
             <ParallaxLayer
               key={row.title}
@@ -211,7 +231,10 @@ function WorkPageBody() {
         </div>
       </section>
 
-      <footer className="border-t border-zinc-300/80 px-5 py-10 text-center text-xs text-zinc-500 md:px-10">
+      <footer
+        className={`border-t border-zinc-300/80 py-10 text-center text-xs text-zinc-500 ${WORK_GUTTER}`}
+        style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+      >
         ⓒ PENTACORE · WORK
       </footer>
     </main>

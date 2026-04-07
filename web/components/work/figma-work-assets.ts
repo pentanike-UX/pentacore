@@ -3,10 +3,16 @@
  * 원격 URL은 만료될 수 있음 → 만료 시 동일 노드로 MCP 재추출.
  */
 
-/** SUB_WORK `thumb_HMG` */
+/**
+ * SUB_WORK `thumb_HMG` — Figma `img_thumb_HMG` / `image 12` (`257:32376` in `img_sub` `257:32374`).
+ * 이전 MCP URL 만료 시 동일 노드로 재추출.
+ */
+export const figmaImgThumbHmg =
+  "https://www.figma.com/api/mcp/asset/5fc60450-0bee-4caa-a0f0-e2b94cbbe785";
+
+/** 레거시 이중 레이어(필요 시 블렌드용) — 만료 시 재추출 */
 export const figmaThumbHmg = {
-  image13:
-    "https://www.figma.com/api/mcp/asset/a84b2b90-daaa-4627-9dda-3d11f51189a9",
+  image13: figmaImgThumbHmg,
   image14:
     "https://www.figma.com/api/mcp/asset/ba5733be-87bf-4f30-8982-17a5a72c52aa",
 } as const;
