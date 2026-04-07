@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { assets } from "./figma-assets";
@@ -14,18 +15,48 @@ type Props = {
    * (메뉴 bg / 테두리 / 라인 — Figma Header_PC)
    */
   surface?: "dark" | "light";
+  /** false면 렌더하지 않음 (INTRO·HOME_LAYOUT-1 초기 구간) */
+  visible?: boolean;
+  /** true면 첫 프레임은 화면 위 밖, 이후 위에서 아래로 슬라이드 인 */
+  slideInFromTop?: boolean;
 };
 
-export function HeaderBar({ compact, surface = "dark" }: Props) {
+export function HeaderBar({
+  compact,
+  surface = "dark",
+  visible = true,
+  slideInFromTop = false,
+}: Props) {
+  const [entered, setEntered] = useState(!slideInFromTop);
+
+  useEffect(() => {
+    if (!visible) {
+      setEntered(!slideInFromTop);
+      return;
+    }
+    if (!slideInFromTop) {
+      setEntered(true);
+      return;
+    }
+    setEntered(false);
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setEntered(true));
+    });
+    return () => cancelAnimationFrame(id);
+  }, [visible, slideInFromTop]);
+
   const light = surface === "light";
   const p = compact ? "px-6 py-5" : "px-10 py-10";
   const logoH = compact ? 14 : 17;
   const logoW = compact ? 118 : 143;
 
+  if (!visible) return null;
+
   return (
     <header
       className={cn(
-        "fixed left-0 right-0 top-0 z-40 flex items-center justify-between",
+        "fixed left-0 right-0 top-0 z-40 flex items-center justify-between transition-transform duration-[450ms] ease-out",
+        slideInFromTop && !entered && "-translate-y-full",
         p,
       )}
       data-figma="Header_PC | Header_PAD&Mobile"

@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HOME_CARDS_PAGE_BG } from "@/lib/figma-liquid-glass";
@@ -12,17 +11,25 @@ import { HomeSectionCards } from "./HomeSectionCards";
 
 type Phase =
   | "intro-load"
-  | "intro-ready"
-  | "intro-reveal"
+  | "intro-shrink"
   | "home-masked"
+  | "home-chrome"
   | "home-cards";
+
+const STORAGE_KEY = "pentacore_intro_done";
 
 const TAGLINE = [
   "From the core, every connection blossoms into a unique experience.",
   "Pentacore crafts your future with technology and design.",
 ] as const;
 
-/** `web/public/video/hero.mp4` → `/video/hero.mp4`. 배포/스테이징은 `NEXT_PUBLIC_HERO_VIDEO_URL`로 덮어쓸 수 있음. */
+const INTRO_CIRCLE_MS = 1200;
+const INTRO_TEXT_FADE_DELAY_MS = Math.round(INTRO_CIRCLE_MS * 0.42);
+const HOME_MASKED_MS = 3000;
+const CHROME_SLIDE_MS = 450;
+const VIDEO_READY_TO_SHRINK_MS = 320;
+
+/** `web/public/video/hero.mp4` → `/video/hero.mp4` */
 const DEFAULT_VIDEO =
   process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "/video/hero.mp4";
 
@@ -70,24 +77,31 @@ function useBreakpoint(): "desktop" | "tablet" | "mobile" {
 export function HomeExperience() {
   const bp = useBreakpoint();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const phaseRef = useRef<Phase>("intro-load");
   const [phase, setPhase] = useState<Phase>("intro-load");
   const [videoReady, setVideoReady] = useState(false);
-  const [roll, setRoll] = useState(0);
-  const [readyTypedDone, setReadyTypedDone] = useState(false);
+  const [circleScale, setCircleScale] = useState(1);
+  const [introCopyFade, setIntroCopyFade] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
-  /** 풀스크린 인트로 구간: 크기 키우지 않고 페이드인만 */
-  const [revealFadeIn, setRevealFadeIn] = useState(false);
-  /** 로고 마스크 구간: 마스크 영상 페이드인 */
-  const [maskFadeIn, setMaskFadeIn] = useState(false);
+  const [roll, setRoll] = useState(0);
 
-  const statusPhrase = roll % 2 === 0 ? "LOADING..." : "화면에 감성을 더하는 중";
+  phaseRef.current = phase;
+
+  const statusPhrase =
+    roll % 2 === 0 ? "LOADING..." : "화면에 감성을 더하는 중";
   const typedStatus = useTyping(statusPhrase, phase === "intro-load");
-  const typedReady = useTyping("READY!", phase === "intro-ready", 42);
 
-  const videoSrc = useMemo(() => DEFAULT_VIDEO, []);
+  const videoSrc = DEFAULT_VIDEO;
 
-  const goPastIntroLoad = useCallback(() => {
-    setPhase("intro-ready");
+  /** 재방문: INTRO 생략 → HOME_LAYOUT-1(home-masked)부터 */
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === "1") {
+        setPhase("home-masked");
+      }
+    } catch {
+      /* private mode 등 */
+    }
   }, []);
 
   useEffect(() => {
@@ -105,57 +119,56 @@ export function HomeExperience() {
     return () => el.removeEventListener("canplaythrough", onReady);
   }, [videoSrc]);
 
+  /** 동영상 준비 후 원형 셔rink */
   useEffect(() => {
-    if (phase === "intro-load" && videoReady) goPastIntroLoad();
-  }, [phase, videoReady, goPastIntroLoad]);
-
-  useEffect(() => {
-    if (phase !== "intro-ready") {
-      setReadyTypedDone(false);
-      return;
-    }
-    if (typedReady === "READY!") setReadyTypedDone(true);
-  }, [phase, typedReady]);
-
-  useEffect(() => {
-    if (phase !== "intro-ready" || !readyTypedDone) return;
-    const t = window.setTimeout(() => setPhase("intro-reveal"), 520);
+    if (phase !== "intro-load" || !videoReady) return;
+    const t = window.setTimeout(() => setPhase("intro-shrink"), VIDEO_READY_TO_SHRINK_MS);
     return () => window.clearTimeout(t);
-  }, [phase, readyTypedDone]);
+  }, [phase, videoReady]);
 
+  /** 원형 레이어: 첫 프레임 scale(1) → 이후 0 */
   useEffect(() => {
-    if (phase !== "intro-reveal") return;
-    setRevealFadeIn(false);
-    setMaskFadeIn(false);
-    const v = videoRef.current;
-    void v?.play().catch(() => {});
-    const fadeStart = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setRevealFadeIn(true));
+    if (phase !== "intro-shrink") return;
+    setCircleScale(1);
+    setIntroCopyFade(false);
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setCircleScale(0));
     });
-    const t = window.setTimeout(() => setPhase("home-masked"), 820);
+    const fadeT = window.setTimeout(
+      () => setIntroCopyFade(true),
+      INTRO_TEXT_FADE_DELAY_MS,
+    );
     return () => {
-      cancelAnimationFrame(fadeStart);
-      window.clearTimeout(t);
+      cancelAnimationFrame(id);
+      window.clearTimeout(fadeT);
     };
   }, [phase]);
 
-  useEffect(() => {
-    if (phase !== "home-masked" && phase !== "home-cards") return;
-    if (phase === "home-masked") {
-      setMaskFadeIn(false);
-      const start = requestAnimationFrame(() => {
-        requestAnimationFrame(() => setMaskFadeIn(true));
-      });
-      const v = videoRef.current;
-      void v?.play().catch(() => {});
-      return () => cancelAnimationFrame(start);
-    }
-    setMaskFadeIn(true);
-  }, [phase]);
+  const onCircleTransitionEnd = useCallback(
+    (e: React.TransitionEvent<HTMLDivElement>) => {
+      if (e.propertyName !== "transform") return;
+      if (phaseRef.current !== "intro-shrink") return;
+      try {
+        localStorage.setItem(STORAGE_KEY, "1");
+      } catch {
+        /* ignore */
+      }
+      setPhase("home-masked");
+    },
+    [],
+  );
 
+  /** HOME_LAYOUT-1 유지 시간 후 헤더·푸터 */
   useEffect(() => {
     if (phase !== "home-masked") return;
-    const t = window.setTimeout(() => setPhase("home-cards"), 3000);
+    const t = window.setTimeout(() => setPhase("home-chrome"), HOME_MASKED_MS);
+    return () => window.clearTimeout(t);
+  }, [phase]);
+
+  /** 헤더·푸터 슬라이드 후 카드 + 로고 이동 */
+  useEffect(() => {
+    if (phase !== "home-chrome") return;
+    const t = window.setTimeout(() => setPhase("home-cards"), CHROME_SLIDE_MS);
     return () => window.clearTimeout(t);
   }, [phase]);
 
@@ -164,24 +177,50 @@ export function HomeExperience() {
       setCardsVisible(false);
       return;
     }
+    const v = videoRef.current;
+    void v?.play().catch(() => {});
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => setCardsVisible(true));
     });
     return () => cancelAnimationFrame(id);
   }, [phase]);
 
+  useEffect(() => {
+    if (
+      phase !== "intro-shrink" &&
+      phase !== "home-masked" &&
+      phase !== "home-chrome"
+    ) {
+      return;
+    }
+    const v = videoRef.current;
+    void v?.play().catch(() => {});
+  }, [phase]);
+
+  const skipToShrink = useCallback(() => {
+    setVideoReady(true);
+    setPhase("intro-shrink");
+  }, []);
+
   const headerCompact = bp !== "desktop";
   const footerVariant =
     bp === "mobile" ? "mobile" : bp === "tablet" ? "tablet" : "desktop";
+
   const lightHomeSurface = phase === "home-cards";
+  const chromeVisible = phase === "home-chrome" || phase === "home-cards";
+  const chromeSlidingIn = phase === "home-chrome";
+  const chromeLight = phase === "home-cards";
 
-  const preload = phase === "intro-load" || phase === "intro-ready";
-  const reveal = phase === "intro-reveal";
-  const home = phase === "home-masked" || phase === "home-cards";
+  const showLayout1Video =
+    phase === "intro-shrink" ||
+    phase === "home-masked" ||
+    phase === "home-chrome" ||
+    phase === "home-cards";
 
-  /** Figma `HOME_LAYOUT-1` Mask group — 표기 1000×114, export viewBox 1001×115 */
+  const preload = phase === "intro-load";
+
   const maskStyle =
-    home
+    showLayout1Video && !preload
       ? {
           maskImage: `url('${assets.logoMaskSvg}')`,
           WebkitMaskImage: `url('${assets.logoMaskSvg}')`,
@@ -194,20 +233,10 @@ export function HomeExperience() {
         }
       : undefined;
 
-  const videoOpacity = preload
-    ? 0
-    : reveal
-      ? revealFadeIn
-        ? 1
-        : 0
-      : home
-        ? maskFadeIn
-          ? 1
-          : 0
-        : 0;
+  const videoOpacity =
+    showLayout1Video && !preload ? 1 : 0;
 
-  const videoOpacityFinal =
-    phase === "home-cards" ? 0 : videoOpacity;
+  const videoOpacityFinal = phase === "home-cards" ? 0 : videoOpacity;
 
   return (
     <div
@@ -222,11 +251,12 @@ export function HomeExperience() {
       }
     >
       <HeaderBar
+        visible={chromeVisible}
+        slideInFromTop={chromeSlidingIn}
         compact={headerCompact}
-        surface={lightHomeSurface ? "light" : "dark"}
+        surface={chromeLight ? "light" : "dark"}
       />
 
-      {/* 단일 비디오: 풀스크린/마스크 전환 시 크기 애니메이션 없음 — opacity 페이드만 */}
       <video
         ref={videoRef}
         src={videoSrc}
@@ -237,98 +267,96 @@ export function HomeExperience() {
         className={cn(
           "fixed z-30 object-cover",
           preload &&
-            !(reveal || home) &&
             "pointer-events-none left-0 top-0 h-px w-px overflow-hidden",
-          (reveal || home) && "inset-0 h-full w-full",
-          (reveal || home) &&
+          showLayout1Video && !preload && "inset-0 h-full w-full",
+          showLayout1Video &&
+            !preload &&
             "transition-[opacity,transform] duration-[600ms] ease-out",
-          home &&
-            phase === "home-cards" &&
-            "duration-700 ease-out-quart",
+          phase === "home-cards" && "duration-700 ease-out-quart",
         )}
         style={{
-          ...(home ? maskStyle : {}),
+          ...(showLayout1Video && !preload ? maskStyle : {}),
           opacity: videoOpacityFinal,
-          ...(home && phase === "home-cards"
+          ...(phase === "home-cards"
             ? { transform: "translateY(calc(-1 * min(28vh, 320px)))" }
             : {}),
         }}
         aria-hidden
       />
 
-      {phase === "intro-load" ? (
-        <>
-          <div className="relative z-10 flex min-h-dvh flex-col items-center px-6 pb-32 pt-32 text-center">
-            <div className="mt-[min(20vh,160px)] max-w-xl space-y-2 text-[16px] font-normal leading-7 text-white">
+      {/* HOME_LAYOUT-1 배경(라이트 전까지) */}
+      {showLayout1Video && !lightHomeSurface ? (
+        <div
+          className="pointer-events-none fixed inset-0 z-20 bg-black"
+          aria-hidden
+        />
+      ) : null}
+
+      {lightHomeSurface ? (
+        <div
+          className="pointer-events-none fixed inset-0 z-20"
+          style={{ backgroundColor: HOME_CARDS_PAGE_BG }}
+          aria-hidden
+        />
+      ) : null}
+
+      {/* INTRO: 검정 원형 레이어 축소 */}
+      {phase === "intro-shrink" ? (
+        <div
+          className="pointer-events-none fixed left-1/2 top-1/2 z-[52] -translate-x-1/2 -translate-y-1/2 rounded-full bg-black will-change-transform"
+          style={{
+            width: "min(320vmax, 4000px)",
+            height: "min(320vmax, 4000px)",
+            transform: `scale(${circleScale})`,
+            transition: `transform ${INTRO_CIRCLE_MS}ms cubic-bezier(0.33, 1, 0.68, 1)`,
+            transformOrigin: "center center",
+          }}
+          onTransitionEnd={onCircleTransitionEnd}
+          aria-hidden
+        />
+      ) : null}
+
+      {/* INTRO 카피 — 화면 정중앙 */}
+      {phase === "intro-load" || phase === "intro-shrink" ? (
+        <div className="pointer-events-none fixed inset-0 z-[58] flex items-center justify-center px-6">
+          <div className="flex max-w-xl flex-col items-center gap-10 text-center">
+            <div
+              className={cn(
+                "space-y-2 text-[16px] font-normal leading-7 text-white transition-opacity duration-500 ease-out",
+                introCopyFade && "opacity-0",
+              )}
+            >
               <p>{TAGLINE[0]}</p>
               <p>{TAGLINE[1]}</p>
             </div>
-            <p className="mt-10 min-h-[28px] text-[20px] font-normal leading-7 text-white">
-              {typedStatus}
-            </p>
+            {phase === "intro-load" ? (
+              <p className="min-h-[28px] text-[20px] font-normal leading-7 text-white">
+                {typedStatus}
+              </p>
+            ) : null}
           </div>
+        </div>
+      ) : null}
+
+      {phase === "intro-load" ? (
+        <>
           <Button
             type="button"
             variant="link"
-            onClick={goPastIntroLoad}
-            className="fixed bottom-10 left-1/2 z-50 h-auto -translate-x-1/2 p-0 text-[14px] font-medium text-white/80 underline decoration-white/40 underline-offset-4 hover:text-white"
+            onClick={skipToShrink}
+            className="fixed bottom-10 left-1/2 z-[60] h-auto -translate-x-1/2 p-0 text-[14px] font-medium text-white/80 underline decoration-white/40 underline-offset-4 hover:text-white"
           >
             Skip
           </Button>
         </>
       ) : null}
 
-      {phase === "intro-ready" ? (
-        <div className="relative z-10 min-h-dvh bg-black">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-70"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 60% at 50% 45%, rgba(120,80,255,0.35), transparent 55%), radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,200,255,0.2), transparent 50%), #000",
-            }}
-          />
-          <Image
-            src={assets.heroStill}
-            alt=""
-            fill
-            className="object-cover opacity-25 mix-blend-screen"
-            unoptimized
-            priority
-          />
-          <div className="relative flex min-h-dvh flex-col items-center px-6 pb-32 pt-32 text-center">
-            <div className="mt-[min(18vh,140px)] max-w-xl space-y-2 text-[16px] font-normal leading-7 text-white">
-              <p>{TAGLINE[0]}</p>
-              <p>{TAGLINE[1]}</p>
-            </div>
-            <p className="mt-10 min-h-[28px] text-[20px] font-normal leading-7 text-white">
-              {typedReady}
-            </p>
-          </div>
-        </div>
-      ) : null}
-
-      {reveal || home ? (
-        <div
-          className={cn(
-            "pointer-events-none fixed inset-0 z-20 transition-colors duration-500",
-            phase === "home-cards" ? "" : "bg-black",
-          )}
-          style={
-            phase === "home-cards"
-              ? { backgroundColor: HOME_CARDS_PAGE_BG }
-              : undefined
-          }
-          aria-hidden
-        />
-      ) : null}
-
-      {home ? (
-        <FooterBar
-          visible
-          variant={footerVariant}
-          surface={lightHomeSurface ? "light" : "dark"}
-        />
-      ) : null}
+      <FooterBar
+        visible={chromeVisible}
+        slideInFromBottom={chromeSlidingIn}
+        variant={footerVariant}
+        surface={chromeLight ? "light" : "dark"}
+      />
 
       {phase === "home-cards" ? (
         <HomeSectionCards visible={cardsVisible} />

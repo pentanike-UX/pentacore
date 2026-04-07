@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 import { assets } from "./figma-assets";
 
 const nav = [
@@ -13,6 +15,8 @@ const nav = [
 
 type Props = {
   visible?: boolean;
+  /** true면 첫 프레임은 화면 아래 밖, 이후 아래에서 위로 슬라이드 인 */
+  slideInFromBottom?: boolean;
   /** 모바일 푸터: 세로 스택·카피라이트 위치 조정 */
   variant?: "desktop" | "tablet" | "mobile";
   /** HOME_LAYOUT-2 라이트 베이스 — 링크·본문 다크 톤 */
@@ -46,9 +50,28 @@ function Divider({ light }: { light?: boolean }) {
 
 export function FooterBar({
   visible = true,
+  slideInFromBottom = false,
   variant = "desktop",
   surface = "dark",
 }: Props) {
+  const [entered, setEntered] = useState(!slideInFromBottom);
+
+  useEffect(() => {
+    if (!visible) {
+      setEntered(!slideInFromBottom);
+      return;
+    }
+    if (!slideInFromBottom) {
+      setEntered(true);
+      return;
+    }
+    setEntered(false);
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setEntered(true));
+    });
+    return () => cancelAnimationFrame(id);
+  }, [visible, slideInFromBottom]);
+
   if (!visible) return null;
 
   const isMobile = variant === "mobile";
@@ -57,7 +80,11 @@ export function FooterBar({
 
   return (
     <footer
-      className={`fixed bottom-0 left-0 right-0 z-50 ${pad}`}
+      className={cn(
+        "fixed bottom-0 left-0 right-0 z-50 transition-transform duration-[450ms] ease-out",
+        slideInFromBottom && !entered && "translate-y-full",
+        pad,
+      )}
       data-figma="#Footer_home_PC | #Footer_home_PAD | #Footer_home_M"
     >
       <div

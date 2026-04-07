@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  liquidGlassHomeCard,
-  workHomeCardHoverInteractionClassName,
-} from "@/lib/figma-liquid-glass";
+import { liquidGlassHomeCard } from "@/lib/figma-liquid-glass";
 
 /** `type=just icon` stroke — rgb(226,232,240) */
 const ICON_BTN_BORDER = "#e2e8f0";
+
+/** 카드 등장 한 사이클 길이 — 다음 카드는 50% 시점에서 시작 */
+export const HOME_CARD_ENTRANCE_MS = 600;
 
 /**
  * Figma `HOME_LAYOUT-2` / `section` (node 2003:55933).
@@ -70,6 +70,9 @@ type Props = {
 };
 
 export function HomeSectionCards({ visible }: Props) {
+  const D = HOME_CARD_ENTRANCE_MS;
+  const stagger = D * 0.5;
+
   return (
     <section
       className="pointer-events-auto fixed inset-0 z-40 flex items-center justify-center px-6 pb-36 pt-24 md:px-10"
@@ -83,24 +86,26 @@ export function HomeSectionCards({ visible }: Props) {
             href={c.href}
             aria-label={`${c.titleEn} — ${c.titleKo}`}
             className={cn(
-              "group relative isolate flex w-[280px] max-w-full flex-col items-center overflow-hidden rounded-[24px] p-10 text-zinc-900 outline-none transition-[opacity,transform,box-shadow] duration-300 ease-out-quart",
-              c.minHClass,
+              "group relative isolate flex w-[280px] max-w-full flex-col items-center overflow-hidden rounded-[24px] p-10 text-zinc-900 outline-none",
               "shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_40px_rgba(15,23,42,0.12)]",
-              workHomeCardHoverInteractionClassName,
+              "ease-out hover:duration-300",
+              "transition-[opacity,transform] duration-[600ms]",
+              "hover:scale-105 active:scale-[0.98]",
               "focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
               visible
                 ? "translate-y-0 opacity-100"
                 : "translate-y-6 opacity-0",
+              c.minHClass,
               c.gridClassName,
             )}
             style={{
               ...liquidGlassHomeCard,
-              transitionDelay: visible ? `${i * 200}ms` : "0ms",
+              transitionDelay: visible ? `${i * stagger}ms` : "0ms",
             }}
             data-figma={`HOME_LAYOUT-2 sect_${c.href.slice(1)}`}
           >
             <span
-              className="absolute right-10 top-10 flex size-11 items-center justify-center rounded-[8.25px] border-[1.375px] bg-white text-black shadow-none transition group-hover:border-zinc-300"
+              className="absolute right-[20px] top-[20px] flex size-11 items-center justify-center rounded-[8.25px] border-[1.375px] bg-white text-black shadow-none transition group-hover:border-zinc-300"
               style={{ borderColor: ICON_BTN_BORDER }}
               aria-hidden
             >
@@ -125,7 +130,15 @@ export function HomeSectionCards({ visible }: Props) {
                   </p>
                 </div>
               </div>
-              <div className="text-[12px] font-normal leading-3 text-black">
+              <div
+                className="text-black not-italic"
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 900,
+                  lineHeight: "100%",
+                  letterSpacing: "-0.24px",
+                }}
+              >
                 <p>{c.lines[0]}</p>
                 <p>{c.lines[1]}</p>
               </div>
