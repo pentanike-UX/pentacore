@@ -10,7 +10,7 @@ export function WorkThumbHmg({ className }: { className?: string }) {
   return (
     <section
       className={cn(
-        "relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-hidden",
+        "relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-visible",
         className,
       )}
       style={{ backgroundColor: SUB_WORK_PAGE_BG }}
