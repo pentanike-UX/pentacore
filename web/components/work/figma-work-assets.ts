@@ -28,6 +28,9 @@ export const figmaPortfolioCardThumb = {
     "https://www.figma.com/api/mcp/asset/3d095443-2b3c-4985-bbab-46d0acc13f67",
 } as const;
 
+/** PENTAGRAM PF_06 — `/works_view` Title 위 데코 (116×60 표시). 로컬 `public/work/pentagram-pf06.svg` (Figma PF_06와 교체 가능) */
+export const WORKS_VIEW_PF_06_SRC = "/work/pentagram-pf06.svg";
+
 /** PENTAGRAM 인스턴스 `295:69010` (PF_12) */
 export const figmaPentagramSmall = {
   a: "https://www.figma.com/api/mcp/asset/5f7fdd75-ca40-4af8-8028-aafa971d19da",

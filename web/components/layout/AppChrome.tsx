@@ -22,13 +22,27 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
   const compact = bp !== "desktop";
   const footerVariant =
     bp === "mobile" ? "mobile" : bp === "tablet" ? "tablet" : "desktop";
+  /** 라이트 서브(ABOUT·WORK·작품 상세) — 문서 하단 흰색 서브 푸터 */
+  const subInlineFooter = !darkSurface;
 
   return (
     <>
       <HeaderBar compact={compact} surface={surface} scrollGlass />
-      {/* 고정 푸터·헤더에 가리지 않도록 하단 여유 */}
-      <div className="min-h-dvh pb-32 md:pb-36">{children}</div>
-      <FooterBar surface={surface} variant={footerVariant} scrollGlass />
+      <div
+        className={
+          subInlineFooter
+            ? "flex min-h-dvh flex-col pb-0"
+            : "min-h-dvh pb-32 md:pb-36"
+        }
+      >
+        <div className={subInlineFooter ? "flex-1" : undefined}>{children}</div>
+        <FooterBar
+          surface={surface}
+          variant={footerVariant}
+          scrollGlass={!subInlineFooter}
+          placement={subInlineFooter ? "inline" : "fixed"}
+        />
+      </div>
     </>
   );
 }

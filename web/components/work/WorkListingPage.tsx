@@ -162,7 +162,7 @@ function WorkPageBody() {
               aria-hidden
               data-figma="portfolio_vertical_rule"
             />
-            <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-1 flex-col gap-12 md:gap-14 lg:mx-auto lg:gap-16">
+            <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-1 flex-col gap-[14px] lg:mx-auto">
               {WORK_PORTFOLIO_ROWS.map((row, i) => (
                 <ParallaxLayer
                   key={row.title}

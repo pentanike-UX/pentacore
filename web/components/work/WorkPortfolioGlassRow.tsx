@@ -30,7 +30,7 @@ export function WorkPortfolioGlassRow({ row, tripleLogos }: Props) {
       aria-label={row.title}
       onClick={() => add({ title: "준비 중입니다." })}
       className={cn(
-        "isolate flex w-full min-w-0 cursor-pointer flex-col items-stretch rounded-[50px] px-6 py-8 text-left outline-none md:flex-row md:items-center md:justify-between md:px-10 md:py-10",
+        "isolate flex w-full min-w-0 cursor-pointer flex-col items-stretch gap-[14px] rounded-[24px] px-6 py-8 text-left outline-none md:flex-row md:items-center md:justify-between md:gap-[14px] md:rounded-[50px] md:px-10 md:py-10",
         workPortfolioRowChromeClassName,
         interactivePressableTransformClassName,
         liquidGlassPortfolioRowHoverClassName,

@@ -17,6 +17,7 @@ const ICON_BTN_BORDER = "#e2e8f0";
  * Figma `HOME_LAYOUT-2` / `section` (node 2003:55933).
  * - 뷰포트 정중앙 그리드: <lg 가로 그리드 셀에 맞춤·높이 136·radius 16 / lg+ 280×254·radius 24
  * - heads↔copy 간격 16px / 40px, 화살표 `absolute` top/right 20px
+ * - <lg heads: h5 톤(titleEn)·subtle(titleKo) / copy 12px·black(900)
  * - 내부 패딩: <lg 24px · lg+ 40px (콘텐츠↔프레임)
  */
 export const HOME_LAYOUT_2_CARDS = [
@@ -131,10 +132,10 @@ export function HomeSectionCards() {
                     className="hidden h-7 w-auto max-w-[52px] shrink-0 object-contain brightness-0 lg:block lg:h-9 lg:max-w-[64px]"
                     unoptimized
                   />
-                  <h3 className="text-[15px] font-bold leading-tight tracking-tight text-black lg:text-2xl lg:font-bold lg:leading-none lg:tracking-tight">
+                  <h3 className="text-lg font-semibold leading-snug tracking-tight text-zinc-950 lg:text-2xl lg:font-bold lg:leading-none lg:tracking-tight">
                     {c.titleEn}
                   </h3>
-                  <p className="line-clamp-2 text-[11px] font-normal leading-snug text-gray-500 lg:line-clamp-none lg:text-sm lg:leading-normal">
+                  <p className="line-clamp-2 text-sm font-normal leading-snug text-zinc-500 lg:line-clamp-none lg:text-sm lg:leading-normal lg:text-gray-500">
                     {c.titleKo}
                   </p>
                 </div>
@@ -142,8 +143,8 @@ export function HomeSectionCards() {
                 {/* copy: 슬로건 2줄 — heads와 간격 16px(<lg) / 40px(lg+) */}
                 <div
                   className={cn(
-                    "min-w-0 shrink-0 font-black uppercase leading-[115%] tracking-tight text-black",
-                    "text-[8px] lg:text-xs",
+                    "min-w-0 shrink-0 text-xs font-black uppercase leading-[115%] tracking-tight text-black",
+                    "lg:text-xs",
                     "max-lg:text-left lg:text-center",
                   )}
                 >

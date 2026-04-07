@@ -7,6 +7,7 @@ import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { BorderedVerticalLoop } from "./BorderedVerticalLoop";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
+import { WORKS_VIEW_PF_06_SRC } from "./figma-work-assets";
 import { hyundaiWorksViewImages, workImages } from "./work-assets";
 import { FigmaBtnChip } from "./FigmaBtnChip";
 import { FigmaLogos } from "./FigmaLogos";
@@ -200,7 +201,22 @@ export function WorksDetailView() {
             yRange={WORKS_DETAIL_PARALLAX_Y}
             className="col-span-12 lg:col-span-8"
           >
-            <header className="max-w-[609px] space-y-16 md:space-y-24" data-figma="Title">
+            <header
+              className="flex max-w-[609px] flex-col gap-5"
+              data-figma="Title"
+            >
+              {/* PENTAGRAM PF_06 — Figma 116×60 */}
+              <div className="relative h-[60px] w-[116px] shrink-0" aria-hidden>
+                <Image
+                  src={WORKS_VIEW_PF_06_SRC}
+                  alt=""
+                  width={116}
+                  height={60}
+                  className="object-contain object-left"
+                  unoptimized
+                  data-figma="PF_06"
+                />
+              </div>
               <p
                 className="text-[28px] font-normal leading-tight tracking-tight"
                 style={{ color: TEXT }}
