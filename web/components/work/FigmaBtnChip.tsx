@@ -15,7 +15,7 @@ export function FigmaBtnChip({ label, href }: Props) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex w-full min-w-0 items-center justify-between gap-[18px] rounded-[4px] bg-[#f2f2f7] px-[10px] py-[6px] text-left transition hover:bg-[#e8e8ed]"
+      className="flex w-full min-w-0 items-center justify-between gap-[18px] rounded-[4px] bg-[#f2f2f7] px-[10px] py-[6px] text-left transition-[background-color,transform] duration-300 ease-out hover:bg-[#e8e8ed] hover:scale-105 active:scale-[0.98]"
       data-figma="btn_chip"
     >
       <span className="min-w-0 flex-1 text-[14px] font-normal leading-[1.7] text-[#1e1e1e]">

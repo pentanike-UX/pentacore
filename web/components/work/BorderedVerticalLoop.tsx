@@ -12,12 +12,17 @@ type Props = {
   className?: string;
   slowDuration?: number;
   fastDuration?: number;
+  /** ST-FO-005_BIC_m / ST-FO-030_m — 30px radius + SDS box-shadow */
+  sdsFrame?: boolean;
 };
 
 /**
  * 고정 검정 보더 안에서 긴 이미지가 세로로 느리게 올라갔다가,
  * 하단이 맞으면 더 빠르게 역방향으로 내려오는 루프.
  */
+const SDS_FRAME_SHADOW =
+  "var(--sds-size-depth-0) var(--sds-size-depth-400) var(--sds-size-depth-800) var(--sds-size-depth-negative-200) var(--sds-color-black-400)";
+
 export function BorderedVerticalLoop({
   borderWidth,
   src,
@@ -26,6 +31,7 @@ export function BorderedVerticalLoop({
   className,
   slowDuration = 14,
   fastDuration = 3.2,
+  sdsFrame = false,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
@@ -85,12 +91,18 @@ export function BorderedVerticalLoop({
   return (
     <div
       ref={containerRef}
-      className={`relative box-border w-full overflow-hidden bg-black ${className ?? ""}`}
+      className={`relative box-border w-full overflow-hidden bg-transparent ${sdsFrame ? "rounded-[30px]" : ""} ${className ?? ""}`}
       style={{
         aspectRatio,
         borderWidth,
         borderStyle: "solid",
         borderColor: "#000",
+        ...(sdsFrame
+          ? {
+              borderRadius: "30px",
+              boxShadow: SDS_FRAME_SHADOW,
+            }
+          : {}),
       }}
     >
       <motion.div style={{ y }} className="will-change-transform">

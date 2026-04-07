@@ -3,8 +3,9 @@
 import { Toast } from "@base-ui/react/toast";
 import { cn } from "@/lib/utils";
 import {
+  interactivePressableTransformClassName,
   liquidGlassPortfolioRow,
-  workPortfolioRowInteractionClassName,
+  workPortfolioRowChromeClassName,
 } from "@/lib/figma-liquid-glass";
 import { FigmaLogos } from "./FigmaLogos";
 import type { WorkPortfolioRow } from "./work-portfolio-data";
@@ -28,8 +29,9 @@ export function WorkPortfolioGlassRow({ row, tripleLogos }: Props) {
       aria-label={row.title}
       onClick={() => add({ title: "준비 중입니다." })}
       className={cn(
-        "group isolate flex w-full min-w-0 cursor-pointer flex-col items-stretch rounded-[50px] px-6 py-8 text-left outline-none md:flex-row md:items-center md:justify-between md:px-10 md:py-10",
-        workPortfolioRowInteractionClassName,
+        "isolate flex w-full min-w-0 cursor-pointer flex-col items-stretch rounded-[50px] px-6 py-8 text-left outline-none md:flex-row md:items-center md:justify-between md:px-10 md:py-10",
+        workPortfolioRowChromeClassName,
+        interactivePressableTransformClassName,
         "focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
       )}
       style={liquidGlassPortfolioRow}

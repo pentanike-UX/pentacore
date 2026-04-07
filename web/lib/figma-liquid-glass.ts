@@ -17,9 +17,22 @@ export const liquidGlassPortfolioRow = {
 /** SUB_WORK 프레임 배경 */
 export const SUB_WORK_PAGE_BG = "rgb(229, 231, 235)";
 
-/** `portfolio_group` 행 — 기본 글래스 쉐도우 + 호버 스케일 (non-function-list 정합) */
-export const workPortfolioRowInteractionClassName =
-  "transition-[transform,box-shadow] duration-300 ease-out shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_6px_28px_rgba(15,23,42,0.08)] hover:scale-[1.02] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_12px_40px_rgba(15,23,42,0.12)] active:scale-[0.985]" as const;
+/**
+ * 마우스 반응 UI 공통 — transform만 300ms ease-out (박스쉐도우와 분리해 호버 즉시 반응).
+ * 직접 호버 대상(button·Link 본체 등)
+ */
+export const interactivePressableTransformClassName =
+  "transition-transform duration-300 ease-out hover:scale-105 active:scale-[0.98]" as const;
+
+/**
+ * 상위 `group` 호버/액티브에 맞춤 — img_sub·홈 카드 내부 래퍼 등
+ */
+export const interactivePressableTransformGroupClassName =
+  "transition-transform duration-300 ease-out group-hover:scale-105 group-active:scale-[0.98]" as const;
+
+/** `portfolio_group` 행 — 글래스 고정 쉐도우 (스케일은 interactivePressableTransformClassName) */
+export const workPortfolioRowChromeClassName =
+  "shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_6px_28px_rgba(15,23,42,0.08)]" as const;
 
 /** HOME_LAYOUT-2 카드 노출 시 홈 베이스 — SUB_WORK와 동일 톤 (Figma 정합) */
 export const HOME_CARDS_PAGE_BG = SUB_WORK_PAGE_BG;
