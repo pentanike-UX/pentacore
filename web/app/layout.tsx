@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Inter, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import { GlobalCursorProvider } from "@/components/GlobalCursorProvider";
+import { AppChrome } from "@/components/layout/AppChrome";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -43,7 +44,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-dvh font-sans">
-        <GlobalCursorProvider>{children}</GlobalCursorProvider>
+        <GlobalCursorProvider>
+          <AppChrome>{children}</AppChrome>
+        </GlobalCursorProvider>
       </body>
     </html>
   );

@@ -16,7 +16,8 @@ const ICON_BTN_BORDER = "#e2e8f0";
 /**
  * Figma `HOME_LAYOUT-2` / `section` (node 2003:55933).
  * - 뷰포트 정중앙 그리드: <lg 가로 그리드 셀에 맞춤·높이 136·radius 16 / lg+ 280×254·radius 24
- * - heads↔copy 간격 16px / 40px, 화살표 `absolute` top/right 20px, 카드·내부 패딩 없음(p-0)
+ * - heads↔copy 간격 16px / 40px, 화살표 `absolute` top/right 20px
+ * - 내부 패딩: <lg 24px · lg+ 40px (콘텐츠↔프레임)
  */
 export const HOME_LAYOUT_2_CARDS = [
   {
@@ -64,7 +65,7 @@ export const HOME_LAYOUT_2_CARDS = [
 
 const cardShellClassName = cn(
   "group relative isolate flex w-full flex-col overflow-hidden text-zinc-900 outline-none",
-  "p-0",
+  "p-6 lg:p-10",
   "max-lg:h-[136px] max-lg:min-h-[136px] max-lg:max-h-[136px] max-lg:rounded-[16px]",
   "lg:h-[254px] lg:min-h-[254px] lg:max-h-[254px] lg:w-[280px] lg:max-w-[280px] lg:shrink-0 lg:rounded-[24px]",
   "shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_10px_40px_rgba(15,23,42,0.12)]",

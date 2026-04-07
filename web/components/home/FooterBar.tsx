@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import {
   liquidGlassInteractiveHoverDark,
   liquidGlassInteractiveHoverLight,
@@ -27,7 +27,23 @@ type Props = {
   surface?: "dark" | "light";
   /** 풀스크린 동영상 위 — 푸터 가독성(반투명·블러·구분선 밝게) */
   overVideo?: boolean;
+  /** 스크롤 시 리퀴드 글래스 쉘. `overVideo`가 true면 항상 켜짐 */
+  scrollGlass?: boolean;
 };
+
+function subscribeScroll(cb: () => void) {
+  window.addEventListener("scroll", cb, { passive: true });
+  return () => window.removeEventListener("scroll", cb);
+}
+
+function getScrollY() {
+  return (
+    window.scrollY ||
+    document.documentElement.scrollTop ||
+    document.body.scrollTop ||
+    0
+  );
+}
 
 function Divider({ light, onVideo }: { light?: boolean; onVideo?: boolean }) {
   if (light) {
@@ -68,8 +84,14 @@ export function FooterBar({
   variant = "desktop",
   surface = "dark",
   overVideo = false,
+  scrollGlass = true,
 }: Props) {
   const [entered, setEntered] = useState(!slideInFromBottom);
+  const scrolled = useSyncExternalStore(
+    subscribeScroll,
+    () => getScrollY() > 6,
+    () => false,
+  );
 
   useEffect(() => {
     if (!visible) {
@@ -93,6 +115,7 @@ export function FooterBar({
   const pad = isMobile ? "px-6 pb-8 pt-4" : "px-10 pb-10 pt-4";
   const light = surface === "light";
   const onVideo = overVideo && !light;
+  const glassShell = onVideo || (scrollGlass && scrolled);
   const glassHover =
     onVideo || !light
       ? liquidGlassInteractiveHoverDark
@@ -101,9 +124,13 @@ export function FooterBar({
   return (
     <footer
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-[100] transition-transform duration-[450ms] ease-out",
+        "fixed bottom-0 left-0 right-0 z-[100] transition-[transform,background-color,backdrop-filter,border-color,box-shadow] duration-300 ease-out",
         slideInFromBottom && !entered && "translate-y-full",
-        onVideo &&
+        glassShell &&
+          light &&
+          "border-t border-zinc-900/10 bg-[rgb(229,231,235)]/82 backdrop-blur-md supports-[backdrop-filter]:bg-[rgb(229,231,235)]/68",
+        glassShell &&
+          !light &&
           "border-t border-white/15 bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-black/25",
         pad,
       )}

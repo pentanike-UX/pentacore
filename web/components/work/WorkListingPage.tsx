@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Toast } from "@base-ui/react/toast";
-import { HeaderBar } from "@/components/home/HeaderBar";
 import {
   interactivePressableTransformClassName,
   liquidGlassImgSubHoverClassName,
@@ -71,8 +70,6 @@ function WorkPageBody() {
       style={{ backgroundColor: SUB_WORK_PAGE_BG }}
       data-figma="SUB_WORK"
     >
-      <HeaderBar compact={false} surface="light" />
-
       <section
         className={`relative pb-10 pt-[92px] md:pb-14 md:pt-[124px] ${WORK_GUTTER}`}
         style={{ backgroundColor: SUB_WORK_PAGE_BG }}
@@ -178,12 +175,6 @@ function WorkPageBody() {
             </div>
           </section>
 
-          <footer
-            className={`relative z-10 border-t border-zinc-300/80 py-10 text-center text-xs text-zinc-500 ${WORK_GUTTER}`}
-            style={{ backgroundColor: SUB_WORK_PAGE_BG }}
-          >
-            ⓒ PENTACORE · WORK
-          </footer>
         </div>
       </div>
     </main>

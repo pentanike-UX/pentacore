@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { cn } from "@/lib/utils";
 import { FooterBar } from "./FooterBar";
 import { HeaderBar } from "./HeaderBar";
@@ -47,22 +48,6 @@ function useTyping(full: string, active: boolean, msPerChar = 36) {
     return () => window.clearInterval(id);
   }, [full, active]);
   return full.slice(0, len);
-}
-
-function useBreakpoint(): "desktop" | "tablet" | "mobile" {
-  const [bp, setBp] = useState<"desktop" | "tablet" | "mobile">("desktop");
-  useEffect(() => {
-    const run = () => {
-      const w = window.innerWidth;
-      if (w < 768) setBp("mobile");
-      else if (w < 1024) setBp("tablet");
-      else setBp("desktop");
-    };
-    run();
-    window.addEventListener("resize", run);
-    return () => window.removeEventListener("resize", run);
-  }, []);
-  return bp;
 }
 
 export function HomeExperience() {

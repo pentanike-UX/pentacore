@@ -3,7 +3,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { HeaderBar } from "@/components/home/HeaderBar";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { BorderedVerticalLoop } from "./BorderedVerticalLoop";
@@ -181,8 +180,6 @@ export function WorksDetailView() {
       }}
       data-figma="/works_view"
     >
-      <HeaderBar compact={false} surface="light" />
-
       <div className="border-b border-zinc-900/10 px-4 pb-6 pt-[92px] md:px-[76px] md:pb-8 md:pt-[124px]">
         <div className="mx-auto max-w-[1280px]">
           <Link

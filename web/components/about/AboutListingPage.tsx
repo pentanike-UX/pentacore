@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { HeaderBar } from "@/components/home/HeaderBar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -51,8 +50,6 @@ export function AboutListingPage() {
       style={{ backgroundColor: SUB_WORK_PAGE_BG }}
       data-figma="SUB_ABOUT"
     >
-      <HeaderBar compact={false} surface="light" />
-
       {/* —— SUB_WORK와 동일 톤의 히어로 트랙 —— */}
       <section className="relative px-5 pb-12 pt-[92px] md:px-10 md:pb-16 md:pt-[124px] lg:px-20">
         <div className="mx-auto max-w-[1740px]">
@@ -209,9 +206,6 @@ export function AboutListingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-zinc-300/80 px-5 py-10 text-center text-xs text-zinc-500 md:px-10">
-        ⓒ PENTACORE · ABOUT
-      </footer>
     </main>
   );
 }
