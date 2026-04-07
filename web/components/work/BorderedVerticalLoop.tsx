@@ -14,8 +14,13 @@ type Props = {
   fastDuration?: number;
   /** ST-FO-005_BIC_m / ST-FO-030_m — 30px radius + 지정 드롭섀도 */
   sdsFrame?: boolean;
+  /** sec_5 ST-FO-111 — 프레임 corner radius 20px */
+  stfo111Frame?: boolean;
   /** sec_5 ST-FO-111 — Y36 / blur50 / spread0 / #0C0C0D 40% */
   stfo111Shadow?: boolean;
+  /** 원본 픽셀 — 비율 힌트(늘림 없이 h-auto w-full과 함께 사용) */
+  imgIntrinsicWidth?: number;
+  imgIntrinsicHeight?: number;
 };
 
 /**
@@ -36,7 +41,10 @@ export function BorderedVerticalLoop({
   slowDuration = 14,
   fastDuration = 3.2,
   sdsFrame = false,
+  stfo111Frame = false,
   stfo111Shadow = false,
+  imgIntrinsicWidth,
+  imgIntrinsicHeight,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
@@ -96,7 +104,7 @@ export function BorderedVerticalLoop({
   return (
     <div
       ref={containerRef}
-      className={`relative box-border w-full overflow-hidden bg-transparent ${sdsFrame ? "rounded-[30px]" : ""} ${className ?? ""}`}
+      className={`relative box-border w-full overflow-hidden bg-transparent ${sdsFrame ? "rounded-[30px]" : ""} ${stfo111Frame ? "rounded-[20px]" : ""} ${className ?? ""}`}
       style={{
         aspectRatio,
         borderWidth,
@@ -106,6 +114,11 @@ export function BorderedVerticalLoop({
           ? {
               borderRadius: "30px",
               boxShadow: STFO_005_030_BOX_SHADOW,
+            }
+          : {}),
+        ...(stfo111Frame && !sdsFrame
+          ? {
+              borderRadius: "20px",
             }
           : {}),
         ...(stfo111Shadow
@@ -120,6 +133,9 @@ export function BorderedVerticalLoop({
         <img
           src={src}
           alt={alt}
+          {...(imgIntrinsicWidth != null && imgIntrinsicHeight != null
+            ? { width: imgIntrinsicWidth, height: imgIntrinsicHeight }
+            : {})}
           className="pointer-events-none block h-auto w-full max-w-full select-none"
           onLoad={measure}
           draggable={false}

@@ -8,6 +8,9 @@ export const workImages = {
   loop111Full: "/work/ST-FO-111_full.png",
 } as const;
 
+/** `ST-FO-111_full.png` 실제 픽셀 — 에셋 교체 시 동기화 */
+export const ST_FO_111_FULL_INTRINSIC = { width: 286, height: 1024 } as const;
+
 /** `/works_view` 정적 이미지 — Figma MCP + 로컬 PNG 일부 */
 export const hyundaiWorksViewImages = {
   sectionDivider: figmaWorksViewDivider,

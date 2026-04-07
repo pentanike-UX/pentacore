@@ -13,7 +13,11 @@ import {
   WORKS_LIST_BACK_ICON_SRC,
   WORKS_VIEW_PF_06_SRC,
 } from "./figma-work-assets";
-import { hyundaiWorksViewImages, workImages } from "./work-assets";
+import {
+  hyundaiWorksViewImages,
+  ST_FO_111_FULL_INTRINSIC,
+  workImages,
+} from "./work-assets";
 import { FigmaBtnChip } from "./FigmaBtnChip";
 import { FigmaLogos } from "./FigmaLogos";
 
@@ -610,7 +614,7 @@ export function WorksDetailView() {
               <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                 ST-FO-111
               </p>
-              <div className="mx-auto max-w-[898px]">
+              <div className="mx-auto w-full max-w-[938px]">
                 <BorderedVerticalLoop
                   borderWidth={20}
                   aspectRatio="898/686"
@@ -618,7 +622,10 @@ export function WorksDetailView() {
                   alt=""
                   slowDuration={16}
                   fastDuration={3.5}
+                  stfo111Frame
                   stfo111Shadow
+                  imgIntrinsicWidth={ST_FO_111_FULL_INTRINSIC.width}
+                  imgIntrinsicHeight={ST_FO_111_FULL_INTRINSIC.height}
                 />
               </div>
               <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>

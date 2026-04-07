@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import { figmaAboutPentagram } from "./figma-about-assets";
 
 type Props = {
@@ -13,7 +14,10 @@ type Props = {
 export function AboutPentagramFigma({ className }: Props) {
   return (
     <div
-      className={`relative size-full opacity-10 ${className ?? ""}`}
+      className={cn(
+        "relative size-full opacity-[0.14] md:opacity-[0.11]",
+        className,
+      )}
       data-figma="PENTAGRAM"
       data-node-id="315:78000"
     >

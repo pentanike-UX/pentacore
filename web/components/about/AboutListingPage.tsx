@@ -3,23 +3,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
+import { AppleHairlineRule } from "@/components/subpages/AppleHairlineRule";
+import { SubWorkStyleHero } from "@/components/subpages/SubWorkStyleHero";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { liquidGlassHomeCard, SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import {
+  liquidGlassHomeCard,
+  SUB_WORK_PAGE_BG,
+  workPortfolioRowChromeClassName,
+} from "@/lib/figma-liquid-glass";
 import { ShimmerOverlay } from "@/components/media/ImageWithSkeleton";
 import { ParallaxLayer } from "@/components/work/Parallax";
 import { AboutPentagramFigma } from "./AboutPentagramFigma";
 import { figmaAboutScrollReference } from "./figma-about-assets";
 
-/** Figma `315:78019` 레퍼런스 — 반응형 비율 유지 + 로드 전 쉬머 */
+/** Figma `315:78019` — 레퍼런스 스크린 (assumption: 내부 가이드용 에셋) */
 function AboutScrollReferenceImage() {
   const [loaded, setLoaded] = useState(false);
 
@@ -30,8 +29,10 @@ function AboutScrollReferenceImage() {
   }, []);
 
   return (
-    <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40 md:aspect-[2/1]">
-      {!loaded && <ShimmerOverlay className="rounded-[inherit] bg-zinc-800/50" />}
+    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[22px] bg-zinc-200/40 ring-1 ring-zinc-900/[0.07] md:aspect-[2/1] md:rounded-[28px]">
+      {!loaded && (
+        <ShimmerOverlay className="rounded-[inherit] bg-zinc-300/50" />
+      )}
       <Image
         src={figmaAboutScrollReference}
         alt=""
@@ -48,7 +49,6 @@ function AboutScrollReferenceImage() {
   );
 }
 
-/** Figma 텍스트 레이어 미동기화 — 카피는 assumption */
 const ABOUT_TXT_EN =
   "Pentacore is a small studio-shaped team building navigation, in-vehicle, and web products with automotive and enterprise partners.";
 
@@ -75,162 +75,155 @@ const VALUE_CARDS = [
   },
 ] as const;
 
+const shell =
+  "rounded-[20px] border border-zinc-900/[0.06] p-8 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_12px_40px_rgba(15,23,42,0.06)] backdrop-blur-md supports-[backdrop-filter]:bg-white/65 md:rounded-[28px] md:p-10";
+
 export function AboutListingPage() {
   return (
     <SubPageScaffold
       as="main"
       backgroundColor={SUB_WORK_PAGE_BG}
-      className="min-h-dvh text-zinc-950 antialiased"
-      contentClassName="min-h-dvh"
+      className="flex min-h-dvh flex-col text-zinc-950 antialiased"
+      contentClassName="flex min-h-dvh flex-col"
       data-figma="SUB_ABOUT"
     >
-      {/* —— SUB_WORK와 동일 톤의 히어로 트랙 —— */}
-      <section className="relative px-5 pb-12 pt-[92px] md:px-10 md:pb-16 md:pt-[124px] lg:px-20">
-        <div className="w-full">
-          <div className="flex flex-col gap-0">
-            <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:gap-[min(6rem,5.04vw)] lg:gap-[96.8px]">
-              <p className="shrink-0 text-[19.2px] font-semibold leading-none tracking-tight text-zinc-950">
-                (ABOUT)
-              </p>
-              <h1 className="font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-tight text-zinc-950">
-                Small team.
-              </h1>
-            </div>
-            <p className="mt-2 font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-tight text-zinc-950 md:mt-0">
-              Big surfaces.
-            </p>
-          </div>
+      <SubWorkStyleHero
+        label="(ABOUT)"
+        line1="Small team."
+        line2="Big surfaces."
+        bodyEn={ABOUT_TXT_EN}
+        bodyKo={ABOUT_TXT_KO}
+      />
 
-          <div className="mt-10 max-w-[min(100%,640px)] space-y-4 md:mt-14" data-figma="txt">
-            <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
-              {ABOUT_TXT_EN}
-            </p>
-            <p className="text-[15px] font-normal leading-relaxed text-zinc-800">
-              {ABOUT_TXT_KO}
-            </p>
-          </div>
-        </div>
-      </section>
+      <AppleHairlineRule className="mx-auto max-w-[1280px] px-6 md:px-[76px]" />
 
-      {/* —— Figma PENTAGRAM 데코 —— */}
+      {/* 펜타그램 — WORK 톤에 맞춘 라이트 서피스 (기존 zinc-500 밴드 제거) */}
       <section
-        className="relative overflow-hidden bg-zinc-500 py-16 md:py-24"
+        className="relative overflow-hidden border-y border-zinc-900/[0.06] bg-zinc-200/35 py-20 md:py-28"
         data-figma="SUB_ABOUT pentagram_band"
       >
-        <ParallaxLayer yRange={[10, -10]} className="mx-auto flex max-w-[1280px] justify-center px-5 md:px-10">
-          <div className="relative h-[200px] w-[min(100%,520px)] scale-100 md:scale-[1.15] md:origin-center">
-            <AboutPentagramFigma />
+        <ParallaxLayer
+          yRange={[8, -8]}
+          className="mx-auto flex max-w-[1280px] justify-end px-6 md:px-[76px]"
+        >
+          <div className="relative h-[min(200px,42vw)] w-full max-w-[360px] md:h-[260px] md:max-w-[480px]">
+            <AboutPentagramFigma className="scale-[1.2] md:scale-[1.35] md:opacity-[0.13]" />
           </div>
         </ParallaxLayer>
       </section>
 
-      {/* —— 값 제안 카드 (glass / hover·focus) —— */}
       <section
-        className="px-5 py-16 md:px-10 md:py-24 lg:px-20"
+        className="mx-auto w-full max-w-[1280px] px-6 py-20 md:px-[76px] md:py-28"
         data-figma="SUB_ABOUT values"
       >
-        <div className="mx-auto grid max-w-[1280px] gap-6 md:grid-cols-3 md:gap-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">
+          Values
+        </p>
+        <h2 className="mt-3 text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-zinc-950">
+          일하는 방식
+        </h2>
+        <p className="mt-3 max-w-[42rem] text-[15px] leading-relaxed text-zinc-600">
+          제품과 브랜드 톤을 해치지 않는 최소 단위로 품질을 쌓습니다.
+        </p>
+
+        <div className="mt-14 grid gap-5 md:grid-cols-3 md:gap-6">
           {VALUE_CARDS.map((c, i) => (
             <ParallaxLayer
               key={c.title}
-              yRange={[6 + (i % 3) * 2, -6 - (i % 3) * 2]}
+              yRange={[4 + (i % 3) * 2, -4 - (i % 3) * 2]}
               className="min-h-0"
             >
-              <Card
+              <div
                 className={cn(
-                  "h-full transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg",
-                  "focus-within:ring-2 focus-within:ring-zinc-900/15 focus-within:ring-offset-2 focus-within:ring-offset-[rgb(229,231,235)]",
+                  "flex h-full flex-col justify-between transition-[transform,box-shadow] duration-300 ease-out",
+                  shell,
+                  workPortfolioRowChromeClassName,
+                  "hover:-translate-y-0.5",
                 )}
                 style={liquidGlassHomeCard}
               >
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold tracking-tight">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
                     {c.title}
-                  </CardTitle>
-                  <CardDescription className="text-zinc-700">
+                  </p>
+                  <p className="mt-4 text-[15px] leading-relaxed text-zinc-700">
                     {c.body}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+                  </p>
+                </div>
+              </div>
             </ParallaxLayer>
           ))}
         </div>
       </section>
 
-      {/* —— 다크 밴드: 스크롤 내러티브 레퍼런스(Figma 이미지) + 그라데이션 미션 카드 —— */}
+      <AppleHairlineRule className="mx-auto max-w-[1280px] px-6 md:px-[76px]" />
+
       <section
-        className="dark bg-zinc-950 px-5 py-16 text-white md:px-10 md:py-24 lg:px-20"
+        className="mx-auto w-full max-w-[1280px] px-6 py-20 md:px-[76px] md:py-28"
         data-figma="SUB_ABOUT narrative"
       >
-        <div className="mx-auto max-w-[1280px] space-y-10">
-          <div className="space-y-2">
-            <p className="text-sm font-medium text-white/70">
-              Reference — scroll &amp; line rhythm
-            </p>
-            <p className="text-xs text-white/50">
-              Figma `315:78019`에 배치된 레퍼런스 스크린(assumption: 스크롤 기반 타이포 모션 가이드).
-            </p>
-          </div>
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">
+          Narrative
+        </p>
+        <h2 className="mt-3 text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-zinc-950">
+          스크롤과 리듬
+        </h2>
+        <p className="mt-3 max-w-[42rem] text-[15px] leading-relaxed text-zinc-600">
+          긴 화면에서도 타이포와 간격이 숨 쉬듯 이어지도록 정리합니다.
+        </p>
 
-          <div className="overflow-hidden rounded-2xl ring-1 ring-white/10">
-            <AboutScrollReferenceImage />
-          </div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={{
-              hidden: {},
-              show: {
-                transition: { staggerChildren: 0.08 },
-              },
-            }}
-            className="mx-auto max-w-[720px] rounded-2xl bg-gradient-to-br from-violet-200/95 via-indigo-100/95 to-sky-200/95 px-8 py-10 text-center text-zinc-950 shadow-xl ring-1 ring-black/5 md:px-12 md:py-14"
-            data-figma="SUB_ABOUT mission_card"
-          >
-            {MISSION_LINES.map((line) => (
-              <motion.p
-                key={line.slice(0, 24)}
-                variants={{
-                  hidden: { opacity: 0, y: 12 },
-                  show: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="text-base font-normal leading-relaxed md:text-lg [&+&]:mt-4"
-              >
-                {line}
-              </motion.p>
-            ))}
-          </motion.div>
-
-          {/* Button 상태: shadcn `button.tsx` — default / outline / disabled */}
-          <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
-            <Link
-              href="/work"
-              className={cn(
-                buttonVariants({ variant: "default", size: "lg" }),
-                "w-full justify-center sm:w-auto",
-              )}
-            >
-              WORK 보기
-            </Link>
-            <Link
-              href="/"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "w-full justify-center border-white/25 bg-white/5 text-white hover:bg-white/10 sm:w-auto",
-              )}
-            >
-              홈으로
-            </Link>
-            <Button type="button" variant="secondary" size="lg" disabled className="w-full sm:w-auto">
-              채용 안내 (준비 중)
-            </Button>
-          </div>
+        <div className="mt-12">
+          <AboutScrollReferenceImage />
         </div>
-      </section>
 
+        <div
+          className={cn(
+            "mx-auto mt-14 max-w-[720px] space-y-5 text-center",
+            shell,
+            workPortfolioRowChromeClassName,
+          )}
+          style={liquidGlassHomeCard}
+          data-figma="SUB_ABOUT mission_card"
+        >
+          {MISSION_LINES.map((line) => (
+            <p
+              key={line.slice(0, 28)}
+              className="text-base font-normal leading-relaxed text-zinc-800 md:text-[17px] md:leading-relaxed [&+&]:mt-1"
+            >
+              {line}
+            </p>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-14 flex max-w-[720px] flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4">
+          <Link
+            href="/work"
+            className={cn(
+              buttonVariants({ variant: "default", size: "lg" }),
+              "h-12 w-full justify-center rounded-full border-0 bg-zinc-950 px-8 text-[15px] font-medium text-white hover:bg-zinc-800 sm:w-auto",
+            )}
+          >
+            WORK
+          </Link>
+          <Link
+            href="/"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "h-12 w-full justify-center rounded-full border-zinc-900/15 bg-white/40 text-zinc-900 backdrop-blur-sm hover:bg-white/70 sm:w-auto",
+            )}
+          >
+            홈
+          </Link>
+        </div>
+        <p className="mt-8 text-center">
+          <Link
+            href="/hiring"
+            className="text-sm font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-4 transition hover:text-zinc-950 hover:decoration-zinc-400"
+          >
+            채용 안내 — HIRING →
+          </Link>
+        </p>
+      </section>
     </SubPageScaffold>
   );
 }
