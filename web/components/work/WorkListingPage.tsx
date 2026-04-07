@@ -4,11 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Toast } from "@base-ui/react/toast";
 import { HeaderBar } from "@/components/home/HeaderBar";
-import {
-  liquidGlassPortfolioRow,
-  SUB_WORK_PAGE_BG,
-  workPortfolioImgSubInteractionClassName,
-} from "@/lib/figma-liquid-glass";
+import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
@@ -58,9 +54,9 @@ function PortfolioCardViewInner() {
         data-figma="img_sub"
         className={cn(
           "isolate overflow-hidden rounded-[50px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
-          workPortfolioImgSubInteractionClassName,
+          "transition-transform duration-300 ease-out",
+          "group-hover:scale-105 group-active:scale-[0.98]",
         )}
-        style={liquidGlassPortfolioRow}
       >
         <div className="relative aspect-[1000/819] w-full">
           <Image
@@ -192,12 +188,12 @@ function WorkPageBody() {
         style={{ backgroundColor: SUB_WORK_PAGE_BG }}
         data-figma="portfolio_group"
       >
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col items-stretch lg:mx-auto">
+        <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-10 lg:mx-auto">
           {WORK_PORTFOLIO_ROWS.map((row, i) => (
             <ParallaxLayer
               key={row.title}
               yRange={[8 + (i % 5) * 3, -8 - (i % 5) * 3]}
-              className="flex w-full justify-center"
+              className="w-full"
             >
               <WorkPortfolioGlassRow row={row} tripleLogos={i === 0} />
             </ParallaxLayer>

@@ -28,7 +28,7 @@ export function WorkPortfolioGlassRow({ row, tripleLogos }: Props) {
       aria-label={row.title}
       onClick={() => add({ title: "준비 중입니다." })}
       className={cn(
-        "group isolate flex w-full flex-col items-start rounded-[50px] px-6 py-8 text-left outline-none md:flex-row md:items-center md:justify-between md:px-10 md:py-10",
+        "group isolate flex w-full min-w-0 cursor-pointer flex-col items-stretch rounded-[50px] px-6 py-8 text-left outline-none md:flex-row md:items-center md:justify-between md:px-10 md:py-10",
         workPortfolioRowInteractionClassName,
         "focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
       )}
