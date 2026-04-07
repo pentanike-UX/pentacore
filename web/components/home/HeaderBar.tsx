@@ -86,7 +86,8 @@ export function HeaderBar({
     onVideo || !light
       ? liquidGlassInteractiveHoverDark
       : liquidGlassInteractiveHoverLight;
-  const p = compact ? "px-6 py-5" : "px-10 py-10";
+  /** 홈·서브 공통 — 가장자리 패딩 1rem */
+  const p = "p-4";
   const logoTone = light ? "text-zinc-950" : "text-white";
 
   if (!visible) return null;

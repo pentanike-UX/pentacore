@@ -101,7 +101,7 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
           aria-modal="true"
           aria-label="전체 메뉴"
           id="header-fullscreen-nav"
-          className="fixed inset-0 z-[90] flex flex-col items-center justify-center overflow-x-hidden px-[clamp(1rem,4vw,1.5rem)] py-[clamp(4rem,10vmin,7rem)]"
+          className="fixed inset-0 z-[90] flex flex-col items-center justify-center overflow-x-hidden overflow-y-auto overscroll-y-contain p-4"
           style={glassStyle}
           initial={{ clipPath: "inset(0 0 100% 0)" }}
           animate={{ clipPath: "inset(0 0 0% 0)" }}
