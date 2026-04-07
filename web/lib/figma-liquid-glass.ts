@@ -36,3 +36,40 @@ export const workPortfolioRowChromeClassName =
 
 /** HOME_LAYOUT-2 카드 노출 시 홈 베이스 — SUB_WORK와 동일 톤 (Figma 정합) */
 export const HOME_CARDS_PAGE_BG = SUB_WORK_PAGE_BG;
+
+/**
+ * 버튼·링크 호버 — 애플 리퀴드 글라스에 가까운 블러·채도·내부 하이라이트.
+ * 다크 베이스(홈 헤더/푸터 등)
+ */
+export const liquidGlassInteractiveHoverDark = [
+  "transition-[backdrop-filter,background-color,box-shadow,transform] duration-300 ease-out",
+  "hover:backdrop-blur-[18px] hover:saturate-150",
+  "hover:bg-white/[0.16] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.42),0_6px_28px_rgba(0,0,0,0.12)]",
+  "hover:ring-1 hover:ring-white/30",
+].join(" ");
+
+/**
+ * 라이트 베이스(SUB_WORK 헤더 등) — 짙은 글래스 틴트
+ */
+export const liquidGlassInteractiveHoverLight = [
+  "transition-[backdrop-filter,background-color,box-shadow,transform] duration-300 ease-out",
+  "hover:backdrop-blur-[18px] hover:saturate-150",
+  "hover:bg-zinc-950/[0.07] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.92),0_4px_22px_rgba(0,0,0,0.06)]",
+  "hover:ring-1 hover:ring-zinc-900/12",
+].join(" ");
+
+/** `portfolio_group` 글래스 행 버튼 — 기존 fill 위 호버 강화 */
+export const liquidGlassPortfolioRowHoverClassName = [
+  "transition-[backdrop-filter,box-shadow,transform] duration-300 ease-out",
+  "hover:backdrop-blur-[22px] hover:saturate-150",
+  "hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_8px_36px_rgba(15,23,42,0.1)]",
+  "hover:ring-1 hover:ring-white/45",
+].join(" ");
+
+/** portfolio_card_view `img_sub` — 링크 호버 시 글래스 오버레이 */
+export const liquidGlassImgSubHoverClassName = [
+  "transition-[backdrop-filter,background-color,box-shadow,transform] duration-300 ease-out",
+  "group-hover:backdrop-blur-[20px] group-hover:saturate-150",
+  "group-hover:bg-white/[0.28] group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_10px_40px_rgba(0,0,0,0.1)]",
+  "group-hover:ring-1 group-hover:ring-white/45",
+].join(" ");

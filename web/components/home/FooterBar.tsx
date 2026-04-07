@@ -3,6 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {
+  liquidGlassInteractiveHoverDark,
+  liquidGlassInteractiveHoverLight,
+} from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { assets } from "./figma-assets";
 
@@ -89,11 +93,15 @@ export function FooterBar({
   const pad = isMobile ? "px-6 pb-8 pt-4" : "px-10 pb-10 pt-4";
   const light = surface === "light";
   const onVideo = overVideo && !light;
+  const glassHover =
+    onVideo || !light
+      ? liquidGlassInteractiveHoverDark
+      : liquidGlassInteractiveHoverLight;
 
   return (
     <footer
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-50 transition-transform duration-[450ms] ease-out",
+        "fixed bottom-0 left-0 right-0 z-[100] transition-transform duration-[450ms] ease-out",
         slideInFromBottom && !entered && "translate-y-full",
         onVideo &&
           "border-t border-white/15 bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-black/25",
@@ -119,7 +127,13 @@ export function FooterBar({
             {nav.map((item, i) => (
               <span key={item.href} className="flex items-center gap-3">
                 {i > 0 ? <Divider light={light} onVideo={onVideo} /> : null}
-                <Link href={item.href} className="whitespace-nowrap hover:opacity-80">
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "whitespace-nowrap rounded-sm px-1.5 py-1 -my-1 hover:opacity-90",
+                    glassHover,
+                  )}
+                >
                   {item.label}
                 </Link>
               </span>

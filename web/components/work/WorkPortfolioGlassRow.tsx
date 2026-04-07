@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import {
   interactivePressableTransformClassName,
   liquidGlassPortfolioRow,
+  liquidGlassPortfolioRowHoverClassName,
   workPortfolioRowChromeClassName,
 } from "@/lib/figma-liquid-glass";
 import { FigmaLogos } from "./FigmaLogos";
@@ -32,6 +33,7 @@ export function WorkPortfolioGlassRow({ row, tripleLogos }: Props) {
         "isolate flex w-full min-w-0 cursor-pointer flex-col items-stretch rounded-[50px] px-6 py-8 text-left outline-none md:flex-row md:items-center md:justify-between md:px-10 md:py-10",
         workPortfolioRowChromeClassName,
         interactivePressableTransformClassName,
+        liquidGlassPortfolioRowHoverClassName,
         "focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
       )}
       style={liquidGlassPortfolioRow}

@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  liquidGlassInteractiveHoverDark,
+  liquidGlassInteractiveHoverLight,
+} from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { assets } from "./figma-assets";
 
@@ -50,6 +54,10 @@ export function HeaderBar({
 
   const light = surface === "light";
   const onVideo = overVideo && !light;
+  const glassHover =
+    onVideo || !light
+      ? liquidGlassInteractiveHoverDark
+      : liquidGlassInteractiveHoverLight;
   const p = compact ? "px-6 py-5" : "px-10 py-10";
   const logoH = compact ? 14 : 17;
   const logoW = compact ? 118 : 143;
@@ -59,7 +67,7 @@ export function HeaderBar({
   return (
     <header
       className={cn(
-        "fixed left-0 right-0 top-0 z-40 flex items-center justify-between transition-transform duration-[450ms] ease-out",
+        "fixed left-0 right-0 top-0 z-[100] flex items-center justify-between transition-transform duration-[450ms] ease-out",
         slideInFromTop && !entered && "-translate-y-full",
         onVideo &&
           "border-b border-white/15 bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-black/25",
@@ -69,7 +77,10 @@ export function HeaderBar({
     >
       <Link
         href="/"
-        className="relative block shrink-0"
+        className={cn(
+          "relative flex shrink-0 items-center justify-center rounded-md",
+          glassHover,
+        )}
         style={{ width: logoW, height: logoH }}
         aria-label="홈"
       >
@@ -93,7 +104,8 @@ export function HeaderBar({
         size="icon-lg"
         aria-label="메뉴"
         className={cn(
-          "relative size-11 shrink-0 overflow-hidden rounded-none border-0",
+          "relative size-11 shrink-0 overflow-hidden rounded-md border-0",
+          glassHover,
           light
             ? "bg-zinc-950/10 text-zinc-950 hover:bg-zinc-950/[0.14] hover:text-zinc-950"
             : "bg-white/20 text-white hover:bg-white/30 hover:text-white",

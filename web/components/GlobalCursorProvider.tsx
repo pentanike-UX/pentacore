@@ -1,32 +1,26 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-type Ctx = {
-  setPortfolioHover: (v: boolean) => void;
-};
-
-const WorkCursorContext = createContext<Ctx | null>(null);
-
-export function useWorkCursor() {
-  const c = useContext(WorkCursorContext);
-  if (!c) {
-    throw new Error("useWorkCursor must be used within WorkCursorProvider");
-  }
-  return c;
+function isInteractiveTarget(el: Element | null): boolean {
+  if (!el || !(el instanceof Element)) return false;
+  const node = el.closest(
+    [
+      "a[href]",
+      "button:not([disabled])",
+      '[role="button"]:not([aria-disabled="true"])',
+      "input[type=\"submit\"]:not([disabled])",
+      "input[type=\"button\"]:not([disabled])",
+      "[data-cursor-target]",
+    ].join(","),
+  );
+  return !!node;
 }
 
 /**
- * Figma `pointer` — Property 1: 기본(82) / Property 2: target(104).
- * 라이트 WORK 페이지에서도 보이도록 다크 스트로크 + 호버 시 물방울이 커지는 스프링.
+ * Figma `pointer` 근사 — 전역 커서(미세 포인터 기기만).
+ * 인터랙티브 위에서 링이 살짝 커짐.
  */
 function CursorVisual({ hovering }: { hovering: boolean }) {
   return (
@@ -83,12 +77,12 @@ function CursorVisual({ hovering }: { hovering: boolean }) {
   );
 }
 
-export function WorkCursorProvider({
+export function GlobalCursorProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [portfolioHover, setPortfolioHover] = useState(false);
+  const [interactiveHover, setInteractiveHover] = useState(false);
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [finePointer, setFinePointer] = useState(false);
 
@@ -104,22 +98,15 @@ export function WorkCursorProvider({
     if (!finePointer) return;
     const onMove = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      setInteractiveHover(isInteractiveTarget(el));
     };
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
   }, [finePointer]);
 
-  const setPortfolioHoverStable = useCallback((v: boolean) => {
-    setPortfolioHover(v);
-  }, []);
-
-  const value = useMemo(
-    () => ({ setPortfolioHover: setPortfolioHoverStable }),
-    [setPortfolioHoverStable],
-  );
-
   return (
-    <WorkCursorContext.Provider value={value}>
+    <>
       <div className={finePointer ? "min-h-0 cursor-none" : "min-h-0"}>
         {children}
       </div>
@@ -131,10 +118,10 @@ export function WorkCursorProvider({
               transform: `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%)`,
             }}
           >
-            <CursorVisual hovering={portfolioHover} />
+            <CursorVisual hovering={interactiveHover} />
           </div>
         </div>
       ) : null}
-    </WorkCursorContext.Provider>
+    </>
   );
 }

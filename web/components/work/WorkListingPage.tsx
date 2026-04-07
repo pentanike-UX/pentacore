@@ -6,16 +6,14 @@ import { Toast } from "@base-ui/react/toast";
 import { HeaderBar } from "@/components/home/HeaderBar";
 import {
   interactivePressableTransformGroupClassName,
+  liquidGlassImgSubHoverClassName,
   SUB_WORK_PAGE_BG,
 } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
-import { figmaPentagramSmall } from "./figma-work-assets";
-import { FigmaLogos } from "./FigmaLogos";
 import { WorkPortfolioGlassRow } from "./WorkPortfolioGlassRow";
 import { WORK_PORTFOLIO_ROWS } from "./work-portfolio-data";
-import { useWorkCursor, WorkCursorProvider } from "./WorkCursorProvider";
 import { WorkThumbHmg } from "./WorkThumbHmg";
 import { WorkToastStack } from "./WorkToastStack";
 
@@ -34,30 +32,18 @@ const WORK_TXT_KO = `이곳은 상상이 현실이 되는 순간입니다.
 const WORK_GUTTER = "px-6 md:px-10 lg:px-0";
 
 function PortfolioCardViewInner() {
-  const { setPortfolioHover } = useWorkCursor();
-
   return (
     <Link
       href={`/works/${WORK_DETAIL_SLUG}`}
       data-figma="portfolio_card_view"
       className="group mx-auto block w-full max-w-[820px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]"
-      onMouseEnter={() => setPortfolioHover(true)}
-      onMouseLeave={() => setPortfolioHover(false)}
-      onFocus={() => setPortfolioHover(true)}
-      onBlur={() => setPortfolioHover(false)}
     >
-      <div className="mb-8 flex justify-center px-2">
-        <div className="flex items-center gap-[10px]">
-          <FigmaLogos variant="logo_HM" />
-          <FigmaLogos variant="logo_GN" />
-          <FigmaLogos variant="logo_KM" />
-        </div>
-      </div>
       <div
         data-figma="img_sub"
         className={cn(
           "isolate overflow-hidden rounded-[50px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
           interactivePressableTransformGroupClassName,
+          liquidGlassImgSubHoverClassName,
         )}
       >
         <div className="relative aspect-[1000/819] w-full">
@@ -78,7 +64,7 @@ function PortfolioCardViewInner() {
 function WorkPageBody() {
   return (
     <main
-      className="min-h-dvh text-zinc-950 antialiased"
+      className="flex min-h-dvh flex-col text-zinc-950 antialiased"
       style={{ backgroundColor: SUB_WORK_PAGE_BG }}
       data-figma="SUB_WORK"
     >
@@ -107,10 +93,10 @@ function WorkPageBody() {
           </div>
 
           <div
-            className="relative left-1/2 mt-12 w-screen max-w-[100vw] -translate-x-1/2 pr-10 lg:mt-20 lg:pr-[100px]"
+            className="relative left-1/2 mt-[150px] w-screen max-w-[100vw] -translate-x-1/2 pr-10 lg:pr-[100px]"
             data-figma="PENTAGRAM"
           >
-            <div className="flex flex-col items-end space-y-6 md:mt-16">
+            <div className="flex flex-col items-end">
               <div className="w-full max-w-[171.6px] lg:max-w-[429px]">
                 <Image
                   src="/work/pentagram-pf05.svg"
@@ -121,31 +107,13 @@ function WorkPageBody() {
                   priority
                 />
               </div>
-              <div className="relative aspect-[200/48] w-full max-w-[80px] lg:max-w-[200px]">
-                <Image
-                  src={figmaPentagramSmall.a}
-                  alt=""
-                  fill
-                  className="object-contain object-left"
-                  sizes="(max-width: 1023px) 80px, 200px"
-                  unoptimized
-                />
-                <Image
-                  src={figmaPentagramSmall.b}
-                  alt=""
-                  fill
-                  className="object-contain object-left opacity-95 mix-blend-multiply"
-                  sizes="(max-width: 1023px) 80px, 200px"
-                  unoptimized
-                />
-              </div>
             </div>
           </div>
         </div>
 
         {/* 뷰포트 가로 50% 지점에서 텍스트 시작 · 모바일은 px-6 내 pl-[50vw] 보정 */}
         <div
-          className="relative left-1/2 mt-8 w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:mt-10 md:pr-10"
+          className="relative left-1/2 mt-[250px] w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:pr-10"
           data-figma="txt"
         >
           <div className="max-w-[min(640px,calc(50vw-1.5rem))] md:max-w-[min(640px,calc(50vw-2.5rem))]">
@@ -165,50 +133,58 @@ function WorkPageBody() {
         </div>
       </section>
 
-      <WorkThumbHmg />
-
-      <section
-        className={`relative z-10 py-16 md:py-24 lg:py-28 ${WORK_GUTTER}`}
-        style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+      <div
+        className="relative isolate z-0 w-full shrink-0"
+        data-figma="thumb_sub_stack"
       >
-        <ParallaxViewport
-          yRange={[0, -20]}
-          className="mx-auto w-full max-w-[1280px] lg:mx-auto"
-        >
-          <ParallaxLayer yRange={[16, -16]}>
-            <PortfolioCardViewInner />
-          </ParallaxLayer>
-        </ParallaxViewport>
-      </section>
-
-      <div className={`mx-auto max-w-[1280px] lg:mx-auto ${WORK_GUTTER}`}>
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-400/50 to-transparent" />
+        <WorkThumbHmg className="relative z-0" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex translate-y-1/2 justify-center px-6 md:px-10">
+          <div className="pointer-events-auto w-full max-w-[820px]">
+            <ParallaxViewport yRange={[0, -20]} className="w-full">
+              <ParallaxLayer yRange={[16, -16]} className="w-full">
+                <PortfolioCardViewInner />
+              </ParallaxLayer>
+            </ParallaxViewport>
+          </div>
+        </div>
       </div>
 
-      <section
-        className={`py-12 md:py-16 lg:py-20 ${WORK_GUTTER}`}
-        style={{ backgroundColor: SUB_WORK_PAGE_BG }}
-        data-figma="portfolio_group"
-      >
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-10 lg:mx-auto">
-          {WORK_PORTFOLIO_ROWS.map((row, i) => (
-            <ParallaxLayer
-              key={row.title}
-              yRange={[8 + (i % 5) * 3, -8 - (i % 5) * 3]}
-              className="w-full"
-            >
-              <WorkPortfolioGlassRow row={row} tripleLogos={i === 0} />
-            </ParallaxLayer>
-          ))}
-        </div>
-      </section>
+      <div className="relative flex min-h-0 flex-1 flex-col">
+        <div
+          className="pointer-events-none absolute left-1/2 top-0 z-0 w-[2px] -translate-x-1/2 bg-black"
+          style={{ bottom: 0 }}
+          aria-hidden
+          data-figma="portfolio_vertical_rule"
+        />
+        <div
+          className={`relative z-10 flex flex-1 flex-col ${WORK_GUTTER}`}
+          style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+        >
+          <section
+            className="flex flex-1 flex-col pt-[clamp(200px,36vw,380px)] pb-12 md:pb-16 lg:pb-20"
+            data-figma="portfolio_group"
+          >
+            <div className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col gap-10 lg:mx-auto">
+              {WORK_PORTFOLIO_ROWS.map((row, i) => (
+                <ParallaxLayer
+                  key={row.title}
+                  yRange={[8 + (i % 5) * 3, -8 - (i % 5) * 3]}
+                  className="w-full"
+                >
+                  <WorkPortfolioGlassRow row={row} tripleLogos={i === 0} />
+                </ParallaxLayer>
+              ))}
+            </div>
+          </section>
 
-      <footer
-        className={`border-t border-zinc-300/80 py-10 text-center text-xs text-zinc-500 ${WORK_GUTTER}`}
-        style={{ backgroundColor: SUB_WORK_PAGE_BG }}
-      >
-        ⓒ PENTACORE · WORK
-      </footer>
+          <footer
+            className={`relative z-10 border-t border-zinc-300/80 py-10 text-center text-xs text-zinc-500 ${WORK_GUTTER}`}
+            style={{ backgroundColor: SUB_WORK_PAGE_BG }}
+          >
+            ⓒ PENTACORE · WORK
+          </footer>
+        </div>
+      </div>
     </main>
   );
 }
@@ -216,10 +192,8 @@ function WorkPageBody() {
 export function WorkListingPage() {
   return (
     <Toast.Provider>
-      <WorkCursorProvider>
-        <WorkPageBody />
-        <WorkToastStack />
-      </WorkCursorProvider>
+      <WorkPageBody />
+      <WorkToastStack />
     </Toast.Provider>
   );
 }

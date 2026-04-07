@@ -7,7 +7,7 @@ import { FooterBar } from "./FooterBar";
 import { HeaderBar } from "./HeaderBar";
 import { HomeSectionCards } from "./HomeSectionCards";
 
-type Phase = "intro-load" | "intro-shrink" | "home-masked" | "home-chrome";
+type Phase = "intro-load" | "intro-shrink" | "home-chrome";
 
 const STORAGE_KEY = "pentacore_intro_done";
 
@@ -18,7 +18,6 @@ const TAGLINE = [
 
 const INTRO_CIRCLE_MS = 1200;
 const INTRO_TEXT_FADE_DELAY_MS = Math.round(INTRO_CIRCLE_MS * 0.42);
-const HOME_MASKED_MS = 3000;
 const VIDEO_READY_TO_SHRINK_MS = 320;
 
 /** `web/public/video/hero.mp4` → `/video/hero.mp4` */
@@ -74,7 +73,6 @@ export function HomeExperience() {
   const [videoReady, setVideoReady] = useState(false);
   const [circleScale, setCircleScale] = useState(1);
   const [introCopyFade, setIntroCopyFade] = useState(false);
-  const [cardsVisible, setCardsVisible] = useState(false);
   const [roll, setRoll] = useState(0);
 
   phaseRef.current = phase;
@@ -85,11 +83,11 @@ export function HomeExperience() {
 
   const videoSrc = DEFAULT_VIDEO;
 
-  /** 재방문: INTRO 생략 → HOME_LAYOUT-1(home-masked)부터 */
+  /** 재방문: INTRO 생략 → HOME_LAYOUT-2(home-chrome)부터 */
   useEffect(() => {
     try {
       if (localStorage.getItem(STORAGE_KEY) === "1") {
-        setPhase("home-masked");
+        setPhase("home-chrome");
       }
     } catch {
       /* private mode 등 */
@@ -144,39 +142,13 @@ export function HomeExperience() {
       } catch {
         /* ignore */
       }
-      setPhase("home-masked");
+      setPhase("home-chrome");
     },
     [],
   );
 
-  /** HOME_LAYOUT-1(풀영상) 유지 후 헤더·푸터 슬라이드 + 카드 등장 동시 시작 */
   useEffect(() => {
-    if (phase !== "home-masked") return;
-    const t = window.setTimeout(() => setPhase("home-chrome"), HOME_MASKED_MS);
-    return () => window.clearTimeout(t);
-  }, [phase]);
-
-  useEffect(() => {
-    if (phase !== "home-chrome") {
-      setCardsVisible(false);
-      return;
-    }
-    const v = videoRef.current;
-    void v?.play().catch(() => {});
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setCardsVisible(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [phase]);
-
-  useEffect(() => {
-    if (
-      phase !== "intro-shrink" &&
-      phase !== "home-masked" &&
-      phase !== "home-chrome"
-    ) {
-      return;
-    }
+    if (phase !== "intro-shrink" && phase !== "home-chrome") return;
     const v = videoRef.current;
     void v?.play().catch(() => {});
   }, [phase]);
@@ -191,12 +163,10 @@ export function HomeExperience() {
     bp === "mobile" ? "mobile" : bp === "tablet" ? "tablet" : "desktop";
 
   const chromeVisible = phase === "home-chrome";
-  const chromeSlidingIn = phase === "home-chrome";
+  /** 헤더·푸터·카드 즉시 노출(슬라이드 인 없음) */
+  const chromeSlidingIn = false;
 
-  const showHeroVideo =
-    phase === "intro-shrink" ||
-    phase === "home-masked" ||
-    phase === "home-chrome";
+  const showHeroVideo = phase === "intro-shrink" || phase === "home-chrome";
 
   const preload = phase === "intro-load";
 
@@ -289,9 +259,7 @@ export function HomeExperience() {
         overVideo={chromeVisible}
       />
 
-      {phase === "home-chrome" ? (
-        <HomeSectionCards visible={cardsVisible} />
-      ) : null}
+      {phase === "home-chrome" ? <HomeSectionCards /> : null}
     </div>
   );
 }
