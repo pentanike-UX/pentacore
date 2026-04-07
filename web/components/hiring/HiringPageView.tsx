@@ -1,10 +1,13 @@
 "use client";
 
+import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { CheckCircle2, MessageCircle, PenLine } from "lucide-react";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
-import { AppleHairlineRule } from "@/components/subpages/AppleHairlineRule";
 import { SubWorkStyleHero } from "@/components/subpages/SubWorkStyleHero";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { HIRING_JOB_SLUG_BACKEND, HIRING_PF05_SRC } from "@/components/hiring/hiring-assets";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +19,27 @@ const HERO_KO = `펜타코어는 호기심·명확성·주인의식을 중시합
 
 const shell =
   "rounded-[20px] border border-zinc-900/[0.06] bg-white/75 p-8 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_12px_40px_rgba(15,23,42,0.06)] backdrop-blur-md supports-[backdrop-filter]:bg-white/65 md:rounded-[28px] md:p-10";
+
+const fullBleedImg =
+  "relative left-1/2 mt-[200px] w-screen max-w-[100vw] -translate-x-1/2";
+
+function ProcessIcon({ children }: { children: ReactNode }) {
+  return (
+    <div
+      className="mb-5 flex size-[52px] items-center justify-center rounded-[14px] bg-zinc-950/[0.04] text-zinc-800 ring-1 ring-zinc-900/[0.08]"
+      aria-hidden
+    >
+      {children}
+    </div>
+  );
+}
+
+const CULTURE_BULLETS = [
+  "펜타코어는 현대자동차그룹과 함께 소프트웨어 업데이트 관련 프로젝트를 함께 만들어 가고 있습니다. 모빌리티 분야의 개발에 참여해 보는 경험을 얻고 싶으신 분과 함께하고 싶어요.",
+  "성장에 대한 갈증이 있고 좋은 방향으로 성장하고 싶으신 분과 함께 하고 싶어요.",
+  "변화를 두려워하지 않고 새로운 기술을 학습하며 꾸준히 성장하실 수 있는 분과 함께하고 싶어요.",
+  "주어진 비즈니스에 대한 이해가 빠르고, 이에 필요한 시스템의 설계가 가능하신 분과 함께 하고 싶어요.",
+] as const;
 
 export function HiringPageView() {
   return (
@@ -32,12 +56,36 @@ export function HiringPageView() {
         line2="Ship with care."
         bodyEn={HERO_EN}
         bodyKo={HERO_KO}
+        hideBodyCopy
       />
 
-      <AppleHairlineRule className="mx-auto max-w-[1280px] px-6 md:px-[76px]" />
+      <div className={fullBleedImg}>
+        <Image
+          src="/hire/img_hire1.png"
+          alt=""
+          width={1920}
+          height={1080}
+          className="h-auto w-full object-cover"
+          sizes="100vw"
+          priority
+        />
+      </div>
 
       <section
-        className="mx-auto w-full max-w-[1280px] px-6 pb-20 pt-16 md:px-[76px] md:pb-28 md:pt-20"
+        className="mx-auto w-full max-w-[1280px] px-6 pt-12 md:px-[76px] md:pt-14"
+        aria-label="채용 메시지"
+      >
+        <h2 className="sr-only">We hire for curiosity</h2>
+        <p className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:text-3xl">
+          {HERO_EN}
+        </p>
+        <p className="mt-6 whitespace-pre-line text-base leading-relaxed text-zinc-700 md:text-lg md:leading-relaxed">
+          {HERO_KO}
+        </p>
+      </section>
+
+      <section
+        className="mx-auto w-full max-w-[1280px] px-6 pb-8 pt-16 md:px-[76px] md:pb-12 md:pt-20"
         aria-labelledby="hiring-open-roles"
       >
         <h2
@@ -47,33 +95,51 @@ export function HiringPageView() {
           열린 포지션
         </h2>
         <p className="mt-2 max-w-[42rem] text-[15px] leading-relaxed text-zinc-600">
-          공고는 준비 중입니다. 아래 버튼으로 문의를 남기면 포지션이 열릴 때
-          연락드릴 수 있습니다.
+          아래 카드를 눌러 상세 요건과 업무를 확인하세요.
         </p>
-        <div className={cn("mt-10", shell)}>
-          <p className="text-sm font-medium text-zinc-500">현재 상태</p>
-          <p className="mt-3 text-lg font-semibold tracking-tight text-zinc-900">
-            등록된 공고가 없습니다
-          </p>
-          <p className="mt-2 max-w-md text-[15px] leading-relaxed text-zinc-600">
-            채용이 활성화되면 이 영역에 역할·요건·지원 방법이 표시됩니다.
-          </p>
-          <Button
-            type="button"
-            variant="outline"
-            className="mt-8 rounded-full border-zinc-300 bg-white/80 px-6"
-            disabled
-            aria-disabled
-          >
-            지원하기 (준비 중)
-          </Button>
-        </div>
+        <Link
+          href={`/hiring/${HIRING_JOB_SLUG_BACKEND}`}
+          className={cn(
+            "group mt-10 flex flex-col gap-4 transition-[transform,box-shadow] duration-300 ease-out md:flex-row md:items-center md:justify-between",
+            shell,
+            "hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_20px_48px_rgba(15,23,42,0.1)]",
+          )}
+        >
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+              Engineering
+            </p>
+            <p className="mt-2 text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl">
+              Back-end Developer
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <span className="rounded-full bg-zinc-950/[0.06] px-3 py-1 text-xs font-medium text-zinc-800 ring-1 ring-zinc-900/10">
+                Java
+              </span>
+              <span className="rounded-full bg-zinc-950/[0.06] px-3 py-1 text-xs font-medium text-zinc-800 ring-1 ring-zinc-900/10">
+                React
+              </span>
+            </div>
+          </div>
+          <span className="text-sm font-medium text-zinc-500 transition group-hover:text-zinc-900 md:shrink-0">
+            상세 보기 →
+          </span>
+        </Link>
       </section>
 
-      <AppleHairlineRule className="mx-auto max-w-[1280px] px-6 md:px-[76px]" />
+      <div className={fullBleedImg}>
+        <Image
+          src="/hire/img_hire2.png"
+          alt=""
+          width={1920}
+          height={1080}
+          className="h-auto w-full object-cover"
+          sizes="100vw"
+        />
+      </div>
 
       <section
-        className="mx-auto w-full max-w-[1280px] px-6 py-16 md:px-[76px] md:py-24"
+        className="mx-auto w-full max-w-[1280px] px-6 pb-20 pt-[200px] md:px-[76px] md:pb-28"
         aria-labelledby="hiring-process"
       >
         <h2
@@ -91,23 +157,45 @@ export function HiringPageView() {
               step: "01",
               title: "대화",
               body: "포트폴리오와 관심 분야를 중심으로 가볍게 이야기를 나눕니다.",
+              icon: (
+                <MessageCircle
+                  className="size-[26px]"
+                  strokeWidth={1.35}
+                  aria-hidden
+                />
+              ),
             },
             {
               step: "02",
               title: "실무 과제",
               body: "짧은 과제로 협업 방식과 사고의 깊이를 함께 확인합니다.",
+              icon: (
+                <PenLine
+                  className="size-[26px]"
+                  strokeWidth={1.35}
+                  aria-hidden
+                />
+              ),
             },
             {
               step: "03",
               title: "오퍼",
               body: "합류 시 기대 역할·환경을 투명하게 공유하고 결정을 돕습니다.",
+              icon: (
+                <CheckCircle2
+                  className="size-[26px]"
+                  strokeWidth={1.35}
+                  aria-hidden
+                />
+              ),
             },
           ].map((item) => (
             <li key={item.step} className={cn(shell, "flex flex-col")}>
+              <ProcessIcon>{item.icon}</ProcessIcon>
               <span className="text-xs font-semibold tabular-nums text-zinc-400">
                 {item.step}
               </span>
-              <h3 className="mt-3 text-lg font-semibold tracking-tight text-zinc-950">
+              <h3 className="mt-2 text-lg font-semibold tracking-tight text-zinc-950">
                 {item.title}
               </h3>
               <p className="mt-2 text-[15px] leading-relaxed text-zinc-600">
@@ -118,8 +206,51 @@ export function HiringPageView() {
         </ol>
       </section>
 
+      <section
+        className="mx-auto w-full max-w-[1280px] px-6 pb-20 md:px-[76px] md:pb-28"
+        aria-labelledby="hiring-culture-fit"
+      >
+        <div className={cn(shell)}>
+          <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-14">
+            <div className="shrink-0">
+              <Image
+                src={HIRING_PF05_SRC}
+                alt=""
+                width={83}
+                height={63}
+                className="h-[63px] w-[83px] object-contain object-left"
+                data-figma="PF_05"
+                unoptimized
+              />
+              <h2
+                id="hiring-culture-fit"
+                className="mt-6 text-2xl font-semibold tracking-tight text-zinc-950 md:text-[28px]"
+              >
+                Culture Fit
+              </h2>
+            </div>
+            <ul className="min-w-0 flex-1 space-y-5 text-[15px] leading-relaxed text-zinc-700">
+              {CULTURE_BULLETS.map((line, i) => (
+                <li key={i} className="flex gap-3">
+                  <span
+                    className="mt-2 size-1.5 shrink-0 rounded-full bg-zinc-400"
+                    aria-hidden
+                  />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto w-full max-w-[1280px] px-6 pb-24 md:px-[76px] md:pb-32">
-        <div className={cn(shell, "flex flex-col gap-6 md:flex-row md:items-center md:justify-between")}>
+        <div
+          className={cn(
+            shell,
+            "flex flex-col gap-6 md:flex-row md:items-center md:justify-between",
+          )}
+        >
           <div>
             <h2 className="text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl">
               프로젝트 문의가 먼저인가요?

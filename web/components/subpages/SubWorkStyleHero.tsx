@@ -12,6 +12,8 @@ type Props = {
   bodyEn: string;
   bodyKo: string;
   className?: string;
+  /** true면 영·한 본문 블록을 렌더하지 않음(이미지 아래 등에서 별도 배치) */
+  hideBodyCopy?: boolean;
 };
 
 /**
@@ -24,6 +26,7 @@ export function SubWorkStyleHero({
   bodyEn,
   bodyKo,
   className,
+  hideBodyCopy,
 }: Props) {
   return (
     <section
@@ -50,25 +53,27 @@ export function SubWorkStyleHero({
         </div>
       </div>
 
-      <div
-        className="relative left-1/2 mt-[120px] w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:mt-[160px] md:pr-10 lg:mt-[200px]"
-        data-figma="SUB_WORK txt pattern"
-      >
-        <div className="max-w-[min(640px,calc(50vw-1.5rem))] md:max-w-[min(640px,calc(50vw-2.5rem))]">
-          <h3 className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:hidden">
-            {bodyEn}
-          </h3>
-          <h2 className="hidden whitespace-pre-line text-3xl font-semibold tracking-tight text-zinc-950 md:block">
-            {bodyEn}
-          </h2>
-          <p className="mt-4 whitespace-pre-line text-base font-normal leading-relaxed text-zinc-800 md:hidden">
-            {bodyKo}
-          </p>
-          <p className="mt-6 hidden whitespace-pre-line text-lg font-normal leading-relaxed text-zinc-600 md:block">
-            {bodyKo}
-          </p>
+      {!hideBodyCopy ? (
+        <div
+          className="relative left-1/2 mt-[120px] w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:mt-[160px] md:pr-10 lg:mt-[200px]"
+          data-figma="SUB_WORK txt pattern"
+        >
+          <div className="max-w-[min(640px,calc(50vw-1.5rem))] md:max-w-[min(640px,calc(50vw-2.5rem))]">
+            <h3 className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:hidden">
+              {bodyEn}
+            </h3>
+            <h2 className="hidden whitespace-pre-line text-3xl font-semibold tracking-tight text-zinc-950 md:block">
+              {bodyEn}
+            </h2>
+            <p className="mt-4 whitespace-pre-line text-base font-normal leading-relaxed text-zinc-800 md:hidden">
+              {bodyKo}
+            </p>
+            <p className="mt-6 hidden whitespace-pre-line text-lg font-normal leading-relaxed text-zinc-600 md:block">
+              {bodyKo}
+            </p>
+          </div>
         </div>
-      </div>
+      ) : null}
     </section>
   );
 }
