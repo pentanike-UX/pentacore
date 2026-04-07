@@ -32,6 +32,8 @@ type Props = {
    * `inline` — 서브페이지 문서 흐름, `bg-white`·relative (공통 푸터 대신 서브 푸터).
    */
   placement?: "fixed" | "inline";
+  /** true면 ABOUT / WORK 등 하단 내비 링크 숨김 (홈 전용) */
+  hideNav?: boolean;
 };
 
 function subscribeScroll(cb: () => void) {
@@ -68,6 +70,7 @@ export function FooterBar({
   overVideo = false,
   scrollGlass = true,
   placement = "fixed",
+  hideNav = false,
 }: Props) {
   const [entered, setEntered] = useState(!slideInFromBottom);
   const scrolled = useSyncExternalStore(
@@ -149,31 +152,33 @@ export function FooterBar({
         }
       >
         <div className="flex max-w-xl flex-col gap-5">
-          <nav
-            className={cn(
-              "flex min-w-0 flex-nowrap items-center gap-1 overflow-x-auto overflow-y-hidden text-[13px] font-bold leading-none tracking-tight [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:text-base sm:leading-4 sm:tracking-normal [&::-webkit-scrollbar]:hidden",
-              navTone,
-            )}
-            aria-label="하단 내비게이션"
-          >
-            {nav.map((item, i) => (
-              <span
-                key={item.href}
-                className="flex shrink-0 items-center gap-1 sm:gap-2"
-              >
-                {i > 0 ? <Divider light={dividerLight} /> : null}
-                <Link
-                  href={item.href}
-                  className={cn(
-                    "whitespace-nowrap rounded-sm px-0.5 py-1 sm:px-1.5 -my-1 hover:opacity-90",
-                    glassHover,
-                  )}
+          {!hideNav ? (
+            <nav
+              className={cn(
+                "flex min-w-0 flex-nowrap items-center gap-1 overflow-x-auto overflow-y-hidden text-[13px] font-bold leading-none tracking-tight [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:text-base sm:leading-4 sm:tracking-normal [&::-webkit-scrollbar]:hidden",
+                navTone,
+              )}
+              aria-label="하단 내비게이션"
+            >
+              {nav.map((item, i) => (
+                <span
+                  key={item.href}
+                  className="flex shrink-0 items-center gap-1 sm:gap-2"
                 >
-                  {item.label}
-                </Link>
-              </span>
-            ))}
-          </nav>
+                  {i > 0 ? <Divider light={dividerLight} /> : null}
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "whitespace-nowrap rounded-sm px-0.5 py-1 sm:px-1.5 -my-1 hover:opacity-90",
+                      glassHover,
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </span>
+              ))}
+            </nav>
+          ) : null}
           <p
             className={cn(
               "text-[14px] font-medium leading-snug",

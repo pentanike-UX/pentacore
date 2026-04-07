@@ -260,6 +260,7 @@ export function HomeExperience() {
         variant={footerVariant}
         surface="dark"
         overVideo={chromeVisible}
+        hideNav
       />
 
       {phase === "home-chrome" ? <HomeSectionCards /> : null}
