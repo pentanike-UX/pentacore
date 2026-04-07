@@ -3,18 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { HOME_CARDS_PAGE_BG } from "@/lib/figma-liquid-glass";
-import { assets } from "./figma-assets";
 import { FooterBar } from "./FooterBar";
 import { HeaderBar } from "./HeaderBar";
 import { HomeSectionCards } from "./HomeSectionCards";
 
-type Phase =
-  | "intro-load"
-  | "intro-shrink"
-  | "home-masked"
-  | "home-chrome"
-  | "home-cards";
+type Phase = "intro-load" | "intro-shrink" | "home-masked" | "home-chrome";
 
 const STORAGE_KEY = "pentacore_intro_done";
 
@@ -26,7 +19,6 @@ const TAGLINE = [
 const INTRO_CIRCLE_MS = 1200;
 const INTRO_TEXT_FADE_DELAY_MS = Math.round(INTRO_CIRCLE_MS * 0.42);
 const HOME_MASKED_MS = 3000;
-const CHROME_SLIDE_MS = 450;
 const VIDEO_READY_TO_SHRINK_MS = 320;
 
 /** `web/public/video/hero.mp4` → `/video/hero.mp4` */
@@ -119,14 +111,13 @@ export function HomeExperience() {
     return () => el.removeEventListener("canplaythrough", onReady);
   }, [videoSrc]);
 
-  /** 동영상 준비 후 원형 셔rink */
+  /** 동영상 준비 후 원형 shrink — 뒤에는 마스크 없는 풀스크린 영상 */
   useEffect(() => {
     if (phase !== "intro-load" || !videoReady) return;
     const t = window.setTimeout(() => setPhase("intro-shrink"), VIDEO_READY_TO_SHRINK_MS);
     return () => window.clearTimeout(t);
   }, [phase, videoReady]);
 
-  /** 원형 레이어: 첫 프레임 scale(1) → 이후 0 */
   useEffect(() => {
     if (phase !== "intro-shrink") return;
     setCircleScale(1);
@@ -158,22 +149,15 @@ export function HomeExperience() {
     [],
   );
 
-  /** HOME_LAYOUT-1 유지 시간 후 헤더·푸터 */
+  /** HOME_LAYOUT-1(풀영상) 유지 후 헤더·푸터 슬라이드 + 카드 등장 동시 시작 */
   useEffect(() => {
     if (phase !== "home-masked") return;
     const t = window.setTimeout(() => setPhase("home-chrome"), HOME_MASKED_MS);
     return () => window.clearTimeout(t);
   }, [phase]);
 
-  /** 헤더·푸터 슬라이드 후 카드 + 로고 이동 */
   useEffect(() => {
-    if (phase !== "home-chrome") return;
-    const t = window.setTimeout(() => setPhase("home-cards"), CHROME_SLIDE_MS);
-    return () => window.clearTimeout(t);
-  }, [phase]);
-
-  useEffect(() => {
-    if (phase !== "home-cards") {
+    if (phase !== "home-chrome") {
       setCardsVisible(false);
       return;
     }
@@ -206,55 +190,24 @@ export function HomeExperience() {
   const footerVariant =
     bp === "mobile" ? "mobile" : bp === "tablet" ? "tablet" : "desktop";
 
-  const lightHomeSurface = phase === "home-cards";
-  const chromeVisible = phase === "home-chrome" || phase === "home-cards";
+  const chromeVisible = phase === "home-chrome";
   const chromeSlidingIn = phase === "home-chrome";
-  const chromeLight = phase === "home-cards";
 
-  const showLayout1Video =
+  const showHeroVideo =
     phase === "intro-shrink" ||
     phase === "home-masked" ||
-    phase === "home-chrome" ||
-    phase === "home-cards";
+    phase === "home-chrome";
 
   const preload = phase === "intro-load";
 
-  const maskStyle =
-    showLayout1Video && !preload
-      ? {
-          maskImage: `url('${assets.logoMaskSvg}')`,
-          WebkitMaskImage: `url('${assets.logoMaskSvg}')`,
-          maskSize: "min(1000px, 92vw) auto" as const,
-          WebkitMaskSize: "min(1000px, 92vw) auto" as const,
-          maskRepeat: "no-repeat" as const,
-          WebkitMaskRepeat: "no-repeat" as const,
-          maskPosition: "center" as const,
-          WebkitMaskPosition: "center" as const,
-        }
-      : undefined;
-
-  const videoOpacity =
-    showLayout1Video && !preload ? 1 : 0;
-
-  const videoOpacityFinal = phase === "home-cards" ? 0 : videoOpacity;
-
   return (
-    <div
-      className={cn(
-        "relative min-h-dvh overflow-hidden transition-colors duration-500",
-        lightHomeSurface
-          ? "text-zinc-950"
-          : "bg-black text-white",
-      )}
-      style={
-        lightHomeSurface ? { backgroundColor: HOME_CARDS_PAGE_BG } : undefined
-      }
-    >
+    <div className="relative min-h-dvh overflow-hidden bg-black text-white antialiased">
       <HeaderBar
         visible={chromeVisible}
         slideInFromTop={chromeSlidingIn}
         compact={headerCompact}
-        surface={chromeLight ? "light" : "dark"}
+        surface="dark"
+        overVideo={chromeVisible}
       />
 
       <video
@@ -268,37 +221,16 @@ export function HomeExperience() {
           "fixed z-30 object-cover",
           preload &&
             "pointer-events-none left-0 top-0 h-px w-px overflow-hidden",
-          showLayout1Video && !preload && "inset-0 h-full w-full",
-          showLayout1Video &&
+          showHeroVideo && !preload && "inset-0 h-full w-full",
+          showHeroVideo &&
             !preload &&
-            "transition-[opacity,transform] duration-[600ms] ease-out",
-          phase === "home-cards" && "duration-700 ease-out-quart",
+            "transition-opacity duration-[500ms] ease-out",
         )}
         style={{
-          ...(showLayout1Video && !preload ? maskStyle : {}),
-          opacity: videoOpacityFinal,
-          ...(phase === "home-cards"
-            ? { transform: "translateY(calc(-1 * min(28vh, 320px)))" }
-            : {}),
+          opacity: showHeroVideo && !preload ? 1 : 0,
         }}
         aria-hidden
       />
-
-      {/* HOME_LAYOUT-1 배경(라이트 전까지) */}
-      {showLayout1Video && !lightHomeSurface ? (
-        <div
-          className="pointer-events-none fixed inset-0 z-20 bg-black"
-          aria-hidden
-        />
-      ) : null}
-
-      {lightHomeSurface ? (
-        <div
-          className="pointer-events-none fixed inset-0 z-20"
-          style={{ backgroundColor: HOME_CARDS_PAGE_BG }}
-          aria-hidden
-        />
-      ) : null}
 
       {/* INTRO: 검정 원형 레이어 축소 */}
       {phase === "intro-shrink" ? (
@@ -339,26 +271,25 @@ export function HomeExperience() {
       ) : null}
 
       {phase === "intro-load" ? (
-        <>
-          <Button
-            type="button"
-            variant="link"
-            onClick={skipToShrink}
-            className="fixed bottom-10 left-1/2 z-[60] h-auto -translate-x-1/2 p-0 text-[14px] font-medium text-white/80 underline decoration-white/40 underline-offset-4 hover:text-white"
-          >
-            Skip
-          </Button>
-        </>
+        <Button
+          type="button"
+          variant="link"
+          onClick={skipToShrink}
+          className="fixed bottom-10 left-1/2 z-[60] h-auto -translate-x-1/2 p-0 text-[14px] font-medium text-white/80 underline decoration-white/40 underline-offset-4 hover:text-white"
+        >
+          Skip
+        </Button>
       ) : null}
 
       <FooterBar
         visible={chromeVisible}
         slideInFromBottom={chromeSlidingIn}
         variant={footerVariant}
-        surface={chromeLight ? "light" : "dark"}
+        surface="dark"
+        overVideo={chromeVisible}
       />
 
-      {phase === "home-cards" ? (
+      {phase === "home-chrome" ? (
         <HomeSectionCards visible={cardsVisible} />
       ) : null}
     </div>

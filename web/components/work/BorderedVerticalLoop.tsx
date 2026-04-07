@@ -12,16 +12,20 @@ type Props = {
   className?: string;
   slowDuration?: number;
   fastDuration?: number;
-  /** ST-FO-005_BIC_m / ST-FO-030_m — 30px radius + SDS box-shadow */
+  /** ST-FO-005_BIC_m / ST-FO-030_m — 30px radius + 지정 드롭섀도 */
   sdsFrame?: boolean;
+  /** sec_5 ST-FO-111 — Y36 / blur50 / spread0 / #0C0C0D 40% */
+  stfo111Shadow?: boolean;
 };
 
 /**
  * 고정 검정 보더 안에서 긴 이미지가 세로로 느리게 올라갔다가,
  * 하단이 맞으면 더 빠르게 역방향으로 내려오는 루프.
  */
-const SDS_FRAME_SHADOW =
-  "var(--sds-size-depth-0) var(--sds-size-depth-400) var(--sds-size-depth-800) var(--sds-size-depth-negative-200) var(--sds-color-black-400)";
+/** ST-FO-005_BIC_m, ST-FO-030_m — 위치 Y16, 흐림32, 스프레드0, #0C0C0D 40% */
+const STFO_005_030_BOX_SHADOW = "0 16px 32px 0 rgba(12, 12, 13, 0.4)";
+/** ST-FO-111 — 위치 Y36, 흐림50, 스프레드0, #0C0C0D 40% */
+const STFO_111_BOX_SHADOW = "0 36px 50px 0 rgba(12, 12, 13, 0.4)";
 
 export function BorderedVerticalLoop({
   borderWidth,
@@ -32,6 +36,7 @@ export function BorderedVerticalLoop({
   slowDuration = 14,
   fastDuration = 3.2,
   sdsFrame = false,
+  stfo111Shadow = false,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
@@ -100,7 +105,12 @@ export function BorderedVerticalLoop({
         ...(sdsFrame
           ? {
               borderRadius: "30px",
-              boxShadow: SDS_FRAME_SHADOW,
+              boxShadow: STFO_005_030_BOX_SHADOW,
+            }
+          : {}),
+        ...(stfo111Shadow
+          ? {
+              boxShadow: STFO_111_BOX_SHADOW,
             }
           : {}),
       }}

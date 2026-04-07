@@ -4,7 +4,8 @@ import { figmaHyundaiCase, figmaWorksViewDivider } from "./figma-work-assets";
 export const workImages = {
   loop005Full: figmaHyundaiCase.stFo005Full,
   loop024Full: figmaHyundaiCase.stFo024Full,
-  loop111Full: figmaHyundaiCase.stFo111Full,
+  /** ST-FO-111 — 로컬 풀 프레임 PNG (`public/work/ST-FO-111_full.png`) */
+  loop111Full: "/work/ST-FO-111_full.png",
 } as const;
 
 /** `/works_view` 정적 이미지 — 전부 Figma MCP */

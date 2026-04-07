@@ -19,6 +19,8 @@ type Props = {
   visible?: boolean;
   /** true면 첫 프레임은 화면 위 밖, 이후 위에서 아래로 슬라이드 인 */
   slideInFromTop?: boolean;
+  /** 풀스크린 동영상 위 — 로고 반전·반투명·블러로 대비 확보 */
+  overVideo?: boolean;
 };
 
 export function HeaderBar({
@@ -26,6 +28,7 @@ export function HeaderBar({
   surface = "dark",
   visible = true,
   slideInFromTop = false,
+  overVideo = false,
 }: Props) {
   const [entered, setEntered] = useState(!slideInFromTop);
 
@@ -46,6 +49,7 @@ export function HeaderBar({
   }, [visible, slideInFromTop]);
 
   const light = surface === "light";
+  const onVideo = overVideo && !light;
   const p = compact ? "px-6 py-5" : "px-10 py-10";
   const logoH = compact ? 14 : 17;
   const logoW = compact ? 118 : 143;
@@ -57,6 +61,8 @@ export function HeaderBar({
       className={cn(
         "fixed left-0 right-0 top-0 z-40 flex items-center justify-between transition-transform duration-[450ms] ease-out",
         slideInFromTop && !entered && "-translate-y-full",
+        onVideo &&
+          "border-b border-white/15 bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-black/25",
         p,
       )}
       data-figma="Header_PC | Header_PAD&Mobile"
@@ -75,6 +81,7 @@ export function HeaderBar({
           className={cn(
             "h-full w-auto object-contain object-left",
             light && "brightness-0",
+            onVideo && "brightness-0 invert",
           )}
           priority
           unoptimized

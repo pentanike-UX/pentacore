@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HeaderBar } from "@/components/home/HeaderBar";
@@ -130,14 +130,6 @@ function Grid12({
 /**
  * Figma `/works_view` (node 279:22974) — 라이트 베이스 + Rectangle 27 밴드, 섹션 순서·카피 정합.
  */
-const WORKS_VIEW_SDS_VARS = {
-  "--sds-size-depth-0": "0",
-  "--sds-size-depth-400": "4px",
-  "--sds-size-depth-800": "8px",
-  "--sds-size-depth-negative-200": "-2px",
-  "--sds-color-black-400": "rgba(0, 0, 0, 0.22)",
-} as unknown as CSSProperties;
-
 export function WorksDetailView() {
   return (
     <main
@@ -145,7 +137,6 @@ export function WorksDetailView() {
       style={{
         backgroundColor: SUB_WORK_PAGE_BG,
         color: TEXT,
-        ...WORKS_VIEW_SDS_VARS,
       }}
       data-figma="/works_view"
     >
@@ -561,6 +552,7 @@ export function WorksDetailView() {
                   alt=""
                   slowDuration={16}
                   fastDuration={3.5}
+                  stfo111Shadow
                 />
               </div>
               <p className="mt-3 text-xs" style={{ color: MUTED }}>

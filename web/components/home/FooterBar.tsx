@@ -21,13 +21,23 @@ type Props = {
   variant?: "desktop" | "tablet" | "mobile";
   /** HOME_LAYOUT-2 라이트 베이스 — 링크·본문 다크 톤 */
   surface?: "dark" | "light";
+  /** 풀스크린 동영상 위 — 푸터 가독성(반투명·블러·구분선 밝게) */
+  overVideo?: boolean;
 };
 
-function Divider({ light }: { light?: boolean }) {
+function Divider({ light, onVideo }: { light?: boolean; onVideo?: boolean }) {
   if (light) {
     return (
       <span
         className="inline-block h-3 w-px shrink-0 bg-zinc-300"
+        aria-hidden
+      />
+    );
+  }
+  if (onVideo) {
+    return (
+      <span
+        className="inline-block h-3 w-px shrink-0 bg-white/35"
         aria-hidden
       />
     );
@@ -53,6 +63,7 @@ export function FooterBar({
   slideInFromBottom = false,
   variant = "desktop",
   surface = "dark",
+  overVideo = false,
 }: Props) {
   const [entered, setEntered] = useState(!slideInFromBottom);
 
@@ -77,12 +88,15 @@ export function FooterBar({
   const isMobile = variant === "mobile";
   const pad = isMobile ? "px-6 pb-8 pt-4" : "px-10 pb-10 pt-4";
   const light = surface === "light";
+  const onVideo = overVideo && !light;
 
   return (
     <footer
       className={cn(
         "fixed bottom-0 left-0 right-0 z-50 transition-transform duration-[450ms] ease-out",
         slideInFromBottom && !entered && "translate-y-full",
+        onVideo &&
+          "border-t border-white/15 bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-black/25",
         pad,
       )}
       data-figma="#Footer_home_PC | #Footer_home_PAD | #Footer_home_M"
@@ -104,7 +118,7 @@ export function FooterBar({
           >
             {nav.map((item, i) => (
               <span key={item.href} className="flex items-center gap-3">
-                {i > 0 ? <Divider light={light} /> : null}
+                {i > 0 ? <Divider light={light} onVideo={onVideo} /> : null}
                 <Link href={item.href} className="whitespace-nowrap hover:opacity-80">
                   {item.label}
                 </Link>
