@@ -139,19 +139,12 @@ export function HeaderBar({
         aria-controls="header-fullscreen-nav"
         onClick={() => setMenuOpen((o) => !o)}
         className={cn(
-          "relative size-11 shrink-0 overflow-visible rounded-md border-0",
-          glassHover,
+          "relative size-11 shrink-0 overflow-visible rounded-md border-0 bg-transparent",
           light
-            ? "bg-zinc-950/10 text-zinc-950 hover:bg-zinc-950/[0.14] hover:text-zinc-950"
-            : "bg-white/20 text-white hover:bg-white/30 hover:text-white",
+            ? "text-zinc-950 hover:bg-zinc-950/[0.08]"
+            : "text-white hover:bg-white/[0.12]",
         )}
       >
-        <span
-          className={cn(
-            "pointer-events-none absolute left-1 top-1 size-9 border-2",
-            light ? "border-zinc-950" : "border-white",
-          )}
-        />
         <HeaderMenuIcon open={menuOpen} light={light} />
       </Button>
     </header>
