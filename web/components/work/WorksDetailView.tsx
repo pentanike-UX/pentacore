@@ -186,7 +186,7 @@ export function WorksDetailView() {
       style={{ color: TEXT }}
       data-figma="/works_view"
     >
-      <div className="border-b border-zinc-900/10 px-4 pb-6 pt-[92px] md:px-[76px] md:pb-8 md:pt-[124px]">
+      <div className="border-b border-zinc-900/10 px-4 pb-6 pt-[4.5rem] sm:pt-[5.75rem] md:px-[4.75rem] md:pb-8 md:pt-[7.75rem]">
         <div className="mx-auto max-w-[1280px]">
           <Link
             href="/work"
@@ -207,7 +207,7 @@ export function WorksDetailView() {
 
       <ParallaxViewport yRange={WORKS_DETAIL_PARALLAX_Y} className="block">
       {/* Title + summery + divider — SUB_WORK 동일 베이스 */}
-      <div className="mx-auto max-w-[1280px] px-4 pb-14 md:px-[76px] md:pb-20">
+      <div className="mx-auto max-w-[1280px] px-4 pb-14 md:px-[4.75rem] md:pb-20">
         <Grid12>
           <ParallaxLayer
             yRange={WORKS_DETAIL_PARALLAX_Y}
@@ -219,7 +219,7 @@ export function WorksDetailView() {
             >
               {/* PENTAGRAM PF_06 — P 위, 116×60, 상단 여백 ~100px */}
               <div
-                className="relative mt-[100px] h-[60px] w-[116px] shrink-0"
+                className="relative mt-[4rem] h-[60px] w-[116px] shrink-0 md:mt-[5rem] lg:mt-[6.25rem]"
                 aria-hidden
                 data-figma="PF_06"
               >
@@ -290,7 +290,7 @@ export function WorksDetailView() {
 
       {/* sec_1 — 위·아래 14rem */}
       <section
-        className="mx-auto max-w-[1280px] px-4 py-[14rem] md:px-[76px]"
+        className="mx-auto max-w-[1280px] px-4 py-[8.75rem] md:px-[4.75rem] md:py-[11.2rem] lg:py-[14rem]"
         data-figma="sec_1"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -316,7 +316,7 @@ export function WorksDetailView() {
 
       {/* sec_2 — 위·아래 14rem; 칩 영역도 상·하 14rem */}
       <section
-        className="mx-auto max-w-[1280px] px-4 py-[14rem] md:px-[76px]"
+        className="mx-auto max-w-[1280px] px-4 py-[8.75rem] md:px-[4.75rem] md:py-[11.2rem] lg:py-[14rem]"
         data-figma="sec_2"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -340,7 +340,7 @@ export function WorksDetailView() {
 
           {/* 데스크톱(lg+): 12컬 중 5~12열 · 칩 영역 상·하 14rem 패딩(본문↔칩 구간 포함) */}
           <div
-            className="col-span-12 py-[14rem] lg:col-span-8 lg:col-start-5"
+            className="col-span-12 py-[8.75rem] md:py-[11.2rem] lg:col-span-8 lg:col-start-5 lg:py-[14rem]"
             data-figma="sec_2 chips"
           >
             <div className="space-y-32 md:space-y-40 lg:space-y-48">
@@ -397,7 +397,7 @@ export function WorksDetailView() {
 
       {/* sec_3 — 라이트 */}
       <section
-        className="mx-auto max-w-[1280px] px-4 pb-16 md:px-[76px] md:pb-24"
+        className="mx-auto max-w-[1280px] px-4 pb-16 md:px-[4.75rem] md:pb-24"
         data-figma="sec_3"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -413,19 +413,19 @@ export function WorksDetailView() {
           </div>
           {/* Philosophy 1: Grid12 직계 — lg에서 3칸·중앙(col 5–7), 본문 좌측 정렬 */}
           <p
-            className="col-span-12 mt-[200px] whitespace-pre-line text-left text-base leading-relaxed lg:col-span-3 lg:col-start-5"
+            className="col-span-12 mt-[7.75rem] whitespace-pre-line text-left text-base leading-relaxed md:mt-[10rem] lg:col-span-3 lg:col-start-5 lg:mt-[12.5rem]"
             style={{ color: TEXT }}
           >
             {SEC3_BODY_A}
           </p>
           {/* Philosophy 2: 동일 3칸 너비 */}
           <p
-            className="col-span-12 mt-[60px] whitespace-pre-line text-left text-base leading-relaxed lg:col-span-3 lg:col-start-5"
+            className="col-span-12 mt-[2.5rem] whitespace-pre-line text-left text-base leading-relaxed md:mt-[3rem] lg:col-span-3 lg:col-start-5 lg:mt-[3.75rem]"
             style={{ color: TEXT }}
           >
             {SEC3_BODY_B}
           </p>
-          <div className="col-span-12 mt-[240px] w-full">
+          <div className="col-span-12 mt-[9.25rem] w-full md:mt-[12rem] lg:mt-[15rem]">
             <FigImage
               src={hyundaiWorksViewImages.latestUpdateSample}
               alt="Latest update screen sample"
@@ -442,7 +442,7 @@ export function WorksDetailView() {
 
       {/* sec_4 ~ 크레딧 — 페이지 단일 배경 */}
         <section
-          className="mx-auto max-w-[1280px] px-4 pb-0 pt-20 md:px-[76px] md:pb-0 md:pt-28"
+          className="mx-auto max-w-[1280px] px-4 pb-0 pt-20 md:px-[4.75rem] md:pb-0 md:pt-28"
           data-figma="sec_4"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -479,7 +479,7 @@ export function WorksDetailView() {
                     sdsFrame
                   />
                 </div>
-                <div className="w-full max-w-[324px] shrink-0 lg:mt-[653px] lg:w-[324px]">
+                <div className="w-full max-w-[324px] shrink-0 lg:mt-[40.8125rem] lg:w-[324px]">
                   <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                     ST-FO-030_m
                   </p>
@@ -501,7 +501,7 @@ export function WorksDetailView() {
 
         {/* sec_4/in */}
         <section
-          className="mx-auto max-w-[1280px] px-4 pb-16 pt-[300px] md:px-[76px] md:pb-24"
+          className="mx-auto max-w-[1280px] px-4 pb-16 pt-[11.5rem] md:px-[4.75rem] md:pt-[15rem] md:pb-24 lg:pt-[18.75rem]"
           data-figma="sec_4/in_sec_"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -515,7 +515,7 @@ export function WorksDetailView() {
               <br className="hidden sm:block" />
               —all in one step.
             </h2>
-            <div className="mt-[200px] space-y-[200px]">
+            <div className="mt-[7.75rem] space-y-[7.75rem] md:mt-[10rem] md:space-y-[10rem] lg:mt-[12.5rem] lg:space-y-[12.5rem]">
               <div>
                 <FigImage
                   src={hyundaiWorksViewImages.flowStep1}
@@ -554,7 +554,7 @@ export function WorksDetailView() {
 
         {/* sec_4in */}
         <section
-          className="mx-auto max-w-[1280px] px-4 py-16 md:px-[76px] md:py-24"
+          className="mx-auto max-w-[1280px] px-4 py-16 md:px-[4.75rem] md:py-24"
           data-figma="sec_4in_sec_"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -569,12 +569,12 @@ export function WorksDetailView() {
             </div>
             {/* Philosophy: 우측 3칸(col 10–12) · 모바일 전폭 */}
             <p
-              className="col-span-12 mt-[100px] text-left text-base leading-relaxed lg:col-span-3 lg:col-start-10"
+              className="col-span-12 mt-[4rem] text-left text-base leading-relaxed md:mt-[5rem] lg:col-span-3 lg:col-start-10 lg:mt-[6.25rem]"
               style={{ color: TEXT }}
             >
               {SEC4IN_BODY}
             </p>
-            <div className="col-span-12 mt-[100px]">
+            <div className="col-span-12 mt-[4rem] md:mt-[5rem] lg:mt-[6.25rem]">
               <FigImage
                 src={hyundaiWorksViewImages.myPageFlow}
                 alt="My page — check updates"
@@ -590,7 +590,7 @@ export function WorksDetailView() {
 
         {/* sec_5 */}
         <section
-          className="mx-auto max-w-[1280px] px-4 py-16 md:px-[76px] md:py-28"
+          className="mx-auto max-w-[1280px] px-4 py-16 md:px-[4.75rem] md:py-28"
           data-figma="sec_5"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -605,12 +605,12 @@ export function WorksDetailView() {
               </h2>
             </div>
             <p
-              className="col-span-12 mt-[200px] text-left text-base leading-relaxed lg:col-span-3 lg:col-start-5"
+              className="col-span-12 mt-[7.75rem] text-left text-base leading-relaxed md:mt-[10rem] lg:col-span-3 lg:col-start-5 lg:mt-[12.5rem]"
               style={{ color: TEXT }}
             >
               {SEC5_BODY}
             </p>
-            <div className="col-span-12 mt-[200px]">
+            <div className="col-span-12 mt-[7.75rem] md:mt-[10rem] lg:mt-[12.5rem]">
               <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                 ST-FO-111
               </p>
@@ -639,7 +639,7 @@ export function WorksDetailView() {
 
         {/* HD / HAE + 크레딧 푸터 — 모바일 1열 · md 2열 · lg 4열 */}
         <section
-          className="mx-auto max-w-[1280px] px-4 py-14 pb-24 md:px-[76px] md:py-20 md:pb-32"
+          className="mx-auto max-w-[1280px] px-4 py-14 pb-24 md:px-[4.75rem] md:py-20 md:pb-32"
           data-figma="HD | HAE | Frame 1739335350"
           aria-label="클라이언트 및 크레딧"
         >

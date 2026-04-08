@@ -43,8 +43,9 @@ const HERO_KO = `펜타코어는 호기심·명확성·주인의식을 중시합
 const shell =
   "rounded-[20px] border border-zinc-900/[0.06] bg-white/75 p-8 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_12px_40px_rgba(15,23,42,0.06)] backdrop-blur-md supports-[backdrop-filter]:bg-white/65 md:rounded-[28px] md:p-10";
 
+/** 데스크톱 기준 200px → 12.5rem, 모바일·태블릿은 동일 비율(≈0.62 / 0.8) */
 const fullBleedImg =
-  "relative left-1/2 mt-[200px] w-screen max-w-[100vw] -translate-x-1/2";
+  "relative left-1/2 mt-[7.75rem] md:mt-[10rem] lg:mt-[12.5rem] w-screen max-w-[100vw] -translate-x-1/2";
 
 function ProcessIcon({ children }: { children: ReactNode }) {
   return (
@@ -108,7 +109,7 @@ export function HiringPageView() {
       </div>
 
       <section
-        className="mx-auto w-full max-w-[1280px] px-6 pt-12 md:px-[76px] md:pt-14"
+        className="mx-auto w-full max-w-[1280px] px-6 pt-12 md:px-[4.75rem] md:pt-14"
         aria-label="채용 메시지"
         aria-busy={!hireImg1Ready}
       >
@@ -184,7 +185,7 @@ export function HiringPageView() {
       </section>
 
       <section
-        className="mx-auto w-full max-w-[1280px] px-6 pb-20 pt-20 md:px-[76px] md:pb-28 md:pt-28"
+        className="mx-auto w-full max-w-[1280px] px-6 pb-20 pt-20 md:px-[4.75rem] md:pb-28 md:pt-28"
         aria-labelledby="hiring-process"
         aria-busy={!hireImg1Ready}
       >
@@ -327,7 +328,7 @@ export function HiringPageView() {
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/75 via-zinc-950/35 to-zinc-950/5"
             aria-hidden
           />
-          <div className="absolute inset-0 z-10 flex flex-col justify-end px-6 pb-6 pt-20 md:px-[76px] md:pb-8 md:pt-28">
+          <div className="absolute inset-0 z-10 flex flex-col justify-end px-6 pb-6 pt-20 md:px-[4.75rem] md:pb-8 md:pt-28">
             <div
               className={cn(
                 "flex flex-col gap-6 rounded-[20px] border border-white/60 p-8 ring-1 ring-zinc-900/[0.08] supports-[backdrop-filter]:border-white/45 md:flex-row md:items-center md:justify-between md:rounded-[28px] md:p-10",

@@ -31,7 +31,7 @@ export function SubWorkStyleHero({
   return (
     <section
       className={cn(
-        "relative pb-10 pt-[92px] md:pb-14 md:pt-[124px]",
+        "relative pb-10 pt-[4.5rem] sm:pt-[5.75rem] md:pb-14 md:pt-[7.75rem]",
         GUTTER,
         className,
       )}
@@ -55,7 +55,7 @@ export function SubWorkStyleHero({
 
       {!hideBodyCopy ? (
         <div
-          className="relative left-1/2 mt-[120px] w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:mt-[160px] md:pr-10 lg:mt-[200px]"
+          className="relative left-1/2 mt-[7.5rem] w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:mt-[10rem] md:pr-10 lg:mt-[12.5rem]"
           data-figma="SUB_WORK txt pattern"
         >
           <div className="max-w-[min(640px,calc(50vw-1.5rem))] md:max-w-[min(640px,calc(50vw-2.5rem))]">

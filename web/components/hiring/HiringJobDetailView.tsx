@@ -71,7 +71,7 @@ export function HiringJobDetailView() {
       style={{ color: TEXT }}
       data-figma="SUB_HIRING_JOB_DETAIL"
     >
-      <div className="border-b border-zinc-900/10 px-4 pb-6 pt-[92px] md:px-[76px] md:pb-8 md:pt-[124px]">
+      <div className="border-b border-zinc-900/10 px-4 pb-6 pt-[4.5rem] sm:pt-[5.75rem] md:px-[4.75rem] md:pb-8 md:pt-[7.75rem]">
         <div className="mx-auto max-w-[1280px]">
           <Link
             href="/hiring"
@@ -90,7 +90,7 @@ export function HiringJobDetailView() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1280px] px-4 pb-14 pt-10 md:px-[76px] md:pb-20 md:pt-12">
+      <div className="mx-auto max-w-[1280px] px-4 pb-14 pt-10 md:px-[4.75rem] md:pb-20 md:pt-12">
         <Grid12>
           <div className="col-span-12 lg:col-span-8">
             <header className="flex max-w-[720px] flex-col" data-figma="Title">
@@ -152,7 +152,7 @@ export function HiringJobDetailView() {
         </Grid12>
       </div>
 
-      <section className="mx-auto max-w-[1280px] px-4 pb-16 md:px-[76px] md:pb-24">
+      <section className="mx-auto max-w-[1280px] px-4 pb-16 md:px-[4.75rem] md:pb-24">
         <JobSectionDivider />
         <h2
           className="mt-10 text-xl font-bold uppercase tracking-tight md:mt-12 md:text-2xl"

@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const CONTACT_EMAIL = "hello@pentacore.co";
 const FORM_ID = "inquiry-main-form";
 
-const GUTTER = "mx-auto w-full max-w-[1280px] px-6 md:px-[76px]";
+const GUTTER = "mx-auto w-full max-w-[1280px] px-6 md:px-[4.75rem]";
 
 /** 페이지 단색 베이스와 맞닿는 저대비 히어로 */
 const heroBg =
@@ -436,13 +436,13 @@ function InquiryCtaRail() {
         <button
           type="submit"
           form={FORM_ID}
-          className="inline-flex h-14 min-w-[200px] flex-1 items-center justify-center rounded-full border-0 bg-zinc-950 px-10 text-[16px] font-medium text-white transition-colors hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 sm:flex-none"
+          className="inline-flex h-14 min-w-[10rem] flex-1 items-center justify-center rounded-full border-0 bg-zinc-950 px-10 text-[16px] font-medium text-white transition-colors hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 sm:min-w-[11.25rem] sm:flex-none lg:min-w-[12.5rem]"
         >
           문의 보내기
         </button>
         <a
           href={mailtoBookCall}
-          className="inline-flex h-14 min-w-[200px] flex-1 items-center justify-center rounded-full border-2 border-zinc-200/95 bg-white/90 px-10 text-[16px] font-medium text-zinc-900 transition-colors hover:border-zinc-300 hover:bg-white sm:flex-none"
+          className="inline-flex h-14 min-w-[10rem] flex-1 items-center justify-center rounded-full border-2 border-zinc-200/95 bg-white/90 px-10 text-[16px] font-medium text-zinc-900 transition-colors hover:border-zinc-300 hover:bg-white sm:min-w-[11.25rem] sm:flex-none lg:min-w-[12.5rem]"
         >
           15분 통화 예약
         </a>

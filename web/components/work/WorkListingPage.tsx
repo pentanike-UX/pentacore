@@ -76,7 +76,7 @@ function WorkPageBody() {
       data-figma="SUB_WORK"
     >
       <section
-        className={`relative pb-10 pt-[92px] md:pb-14 md:pt-[124px] ${WORK_GUTTER}`}
+        className={`relative pb-10 pt-[4.5rem] sm:pt-[5.75rem] md:pb-14 md:pt-[7.75rem] ${WORK_GUTTER}`}
         style={{ backgroundColor: SUB_WORK_PAGE_BG }}
       >
         <div className="w-full">
@@ -98,7 +98,7 @@ function WorkPageBody() {
           </div>
 
           <div
-            className="relative left-1/2 mt-[150px] w-screen max-w-[100vw] -translate-x-1/2 pr-10 lg:pr-[100px]"
+            className="relative left-1/2 mt-[6rem] w-screen max-w-[100vw] -translate-x-1/2 pr-10 md:mt-[7.5rem] lg:mt-[9.375rem] lg:pr-[6.25rem]"
             data-figma="PENTAGRAM"
           >
             <div className="flex flex-col items-end">
@@ -119,7 +119,7 @@ function WorkPageBody() {
         </div>
 
         <div
-          className="relative left-1/2 mt-[250px] w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:pr-10"
+          className="relative left-1/2 mt-[10rem] w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:mt-[12.5rem] md:pr-10 lg:mt-[15.625rem]"
           data-figma="txt"
         >
           <div className="max-w-[min(640px,calc(50vw-1.5rem))] md:max-w-[min(640px,calc(50vw-2.5rem))]">
@@ -159,7 +159,7 @@ function WorkPageBody() {
       <div className="relative z-10 flex min-h-0 flex-1 flex-col">
         <div className={`relative flex flex-1 flex-col ${WORK_GUTTER}`}>
           <section
-            className="relative flex flex-1 flex-col pt-[clamp(200px,36vw,400px)] pb-14 md:pb-20 lg:pb-24"
+            className="relative flex flex-1 flex-col pt-[clamp(7.5rem,36vw,25rem)] pb-14 md:pb-20 lg:pb-24"
             data-figma="portfolio_group"
           >
             {/* 12컬 그리드: `SubPageScaffold` 내 `SubPageViewportGrid` */}

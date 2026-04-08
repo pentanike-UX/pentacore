@@ -29,9 +29,9 @@ const bodyClass =
 const highlightHeadingClass =
   "font-display text-[clamp(1.75rem,4.5vw,3rem)] font-semibold uppercase leading-[1.08] tracking-tight text-zinc-950";
 
-const GUTTER = "px-6 md:px-[76px]";
+const GUTTER = "px-6 md:px-[4.75rem]";
 
-/** 풀블리드 이미지 — 위·아래 10rem (`my-40`) */
+/** 풀블리드 이미지 — 데스크톱 10rem, 태블릿·모바일 동일 비율 */
 function AboutFullBleedImage({
   src,
   width,
@@ -45,7 +45,7 @@ function AboutFullBleedImage({
 }) {
   return (
     <figure
-      className="relative left-1/2 my-40 w-screen max-w-[100vw] -translate-x-1/2"
+      className="relative left-1/2 my-24 w-screen max-w-[100vw] -translate-x-1/2 md:my-32 lg:my-40"
       data-figma="SUB_ABOUT full_bleed"
     >
       <Image
@@ -87,9 +87,9 @@ AI 분야의 실험적 활동의 원동력이 되었습니다.`,
 
 const PHILOSOPHY_COLS = [
   "col-span-12 lg:col-start-1 lg:col-span-6",
-  "col-span-12 lg:col-start-7 lg:col-span-4 lg:mt-40",
-  "col-span-12 lg:col-start-2 lg:col-span-7 lg:mt-40",
-  "col-span-12 lg:col-start-5 lg:col-span-6 lg:mt-40",
+  "col-span-12 mt-24 md:mt-32 lg:col-start-7 lg:col-span-4 lg:mt-40",
+  "col-span-12 mt-24 md:mt-32 lg:col-start-2 lg:col-span-7 lg:mt-40",
+  "col-span-12 mt-24 md:mt-32 lg:col-start-5 lg:col-span-6 lg:mt-40",
 ] as const;
 
 const MISSION_PARAGRAPHS = [
@@ -109,8 +109,8 @@ IT와 AI를 활용하여
 
 const MISSION_COLS = [
   "col-span-12 lg:col-start-2 lg:col-span-5",
-  "col-span-12 lg:col-start-6 lg:col-span-5 lg:mt-40",
-  "col-span-12 lg:col-start-3 lg:col-span-8 lg:mt-40",
+  "col-span-12 mt-24 md:mt-32 lg:col-start-6 lg:col-span-5 lg:mt-40",
+  "col-span-12 mt-24 md:mt-32 lg:col-start-3 lg:col-span-8 lg:mt-40",
 ] as const;
 
 const COMPANY_PROFILE_BODY = `펜타코어는 IT와 AI, 디자인을 관통하는 전문성을 바탕으로
@@ -120,7 +120,7 @@ const COMPANY_PROFILE_BODY = `펜타코어는 IT와 AI, 디자인을 관통하�
 function AboutCompanyProfileBanner() {
   return (
     <section
-      className="relative left-1/2 mt-20 w-screen max-w-[100vw] -translate-x-1/2 pb-0 md:mt-24"
+      className="relative left-1/2 mt-12 w-screen max-w-[100vw] -translate-x-1/2 pb-0 md:mt-16 lg:mt-24"
       aria-labelledby="about-company-profile-heading"
       data-figma="SUB_ABOUT company_profile"
     >
@@ -190,7 +190,10 @@ export function AboutListingPage() {
 
       {/* 히어로 직후 — 참고 레이아웃: 좌측 img_about1 비율 유지, 4–7열 겹침 영문, 한글 스태거 */}
       <section
-        className={cn("mx-auto w-full max-w-[1280px] py-40", GUTTER)}
+        className={cn(
+          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
+          GUTTER,
+        )}
         aria-label="소개 문단"
         data-figma="SUB_ABOUT creative_opening"
       >
@@ -217,7 +220,7 @@ export function AboutListingPage() {
           <div
             className={cn(
               "col-span-12 space-y-2",
-              "mt-40 lg:col-start-8 lg:col-span-5 lg:row-start-2 lg:mt-0",
+              "mt-24 md:mt-32 lg:col-start-8 lg:col-span-5 lg:row-start-2 lg:mt-0",
             )}
           >
             <p className="text-xs font-medium uppercase tracking-[0.12em] text-zinc-500">
@@ -228,7 +231,7 @@ export function AboutListingPage() {
           <p
             className={cn(
               bodyClass,
-              "col-span-12 mt-40 lg:col-start-6 lg:col-span-5 lg:row-start-3 lg:mt-40",
+              "col-span-12 mt-24 md:mt-32 lg:col-start-6 lg:col-span-5 lg:row-start-3 lg:mt-40",
             )}
           >
             {INTRO_PARAGRAPHS[1]}
@@ -236,7 +239,7 @@ export function AboutListingPage() {
           <p
             className={cn(
               bodyClass,
-              "col-span-12 mt-40 lg:col-start-9 lg:col-span-4 lg:row-start-4 lg:mt-40",
+              "col-span-12 mt-24 md:mt-32 lg:col-start-9 lg:col-span-4 lg:row-start-4 lg:mt-40",
             )}
           >
             {INTRO_PARAGRAPHS[2]}
@@ -247,14 +250,17 @@ export function AboutListingPage() {
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforePhilosophy} />
 
       <section
-        className={cn("mx-auto w-full max-w-[1280px] py-40", GUTTER)}
+        className={cn(
+          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
+          GUTTER,
+        )}
         aria-labelledby="about-philosophy"
         data-figma="SUB_ABOUT philosophy"
       >
         <h2 id="about-philosophy" className={highlightHeadingClass}>
           Our Philosophy
         </h2>
-        <div className="mt-40 grid grid-cols-12 gap-x-5 md:gap-x-8">
+        <div className="mt-24 grid grid-cols-12 gap-x-5 md:mt-32 md:gap-x-8 lg:mt-40">
           {PHILOSOPHY_PARAGRAPHS.map((text, i) => (
             <p key={i} className={cn(bodyClass, PHILOSOPHY_COLS[i])}>
               {text}
@@ -266,14 +272,17 @@ export function AboutListingPage() {
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforeMission} />
 
       <section
-        className={cn("mx-auto w-full max-w-[1280px] py-40", GUTTER)}
+        className={cn(
+          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
+          GUTTER,
+        )}
         aria-labelledby="about-mission"
         data-figma="SUB_ABOUT mission"
       >
         <h2 id="about-mission" className={highlightHeadingClass}>
           Our Mission
         </h2>
-        <div className="mt-40 grid grid-cols-12 gap-x-5 md:gap-x-8">
+        <div className="mt-24 grid grid-cols-12 gap-x-5 md:mt-32 md:gap-x-8 lg:mt-40">
           {MISSION_PARAGRAPHS.map((text, i) => (
             <p key={i} className={cn(bodyClass, MISSION_COLS[i])}>
               {text}
@@ -283,7 +292,10 @@ export function AboutListingPage() {
       </section>
 
       <section
-        className={cn("mx-auto w-full max-w-[1280px] pt-40 pb-0", GUTTER)}
+        className={cn(
+          "mx-auto w-full max-w-[1280px] pb-0 pt-24 md:pt-32 lg:pt-40",
+          GUTTER,
+        )}
         aria-labelledby="about-partners"
         data-figma="SUB_ABOUT partners"
       >
