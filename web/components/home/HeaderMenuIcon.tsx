@@ -10,9 +10,11 @@ type Props = {
 
 /** 햄버거 ↔ X 스프링 변형 — 라인만 (테두리·글래스 박스 없음), 부모 버튼 중앙 정렬 */
 export function HeaderMenuIcon({ open, light }: Props) {
+  /** 닫기(X) 상태는 오버레이·글래스 맥락에서 항상 흰 라인으로 통일. 햄버거만 서피스 톤 반전. */
+  const barTone = open ? "bg-white" : light ? "bg-zinc-950" : "bg-white";
   const bar = cn(
     "absolute left-[calc(50%-0.625rem)] h-0.5 w-5 rounded-full",
-    light ? "bg-zinc-950" : "bg-white",
+    barTone,
   );
   /** 3줄 스택 높이: bar 2px × 3 + 간격 6px × 2 */
   const stackH = 18;

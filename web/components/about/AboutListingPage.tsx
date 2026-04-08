@@ -314,17 +314,17 @@ export function AboutListingPage() {
         data-figma="SUB_ABOUT partners"
       >
         <div className="grid grid-cols-12 gap-x-6 gap-y-12 lg:gap-x-8">
-          <div className="col-span-12 lg:col-span-4">
+          <div className="col-span-12 lg:col-span-3">
             <h2 id="about-partners" className={highlightHeadingClass}>
               Partners
             </h2>
           </div>
-          <div className="col-span-12 lg:col-span-8">
+          <div className="col-span-12 lg:col-span-9">
             {/*
-              모바일~lg 미만: 12컬 그리드에서 5~12열(8칸)만 사용, 로고당 4칸 → 한 줄 2개, 1~4열 비움.
-              lg+: 8칸 전용 그리드에서 로고당 4칸(동일 2열).
+              모바일~lg 미만: 12컬에서 1~4열 비움, 5~12열(8칸)에 로고당 4칸 → 한 줄 2개.
+              lg+: 우측 9칸 전용 그리드, 로고당 3칸 → 한 줄 3개.
             */}
-            <div className="grid grid-cols-12 gap-x-6 gap-y-24 lg:grid-cols-8 lg:gap-x-8">
+            <div className="grid grid-cols-12 gap-x-6 gap-y-24 lg:grid-cols-9 lg:gap-x-8">
               {Array.from({ length: ABOUT_PARTNER_COUNT }, (_, i) => i + 1).map(
                 (n) => {
                   const { width, height } = aboutPartnerIntrinsic(n);
@@ -337,7 +337,7 @@ export function AboutListingPage() {
                         idx % 2 === 0
                           ? "max-lg:col-start-5"
                           : "max-lg:col-start-9",
-                        "lg:col-start-auto",
+                        "lg:col-span-3 lg:col-start-auto",
                       )}
                     >
                       <IntrinsicNaturalImageWithSkeleton
