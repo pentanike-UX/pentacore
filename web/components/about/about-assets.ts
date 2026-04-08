@@ -20,7 +20,8 @@ export const ABOUT_COMPANY_PROFILE_BG = {
 } as const;
 
 /** 회사소개서 PDF — `public/about/`에 파일 추가 시 동작 (없으면 404) */
-export const ABOUT_COMPANY_PROFILE_PDF = "/about/company-profile.pdf" as const;
+export const ABOUT_COMPANY_PROFILE_PDF =
+  "https://www.pentacore.co.kr/storage/company_overview.pdf" as const;
 
 /** 에디토리얼 인트로 좌측 이미지 — 비율 유지 배치 (`AboutListingPage`) */
 export const ABOUT_EDITORIAL_IMAGE = {

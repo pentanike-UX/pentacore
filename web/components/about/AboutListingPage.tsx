@@ -169,7 +169,8 @@ function AboutCompanyProfileBanner() {
           </p>
           <a
             href={ABOUT_COMPANY_PROFILE_PDF}
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-10 inline-flex min-h-[52px] items-center justify-center rounded-full bg-white px-10 py-3.5 text-[16px] font-semibold text-zinc-950 no-underline transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
           >
             회사소개서
