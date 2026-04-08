@@ -12,9 +12,8 @@ const FORM_ID = "inquiry-main-form";
 
 const GUTTER = "mx-auto w-full max-w-[1280px] px-6 md:px-[4.75rem]";
 
-/** 페이지 단색 베이스와 맞닿는 저대비 히어로 */
-const heroBg =
-  "bg-gradient-to-b from-zinc-50/95 via-zinc-100/85 to-[rgb(229,231,235)]";
+/** SUB_INQUIRY hero — 흰 배경 */
+const heroBg = "bg-white";
 
 const shellSoft =
   "rounded-[28px] border border-zinc-900/[0.05] bg-white/55 p-8 shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_20px_56px_rgba(15,23,42,0.045)] backdrop-blur-md supports-[backdrop-filter]:bg-white/48 md:p-10";
@@ -460,7 +459,7 @@ function InquiryFallback() {
   return (
     <section
       className={cn(
-        "border-t border-zinc-900/[0.05] pb-24 pt-16 md:pb-32 md:pt-20",
+        "border-t border-zinc-900/[0.05] bg-white pb-24 pt-16 md:pb-32 md:pt-20",
         GUTTER,
       )}
       data-figma="SUB_INQUIRY fallback"

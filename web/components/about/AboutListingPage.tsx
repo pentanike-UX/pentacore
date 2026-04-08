@@ -153,13 +153,13 @@ function AboutCompanyProfileBanner() {
           className="absolute inset-0 z-[1] bg-zinc-950/55"
           aria-hidden
         />
-        <div className="relative z-10 flex min-h-[min(52vh,520px)] flex-col items-center justify-center px-6 py-16 text-center md:min-h-0 md:py-20 lg:py-24">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 py-16 text-center md:py-20 lg:py-24">
           <IntrinsicNaturalImageWithSkeleton
             src="/about/PF_05_fill.svg"
             alt=""
-            width={83}
-            height={63}
-            sizes="120px"
+            width={84}
+            height={64}
+            sizes="128px"
             unoptimized
             imageClassName="h-[52px] w-auto opacity-95 md:h-14"
           />
