@@ -108,10 +108,10 @@ export function HomeSectionCards() {
             className="max-w-[min(100%,36rem)] text-center"
             data-figma="HOME_LAYOUT-2 key_copy"
           >
-            <p className="font-display text-[clamp(2.625rem,4.8vw,3.75rem)] font-semibold leading-[1.12] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
+            <p className="font-display text-[clamp(1.75rem,3.4vw,2.625rem)] font-semibold leading-[1.12] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
               {HOME_KEY_COPY.line1}
             </p>
-            <p className="mt-1 font-display text-[clamp(2.625rem,4.8vw,3.75rem)] font-semibold leading-[1.12] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:mt-1.5">
+            <p className="mt-1 font-display text-[clamp(1.75rem,3.4vw,2.625rem)] font-semibold leading-[1.12] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:mt-1.5">
               {HOME_KEY_COPY.line2}
             </p>
           </div>

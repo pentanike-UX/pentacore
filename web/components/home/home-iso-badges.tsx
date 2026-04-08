@@ -27,7 +27,7 @@ export function HomeIsoBadges({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-6 md:gap-8",
+        "flex max-w-full min-w-0 flex-row flex-nowrap items-center gap-3 overflow-x-auto overscroll-x-contain sm:gap-5 md:gap-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
         justifyCls,
         className,
       )}
