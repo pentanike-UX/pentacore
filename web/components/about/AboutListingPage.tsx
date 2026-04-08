@@ -9,6 +9,7 @@ import {
   ABOUT_EDITORIAL_IMAGE,
   ABOUT_FULL_IMAGES,
   ABOUT_PARTNER_COUNT,
+  aboutPartnerIntrinsic,
   aboutPartnerSrc,
 } from "./about-assets";
 import { AboutPentagramFigma } from "./AboutPentagramFigma";
@@ -241,21 +242,25 @@ export function AboutListingPage() {
           <div className="col-span-12 lg:col-span-9">
             <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 md:gap-x-8 md:gap-y-12">
               {Array.from({ length: ABOUT_PARTNER_COUNT }, (_, i) => i + 1).map(
-                (n) => (
-                  <div
-                    key={n}
-                    className="flex min-h-[72px] items-center justify-center rounded-lg border border-zinc-900/[0.06] bg-white/50 px-4 py-5"
-                  >
-                    <Image
-                      src={aboutPartnerSrc(n)}
-                      alt={`파트너 로고 ${n}`}
-                      width={200}
-                      height={80}
-                      className="h-12 w-auto max-w-full object-contain"
-                      unoptimized
-                    />
-                  </div>
-                ),
+                (n) => {
+                  const { width, height } = aboutPartnerIntrinsic(n);
+                  return (
+                    <div
+                      key={n}
+                      className="flex items-center justify-center"
+                    >
+                      <Image
+                        src={aboutPartnerSrc(n)}
+                        alt={`파트너 로고 ${n}`}
+                        width={width}
+                        height={height}
+                        sizes={`${width}px`}
+                        className="h-auto w-auto max-w-full object-contain"
+                        unoptimized
+                      />
+                    </div>
+                  );
+                },
               )}
             </div>
           </div>

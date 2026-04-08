@@ -29,4 +29,30 @@ export function aboutPartnerSrc(index1Based: number) {
   return `/about/partners/partner_${index1Based}.png`;
 }
 
+/** 원본 PNG 픽셀 — 다운스케일 없이 1:1 표시 + `next/image` `unoptimized`로 풀해상도 서빙 */
+export const ABOUT_PARTNER_INTRINSIC: Record<
+  number,
+  { width: number; height: number }
+> = {
+  1: { width: 175, height: 50 },
+  2: { width: 186, height: 68 },
+  3: { width: 189, height: 67 },
+  4: { width: 184, height: 73 },
+  5: { width: 171, height: 73 },
+  6: { width: 200, height: 55 },
+  7: { width: 184, height: 55 },
+  8: { width: 172, height: 55 },
+  9: { width: 192, height: 51 },
+  10: { width: 183, height: 56 },
+  11: { width: 180, height: 88 },
+  12: { width: 188, height: 82 },
+  13: { width: 170, height: 32 },
+} as const;
+
+export function aboutPartnerIntrinsic(index1Based: number) {
+  const s = ABOUT_PARTNER_INTRINSIC[index1Based];
+  if (!s) throw new Error(`Unknown partner index: ${index1Based}`);
+  return s;
+}
+
 export const ABOUT_PARTNER_COUNT = 13;
