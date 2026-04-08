@@ -5,12 +5,13 @@ import { useCallback, useState } from "react";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { Button } from "@/components/ui/button";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import { SUB_PAGE_COLUMN_GUTTER_X } from "@/lib/sub-page-gutters";
 import { cn } from "@/lib/utils";
 
 const CONTACT_EMAIL = "info@pentacore.kr";
 const FORM_ID = "inquiry-main-form";
 
-const GUTTER = "mx-auto w-full max-w-[1280px]";
+const GUTTER = cn("mx-auto w-full max-w-[1280px]", SUB_PAGE_COLUMN_GUTTER_X);
 
 /** SUB_INQUIRY hero — 흰 배경 */
 const heroBg = "bg-white";

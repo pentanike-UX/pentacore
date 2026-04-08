@@ -25,6 +25,7 @@ import {
   SUB_WORK_PAGE_BG,
   workPortfolioRowChromeClassName,
 } from "@/lib/figma-liquid-glass";
+import { SUB_PAGE_COLUMN_GUTTER_X } from "@/lib/sub-page-gutters";
 import { cn } from "@/lib/utils";
 
 /** `/public/hire/img_hire1.png` 실제 픽셀 */
@@ -100,7 +101,10 @@ export function HiringPageView() {
       </div>
 
       <section
-        className="mx-auto w-full max-w-[1280px] pt-12 md:pt-14"
+        className={cn(
+          "mx-auto w-full max-w-[1280px] pt-12 md:pt-14",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         aria-label="채용 메시지"
         aria-busy={!hireImg1Ready}
       >
@@ -120,7 +124,10 @@ export function HiringPageView() {
       </section>
 
       <section
-        className="mx-auto w-full max-w-[1280px] px-6 pb-8 pt-16 md:px-[76px] md:pb-12 md:pt-20"
+        className={cn(
+          "mx-auto w-full max-w-[1280px] pb-8 pt-16 md:pb-12 md:pt-20",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         aria-labelledby="hiring-open-roles"
         aria-busy={!hireImg1Ready}
       >
@@ -176,7 +183,10 @@ export function HiringPageView() {
       </section>
 
       <section
-        className="mx-auto w-full max-w-[1280px] pb-20 pt-20 md:pb-28 md:pt-28"
+        className={cn(
+          "mx-auto w-full max-w-[1280px] pb-20 pt-20 md:pb-28 md:pt-28",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         aria-labelledby="hiring-process"
         aria-busy={!hireImg1Ready}
       >
@@ -254,7 +264,10 @@ export function HiringPageView() {
       </section>
 
       <section
-        className="mx-auto w-full max-w-[1280px] px-6 pb-20 md:px-[76px] md:pb-28"
+        className={cn(
+          "mx-auto w-full max-w-[1280px] pb-20 md:pb-28",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         aria-labelledby="hiring-culture-fit"
       >
         <div className={cn(shell)}>
@@ -317,35 +330,42 @@ export function HiringPageView() {
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/75 via-zinc-950/35 to-zinc-950/5"
             aria-hidden
           />
-          <div className="absolute inset-0 z-10 flex flex-col justify-end pb-6 pt-20 md:pb-8 md:pt-28">
-            <div
-              className={cn(
-                "flex flex-col gap-6 rounded-[20px] border border-white/60 p-8 ring-1 ring-zinc-900/[0.08] supports-[backdrop-filter]:border-white/45 md:flex-row md:items-center md:justify-between md:rounded-[28px] md:p-10",
-                workPortfolioRowChromeClassName,
-              )}
-              style={liquidGlassHomeCard}
-            >
-              <div>
-                <h2
-                  id="hiring-inquiry-cta"
-                  className="text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl"
-                >
-                  프로젝트 문의가 먼저인가요?
-                </h2>
-                <p className="mt-2 max-w-md text-[15px] leading-relaxed text-zinc-700">
-                  파트너십·의뢰는 프로젝트 문의 페이지에서 정리해 주시면 빠르게
-                  검토합니다.
-                </p>
-              </div>
-              <Link
-                href="/inquiry"
+          <div
+            className={cn(
+              "absolute inset-0 z-10 flex items-center justify-center py-10 md:py-12",
+              SUB_PAGE_COLUMN_GUTTER_X,
+            )}
+          >
+            <div className="w-full max-w-[1280px]">
+              <div
                 className={cn(
-                  buttonVariants({ variant: "default", size: "lg" }),
-                  "h-12 shrink-0 rounded-full border-0 bg-zinc-950 px-8 text-[15px] font-medium text-white hover:bg-zinc-800",
+                  "flex flex-col gap-6 rounded-[20px] border border-white/60 p-8 ring-1 ring-zinc-900/[0.08] supports-[backdrop-filter]:border-white/45 md:flex-row md:items-center md:justify-between md:rounded-[28px] md:p-10",
+                  workPortfolioRowChromeClassName,
                 )}
+                style={liquidGlassHomeCard}
               >
-                PROJECT INQUIRY
-              </Link>
+                <div>
+                  <h2
+                    id="hiring-inquiry-cta"
+                    className="text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl"
+                  >
+                    프로젝트 문의가 먼저인가요?
+                  </h2>
+                  <p className="mt-2 max-w-md text-[15px] leading-relaxed text-zinc-700">
+                    파트너십·의뢰는 프로젝트 문의 페이지에서 정리해 주시면 빠르게
+                    검토합니다.
+                  </p>
+                </div>
+                <Link
+                  href="/inquiry"
+                  className={cn(
+                    buttonVariants({ variant: "default", size: "lg" }),
+                    "h-12 shrink-0 rounded-full border-0 bg-zinc-950 px-8 text-[15px] font-medium text-white hover:bg-zinc-800",
+                  )}
+                >
+                  PROJECT INQUIRY
+                </Link>
+              </div>
             </div>
           </div>
         </div>

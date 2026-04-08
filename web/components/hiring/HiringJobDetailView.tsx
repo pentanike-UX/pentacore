@@ -10,6 +10,7 @@ import {
   WORKS_VIEW_PF_06_SRC,
 } from "@/components/work/figma-work-assets";
 import { buttonVariants } from "@/components/ui/button";
+import { SUB_PAGE_COLUMN_GUTTER_X } from "@/lib/sub-page-gutters";
 import { cn } from "@/lib/utils";
 
 const TEXT = "#1e1e1e";
@@ -72,7 +73,9 @@ export function HiringJobDetailView() {
       data-figma="SUB_HIRING_JOB_DETAIL"
     >
       <div className="border-b border-zinc-900/10 pb-6 pt-[4.5rem] sm:pt-[5.75rem] md:pb-8 md:pt-[7.75rem]">
-        <div className="mx-auto max-w-[1280px]">
+        <div
+          className={cn("mx-auto max-w-[1280px]", SUB_PAGE_COLUMN_GUTTER_X)}
+        >
           <Link
             href="/hiring"
             className="inline-flex size-[50px] shrink-0 items-center justify-center transition-opacity hover:opacity-70"
@@ -91,7 +94,12 @@ export function HiringJobDetailView() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1280px] pb-14 pt-10 md:pb-20 md:pt-12">
+      <div
+        className={cn(
+          "mx-auto max-w-[1280px] pb-14 pt-10 md:pb-20 md:pt-12",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
+      >
         <Grid12>
           <div className="col-span-12 lg:col-span-8">
             <header className="flex max-w-[720px] flex-col" data-figma="Title">
@@ -154,7 +162,12 @@ export function HiringJobDetailView() {
         </Grid12>
       </div>
 
-      <section className="mx-auto max-w-[1280px] pb-16 md:pb-24">
+      <section
+        className={cn(
+          "mx-auto max-w-[1280px] pb-16 md:pb-24",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
+      >
         <JobSectionDivider />
         <h2
           className="mt-10 text-xl font-bold uppercase tracking-tight md:mt-12 md:text-2xl"

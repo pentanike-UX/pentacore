@@ -13,6 +13,7 @@ import {
   IntrinsicWidthImageWithSkeleton,
 } from "@/components/media/ImageWithSkeleton";
 import { IMAGE_SIZES_CARD_820 } from "@/lib/image-presets";
+import { SUB_PAGE_COLUMN_GUTTER_X } from "@/lib/sub-page-gutters";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
@@ -167,7 +168,12 @@ function WorkPageBody() {
               aria-hidden
               data-figma="portfolio_vertical_rule"
             />
-            <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-1 flex-col gap-[14px] lg:mx-auto">
+            <div
+              className={cn(
+                "relative z-10 mx-auto flex w-full max-w-[1280px] flex-1 flex-col gap-[14px] lg:mx-auto",
+                SUB_PAGE_COLUMN_GUTTER_X,
+              )}
+            >
               {WORK_PORTFOLIO_ROWS.map((row, i) => (
                 <ParallaxLayer
                   key={row.title}

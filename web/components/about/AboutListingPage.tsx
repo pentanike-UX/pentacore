@@ -14,6 +14,7 @@ import {
 } from "@/lib/image-presets";
 import { cn } from "@/lib/utils";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import { SUB_PAGE_COLUMN_GUTTER_X } from "@/lib/sub-page-gutters";
 import {
   ABOUT_COMPANY_PROFILE_BG,
   ABOUT_COMPANY_PROFILE_PDF,
@@ -200,7 +201,10 @@ export function AboutListingPage() {
 
       {/* 히어로 직후 — 참고 레이아웃: 좌측 img_about1 비율 유지, 4–7열 겹침 영문, 한글 스태거 */}
       <section
-        className="mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40"
+        className={cn(
+          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         aria-label="소개 문단"
         data-figma="SUB_ABOUT creative_opening"
       >
@@ -258,7 +262,10 @@ export function AboutListingPage() {
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforePhilosophy} />
 
       <section
-        className="mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40"
+        className={cn(
+          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         aria-labelledby="about-philosophy"
         data-figma="SUB_ABOUT philosophy"
       >
@@ -277,7 +284,10 @@ export function AboutListingPage() {
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforeMission} />
 
       <section
-        className="mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40"
+        className={cn(
+          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         aria-labelledby="about-mission"
         data-figma="SUB_ABOUT mission"
       >
@@ -294,7 +304,10 @@ export function AboutListingPage() {
       </section>
 
       <section
-        className="mx-auto w-full max-w-[1280px] pb-0 pt-24 md:pt-32 lg:pt-40"
+        className={cn(
+          "mx-auto w-full max-w-[1280px] pb-0 pt-24 md:pt-32 lg:pt-40",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         aria-labelledby="about-partners"
         data-figma="SUB_ABOUT partners"
       >

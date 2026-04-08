@@ -193,7 +193,7 @@ export function FooterBar({
         )}
         <p
           className={cn(
-            "text-[12px] font-medium leading-5 md:text-right",
+            "shrink-0 text-[12px] font-medium leading-5 md:text-right",
             fineTone,
           )}
         >
@@ -218,7 +218,7 @@ Republic of Korea`}
             </address>
             <HomeIsoBadges
               justify="end"
-              className="ml-auto w-max shrink-0 md:ml-0 md:max-w-[min(100%,14rem)]"
+              className="ml-auto w-max shrink-0 md:ml-0"
             />
           </div>
         </div>

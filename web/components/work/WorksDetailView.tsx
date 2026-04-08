@@ -8,6 +8,7 @@ import {
 } from "@/components/media/ImageWithSkeleton";
 import { IMAGE_SIZES_CONTENT_1280 } from "@/lib/image-presets";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
+import { SUB_PAGE_COLUMN_GUTTER_X } from "@/lib/sub-page-gutters";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { cn } from "@/lib/utils";
 import { BorderedVerticalLoop } from "./BorderedVerticalLoop";
@@ -190,7 +191,9 @@ export function WorksDetailView() {
       data-figma="/works_view"
     >
       <div className="border-b border-zinc-900/10 pb-6 pt-[4.5rem] sm:pt-[5.75rem] md:pb-8 md:pt-[7.75rem]">
-        <div className="mx-auto max-w-[1280px]">
+        <div
+          className={cn("mx-auto max-w-[1280px]", SUB_PAGE_COLUMN_GUTTER_X)}
+        >
           <Link
             href="/work"
             className="inline-flex size-[50px] shrink-0 items-center justify-center transition-opacity hover:opacity-70"
@@ -211,7 +214,12 @@ export function WorksDetailView() {
 
       <ParallaxViewport yRange={WORKS_DETAIL_PARALLAX_Y} className="block">
       {/* Title + summery + divider — SUB_WORK 동일 베이스 */}
-      <div className="mx-auto max-w-[1280px] pb-14 md:pb-20">
+      <div
+        className={cn(
+          "mx-auto max-w-[1280px] pb-14 md:pb-20",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
+      >
         <Grid12>
           <ParallaxLayer
             yRange={WORKS_DETAIL_PARALLAX_Y}
@@ -295,7 +303,10 @@ export function WorksDetailView() {
 
       {/* sec_1 — 위·아래 14rem */}
       <section
-        className="mx-auto max-w-[1280px] py-[8.75rem] md:py-[11.2rem] lg:py-[14rem]"
+        className={cn(
+          "mx-auto max-w-[1280px] py-[8.75rem] md:py-[11.2rem] lg:py-[14rem]",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         data-figma="sec_1"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -321,7 +332,10 @@ export function WorksDetailView() {
 
       {/* sec_2 — 위·아래 14rem; 칩 영역도 상·하 14rem */}
       <section
-        className="mx-auto max-w-[1280px] py-[8.75rem] md:py-[11.2rem] lg:py-[14rem]"
+        className={cn(
+          "mx-auto max-w-[1280px] py-[8.75rem] md:py-[11.2rem] lg:py-[14rem]",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         data-figma="sec_2"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -402,7 +416,10 @@ export function WorksDetailView() {
 
       {/* sec_3 — 라이트 */}
       <section
-        className="mx-auto max-w-[1280px] pb-16 md:pb-24"
+        className={cn(
+          "mx-auto max-w-[1280px] pb-16 md:pb-24",
+          SUB_PAGE_COLUMN_GUTTER_X,
+        )}
         data-figma="sec_3"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -447,7 +464,10 @@ export function WorksDetailView() {
 
       {/* sec_4 ~ 크레딧 — 페이지 단일 배경 */}
         <section
-          className="mx-auto max-w-[1280px] pb-0 pt-20 md:pb-0 md:pt-28"
+          className={cn(
+            "mx-auto max-w-[1280px] pb-0 pt-20 md:pb-0 md:pt-28",
+            SUB_PAGE_COLUMN_GUTTER_X,
+          )}
           data-figma="sec_4"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -506,7 +526,10 @@ export function WorksDetailView() {
 
         {/* sec_4/in */}
         <section
-          className="mx-auto max-w-[1280px] pb-16 pt-[11.5rem] md:pt-[15rem] md:pb-24 lg:pt-[18.75rem]"
+          className={cn(
+            "mx-auto max-w-[1280px] pb-16 pt-[11.5rem] md:pt-[15rem] md:pb-24 lg:pt-[18.75rem]",
+            SUB_PAGE_COLUMN_GUTTER_X,
+          )}
           data-figma="sec_4/in_sec_"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -559,7 +582,10 @@ export function WorksDetailView() {
 
         {/* sec_4in */}
         <section
-          className="mx-auto max-w-[1280px] py-16 md:py-24"
+          className={cn(
+            "mx-auto max-w-[1280px] py-16 md:py-24",
+            SUB_PAGE_COLUMN_GUTTER_X,
+          )}
           data-figma="sec_4in_sec_"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -595,7 +621,10 @@ export function WorksDetailView() {
 
         {/* sec_5 */}
         <section
-          className="mx-auto max-w-[1280px] py-16 md:py-28"
+          className={cn(
+            "mx-auto max-w-[1280px] py-16 md:py-28",
+            SUB_PAGE_COLUMN_GUTTER_X,
+          )}
           data-figma="sec_5"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -644,7 +673,10 @@ export function WorksDetailView() {
 
         {/* HD / HAE + 크레딧 푸터 — 모바일 1열 · md 2열 · lg 4열 */}
         <section
-          className="mx-auto max-w-[1280px] py-14 pb-24 md:py-20 md:pb-32"
+          className={cn(
+            "mx-auto max-w-[1280px] py-14 pb-24 md:py-20 md:pb-32",
+            SUB_PAGE_COLUMN_GUTTER_X,
+          )}
           data-figma="HD | HAE | Frame 1739335350"
           aria-label="클라이언트 및 크레딧"
         >
