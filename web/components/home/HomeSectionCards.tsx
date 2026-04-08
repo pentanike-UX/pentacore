@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { IntrinsicNaturalImageWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -145,13 +145,15 @@ export function HomeSectionCards() {
               >
                 {/* heads: 펜타그램(lg) + 영문 타이틀 + 한글 카피 */}
                 <div className="flex min-h-0 shrink-0 flex-col gap-1 lg:items-center lg:gap-1.5">
-                  <Image
+                  <IntrinsicNaturalImageWithSkeleton
                     src={c.pentagramSrc}
                     alt=""
                     width={c.pentagramW}
                     height={c.pentagramH}
-                    className="hidden h-7 w-auto max-w-[52px] shrink-0 object-contain brightness-0 lg:block lg:h-9 lg:max-w-[64px]"
+                    sizes="128px"
                     unoptimized
+                    className="hidden shrink-0 lg:block"
+                    imageClassName="h-7 w-auto max-w-[52px] object-contain brightness-0 lg:h-9 lg:max-w-[64px]"
                   />
                   <h3 className="text-lg font-semibold leading-snug tracking-tight text-zinc-950 lg:text-2xl lg:font-bold lg:leading-none lg:tracking-tight">
                     {c.titleEn}

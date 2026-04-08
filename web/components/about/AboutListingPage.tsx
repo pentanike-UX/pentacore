@@ -1,8 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { SubWorkStyleHero } from "@/components/subpages/SubWorkStyleHero";
+import {
+  ImageFillWithSkeleton,
+  IntrinsicNaturalImageWithSkeleton,
+  IntrinsicWidthImageWithSkeleton,
+} from "@/components/media/ImageWithSkeleton";
+import {
+  IMAGE_SIZES_ABOUT_EDITORIAL,
+  IMAGE_SIZES_FULL_BLEED,
+  IMAGE_SIZES_PARTNER_LOGO,
+} from "@/lib/image-presets";
 import { cn } from "@/lib/utils";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import {
@@ -48,14 +57,15 @@ function AboutFullBleedImage({
       className="relative left-1/2 my-24 w-screen max-w-[100vw] -translate-x-1/2 md:my-32 lg:my-40"
       data-figma="SUB_ABOUT full_bleed"
     >
-      <Image
+      <IntrinsicWidthImageWithSkeleton
         src={src}
         alt={alt}
         width={width}
         height={height}
-        className="h-auto w-full object-cover"
-        sizes="100vw"
+        sizes={IMAGE_SIZES_FULL_BLEED}
         unoptimized
+        objectFit="cover"
+        imageClassName="object-cover"
       />
     </figure>
   );
@@ -129,25 +139,29 @@ function AboutCompanyProfileBanner() {
           "relative w-full overflow-hidden bg-zinc-900",
           "aspect-[576/1024] md:aspect-[3/2] lg:aspect-[1024/415]",
         )}
-        style={{
-          backgroundImage: `url(${ABOUT_COMPANY_PROFILE_BG.src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
       >
+        <ImageFillWithSkeleton
+          coverParent
+          src={ABOUT_COMPANY_PROFILE_BG.src}
+          alt=""
+          className="z-0 bg-zinc-900"
+          imageClassName="object-cover object-center"
+          sizes={IMAGE_SIZES_FULL_BLEED}
+          unoptimized
+        />
         <div
-          className="absolute inset-0 bg-zinc-950/55"
+          className="absolute inset-0 z-[1] bg-zinc-950/55"
           aria-hidden
         />
         <div className="relative z-10 flex min-h-[min(52vh,520px)] flex-col items-center justify-center px-6 py-16 text-center md:min-h-0 md:py-20 lg:py-24">
-          <Image
+          <IntrinsicNaturalImageWithSkeleton
             src="/about/PF_05_fill.svg"
             alt=""
             width={83}
             height={63}
-            className="h-[52px] w-auto opacity-95 md:h-14"
+            sizes="120px"
             unoptimized
+            imageClassName="h-[52px] w-auto opacity-95 md:h-14"
           />
           <h2
             id="about-company-profile-heading"
@@ -199,14 +213,14 @@ export function AboutListingPage() {
       >
         <div className="grid grid-cols-12 gap-x-5 md:gap-x-8">
           <div className="col-span-12 lg:col-span-6 lg:row-start-1">
-            <Image
+            <IntrinsicWidthImageWithSkeleton
               src={ABOUT_EDITORIAL_IMAGE.src}
               alt=""
               width={ABOUT_EDITORIAL_IMAGE.width}
               height={ABOUT_EDITORIAL_IMAGE.height}
-              className="h-auto w-full max-w-full object-contain object-left"
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              sizes={IMAGE_SIZES_ABOUT_EDITORIAL}
               unoptimized
+              imageClassName="object-contain object-left"
             />
           </div>
           <p
@@ -326,17 +340,17 @@ export function AboutListingPage() {
                         "lg:col-start-auto",
                       )}
                     >
-                      <Image
+                      <IntrinsicNaturalImageWithSkeleton
                         src={aboutPartnerSrc(n)}
                         alt={`파트너 로고 ${n}`}
                         width={width}
                         height={height}
-                        sizes="(max-width: 1023px) 140px, 200px"
-                        className={cn(
+                        sizes={IMAGE_SIZES_PARTNER_LOGO}
+                        unoptimized
+                        imageClassName={cn(
                           "h-auto w-auto object-contain",
                           "max-w-[min(100%,9rem)] max-lg:max-w-[min(100%,8.5rem)] lg:max-w-full",
                         )}
-                        unoptimized
                       />
                     </div>
                   );

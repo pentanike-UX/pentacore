@@ -12,6 +12,7 @@ import {
   ImageFillWithSkeleton,
   IntrinsicWidthImageWithSkeleton,
 } from "@/components/media/ImageWithSkeleton";
+import { IMAGE_SIZES_CARD_820 } from "@/lib/image-presets";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
@@ -58,7 +59,7 @@ function PortfolioCardViewInner() {
           className="bg-zinc-200/10"
           imageClassName="object-center"
           objectFit="contain"
-          sizes="(max-width: 820px) 100vw, 820px"
+          sizes={IMAGE_SIZES_CARD_820}
           unoptimized
         />
       </div>
@@ -108,8 +109,9 @@ function WorkPageBody() {
                   alt=""
                   width={434}
                   height={328}
-                  sizes="(max-width: 1024px) 30vw, 429px"
+                  sizes="(max-width: 1024px) 50vw, 860px"
                   priority
+                  unoptimized
                   objectFit="contain"
                   className="bg-transparent"
                 />

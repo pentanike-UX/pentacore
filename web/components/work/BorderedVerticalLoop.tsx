@@ -2,6 +2,7 @@
 
 import { animate, motion, useMotionValue } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { ShimmerOverlay } from "@/components/media/ImageWithSkeleton";
 
 type Props = {
   /** Figma: ST-FO-005/ST-FO-030 = 11, ST-FO-111 = 20 */
@@ -49,6 +50,7 @@ export function BorderedVerticalLoop({
   const containerRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
   const [travel, setTravel] = useState(0);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const travelRef = useRef(0);
 
   useEffect(() => {
@@ -101,6 +103,17 @@ export function BorderedVerticalLoop({
     return () => ro.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setImgLoaded(true);
+    }
+  }, []);
+
+  const onImgLoad = () => {
+    measure();
+    setImgLoaded(true);
+  };
+
   const scrollBody = (
     <motion.div style={{ y }} className="will-change-transform">
       {/* eslint-disable-next-line @next/next/no-img-element -- 동적 높이 측정용 */}
@@ -111,7 +124,7 @@ export function BorderedVerticalLoop({
           ? { width: imgIntrinsicWidth, height: imgIntrinsicHeight }
           : {})}
         className="pointer-events-none block h-auto w-full max-w-full select-none"
-        onLoad={measure}
+        onLoad={onImgLoad}
         draggable={false}
       />
     </motion.div>
@@ -144,6 +157,11 @@ export function BorderedVerticalLoop({
           : {}),
       }}
     >
+      {!imgLoaded && (
+        <div className="pointer-events-none absolute inset-0 z-10" aria-hidden>
+          <ShimmerOverlay />
+        </div>
+      )}
       {stfo111Frame ? (
         <div
           className="h-full min-h-0 w-full overflow-hidden rounded-[20px]"

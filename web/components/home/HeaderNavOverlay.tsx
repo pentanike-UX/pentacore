@@ -1,9 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
+import { NavMenuHoverLink } from "@/components/nav/NavMenuHoverLink";
 import { cn } from "@/lib/utils";
 
 const MENU_LINKS = [
@@ -70,27 +70,14 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
         WebkitBackdropFilter: "blur(28px) saturate(140%)",
       };
 
-  /** 좁은 뷰포트에서 오버플로 방지: vmin + clamp로 타입·간격 동시 스케일 */
+  /** 좁은 뷰포트에서 오버플로 방지: vmin + clamp로 타입·간격 동시 스케일. 상한 4.5rem = `NavMenuHoverLink` 라인 두께 기준. */
   const linkClass = cn(
-    "group relative inline-block max-w-full py-1 text-center font-black uppercase leading-[0.95] tracking-tight",
+    "max-w-full py-1 text-center font-black uppercase leading-[0.95] tracking-tight",
     "text-[clamp(1.125rem,min(5.5vmin,11vw),4.5rem)]",
     "font-display",
     "break-words [overflow-wrap:anywhere]",
     light ? "text-zinc-950" : "text-white",
   );
-
-  /** 호버: 상·하 4px 직각 보더만, 색 = 글래스 배경과 동일 · 중앙→좌우 scaleX */
-  const lineClass = cn(
-    "pointer-events-none absolute left-0 right-0 top-1/2 z-0 box-border h-0 origin-center -translate-y-1/2 scale-x-0",
-    "border-x-0 border-y-[4px] border-solid bg-transparent",
-    "transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:duration-0",
-    "group-hover:scale-x-100",
-  );
-
-  const lineStyle: CSSProperties = {
-    borderTopColor: glassBackground,
-    borderBottomColor: glassBackground,
-  };
 
   return createPortal(
     <AnimatePresence>
@@ -129,18 +116,13 @@ export function HeaderNavOverlay({ open, onClose, light }: Props) {
                   delay: 0.05 + i * 0.055,
                 }}
               >
-                <Link
+                <NavMenuHoverLink
                   href={item.href}
                   className={linkClass}
                   onClick={onClose}
                 >
-                  <span
-                    aria-hidden
-                    className={lineClass}
-                    style={lineStyle}
-                  />
-                  <span className="relative z-10">{item.label}</span>
-                </Link>
+                  {item.label}
+                </NavMenuHoverLink>
               </motion.div>
             ))}
           </nav>

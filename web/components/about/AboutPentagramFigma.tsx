@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { FillSlotImageWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { cn } from "@/lib/utils";
 import { figmaAboutPentagram } from "./figma-about-assets";
 
@@ -24,24 +24,24 @@ export function AboutPentagramFigma({ className }: Props) {
       <div className="absolute left-0 top-0 flex h-[47px] w-[91px] items-center justify-center">
         <div className="flex-none rotate-180">
           <div className="relative h-[47px] w-[91px]">
-            <Image
+            <FillSlotImageWithSkeleton
               src={figmaAboutPentagram.vector11}
               alt=""
-              fill
-              className="object-contain"
-              sizes="120px"
+              slotClassName="h-[47px] w-[91px]"
+              sizes="240px"
+              imageClassName="object-contain"
               unoptimized
             />
           </div>
         </div>
       </div>
       <div className="absolute left-[0.5px] top-[0.5px] h-[46px] w-[90.5px]">
-        <Image
+        <FillSlotImageWithSkeleton
           src={figmaAboutPentagram.vector37}
           alt=""
-          fill
-          className="object-contain"
-          sizes="120px"
+          slotClassName="h-[46px] w-[90.5px]"
+          sizes="240px"
+          imageClassName="object-contain"
           unoptimized
         />
       </div>

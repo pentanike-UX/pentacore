@@ -83,6 +83,7 @@ export function HiringJobDetailView() {
               alt=""
               width={50}
               height={50}
+              sizes="100px"
               className="block"
               unoptimized
             />
@@ -104,6 +105,7 @@ export function HiringJobDetailView() {
                   alt=""
                   width={116}
                   height={60}
+                  sizes="240px"
                   className="object-contain object-left"
                   unoptimized
                   skeletonClassName="rounded-sm"

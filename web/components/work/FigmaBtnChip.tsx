@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { FillSlotImageWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { liquidGlassInteractiveHoverLight } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { figmaBtnChip } from "./figma-work-assets";
@@ -32,15 +32,14 @@ export function FigmaBtnChip({ label, href }: Props) {
         <span className="whitespace-nowrap text-[14px] font-bold text-[#1e1e1e]">
           Visit Website
         </span>
-        <span className="relative size-5 shrink-0">
-          <Image
-            src={figmaBtnChip.externalIcon}
-            alt=""
-            fill
-            className="object-contain"
-            unoptimized
-          />
-        </span>
+        <FillSlotImageWithSkeleton
+          src={figmaBtnChip.externalIcon}
+          alt=""
+          slotClassName="size-5"
+          sizes="48px"
+          imageClassName="object-contain"
+          unoptimized
+        />
       </span>
     </a>
   );

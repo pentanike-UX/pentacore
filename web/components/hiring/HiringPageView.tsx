@@ -1,8 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle, PenLine } from "lucide-react";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
@@ -11,9 +10,10 @@ import { buttonVariants } from "@/components/ui/button";
 import { HIRING_JOB_SLUG_BACKEND, HIRING_PF05_SRC } from "@/components/hiring/hiring-assets";
 import {
   FixedImageWithSkeleton,
+  ImageFillWithSkeleton,
   IntrinsicWidthImageWithSkeleton,
-  ShimmerOverlay,
 } from "@/components/media/ImageWithSkeleton";
+import { IMAGE_SIZES_FULL_BLEED } from "@/lib/image-presets";
 import {
   HeroCopyTextSkeleton,
   JobCardSkeleton,
@@ -67,16 +67,6 @@ const CULTURE_BULLETS = [
 
 export function HiringPageView() {
   const [hireImg1Ready, setHireImg1Ready] = useState(false);
-  const [hireImg2Ready, setHireImg2Ready] = useState(false);
-  const onHireImg2Load = useCallback(() => setHireImg2Ready(true), []);
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setHireImg2Ready(true);
-    }
-  }, []);
 
   return (
     <SubPageScaffold
@@ -101,8 +91,9 @@ export function HiringPageView() {
           alt=""
           width={HIRE_IMG1_W}
           height={HIRE_IMG1_H}
-          sizes="100vw"
+          sizes={IMAGE_SIZES_FULL_BLEED}
           priority
+          unoptimized
           objectFit="contain"
           onLoadComplete={() => setHireImg1Ready(true)}
         />
@@ -274,6 +265,7 @@ export function HiringPageView() {
                 alt=""
                 width={83}
                 height={63}
+                sizes="166px"
                 className="block h-[63px] w-[83px] object-contain object-left"
                 data-figma="PF_05"
                 unoptimized
@@ -311,17 +303,14 @@ export function HiringPageView() {
           className="relative isolate w-full overflow-hidden bg-zinc-200/20"
           style={{ aspectRatio: `${HIRE_IMG2_W} / ${HIRE_IMG2_H}` }}
         >
-          {!hireImg2Ready && <ShimmerOverlay />}
-          <Image
+          <ImageFillWithSkeleton
+            coverParent
             src="/hire/img_hire2.png"
             alt=""
-            fill
-            sizes="100vw"
-            className={cn(
-              "object-cover object-center transition-opacity duration-700 ease-out motion-reduce:duration-150",
-              hireImg2Ready ? "opacity-100" : "opacity-0",
-            )}
-            onLoad={onHireImg2Load}
+            className="bg-zinc-200/20"
+            imageClassName="object-cover object-center"
+            sizes={IMAGE_SIZES_FULL_BLEED}
+            unoptimized
           />
           {/* 배경 위 글래스 카드 가독성 */}
           <div

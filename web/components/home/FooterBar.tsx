@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { NavMenuHoverLink } from "@/components/nav/NavMenuHoverLink";
 import {
   liquidGlassInteractiveHoverDark,
   liquidGlassInteractiveHoverLight,
@@ -161,7 +161,7 @@ export function FooterBar({
                   className="flex shrink-0 items-center gap-1 sm:gap-2"
                 >
                   {i > 0 ? <Divider light={dividerLight} /> : null}
-                  <Link
+                  <NavMenuHoverLink
                     href={item.href}
                     className={cn(
                       "whitespace-nowrap rounded-sm px-0.5 py-1 sm:px-1.5 -my-1 hover:opacity-90",
@@ -169,7 +169,7 @@ export function FooterBar({
                     )}
                   >
                     {item.label}
-                  </Link>
+                  </NavMenuHoverLink>
                 </span>
               ))}
             </nav>

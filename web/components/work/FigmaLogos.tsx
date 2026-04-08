@@ -1,6 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useState } from "react";
+import {
+  FillSlotImageWithSkeleton,
+  ShimmerOverlay,
+} from "@/components/media/ImageWithSkeleton";
 import { cn } from "@/lib/utils";
 import { figmaLogos } from "./figma-work-assets";
 
@@ -19,6 +23,33 @@ type Props = {
   className?: string;
 };
 
+/** Figma crop 좌표 고정 — `next/image` 대신 `img` + 스켈레톤 */
+function LogoSsCroppedWithSkeleton() {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLoaded(true);
+    }
+  }, []);
+
+  return (
+    <div className="relative h-4 w-[102px] shrink-0 overflow-hidden">
+      {!loaded && <ShimmerOverlay className="rounded-sm" />}
+      {/* eslint-disable-next-line @next/next/no-img-element -- Figma crop 좌표 고정 */}
+      <img
+        src={figmaLogos.logo_SS_Image}
+        alt=""
+        className={cn(
+          "absolute left-[-6.49%] top-[-49.09%] h-[197%] w-[112.97%] max-w-none transition-opacity duration-500 ease-out motion-reduce:duration-150",
+          loaded ? "opacity-100" : "opacity-0",
+        )}
+        draggable={false}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
+}
+
 /**
  * Figma `LOGOS` — Dev Mode 스펙(마스크·뷰포트) 그대로 근사.
  */
@@ -33,16 +64,14 @@ export function FigmaLogos({ variant, className }: Props) {
           )}
           data-figma="LOGOS logo_HM"
         >
-          <div className="relative h-5 w-[39.255px] shrink-0">
-            <Image
-              src={figmaLogos.logo_HM_Vector}
-              alt=""
-              fill
-              className="object-contain object-center"
-              sizes="40px"
-              unoptimized
-            />
-          </div>
+          <FillSlotImageWithSkeleton
+            src={figmaLogos.logo_HM_Vector}
+            alt=""
+            slotClassName="h-5 w-[39.255px] shrink-0"
+            sizes="96px"
+            imageClassName="object-contain object-center"
+            unoptimized
+          />
         </div>
       );
     case "logo_GN":
@@ -81,16 +110,14 @@ export function FigmaLogos({ variant, className }: Props) {
           )}
           data-figma="LOGOS logo_KM"
         >
-          <div className="relative h-[11.429px] w-[48.296px] shrink-0">
-            <Image
-              src={figmaLogos.logo_KM_Group}
-              alt=""
-              fill
-              className="object-contain object-center"
-              sizes="50px"
-              unoptimized
-            />
-          </div>
+          <FillSlotImageWithSkeleton
+            src={figmaLogos.logo_KM_Group}
+            alt=""
+            slotClassName="h-[11.429px] w-[48.296px] shrink-0"
+            sizes="120px"
+            imageClassName="object-contain object-center"
+            unoptimized
+          />
         </div>
       );
     case "logo_HAE":
@@ -168,15 +195,7 @@ export function FigmaLogos({ variant, className }: Props) {
           )}
           data-figma="LOGOS logo_SS"
         >
-          <div className="relative h-4 w-[102px] shrink-0 overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element -- Figma crop 좌표 고정 */}
-            <img
-              src={figmaLogos.logo_SS_Image}
-              alt=""
-              className="absolute left-[-6.49%] top-[-49.09%] h-[197%] w-[112.97%] max-w-none"
-              draggable={false}
-            />
-          </div>
+          <LogoSsCroppedWithSkeleton />
         </div>
       );
     default:

@@ -1,6 +1,7 @@
 "use client";
 
 import { ImageFillWithSkeleton } from "@/components/media/ImageWithSkeleton";
+import { IMAGE_SIZES_FULL_BLEED } from "@/lib/image-presets";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer } from "./Parallax";
@@ -29,7 +30,7 @@ export function WorkThumbHmg({ className }: { className?: string }) {
             className="bg-transparent"
             imageClassName="object-center"
             objectFit="contain"
-            sizes="100vw"
+            sizes={IMAGE_SIZES_FULL_BLEED}
             priority
             unoptimized
           />

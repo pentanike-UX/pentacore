@@ -1,9 +1,12 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { ImageFillWithSkeleton } from "@/components/media/ImageWithSkeleton";
+import {
+  FixedImageWithSkeleton,
+  ImageFillWithSkeleton,
+} from "@/components/media/ImageWithSkeleton";
+import { IMAGE_SIZES_CONTENT_1280 } from "@/lib/image-presets";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { cn } from "@/lib/utils";
@@ -153,7 +156,7 @@ function FigImage({
       className={cn("bg-transparent", className)}
       imageClassName="object-top"
       objectFit="cover"
-      sizes="(max-width: 1280px) 100vw, 1280px"
+      sizes={IMAGE_SIZES_CONTENT_1280}
       unoptimized={src.startsWith("https://")}
     />
   );
@@ -193,13 +196,14 @@ export function WorksDetailView() {
             className="inline-flex size-[50px] shrink-0 items-center justify-center transition-opacity hover:opacity-70"
             aria-label="WORK 목록"
           >
-            <Image
+            <FixedImageWithSkeleton
               src={WORKS_LIST_BACK_ICON_SRC}
               alt=""
               width={50}
               height={50}
-              className="block"
+              sizes="100px"
               unoptimized
+              className="block"
             />
           </Link>
         </div>
@@ -223,13 +227,14 @@ export function WorksDetailView() {
                 aria-hidden
                 data-figma="PF_06"
               >
-                <Image
+                <FixedImageWithSkeleton
                   src={WORKS_VIEW_PF_06_SRC}
                   alt=""
                   width={116}
                   height={60}
-                  className="object-contain object-left"
+                  sizes="240px"
                   unoptimized
+                  className="object-contain object-left"
                 />
               </div>
               <p

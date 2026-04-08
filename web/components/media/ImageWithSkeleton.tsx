@@ -7,6 +7,7 @@ import {
   useState,
   type CSSProperties,
 } from "react";
+import { SUBPAGE_IMAGE_QUALITY } from "@/lib/image-presets";
 import { cn } from "@/lib/utils";
 
 export function ShimmerOverlay({ className }: { className?: string }) {
@@ -29,13 +30,18 @@ export function ShimmerOverlay({ className }: { className?: string }) {
 type FillProps = {
   src: string;
   alt: string;
-  /** 예: "964/731" */
-  aspectRatio: string;
+  /** `aspectClassName`이 없을 때만 사용 */
+  aspectRatio?: string;
+  /** 반응형 비율(Tailwind). 지정 시 인라인 `aspectRatio` 미사용 */
+  aspectClassName?: string;
+  /** 부모(`relative` + 비율/높이)를 가득 채움 — `aspectRatio` / `aspectClassName` 무시 */
+  coverParent?: boolean;
   className?: string;
   imageClassName?: string;
   sizes?: string;
   priority?: boolean;
   unoptimized?: boolean;
+  quality?: number;
   objectFit?: "cover" | "contain";
   onLoadComplete?: () => void;
 };
@@ -47,11 +53,14 @@ export function ImageFillWithSkeleton({
   src,
   alt,
   aspectRatio,
+  aspectClassName,
+  coverParent,
   className,
   imageClassName,
   sizes = "(max-width: 1280px) 100vw, 1280px",
   priority,
   unoptimized,
+  quality = SUBPAGE_IMAGE_QUALITY,
   objectFit = "cover",
   onLoadComplete,
 }: FillProps) {
@@ -69,10 +78,21 @@ export function ImageFillWithSkeleton({
     }
   }, [onLoadComplete]);
 
+  const ratioStyle =
+    !coverParent && aspectClassName == null && aspectRatio != null
+      ? ({ aspectRatio } as CSSProperties)
+      : undefined;
+
   return (
     <div
-      className={cn("relative w-full overflow-hidden bg-zinc-200/25", className)}
-      style={{ aspectRatio } as CSSProperties}
+      className={cn(
+        coverParent
+          ? "absolute inset-0 overflow-hidden bg-zinc-200/25"
+          : "relative w-full overflow-hidden bg-zinc-200/25",
+        !coverParent && aspectClassName,
+        className,
+      )}
+      style={ratioStyle}
     >
       {!loaded && <ShimmerOverlay />}
       <Image
@@ -81,6 +101,7 @@ export function ImageFillWithSkeleton({
         fill
         sizes={sizes}
         priority={priority}
+        quality={quality}
         unoptimized={unoptimized ?? src.startsWith("https://")}
         className={cn(
           objectFit === "contain" ? "object-contain" : "object-cover",
@@ -104,9 +125,65 @@ type IntrinsicProps = {
   imageClassName?: string;
   sizes: string;
   priority?: boolean;
+  unoptimized?: boolean;
+  quality?: number;
   objectFit?: "cover" | "contain";
   onLoadComplete?: () => void;
 };
+
+/**
+ * 원본 `width`/`height`만 사용 — 풀폭 비율 박스 없이 `inline-block`(로고·썸네일 등).
+ */
+export function IntrinsicNaturalImageWithSkeleton({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  imageClassName,
+  sizes,
+  priority,
+  unoptimized,
+  quality = SUBPAGE_IMAGE_QUALITY,
+  objectFit = "contain",
+  onLoadComplete,
+}: IntrinsicProps) {
+  const [loaded, setLoaded] = useState(false);
+  const onDone = useCallback(() => {
+    setLoaded(true);
+    onLoadComplete?.();
+  }, [onLoadComplete]);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLoaded(true);
+      onLoadComplete?.();
+    }
+  }, [onLoadComplete]);
+
+  return (
+    <span className={cn("relative inline-block max-w-full", className)}>
+      {!loaded && <ShimmerOverlay className="rounded-sm" />}
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        sizes={sizes}
+        priority={priority}
+        quality={quality}
+        unoptimized={unoptimized}
+        className={cn(
+          "h-auto max-w-full transition-opacity duration-700 ease-out motion-reduce:duration-150",
+          objectFit === "contain" ? "object-contain" : "object-cover",
+          loaded ? "opacity-100" : "opacity-0",
+          imageClassName,
+        )}
+        onLoad={onDone}
+      />
+    </span>
+  );
+}
 
 /**
  * 풀 너비, 원본 비율 유지 — Next `width`/`height`로 디코딩 크기 고정.
@@ -120,6 +197,8 @@ export function IntrinsicWidthImageWithSkeleton({
   imageClassName,
   sizes,
   priority,
+  unoptimized,
+  quality = SUBPAGE_IMAGE_QUALITY,
   objectFit = "contain",
   onLoadComplete,
 }: IntrinsicProps) {
@@ -149,6 +228,8 @@ export function IntrinsicWidthImageWithSkeleton({
         height={height}
         sizes={sizes}
         priority={priority}
+        quality={quality}
+        unoptimized={unoptimized}
         className={cn(
           "h-auto w-full transition-opacity duration-700 ease-out motion-reduce:duration-150",
           objectFit === "contain" ? "object-contain" : "object-cover",
@@ -165,10 +246,11 @@ type FixedImageProps = Omit<ImageProps, "onLoad"> & {
   skeletonClassName?: string;
 };
 
-/** 고정 width/height Image — 작은 로고 등 */
+/** 고정 width/height Image — 작은 로고·아이콘 등 */
 export function FixedImageWithSkeleton({
   className,
   skeletonClassName,
+  quality = SUBPAGE_IMAGE_QUALITY,
   ...props
 }: FixedImageProps) {
   const [loaded, setLoaded] = useState(false);
@@ -193,6 +275,7 @@ export function FixedImageWithSkeleton({
       )}
       <Image
         {...props}
+        quality={quality}
         className={cn(
           "transition-opacity duration-500 ease-out motion-reduce:duration-150",
           loaded ? "opacity-100" : "opacity-0",
@@ -201,5 +284,64 @@ export function FixedImageWithSkeleton({
         onLoad={() => setLoaded(true)}
       />
     </span>
+  );
+}
+
+type FillSlotProps = {
+  src: string;
+  alt: string;
+  /** `relative` 래퍼에 붙는 크기·레이아웃 클래스 (예: `h-5 w-[39px]`) */
+  slotClassName: string;
+  sizes: string;
+  className?: string;
+  imageClassName?: string;
+  unoptimized?: boolean;
+  quality?: number;
+  priority?: boolean;
+};
+
+/**
+ * 고정 슬롯 안 `fill` 이미지 — 소형 로고·아이콘(쉬머 + 풀 해상도 `sizes` 힌트).
+ */
+export function FillSlotImageWithSkeleton({
+  src,
+  alt,
+  slotClassName,
+  sizes,
+  className,
+  imageClassName,
+  unoptimized,
+  quality = SUBPAGE_IMAGE_QUALITY,
+  priority,
+}: FillSlotProps) {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLoaded(true);
+    }
+  }, []);
+
+  return (
+    <div
+      className={cn("relative shrink-0 overflow-hidden", slotClassName, className)}
+    >
+      {!loaded && <ShimmerOverlay className="rounded-sm" />}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        quality={quality}
+        unoptimized={unoptimized ?? src.startsWith("https://")}
+        className={cn(
+          "transition-opacity duration-500 ease-out motion-reduce:duration-150",
+          loaded ? "opacity-100" : "opacity-0",
+          imageClassName,
+        )}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
   );
 }
