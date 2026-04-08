@@ -21,11 +21,14 @@ function isInteractiveTarget(el: Element | null): boolean {
 /**
  * Figma `pointer` 근사 — 전역 커서(미세 포인터 기기만).
  * 인터랙티브 위에서 링이 살짝 커짐.
+ *
+ * 리퀴드 글래스(`figma-liquid-glass` 톤): blur(10px)·saturate(160%)·반투명 화이트·인셋 하이라이트.
+ * `mix-blend-difference`로 배경 명도에 따라 링이 반전되어 밝/어두운 베이스 모두에서 가시성 유지.
  */
 function CursorVisual({ hovering }: { hovering: boolean }) {
   return (
     <motion.div
-      className="will-change-transform"
+      className="will-change-transform mix-blend-difference"
       initial={false}
       animate={{
         scale: hovering ? 1.22 : 1,
@@ -42,7 +45,7 @@ function CursorVisual({ hovering }: { hovering: boolean }) {
         transition={{ type: "spring", stiffness: 380, damping: 26 }}
       >
         <motion.div
-          className="absolute rounded-full border-2 border-zinc-900/80 bg-gradient-to-b from-zinc-900/[0.07] to-zinc-900/[0.14] shadow-[0_4px_20px_rgba(0,0,0,0.12)] backdrop-blur-[3px]"
+          className="absolute rounded-full border-2 border-white/80 bg-gradient-to-b from-white/[0.42] to-white/[0.22] shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_4px_24px_rgba(15,23,42,0.1)] backdrop-blur-[10px] backdrop-saturate-[160%] [-webkit-backdrop-filter:blur(10px)_saturate(160%)]"
           initial={false}
           animate={{
             width: hovering ? 92 : 58,
@@ -52,23 +55,23 @@ function CursorVisual({ hovering }: { hovering: boolean }) {
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
         />
         <motion.div
-          className="absolute rounded-full border border-zinc-900/35"
+          className="absolute rounded-full border border-white/55"
           initial={false}
           animate={{
             width: hovering ? 100 : 74,
             height: hovering ? 100 : 74,
-            opacity: hovering ? 0.65 : 0.4,
+            opacity: hovering ? 0.7 : 0.45,
             scale: hovering ? 1.05 : 1,
           }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         />
         <motion.div
-          className="absolute rounded-full bg-zinc-900/[0.06] blur-[6px]"
+          className="absolute rounded-full bg-white/[0.38] blur-[6px]"
           initial={false}
           animate={{
             width: hovering ? 48 : 32,
             height: hovering ? 48 : 32,
-            opacity: hovering ? 0.9 : 0.5,
+            opacity: hovering ? 0.92 : 0.55,
           }}
           transition={{ type: "spring", stiffness: 420, damping: 18 }}
         />

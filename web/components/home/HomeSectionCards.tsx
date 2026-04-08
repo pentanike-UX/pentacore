@@ -70,6 +70,13 @@ const HOME_KEY_COPY = {
   line2: "Makes it work.",
 } as const;
 
+/** 카드 그리드 하단 인증 마크 — 최대 3.5rem (`public/home/home-cert-*.svg`) */
+const HOME_CERT_MARKS = [
+  "/home/home-cert-1.svg",
+  "/home/home-cert-2.svg",
+  "/home/home-cert-3.svg",
+] as const;
+
 const cardShellClassName = cn(
   "group relative isolate flex w-full flex-col overflow-hidden text-zinc-900 outline-none",
   "p-6 lg:p-10",
@@ -181,6 +188,25 @@ export function HomeSectionCards() {
               </div>
             </Link>
           ))}
+          </div>
+
+          <div
+            className="flex w-full flex-wrap items-center justify-center gap-6 md:gap-8"
+            data-figma="HOME_LAYOUT-2 cert_marks"
+          >
+            {HOME_CERT_MARKS.map((src) => (
+              <img
+                key={src}
+                src={src}
+                alt=""
+                width={180}
+                height={180}
+                loading="lazy"
+                decoding="async"
+                className="h-auto w-auto max-h-[3.5rem] max-w-[3.5rem] shrink-0 object-contain"
+                aria-hidden
+              />
+            ))}
           </div>
         </div>
       </div>
