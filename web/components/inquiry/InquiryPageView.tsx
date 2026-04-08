@@ -459,12 +459,12 @@ function InquiryFallback() {
   return (
     <section
       className={cn(
-        "border-t border-zinc-900/[0.05] bg-white pb-24 pt-16 md:pb-32 md:pt-20",
-        GUTTER,
+        "w-full border-t border-zinc-900/[0.05] bg-white pb-24 pt-16 md:pb-32 md:pt-20",
+        "px-6 md:px-[4.75rem]",
       )}
       data-figma="SUB_INQUIRY fallback"
     >
-      <div className="mx-auto max-w-2xl text-center">
+      <div className="w-full text-center">
         <h2 className="text-lg font-semibold tracking-tight text-zinc-950 md:text-xl">
           아직 정리가 필요하신가요?
         </h2>
