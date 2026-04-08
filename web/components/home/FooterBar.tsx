@@ -117,7 +117,7 @@ export function FooterBar({
   const bodyTone = inlineSub || light ? "text-zinc-800" : "text-white/90";
   const fineTone = inlineSub || light ? "text-zinc-600" : "text-white/80";
   const dividerLight = inlineSub || light;
-  /** 홈 고정 푸터: ISO 좌측 */
+  /** 홈 고정 푸터: ISO + 저작권 가로 중앙 정렬 */
   const isoHomeFooter = isFixed && hideNav;
 
   return (
@@ -144,61 +144,74 @@ export function FooterBar({
       }
     >
       <div
-        className={
-          isMobile
-            ? "flex flex-col gap-4"
-            : "flex items-end justify-between gap-8"
-        }
+        className={cn(
+          isoHomeFooter &&
+            "flex flex-col items-center gap-3 text-center sm:gap-4",
+          !isoHomeFooter &&
+            (isMobile ? "flex flex-col gap-4" : "flex items-end justify-between gap-8"),
+        )}
       >
         {isoHomeFooter ? (
-          <HomeIsoBadges justify="start" />
-        ) : (
-          <div className="flex max-w-xl flex-col gap-5">
-            {!hideNav ? (
-              <nav
-                className={cn(
-                  "flex min-w-0 flex-nowrap items-center gap-1 overflow-x-auto overflow-y-hidden text-[13px] font-bold leading-none tracking-tight [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:text-base sm:leading-4 sm:tracking-normal [&::-webkit-scrollbar]:hidden",
-                  navTone,
-                )}
-                aria-label="하단 내비게이션"
-              >
-                {nav.map((item, i) => (
-                  <span
-                    key={item.href}
-                    className="flex shrink-0 items-center gap-1 sm:gap-2"
-                  >
-                    {i > 0 ? <Divider light={dividerLight} /> : null}
-                    <NavMenuHoverLink
-                      href={item.href}
-                      className={cn(
-                        "whitespace-nowrap rounded-sm px-0.5 py-1 sm:px-1.5 -my-1 hover:opacity-90",
-                        glassHover,
-                      )}
-                    >
-                      {item.label}
-                    </NavMenuHoverLink>
-                  </span>
-                ))}
-              </nav>
-            ) : null}
+          <>
+            <HomeIsoBadges justify="center" />
             <p
               className={cn(
-                "text-[14px] font-medium leading-snug",
-                bodyTone,
+                "text-[12px] font-medium leading-5",
+                fineTone,
               )}
             >
-              {PENTACORE_MANIFESTO_PARAGRAPH}
+              ⓒ PENTACORE.
             </p>
-          </div>
+          </>
+        ) : (
+          <>
+            <div className="flex max-w-xl flex-col gap-5">
+              {!hideNav ? (
+                <nav
+                  className={cn(
+                    "flex min-w-0 flex-nowrap items-center gap-1 overflow-x-auto overflow-y-hidden text-[13px] font-bold leading-none tracking-tight [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:text-base sm:leading-4 sm:tracking-normal [&::-webkit-scrollbar]:hidden",
+                    navTone,
+                  )}
+                  aria-label="하단 내비게이션"
+                >
+                  {nav.map((item, i) => (
+                    <span
+                      key={item.href}
+                      className="flex shrink-0 items-center gap-1 sm:gap-2"
+                    >
+                      {i > 0 ? <Divider light={dividerLight} /> : null}
+                      <NavMenuHoverLink
+                        href={item.href}
+                        className={cn(
+                          "whitespace-nowrap rounded-sm px-0.5 py-1 sm:px-1.5 -my-1 hover:opacity-90",
+                          glassHover,
+                        )}
+                      >
+                        {item.label}
+                      </NavMenuHoverLink>
+                    </span>
+                  ))}
+                </nav>
+              ) : null}
+              <p
+                className={cn(
+                  "text-[14px] font-medium leading-snug",
+                  bodyTone,
+                )}
+              >
+                {PENTACORE_MANIFESTO_PARAGRAPH}
+              </p>
+            </div>
+            <p
+              className={cn(
+                "shrink-0 text-[12px] font-medium leading-5 md:text-right",
+                fineTone,
+              )}
+            >
+              ⓒ PENTACORE.
+            </p>
+          </>
         )}
-        <p
-          className={cn(
-            "shrink-0 text-[12px] font-medium leading-5 md:text-right",
-            fineTone,
-          )}
-        >
-          ⓒ PENTACORE.
-        </p>
       </div>
 
       {inlineSub ? (
@@ -217,8 +230,8 @@ Republic of Korea`}
               </p>
             </address>
             <HomeIsoBadges
-              justify="end"
-              className="ml-auto w-max shrink-0 md:ml-0"
+              justify="start"
+              className="w-full shrink-0 md:w-auto md:justify-end"
             />
           </div>
         </div>

@@ -4,6 +4,8 @@ module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    /** `SUB_PAGE_COLUMN_GUTTER_X` 등 — 변수로만 쓰는 유틸 문자열은 이 경로에 둬야 JIT가 스캔함 */
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {

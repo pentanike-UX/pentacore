@@ -28,7 +28,7 @@ export function HomeIsoBadges({
     <div
       className={cn(
         /* shrink-0: 푸터 flex 행에서 기본 flex-shrink로 너비가 0에 가깝게 줄어드는 것 방지 */
-        "flex max-w-full shrink-0 flex-row flex-nowrap items-center gap-3 overflow-x-auto overscroll-x-contain sm:gap-5 md:gap-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "flex max-w-full shrink-0 flex-row flex-wrap items-center gap-3 overflow-x-auto overscroll-x-contain sm:flex-nowrap sm:gap-5 md:gap-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
         justifyCls,
         className,
       )}
