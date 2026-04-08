@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { cn } from "@/lib/utils";
 
-const CONTACT_EMAIL = "hello@pentacore.co";
+const CONTACT_EMAIL = "info@pentacore.kr";
 const FORM_ID = "inquiry-main-form";
 
 const GUTTER = "mx-auto w-full max-w-[1280px] px-6 md:px-[4.75rem]";
@@ -21,6 +21,10 @@ const shellSoft =
 
 const inputBase =
   "w-full rounded-2xl border border-zinc-200/90 bg-white/95 px-5 py-[1.125rem] text-[17px] leading-snug text-zinc-950 shadow-[0_1px_2px_rgba(15,23,42,0.035)] outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-zinc-400 focus:border-zinc-400 focus:bg-white focus:shadow-[0_0_0_3px_rgba(24,24,27,0.06)] focus:ring-0 md:py-5 md:text-[18px]";
+
+/** 주요 액션 버튼 — 모바일 전폭, sm 이상 고정 폭·줄바꿈 방지 */
+const primaryActionButtonClass =
+  "inline-flex h-14 w-full min-h-[48px] shrink-0 items-center justify-center rounded-full border-0 px-8 text-[15px] font-medium leading-snug sm:w-auto sm:min-w-[12.5rem] sm:px-10 sm:text-[16px]";
 
 type QualificationState = {
   projectType: string | null;
@@ -78,8 +82,6 @@ function buildInquiryMailto(payload: {
   return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines)}`;
 }
 
-const mailtoBookCall = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("15-minute call request")}&body=${encodeURIComponent("Preferred times / timezone:\n\n")}`;
-
 function FieldLabel({
   htmlFor,
   children,
@@ -125,7 +127,8 @@ function SelectChip({
       aria-checked={selected}
       onClick={onSelect}
       className={cn(
-        "min-h-[48px] rounded-2xl border px-4 py-3 text-left text-[15px] font-medium transition-[background-color,border-color,transform,box-shadow] duration-200 ease-out md:min-h-[52px] md:px-5 md:py-3.5 md:text-[16px]",
+        "max-w-full min-h-[48px] min-w-0 rounded-2xl border px-4 py-3 text-left text-[15px] font-medium transition-[background-color,border-color,transform,box-shadow] duration-200 ease-out sm:min-w-0 md:min-h-[52px] md:px-5 md:py-3.5 md:text-[16px]",
+        "break-words [text-wrap:balance]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/12 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
         selected
           ? "border-zinc-950 bg-zinc-950 text-white shadow-[0_1px_0_rgba(255,255,255,0.12)_inset,0_8px_24px_rgba(0,0,0,0.12)]"
@@ -202,20 +205,17 @@ function InquiryHero({ onStartInquiry }: { onStartInquiry: () => void }) {
         <p className="mt-8 max-w-lg text-[17px] leading-relaxed text-zinc-600 md:mt-10 md:text-lg md:leading-relaxed">
           We’ll respond with scope, timeline, or next steps within 24 hours.
         </p>
-        <div className="mt-12 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
+        <div className="mt-12 w-full max-w-md">
           <Button
             type="button"
             onClick={onStartInquiry}
-            className="h-14 rounded-full border-0 bg-zinc-950 px-10 text-[16px] font-medium text-white hover:bg-zinc-800"
+            className={cn(
+              primaryActionButtonClass,
+              "bg-zinc-950 text-white hover:bg-zinc-800",
+            )}
           >
-            Start Inquiry
+            문의 작성하기
           </Button>
-          <a
-            href={mailtoBookCall}
-            className="inline-flex h-14 items-center justify-center rounded-full border border-zinc-300/80 bg-white/70 px-10 text-[16px] font-medium text-zinc-900 backdrop-blur-sm transition-colors hover:border-zinc-400 hover:bg-white"
-          >
-            Book a 15-min call
-          </a>
         </div>
       </div>
     </section>
@@ -329,7 +329,7 @@ function InquiryFormFields({
         aria-label="프로젝트 문의 양식"
       >
         <div className="grid gap-10 md:grid-cols-2 md:gap-x-10">
-          <div>
+          <div className="min-w-0">
             <FieldLabel htmlFor="inquiry-name">이름</FieldLabel>
             <input
               id="inquiry-name"
@@ -341,7 +341,7 @@ function InquiryFormFields({
               placeholder="홍길동"
             />
           </div>
-          <div>
+          <div className="min-w-0">
             <FieldLabel htmlFor="inquiry-email">이메일</FieldLabel>
             <input
               id="inquiry-email"
@@ -350,7 +350,7 @@ function InquiryFormFields({
               required
               autoComplete="email"
               className={inputBase}
-              placeholder="you@company.com"
+              placeholder="담당자@회사.kr"
             />
           </div>
         </div>
@@ -416,9 +416,9 @@ function InquiryTrust() {
           <p>
             평균{" "}
             <span className="font-semibold text-zinc-900">24시간 이내</span>에
-            초기 답변을 드립니다.
+            이메일로 초기 답변을 드립니다.
           </p>
-          <p>첫 상담은 부담 없이 진행됩니다.</p>
+          <p>필요하신 만큼만 알려 주셔도 되며, 부담 없이 소통할 수 있습니다.</p>
         </div>
       </div>
     </section>
@@ -432,25 +432,22 @@ function InquiryCtaRail() {
       aria-label="문의 제출"
       data-figma="SUB_INQUIRY cta"
     >
-      <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+      <div className="flex flex-col items-stretch gap-4 sm:max-w-none sm:flex-row sm:items-center">
         <button
           type="submit"
           form={FORM_ID}
-          className="inline-flex h-14 min-w-[10rem] flex-1 items-center justify-center rounded-full border-0 bg-zinc-950 px-10 text-[16px] font-medium text-white transition-colors hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2 sm:min-w-[11.25rem] sm:flex-none lg:min-w-[12.5rem]"
+          className={cn(
+            primaryActionButtonClass,
+            "bg-zinc-950 text-white transition-colors hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/25 focus-visible:ring-offset-2",
+          )}
         >
           문의 보내기
         </button>
-        <a
-          href={mailtoBookCall}
-          className="inline-flex h-14 min-w-[10rem] flex-1 items-center justify-center rounded-full border-2 border-zinc-200/95 bg-white/90 px-10 text-[16px] font-medium text-zinc-900 transition-colors hover:border-zinc-300 hover:bg-white sm:min-w-[11.25rem] sm:flex-none lg:min-w-[12.5rem]"
-        >
-          15분 통화 예약
-        </a>
       </div>
       <p className="mt-10 text-center sm:text-left">
         <a
           href={`mailto:${CONTACT_EMAIL}`}
-          className="text-[15px] font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-[5px] transition hover:text-zinc-950 hover:decoration-zinc-500"
+          className="inline-block max-w-full break-all text-[15px] font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-[5px] transition hover:text-zinc-950 hover:decoration-zinc-500"
         >
           또는 이메일로 문의하기 → {CONTACT_EMAIL}
         </a>
@@ -462,7 +459,10 @@ function InquiryCtaRail() {
 function InquiryFallback() {
   return (
     <section
-      className={cn("border-t border-zinc-900/[0.05] pb-24 pt-16 md:pb-32 md:pt-20", GUTTER)}
+      className={cn(
+        "border-t border-zinc-900/[0.05] pb-24 pt-16 md:pb-32 md:pt-20",
+        GUTTER,
+      )}
       data-figma="SUB_INQUIRY fallback"
     >
       <div className="mx-auto max-w-2xl text-center">
@@ -472,7 +472,7 @@ function InquiryFallback() {
         <p className="mt-5 text-[16px] leading-relaxed text-zinc-600 md:text-[17px]">
           간단한 문의만 남겨주셔도 괜찮습니다.
           <br className="hidden sm:inline" />{" "}
-          짧은 통화를 통해 빠르게 방향을 잡을 수 있습니다.
+          아래 폼으로 방향을 함께 정리해 나갈 수 있습니다.
         </p>
         <p className="mt-8">
           <a
