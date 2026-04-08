@@ -6,6 +6,7 @@ import { SubWorkStyleHero } from "@/components/subpages/SubWorkStyleHero";
 import { cn } from "@/lib/utils";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import {
+  ABOUT_EDITORIAL_IMAGE,
   ABOUT_FULL_IMAGES,
   ABOUT_PARTNER_COUNT,
   aboutPartnerSrc,
@@ -28,7 +29,7 @@ const highlightHeadingClass =
 
 const GUTTER = "px-6 md:px-[76px]";
 
-/** 풀블리드 이미지 — 위·아래 14rem (`my-56`) */
+/** 풀블리드 이미지 — 위·아래 10rem (`my-40`) */
 function AboutFullBleedImage({
   src,
   width,
@@ -42,7 +43,7 @@ function AboutFullBleedImage({
 }) {
   return (
     <figure
-      className="relative left-1/2 my-56 w-screen max-w-[100vw] -translate-x-1/2"
+      className="relative left-1/2 my-40 w-screen max-w-[100vw] -translate-x-1/2"
       data-figma="SUB_ABOUT full_bleed"
     >
       <Image
@@ -70,13 +71,6 @@ const INTRO_PARAGRAPHS = [
 영감을 주는 경험으로 엮어내는 데 전념합니다.`,
 ] as const;
 
-/** 참고 레이아웃: lg에서 8열 시작 → 5열 시작 → 9열 시작 */
-const INTRO_COLS = [
-  "col-span-12 lg:col-start-8 lg:col-span-5",
-  "col-span-12 lg:col-start-5 lg:col-span-6 lg:mt-10",
-  "col-span-12 lg:col-start-9 lg:col-span-4 lg:mt-14",
-] as const;
-
 const PHILOSOPHY_PARAGRAPHS = [
   `펜타코어의 철학은 
 진정으로 중요한 것이 무엇인지 이해하는 데 뿌리를 두고 있습니다.`,
@@ -91,9 +85,9 @@ AI 분야의 실험적 활동의 원동력이 되었습니다.`,
 
 const PHILOSOPHY_COLS = [
   "col-span-12 lg:col-start-1 lg:col-span-6",
-  "col-span-12 lg:col-start-7 lg:col-span-4 lg:mt-8",
-  "col-span-12 lg:col-start-2 lg:col-span-7 lg:mt-10",
-  "col-span-12 lg:col-start-5 lg:col-span-6 lg:mt-12",
+  "col-span-12 lg:col-start-7 lg:col-span-4 lg:mt-40",
+  "col-span-12 lg:col-start-2 lg:col-span-7 lg:mt-40",
+  "col-span-12 lg:col-start-5 lg:col-span-6 lg:mt-40",
 ] as const;
 
 const MISSION_PARAGRAPHS = [
@@ -113,8 +107,8 @@ IT와 AI를 활용하여
 
 const MISSION_COLS = [
   "col-span-12 lg:col-start-2 lg:col-span-5",
-  "col-span-12 lg:col-start-6 lg:col-span-5 lg:mt-10",
-  "col-span-12 lg:col-start-3 lg:col-span-8 lg:mt-12",
+  "col-span-12 lg:col-start-6 lg:col-span-5 lg:mt-40",
+  "col-span-12 lg:col-start-3 lg:col-span-8 lg:mt-40",
 ] as const;
 
 export function AboutListingPage() {
@@ -134,32 +128,73 @@ export function AboutListingPage() {
         bodyKo={ABOUT_TXT_KO}
       />
 
-      {/* 히어로 직후 — 12컬 크리에이티브 배치 (모바일 1열) */}
+      {/* 히어로 직후 — 참고 레이아웃: 좌측 img_about1 비율 유지, 4–7열 겹침 영문, 한글 스태거 */}
       <section
-        className={cn("mx-auto w-full max-w-[1280px] pb-4 pt-10 md:pt-16", GUTTER)}
+        className={cn("mx-auto w-full max-w-[1280px] py-40", GUTTER)}
         aria-label="소개 문단"
         data-figma="SUB_ABOUT creative_opening"
       >
-        <div className="grid grid-cols-12 gap-x-5 gap-y-12 md:gap-x-8 md:gap-y-16">
-          {INTRO_PARAGRAPHS.map((text, i) => (
-            <p key={i} className={cn(bodyClass, INTRO_COLS[i])}>
-              {text}
+        <div className="grid grid-cols-12 gap-x-5 md:gap-x-8">
+          <div className="col-span-12 lg:col-span-6 lg:row-start-1">
+            <Image
+              src={ABOUT_EDITORIAL_IMAGE.src}
+              alt=""
+              width={ABOUT_EDITORIAL_IMAGE.width}
+              height={ABOUT_EDITORIAL_IMAGE.height}
+              className="h-auto w-full max-w-full object-contain object-left"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              unoptimized
+            />
+          </div>
+          <p
+            className={cn(
+              "col-span-12 z-10 max-w-xl text-xl font-semibold leading-snug text-zinc-950 md:text-2xl",
+              "mt-10 lg:col-start-4 lg:col-span-4 lg:row-start-1 lg:mt-0 lg:self-center",
+            )}
+          >
+            Every meaningful experience starts with understanding.
+          </p>
+          <div
+            className={cn(
+              "col-span-12 space-y-2",
+              "mt-40 lg:col-start-8 lg:col-span-5 lg:row-start-2 lg:mt-0",
+            )}
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.12em] text-zinc-500">
+              Where experience begins.
             </p>
-          ))}
+            <p className={bodyClass}>{INTRO_PARAGRAPHS[0]}</p>
+          </div>
+          <p
+            className={cn(
+              bodyClass,
+              "col-span-12 mt-40 lg:col-start-6 lg:col-span-5 lg:row-start-3 lg:mt-40",
+            )}
+          >
+            {INTRO_PARAGRAPHS[1]}
+          </p>
+          <p
+            className={cn(
+              bodyClass,
+              "col-span-12 mt-40 lg:col-start-9 lg:col-span-4 lg:row-start-4 lg:mt-40",
+            )}
+          >
+            {INTRO_PARAGRAPHS[2]}
+          </p>
         </div>
       </section>
 
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforePhilosophy} />
 
       <section
-        className={cn("mx-auto w-full max-w-[1280px] pb-4", GUTTER)}
+        className={cn("mx-auto w-full max-w-[1280px] py-40", GUTTER)}
         aria-labelledby="about-philosophy"
         data-figma="SUB_ABOUT philosophy"
       >
         <h2 id="about-philosophy" className={highlightHeadingClass}>
           Our Philosophy
         </h2>
-        <div className="mt-10 grid grid-cols-12 gap-x-5 gap-y-10 md:mt-14 md:gap-x-8 md:gap-y-14">
+        <div className="mt-40 grid grid-cols-12 gap-x-5 md:gap-x-8">
           {PHILOSOPHY_PARAGRAPHS.map((text, i) => (
             <p key={i} className={cn(bodyClass, PHILOSOPHY_COLS[i])}>
               {text}
@@ -171,14 +206,14 @@ export function AboutListingPage() {
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforeMission} />
 
       <section
-        className={cn("mx-auto w-full max-w-[1280px] pb-4", GUTTER)}
+        className={cn("mx-auto w-full max-w-[1280px] py-40", GUTTER)}
         aria-labelledby="about-mission"
         data-figma="SUB_ABOUT mission"
       >
         <h2 id="about-mission" className={highlightHeadingClass}>
           Our Mission
         </h2>
-        <div className="mt-10 grid grid-cols-12 gap-x-5 gap-y-10 md:mt-14 md:gap-x-8 md:gap-y-14">
+        <div className="mt-40 grid grid-cols-12 gap-x-5 md:gap-x-8">
           {MISSION_PARAGRAPHS.map((text, i) => (
             <p key={i} className={cn(bodyClass, MISSION_COLS[i])}>
               {text}
@@ -190,16 +225,13 @@ export function AboutListingPage() {
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforePartners} />
 
       <section
-        className={cn(
-          "mx-auto w-full max-w-[1280px] pb-24 pt-4 md:pb-32",
-          GUTTER,
-        )}
+        className={cn("mx-auto w-full max-w-[1280px] py-40 pb-24 md:pb-32", GUTTER)}
         aria-labelledby="about-partners"
         data-figma="SUB_ABOUT partners"
       >
         <div className="grid grid-cols-12 gap-x-6 gap-y-12 lg:gap-x-8">
           <div className="col-span-12 lg:col-span-3">
-            <div className="relative mb-6 h-14 w-[5.5rem] opacity-[0.18] md:h-16 md:w-24 md:opacity-[0.14]">
+            <div className="relative mb-10 h-14 w-[5.5rem] opacity-[0.18] md:h-16 md:w-24 md:opacity-[0.14]">
               <AboutPentagramFigma className="opacity-100" />
             </div>
             <h2 id="about-partners" className={highlightHeadingClass}>
