@@ -1,7 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle, PenLine } from "lucide-react";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
@@ -11,6 +12,7 @@ import { HIRING_JOB_SLUG_BACKEND, HIRING_PF05_SRC } from "@/components/hiring/hi
 import {
   FixedImageWithSkeleton,
   IntrinsicWidthImageWithSkeleton,
+  ShimmerOverlay,
 } from "@/components/media/ImageWithSkeleton";
 import {
   HeroCopyTextSkeleton,
@@ -64,6 +66,16 @@ const CULTURE_BULLETS = [
 
 export function HiringPageView() {
   const [hireImg1Ready, setHireImg1Ready] = useState(false);
+  const [hireImg2Ready, setHireImg2Ready] = useState(false);
+  const onHireImg2Load = useCallback(() => setHireImg2Ready(true), []);
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setHireImg2Ready(true);
+    }
+  }, []);
 
   return (
     <SubPageScaffold
@@ -288,46 +300,66 @@ export function HiringPageView() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1280px] px-6 pb-10 pt-16 md:px-[76px] md:pb-12 md:pt-20">
+      {/* img_hire2 배경 + 리퀴드 글라스 문의 CTA — 하단 패딩 없음(푸터와 맞닿음) */}
+      <section
+        className={fullBleedImg}
+        aria-labelledby="hiring-inquiry-cta"
+        data-figma="HIRING_inquiry_cta_on_img"
+      >
         <div
-          className={cn(
-            "flex flex-col gap-6 rounded-[20px] border border-white/55 p-8 ring-1 ring-zinc-900/[0.06] supports-[backdrop-filter]:border-white/40 md:flex-row md:items-center md:justify-between md:rounded-[28px] md:p-10",
-            workPortfolioRowChromeClassName,
-          )}
-          style={liquidGlassHomeCard}
-          data-figma="HIRING_inquiry_cta"
+          className="relative isolate w-full overflow-hidden bg-zinc-200/20"
+          style={{ aspectRatio: `${HIRE_IMG2_W} / ${HIRE_IMG2_H}` }}
         >
-          <div>
-            <h2 className="text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl">
-              프로젝트 문의가 먼저인가요?
-            </h2>
-            <p className="mt-2 max-w-md text-[15px] leading-relaxed text-zinc-600">
-              파트너십·의뢰는 프로젝트 문의 페이지에서 정리해 주시면 빠르게
-              검토합니다.
-            </p>
-          </div>
-          <Link
-            href="/inquiry"
+          {!hireImg2Ready && <ShimmerOverlay />}
+          <Image
+            src="/hire/img_hire2.png"
+            alt=""
+            fill
+            sizes="100vw"
             className={cn(
-              buttonVariants({ variant: "default", size: "lg" }),
-              "h-12 shrink-0 rounded-full border-0 bg-zinc-950 px-8 text-[15px] font-medium text-white hover:bg-zinc-800",
+              "object-cover object-center transition-opacity duration-700 ease-out motion-reduce:duration-150",
+              hireImg2Ready ? "opacity-100" : "opacity-0",
             )}
-          >
-            PROJECT INQUIRY
-          </Link>
+            onLoad={onHireImg2Load}
+          />
+          {/* 배경 위 글래스 카드 가독성 */}
+          <div
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/75 via-zinc-950/35 to-zinc-950/5"
+            aria-hidden
+          />
+          <div className="absolute inset-0 z-10 flex flex-col justify-end px-6 pb-6 pt-20 md:px-[76px] md:pb-8 md:pt-28">
+            <div
+              className={cn(
+                "flex flex-col gap-6 rounded-[20px] border border-white/60 p-8 ring-1 ring-zinc-900/[0.08] supports-[backdrop-filter]:border-white/45 md:flex-row md:items-center md:justify-between md:rounded-[28px] md:p-10",
+                workPortfolioRowChromeClassName,
+              )}
+              style={liquidGlassHomeCard}
+            >
+              <div>
+                <h2
+                  id="hiring-inquiry-cta"
+                  className="text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl"
+                >
+                  프로젝트 문의가 먼저인가요?
+                </h2>
+                <p className="mt-2 max-w-md text-[15px] leading-relaxed text-zinc-700">
+                  파트너십·의뢰는 프로젝트 문의 페이지에서 정리해 주시면 빠르게
+                  검토합니다.
+                </p>
+              </div>
+              <Link
+                href="/inquiry"
+                className={cn(
+                  buttonVariants({ variant: "default", size: "lg" }),
+                  "h-12 shrink-0 rounded-full border-0 bg-zinc-950 px-8 text-[15px] font-medium text-white hover:bg-zinc-800",
+                )}
+              >
+                PROJECT INQUIRY
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
-
-      <div className={cn(fullBleedImg, "pb-24 md:pb-32")}>
-        <IntrinsicWidthImageWithSkeleton
-          src="/hire/img_hire2.png"
-          alt=""
-          width={HIRE_IMG2_W}
-          height={HIRE_IMG2_H}
-          sizes="100vw"
-          objectFit="contain"
-        />
-      </div>
     </SubPageScaffold>
   );
 }
