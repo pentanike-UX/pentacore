@@ -6,13 +6,14 @@ import { SubWorkStyleHero } from "@/components/subpages/SubWorkStyleHero";
 import { cn } from "@/lib/utils";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import {
+  ABOUT_COMPANY_PROFILE_BG,
+  ABOUT_COMPANY_PROFILE_PDF,
   ABOUT_EDITORIAL_IMAGE,
   ABOUT_FULL_IMAGES,
   ABOUT_PARTNER_COUNT,
   aboutPartnerIntrinsic,
   aboutPartnerSrc,
 } from "./about-assets";
-import { AboutPentagramFigma } from "./AboutPentagramFigma";
 
 const ABOUT_TXT_EN =
   "Pentacore is a small studio-shaped team building navigation, in-vehicle, and web products with automotive and enterprise partners.";
@@ -111,6 +112,64 @@ const MISSION_COLS = [
   "col-span-12 lg:col-start-6 lg:col-span-5 lg:mt-40",
   "col-span-12 lg:col-start-3 lg:col-span-8 lg:mt-40",
 ] as const;
+
+const COMPANY_PROFILE_BODY = `펜타코어는 IT와 AI, 디자인을 관통하는 전문성을 바탕으로
+기업과 고객의 핵심을 연결하며 의미 있는 경험을 창출합니다.`;
+
+/** Partners 하단 — img_about5 배경(cover·center), 뷰포트별 종횡비: 모바일=이미지 전체, 태블릿=중간, 데스크=구 img_about4(1024×415) 비율 */
+function AboutCompanyProfileBanner() {
+  return (
+    <section
+      className="relative left-1/2 mt-20 w-screen max-w-[100vw] -translate-x-1/2 pb-0 md:mt-24"
+      aria-labelledby="about-company-profile-heading"
+      data-figma="SUB_ABOUT company_profile"
+    >
+      <div
+        className={cn(
+          "relative w-full overflow-hidden bg-zinc-900",
+          "aspect-[576/1024] md:aspect-[3/2] lg:aspect-[1024/415]",
+        )}
+        style={{
+          backgroundImage: `url(${ABOUT_COMPANY_PROFILE_BG.src})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div
+          className="absolute inset-0 bg-zinc-950/55"
+          aria-hidden
+        />
+        <div className="relative z-10 flex min-h-[min(52vh,520px)] flex-col items-center justify-center px-6 py-16 text-center md:min-h-0 md:py-20 lg:py-24">
+          <Image
+            src="/about/PF_05_fill.svg"
+            alt=""
+            width={83}
+            height={63}
+            className="h-[52px] w-auto opacity-95 md:h-14"
+            unoptimized
+          />
+          <h2
+            id="about-company-profile-heading"
+            className="mt-8 font-display text-[clamp(1.75rem,4.5vw,2.75rem)] font-semibold uppercase leading-tight tracking-tight text-white"
+          >
+            Company Profile
+          </h2>
+          <p className="mt-6 max-w-lg whitespace-pre-line text-[15px] leading-relaxed text-white/90 md:text-[17px] md:leading-relaxed">
+            {COMPANY_PROFILE_BODY}
+          </p>
+          <a
+            href={ABOUT_COMPANY_PROFILE_PDF}
+            download
+            className="mt-10 inline-flex min-h-[52px] items-center justify-center rounded-full bg-white px-10 py-3.5 text-[16px] font-semibold text-zinc-950 underline decoration-2 decoration-zinc-950 underline-offset-[6px] transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+          >
+            회사소개서
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function AboutListingPage() {
   return (
@@ -223,24 +282,19 @@ export function AboutListingPage() {
         </div>
       </section>
 
-      <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforePartners} />
-
       <section
-        className={cn("mx-auto w-full max-w-[1280px] py-40 pb-24 md:pb-32", GUTTER)}
+        className={cn("mx-auto w-full max-w-[1280px] pt-40 pb-0", GUTTER)}
         aria-labelledby="about-partners"
         data-figma="SUB_ABOUT partners"
       >
         <div className="grid grid-cols-12 gap-x-6 gap-y-12 lg:gap-x-8">
-          <div className="col-span-12 lg:col-span-3">
-            <div className="relative mb-10 h-14 w-[5.5rem] opacity-[0.18] md:h-16 md:w-24 md:opacity-[0.14]">
-              <AboutPentagramFigma className="opacity-100" />
-            </div>
+          <div className="col-span-12 lg:col-span-4">
             <h2 id="about-partners" className={highlightHeadingClass}>
               Partners
             </h2>
           </div>
-          <div className="col-span-12 lg:col-span-9">
-            <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 md:gap-x-8 md:gap-y-12">
+          <div className="col-span-12 lg:col-span-8">
+            <div className="grid grid-cols-1 gap-y-24 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-24 md:grid-cols-3 md:gap-x-8 md:gap-y-24">
               {Array.from({ length: ABOUT_PARTNER_COUNT }, (_, i) => i + 1).map(
                 (n) => {
                   const { width, height } = aboutPartnerIntrinsic(n);
@@ -254,8 +308,12 @@ export function AboutListingPage() {
                         alt={`파트너 로고 ${n}`}
                         width={width}
                         height={height}
-                        sizes={`${width}px`}
-                        className="h-auto w-auto max-w-full object-contain"
+                        sizes="(max-width: 1023px) 160px, 200px"
+                        className={cn(
+                          "h-auto w-auto object-contain",
+                          /* 모바일·태블릿: 비율 유지 채로 표시만 축소 — lg 이상은 8컬 그리드 폭 내 자연 크기 */
+                          "max-w-[min(100%,9.5rem)] sm:max-w-[min(100%,10.5rem)] md:max-w-[min(100%,11.75rem)] lg:max-w-full",
+                        )}
                         unoptimized
                       />
                     </div>
@@ -266,6 +324,8 @@ export function AboutListingPage() {
           </div>
         </div>
       </section>
+
+      <AboutCompanyProfileBanner />
     </SubPageScaffold>
   );
 }

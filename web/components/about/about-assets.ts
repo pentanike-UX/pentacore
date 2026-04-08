@@ -1,4 +1,4 @@
-/** About 풀블리드 — 각 (하이라이트) 바로 위: img_about2 → Philosophy, 3 → Mission, 4 → Partners */
+/** About 풀블리드 — img_about2 → Philosophy, img_about3 → Mission (Partners 위 이미지 없음) */
 export const ABOUT_FULL_IMAGES = {
   beforePhilosophy: {
     src: "/about/img_about2.png",
@@ -10,12 +10,17 @@ export const ABOUT_FULL_IMAGES = {
     width: 1024,
     height: 368,
   },
-  beforePartners: {
-    src: "/about/img_about4.png",
-    width: 1024,
-    height: 415,
-  },
 } as const;
+
+/** Partners 하단 배너 배경 — 원본 576×1024, 컨테이너 비율은 뷰포트별로 조정 (`AboutListingPage`) */
+export const ABOUT_COMPANY_PROFILE_BG = {
+  src: "/about/img_about5.png",
+  width: 576,
+  height: 1024,
+} as const;
+
+/** 회사소개서 PDF — `public/about/`에 파일 추가 시 동작 (없으면 404) */
+export const ABOUT_COMPANY_PROFILE_PDF = "/about/company-profile.pdf" as const;
 
 /** 에디토리얼 인트로 좌측 이미지 — 비율 유지 배치 (`AboutListingPage`) */
 export const ABOUT_EDITORIAL_IMAGE = {
