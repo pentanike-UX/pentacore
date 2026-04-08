@@ -220,6 +220,7 @@ export function AboutListingPage() {
               height={ABOUT_EDITORIAL_IMAGE.height}
               sizes={IMAGE_SIZES_ABOUT_EDITORIAL}
               unoptimized
+              className="rounded-[2rem]"
               imageClassName="object-contain object-left"
             />
           </div>
