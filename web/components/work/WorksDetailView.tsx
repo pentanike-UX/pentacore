@@ -189,7 +189,7 @@ export function WorksDetailView() {
       style={{ color: TEXT }}
       data-figma="/works_view"
     >
-      <div className="border-b border-zinc-900/10 px-4 pb-6 pt-[4.5rem] sm:pt-[5.75rem] md:px-[4.75rem] md:pb-8 md:pt-[7.75rem]">
+      <div className="border-b border-zinc-900/10 pb-6 pt-[4.5rem] sm:pt-[5.75rem] md:pb-8 md:pt-[7.75rem]">
         <div className="mx-auto max-w-[1280px]">
           <Link
             href="/work"
@@ -211,7 +211,7 @@ export function WorksDetailView() {
 
       <ParallaxViewport yRange={WORKS_DETAIL_PARALLAX_Y} className="block">
       {/* Title + summery + divider — SUB_WORK 동일 베이스 */}
-      <div className="mx-auto max-w-[1280px] px-4 pb-14 md:px-[4.75rem] md:pb-20">
+      <div className="mx-auto max-w-[1280px] pb-14 md:pb-20">
         <Grid12>
           <ParallaxLayer
             yRange={WORKS_DETAIL_PARALLAX_Y}
@@ -295,7 +295,7 @@ export function WorksDetailView() {
 
       {/* sec_1 — 위·아래 14rem */}
       <section
-        className="mx-auto max-w-[1280px] px-4 py-[8.75rem] md:px-[4.75rem] md:py-[11.2rem] lg:py-[14rem]"
+        className="mx-auto max-w-[1280px] py-[8.75rem] md:py-[11.2rem] lg:py-[14rem]"
         data-figma="sec_1"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -321,7 +321,7 @@ export function WorksDetailView() {
 
       {/* sec_2 — 위·아래 14rem; 칩 영역도 상·하 14rem */}
       <section
-        className="mx-auto max-w-[1280px] px-4 py-[8.75rem] md:px-[4.75rem] md:py-[11.2rem] lg:py-[14rem]"
+        className="mx-auto max-w-[1280px] py-[8.75rem] md:py-[11.2rem] lg:py-[14rem]"
         data-figma="sec_2"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -402,7 +402,7 @@ export function WorksDetailView() {
 
       {/* sec_3 — 라이트 */}
       <section
-        className="mx-auto max-w-[1280px] px-4 pb-16 md:px-[4.75rem] md:pb-24"
+        className="mx-auto max-w-[1280px] pb-16 md:pb-24"
         data-figma="sec_3"
       >
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -447,7 +447,7 @@ export function WorksDetailView() {
 
       {/* sec_4 ~ 크레딧 — 페이지 단일 배경 */}
         <section
-          className="mx-auto max-w-[1280px] px-4 pb-0 pt-20 md:px-[4.75rem] md:pb-0 md:pt-28"
+          className="mx-auto max-w-[1280px] pb-0 pt-20 md:pb-0 md:pt-28"
           data-figma="sec_4"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -506,7 +506,7 @@ export function WorksDetailView() {
 
         {/* sec_4/in */}
         <section
-          className="mx-auto max-w-[1280px] px-4 pb-16 pt-[11.5rem] md:px-[4.75rem] md:pt-[15rem] md:pb-24 lg:pt-[18.75rem]"
+          className="mx-auto max-w-[1280px] pb-16 pt-[11.5rem] md:pt-[15rem] md:pb-24 lg:pt-[18.75rem]"
           data-figma="sec_4/in_sec_"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -559,7 +559,7 @@ export function WorksDetailView() {
 
         {/* sec_4in */}
         <section
-          className="mx-auto max-w-[1280px] px-4 py-16 md:px-[4.75rem] md:py-24"
+          className="mx-auto max-w-[1280px] py-16 md:py-24"
           data-figma="sec_4in_sec_"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -595,7 +595,7 @@ export function WorksDetailView() {
 
         {/* sec_5 */}
         <section
-          className="mx-auto max-w-[1280px] px-4 py-16 md:px-[4.75rem] md:py-28"
+          className="mx-auto max-w-[1280px] py-16 md:py-28"
           data-figma="sec_5"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
@@ -644,7 +644,7 @@ export function WorksDetailView() {
 
         {/* HD / HAE + 크레딧 푸터 — 모바일 1열 · md 2열 · lg 4열 */}
         <section
-          className="mx-auto max-w-[1280px] px-4 py-14 pb-24 md:px-[4.75rem] md:py-20 md:pb-32"
+          className="mx-auto max-w-[1280px] py-14 pb-24 md:py-20 md:pb-32"
           data-figma="HD | HAE | Frame 1739335350"
           aria-label="클라이언트 및 크레딧"
         >

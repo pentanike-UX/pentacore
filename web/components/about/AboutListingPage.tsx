@@ -38,8 +38,6 @@ const bodyClass =
 const highlightHeadingClass =
   "font-display text-[clamp(1.75rem,4.5vw,3rem)] font-semibold uppercase leading-[1.08] tracking-tight text-zinc-950";
 
-const GUTTER = "px-6 md:px-[4.75rem]";
-
 /** 풀블리드 이미지 — 데스크톱 10rem, 태블릿·모바일 동일 비율 */
 function AboutFullBleedImage({
   src,
@@ -203,10 +201,7 @@ export function AboutListingPage() {
 
       {/* 히어로 직후 — 참고 레이아웃: 좌측 img_about1 비율 유지, 4–7열 겹침 영문, 한글 스태거 */}
       <section
-        className={cn(
-          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
-          GUTTER,
-        )}
+        className="mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40"
         aria-label="소개 문단"
         data-figma="SUB_ABOUT creative_opening"
       >
@@ -264,10 +259,7 @@ export function AboutListingPage() {
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforePhilosophy} />
 
       <section
-        className={cn(
-          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
-          GUTTER,
-        )}
+        className="mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40"
         aria-labelledby="about-philosophy"
         data-figma="SUB_ABOUT philosophy"
       >
@@ -286,10 +278,7 @@ export function AboutListingPage() {
       <AboutFullBleedImage {...ABOUT_FULL_IMAGES.beforeMission} />
 
       <section
-        className={cn(
-          "mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40",
-          GUTTER,
-        )}
+        className="mx-auto w-full max-w-[1280px] py-24 md:py-32 lg:py-40"
         aria-labelledby="about-mission"
         data-figma="SUB_ABOUT mission"
       >
@@ -306,10 +295,7 @@ export function AboutListingPage() {
       </section>
 
       <section
-        className={cn(
-          "mx-auto w-full max-w-[1280px] pb-0 pt-24 md:pt-32 lg:pt-40",
-          GUTTER,
-        )}
+        className="mx-auto w-full max-w-[1280px] pb-0 pt-24 md:pt-32 lg:pt-40"
         aria-labelledby="about-partners"
         data-figma="SUB_ABOUT partners"
       >

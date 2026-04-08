@@ -3,8 +3,6 @@
 import { cn } from "@/lib/utils";
 
 /** <lg는 기존 스케일 유지, lg+는 SUB_WORK HERO에서 좌우 0 → 1rem */
-const GUTTER = "px-6 md:px-10 lg:px-4";
-
 type Props = {
   /** 예: (HIRING) */
   label: string;
@@ -33,7 +31,6 @@ export function SubWorkStyleHero({
     <section
       className={cn(
         "relative pb-10 pt-[4.5rem] sm:pt-[5.75rem] md:pb-14 md:pt-[7.75rem]",
-        GUTTER,
         className,
       )}
       data-figma="SUB_WORK HERO pattern"

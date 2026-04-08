@@ -32,9 +32,6 @@ const WORK_TXT_KO = `이곳은 상상이 현실이 되는 순간입니다.
 디자인과 개발을 통해 구현되며,
 실제 사용과 운영을 통해 그 가치를 증명합니다.`;
 
-/** 모바일 24px / 태블릿 40px / lg+ 좌우 1rem (`SubWorkStyleHero` GUTTER와 동일) */
-const WORK_GUTTER = "px-6 md:px-10 lg:px-4";
-
 function PortfolioCardViewInner() {
   return (
     <Link
@@ -77,7 +74,7 @@ function WorkPageBody() {
       data-figma="SUB_WORK"
     >
       <section
-        className={`relative pb-10 pt-[4.5rem] sm:pt-[5.75rem] md:pb-14 md:pt-[7.75rem] ${WORK_GUTTER}`}
+        className="relative pb-10 pt-[4.5rem] sm:pt-[5.75rem] md:pb-14 md:pt-[7.75rem]"
         style={{ backgroundColor: SUB_WORK_PAGE_BG }}
       >
         <div className="w-full">
@@ -159,7 +156,7 @@ function WorkPageBody() {
       </div>
 
       <div className="relative z-10 flex min-h-0 flex-1 flex-col">
-        <div className={`relative flex flex-1 flex-col ${WORK_GUTTER}`}>
+        <div className="relative flex flex-1 flex-col">
           <section
             className="relative flex flex-1 flex-col pt-[clamp(7.5rem,36vw,25rem)] pb-14 md:pb-20 lg:pb-24"
             data-figma="portfolio_group"

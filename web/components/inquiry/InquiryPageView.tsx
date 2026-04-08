@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const CONTACT_EMAIL = "info@pentacore.kr";
 const FORM_ID = "inquiry-main-form";
 
-const GUTTER = "mx-auto w-full max-w-[1280px] px-6 md:px-[4.75rem]";
+const GUTTER = "mx-auto w-full max-w-[1280px]";
 
 /** SUB_INQUIRY hero — 흰 배경 */
 const heroBg = "bg-white";
@@ -458,10 +458,7 @@ function InquiryCtaRail() {
 function InquiryFallback() {
   return (
     <section
-      className={cn(
-        "w-full border-t border-zinc-900/[0.05] bg-white pb-24 pt-16 md:pb-32 md:pt-20",
-        "px-6 md:px-[4.75rem]",
-      )}
+      className="w-full border-t border-zinc-900/[0.05] bg-white pb-24 pt-16 md:pb-32 md:pt-20"
       data-figma="SUB_INQUIRY fallback"
     >
       <div className="w-full text-center">
