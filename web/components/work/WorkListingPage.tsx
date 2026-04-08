@@ -32,8 +32,8 @@ const WORK_TXT_KO = `이곳은 상상이 현실이 되는 순간입니다.
 디자인과 개발을 통해 구현되며,
 실제 사용과 운영을 통해 그 가치를 증명합니다.`;
 
-/** 모바일 24px / 태블릿 40px / 데스크톱 가터 없이 max-width 블록만 중앙 */
-const WORK_GUTTER = "px-6 md:px-10 lg:px-0";
+/** 모바일 24px / 태블릿 40px / lg+ 좌우 1rem (`SubWorkStyleHero` GUTTER와 동일) */
+const WORK_GUTTER = "px-6 md:px-10 lg:px-4";
 
 function PortfolioCardViewInner() {
   return (

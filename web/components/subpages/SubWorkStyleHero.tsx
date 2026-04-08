@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib/utils";
 
-const GUTTER = "px-6 md:px-10 lg:px-0";
+/** <lg는 기존 스케일 유지, lg+는 SUB_WORK HERO에서 좌우 0 → 1rem */
+const GUTTER = "px-6 md:px-10 lg:px-4";
 
 type Props = {
   /** 예: (HIRING) */
