@@ -161,7 +161,7 @@ function AboutCompanyProfileBanner() {
           <a
             href={ABOUT_COMPANY_PROFILE_PDF}
             download
-            className="mt-10 inline-flex min-h-[52px] items-center justify-center rounded-full bg-white px-10 py-3.5 text-[16px] font-semibold text-zinc-950 underline decoration-2 decoration-zinc-950 underline-offset-[6px] transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
+            className="mt-10 inline-flex min-h-[52px] items-center justify-center rounded-full bg-white px-10 py-3.5 text-[16px] font-semibold text-zinc-950 no-underline transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
           >
             회사소개서
           </a>
@@ -306,25 +306,35 @@ export function AboutListingPage() {
             </h2>
           </div>
           <div className="col-span-12 lg:col-span-8">
-            <div className="grid grid-cols-1 gap-y-24 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-24 md:grid-cols-3 md:gap-x-8 md:gap-y-24">
+            {/*
+              모바일~lg 미만: 12컬 그리드에서 5~12열(8칸)만 사용, 로고당 4칸 → 한 줄 2개, 1~4열 비움.
+              lg+: 8칸 전용 그리드에서 로고당 4칸(동일 2열).
+            */}
+            <div className="grid grid-cols-12 gap-x-6 gap-y-24 lg:grid-cols-8 lg:gap-x-8">
               {Array.from({ length: ABOUT_PARTNER_COUNT }, (_, i) => i + 1).map(
                 (n) => {
                   const { width, height } = aboutPartnerIntrinsic(n);
+                  const idx = n - 1;
                   return (
                     <div
                       key={n}
-                      className="flex items-center justify-center"
+                      className={cn(
+                        "col-span-4 flex items-center justify-center",
+                        idx % 2 === 0
+                          ? "max-lg:col-start-5"
+                          : "max-lg:col-start-9",
+                        "lg:col-start-auto",
+                      )}
                     >
                       <Image
                         src={aboutPartnerSrc(n)}
                         alt={`파트너 로고 ${n}`}
                         width={width}
                         height={height}
-                        sizes="(max-width: 1023px) 160px, 200px"
+                        sizes="(max-width: 1023px) 140px, 200px"
                         className={cn(
                           "h-auto w-auto object-contain",
-                          /* 모바일·태블릿: 비율 유지 채로 표시만 축소 — lg 이상은 8컬 그리드 폭 내 자연 크기 */
-                          "max-w-[min(100%,9.5rem)] sm:max-w-[min(100%,10.5rem)] md:max-w-[min(100%,11.75rem)] lg:max-w-full",
+                          "max-w-[min(100%,9rem)] max-lg:max-w-[min(100%,8.5rem)] lg:max-w-full",
                         )}
                         unoptimized
                       />
