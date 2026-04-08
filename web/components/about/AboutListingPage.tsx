@@ -92,12 +92,14 @@ AI 분야의 실험적 활동의 원동력이 되었습니다.`,
 의미 있는 경험을 통해 삶을 풍요롭게 합니다.`,
 ] as const;
 
-/** 3문단: lg 첫 줄 좌(7)·우(5) 균형, 셋째는 가운데 넓은 띠로 마무리 */
-const PHILOSOPHY_COLS = [
-  "col-span-12 lg:col-start-1 lg:col-span-7",
-  "col-span-12 mt-24 md:mt-28 lg:col-start-8 lg:col-span-5 lg:mt-0",
-  "col-span-12 mt-24 md:mt-32 lg:col-start-3 lg:col-span-8 lg:mt-28",
+/** Philosophy·Mission 공통 — 12컬 스태거(5 / 5+오프셋 / 8) */
+const ABOUT_STAGGER_THREE_COLS = [
+  "col-span-12 lg:col-start-2 lg:col-span-5",
+  "col-span-12 mt-24 md:mt-32 lg:col-start-6 lg:col-span-5 lg:mt-40",
+  "col-span-12 mt-24 md:mt-32 lg:col-start-3 lg:col-span-8 lg:mt-40",
 ] as const;
+
+const PHILOSOPHY_COLS = ABOUT_STAGGER_THREE_COLS;
 
 const MISSION_PARAGRAPHS = [
   `펜타코어는 
@@ -114,11 +116,7 @@ IT와 AI를 활용하여
 미래를 형성하는 지속적인 영향을 남기는 것을 목표로 합니다.`,
 ] as const;
 
-const MISSION_COLS = [
-  "col-span-12 lg:col-start-2 lg:col-span-5",
-  "col-span-12 mt-24 md:mt-32 lg:col-start-6 lg:col-span-5 lg:mt-40",
-  "col-span-12 mt-24 md:mt-32 lg:col-start-3 lg:col-span-8 lg:mt-40",
-] as const;
+const MISSION_COLS = ABOUT_STAGGER_THREE_COLS;
 
 const COMPANY_PROFILE_BODY = `펜타코어는 IT와 AI, 디자인을 관통하는 전문성을 바탕으로
 기업과 고객의 핵심을 연결하며 의미 있는 경험을 창출합니다.`;
