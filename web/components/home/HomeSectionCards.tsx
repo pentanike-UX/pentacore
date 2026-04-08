@@ -4,6 +4,7 @@ import { IntrinsicNaturalImageWithSkeleton } from "@/components/media/ImageWithS
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { PENTACORE_MANIFESTO_PARAGRAPH } from "@/components/home/home-manifesto";
 import {
   interactivePressableTransformClassName,
   liquidGlassHomeCard,
@@ -66,16 +67,9 @@ export const HOME_LAYOUT_2_CARDS = [
 
 /** 홈 히어로 — 카드 그리드 상단 키카피 */
 const HOME_KEY_COPY = {
-  line1: "Shapes the core.",
-  line2: "Makes it work.",
+  line1: "We design products that work.",
+  line2: "Start your project with us.",
 } as const;
-
-/** 카드 그리드 하단 인증 마크 — 최대 3.5rem (`public/home/home-cert-*.svg`) */
-const HOME_CERT_MARKS = [
-  "/home/home-cert-1.svg",
-  "/home/home-cert-2.svg",
-  "/home/home-cert-3.svg",
-] as const;
 
 const cardShellClassName = cn(
   "group relative isolate flex w-full flex-col overflow-hidden text-zinc-900 outline-none",
@@ -114,10 +108,10 @@ export function HomeSectionCards() {
             className="max-w-[min(100%,36rem)] text-center"
             data-figma="HOME_LAYOUT-2 key_copy"
           >
-            <p className="font-display text-[clamp(2.625rem,4.8vw,3.75rem)] font-semibold uppercase leading-[1.08] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
+            <p className="font-display text-[clamp(2.625rem,4.8vw,3.75rem)] font-semibold leading-[1.12] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]">
               {HOME_KEY_COPY.line1}
             </p>
-            <p className="mt-1 font-display text-[clamp(2.625rem,4.8vw,3.75rem)] font-semibold uppercase leading-[1.08] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:mt-1.5">
+            <p className="mt-1 font-display text-[clamp(2.625rem,4.8vw,3.75rem)] font-semibold leading-[1.12] tracking-tight text-white text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] md:mt-1.5">
               {HOME_KEY_COPY.line2}
             </p>
           </div>
@@ -191,22 +185,12 @@ export function HomeSectionCards() {
           </div>
 
           <div
-            className="flex w-full flex-wrap items-center justify-center gap-6 md:gap-8"
-            data-figma="HOME_LAYOUT-2 cert_marks"
+            className="max-w-[min(100%,40rem)] text-center"
+            data-figma="HOME_LAYOUT-2 manifesto"
           >
-            {HOME_CERT_MARKS.map((src) => (
-              <img
-                key={src}
-                src={src}
-                alt=""
-                width={180}
-                height={180}
-                loading="lazy"
-                decoding="async"
-                className="h-auto w-auto max-h-[3.5rem] max-w-[3.5rem] shrink-0 object-contain"
-                aria-hidden
-              />
-            ))}
+            <p className="text-[14px] font-medium leading-relaxed text-white/90 text-pretty drop-shadow-[0_1px_16px_rgba(0,0,0,0.35)] md:text-[15px] md:leading-relaxed">
+              {PENTACORE_MANIFESTO_PARAGRAPH}
+            </p>
           </div>
         </div>
       </div>

@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { NavMenuHoverLink } from "@/components/nav/NavMenuHoverLink";
+import { HomeIsoBadges } from "@/components/home/home-iso-badges";
+import { PENTACORE_MANIFESTO_PARAGRAPH } from "@/components/home/home-manifesto";
 import {
   liquidGlassInteractiveHoverDark,
   liquidGlassInteractiveHoverLight,
@@ -115,6 +117,8 @@ export function FooterBar({
   const bodyTone = inlineSub || light ? "text-zinc-800" : "text-white/90";
   const fineTone = inlineSub || light ? "text-zinc-600" : "text-white/80";
   const dividerLight = inlineSub || light;
+  /** 홈 고정 푸터: ISO 좌측 */
+  const isoHomeFooter = isFixed && hideNav;
 
   return (
     <footer
@@ -146,45 +150,47 @@ export function FooterBar({
             : "flex items-end justify-between gap-8"
         }
       >
-        <div className="flex max-w-xl flex-col gap-5">
-          {!hideNav ? (
-            <nav
-              className={cn(
-                "flex min-w-0 flex-nowrap items-center gap-1 overflow-x-auto overflow-y-hidden text-[13px] font-bold leading-none tracking-tight [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:text-base sm:leading-4 sm:tracking-normal [&::-webkit-scrollbar]:hidden",
-                navTone,
-              )}
-              aria-label="하단 내비게이션"
-            >
-              {nav.map((item, i) => (
-                <span
-                  key={item.href}
-                  className="flex shrink-0 items-center gap-1 sm:gap-2"
-                >
-                  {i > 0 ? <Divider light={dividerLight} /> : null}
-                  <NavMenuHoverLink
-                    href={item.href}
-                    className={cn(
-                      "whitespace-nowrap rounded-sm px-0.5 py-1 sm:px-1.5 -my-1 hover:opacity-90",
-                      glassHover,
-                    )}
+        {isoHomeFooter ? (
+          <HomeIsoBadges justify="start" />
+        ) : (
+          <div className="flex max-w-xl flex-col gap-5">
+            {!hideNav ? (
+              <nav
+                className={cn(
+                  "flex min-w-0 flex-nowrap items-center gap-1 overflow-x-auto overflow-y-hidden text-[13px] font-bold leading-none tracking-tight [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:text-base sm:leading-4 sm:tracking-normal [&::-webkit-scrollbar]:hidden",
+                  navTone,
+                )}
+                aria-label="하단 내비게이션"
+              >
+                {nav.map((item, i) => (
+                  <span
+                    key={item.href}
+                    className="flex shrink-0 items-center gap-1 sm:gap-2"
                   >
-                    {item.label}
-                  </NavMenuHoverLink>
-                </span>
-              ))}
-            </nav>
-          ) : null}
-          <p
-            className={cn(
-              "text-[14px] font-medium leading-snug",
-              bodyTone,
-            )}
-          >
-            Pentacore weaves the essence of users, partners, and businesses into
-            transformative experiences, connecting today to tomorrow with trust and
-            innovation.
-          </p>
-        </div>
+                    {i > 0 ? <Divider light={dividerLight} /> : null}
+                    <NavMenuHoverLink
+                      href={item.href}
+                      className={cn(
+                        "whitespace-nowrap rounded-sm px-0.5 py-1 sm:px-1.5 -my-1 hover:opacity-90",
+                        glassHover,
+                      )}
+                    >
+                      {item.label}
+                    </NavMenuHoverLink>
+                  </span>
+                ))}
+              </nav>
+            ) : null}
+            <p
+              className={cn(
+                "text-[14px] font-medium leading-snug",
+                bodyTone,
+              )}
+            >
+              {PENTACORE_MANIFESTO_PARAGRAPH}
+            </p>
+          </div>
+        )}
         <p
           className={cn(
             "text-[12px] font-medium leading-5 md:text-right",
@@ -196,18 +202,26 @@ export function FooterBar({
       </div>
 
       {inlineSub ? (
-        <address className="mt-8 border-t border-zinc-200 pt-6 not-italic">
-          <p className="whitespace-pre-line text-[13px] font-normal leading-relaxed text-zinc-600">
-            {`Suite 2403, Bldg. B
+        <div className="mt-8 border-t border-zinc-200 pt-6">
+          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between md:gap-10">
+            <address className="min-w-0 flex-1 not-italic">
+              <p className="whitespace-pre-line text-[13px] font-normal leading-relaxed text-zinc-600">
+                {`Suite 2403, Bldg. B
 Boutique Monaco
 397 Seocho-daero, Seocho-gu
 Seoul 06616,
 Republic of Korea`}
-          </p>
-          <p className="mt-4 text-[13px] font-normal leading-relaxed text-zinc-600">
-            (우) 06616 서울특별시 서초구 서초대로 397, B동 2403호
-          </p>
-        </address>
+              </p>
+              <p className="mt-4 text-[13px] font-normal leading-relaxed text-zinc-600">
+                (우) 06616 서울특별시 서초구 서초대로 397, B동 2403호
+              </p>
+            </address>
+            <HomeIsoBadges
+              justify="end"
+              className="ml-auto w-max shrink-0 md:ml-0 md:max-w-[min(100%,14rem)]"
+            />
+          </div>
+        </div>
       ) : null}
     </footer>
   );
