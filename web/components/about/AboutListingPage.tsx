@@ -85,8 +85,7 @@ const INTRO_PARAGRAPHS = [
 
 const PHILOSOPHY_PARAGRAPHS = [
   `펜타코어의 철학은 
-진정으로 중요한 것이 무엇인지 이해하는 데 뿌리를 두고 있습니다.`,
-  `고객의 과제와 직원들의 열망의 핵심을 깊이 파고듭니다.`,
+진정으로 중요한 것이 무엇인지 이해하는 데 뿌리를 두고 있습니다. 고객의 과제와 직원들의 열망의 핵심을 깊이 파고듭니다.`,
   `본질을 중시하는 이러한 노력은 현대자동차그룹, 
 삼성전자와 같은 글로벌 선도 기업과의 파트너십을 통해 이어졌으며, 
 AI 분야의 실험적 활동의 원동력이 되었습니다.`,
@@ -95,11 +94,11 @@ AI 분야의 실험적 활동의 원동력이 되었습니다.`,
 의미 있는 경험을 통해 삶을 풍요롭게 합니다.`,
 ] as const;
 
+/** 3문단: lg 첫 줄 좌(7)·우(5) 균형, 셋째는 가운데 넓은 띠로 마무리 */
 const PHILOSOPHY_COLS = [
-  "col-span-12 lg:col-start-1 lg:col-span-6",
-  "col-span-12 mt-24 md:mt-32 lg:col-start-7 lg:col-span-4 lg:mt-40",
-  "col-span-12 mt-24 md:mt-32 lg:col-start-2 lg:col-span-7 lg:mt-40",
-  "col-span-12 mt-24 md:mt-32 lg:col-start-5 lg:col-span-6 lg:mt-40",
+  "col-span-12 lg:col-start-1 lg:col-span-7",
+  "col-span-12 mt-24 md:mt-28 lg:col-start-8 lg:col-span-5 lg:mt-0",
+  "col-span-12 mt-24 md:mt-32 lg:col-start-3 lg:col-span-8 lg:mt-28",
 ] as const;
 
 const MISSION_PARAGRAPHS = [
