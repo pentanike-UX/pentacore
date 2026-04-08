@@ -29,7 +29,7 @@ export function HomeIsoBadges({
       className={cn(
         /* shrink-0: 푸터 flex 행에서 기본 flex-shrink로 너비가 0에 가깝게 줄어드는 것 방지 */
         /* overflow-x-auto 제거: flex 행 안에서 min-width가 0으로 떨어져 뱃지가 한 장만 보이던 현상 방지 */
-        "flex max-w-full min-w-max shrink-0 flex-row flex-wrap items-center gap-3 sm:flex-nowrap sm:gap-5 md:gap-8",
+        "flex max-w-full min-w-max shrink-0 flex-row flex-wrap items-center gap-1.5 sm:flex-nowrap sm:gap-2.5 md:gap-4",
         justifyCls,
         className,
       )}

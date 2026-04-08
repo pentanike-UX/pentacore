@@ -155,7 +155,7 @@ export function FooterBar({
       >
         {isoHomeFooter ? (
           <>
-            <HomeIsoBadges justify="start" />
+            <HomeIsoBadges justify="start" className="flex-nowrap" />
             <p
               className={cn(
                 "shrink-0 text-right text-[12px] font-medium leading-5",
