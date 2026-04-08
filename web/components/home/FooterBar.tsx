@@ -117,7 +117,7 @@ export function FooterBar({
   const bodyTone = inlineSub || light ? "text-zinc-800" : "text-white/90";
   const fineTone = inlineSub || light ? "text-zinc-600" : "text-white/80";
   const dividerLight = inlineSub || light;
-  /** 홈 고정 푸터: ISO + 저작권 가로 중앙 정렬 */
+  /** 홈 고정 푸터: 뱃지 좌·저작권 우 유지, 세로는 `items-center`로 맞춤 */
   const isoHomeFooter = isFixed && hideNav;
 
   return (
@@ -146,17 +146,19 @@ export function FooterBar({
       <div
         className={cn(
           isoHomeFooter &&
-            "flex flex-col items-center gap-3 text-center sm:gap-4",
+            (isMobile
+              ? "flex items-center justify-between gap-4"
+              : "flex items-center justify-between gap-8"),
           !isoHomeFooter &&
             (isMobile ? "flex flex-col gap-4" : "flex items-end justify-between gap-8"),
         )}
       >
         {isoHomeFooter ? (
           <>
-            <HomeIsoBadges justify="center" />
+            <HomeIsoBadges justify="start" />
             <p
               className={cn(
-                "text-[12px] font-medium leading-5",
+                "shrink-0 text-right text-[12px] font-medium leading-5",
                 fineTone,
               )}
             >
@@ -216,7 +218,7 @@ export function FooterBar({
 
       {inlineSub ? (
         <div className="mt-8 border-t border-zinc-200 pt-6">
-          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between md:gap-10">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
             <address className="min-w-0 flex-1 not-italic">
               <p className="whitespace-pre-line text-[13px] font-normal leading-relaxed text-zinc-600">
                 {`Suite 2403, Bldg. B
