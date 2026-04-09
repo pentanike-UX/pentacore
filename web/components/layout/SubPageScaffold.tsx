@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { SubPageScrollTopButton } from "@/components/layout/SubPageScrollTopButton";
 import { SubPageViewportGrid } from "@/components/layout/SubPageViewportGrid";
 
 type Props = {
@@ -44,6 +45,7 @@ export function SubPageScaffold({
       <div className={cn("relative z-[2] min-h-dvh", contentClassName)}>
         {children}
       </div>
+      <SubPageScrollTopButton />
     </Tag>
   );
 }
