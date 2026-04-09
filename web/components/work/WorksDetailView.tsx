@@ -54,16 +54,19 @@ const INTRO_BODY =
 
 const BRAND_LINKS = {
   hyundai: {
-    kr: "https://update.hyundai.com",
-    us: "https://update.hyundaiusa.com",
+    korea: "https://update.hyundai.com",
+    us: "https://update.hyundai.com/US/EN/home",
+    eu: "https://update.hyundai.com/EU/EN/home",
   },
   kia: {
-    kr: "https://update.kia.com/kr",
-    us: "https://update.kia.com/us/en",
+    korea: "https://update.kia.com",
+    us: "https://update.kia.com/US/EN/home",
+    eu: "https://update.kia.com/EU/EN/home",
   },
   genesis: {
-    kr: "https://www.genesis.com/kr/ko/support/download-center",
-    us: "https://update.genesis.com",
+    korea: "https://update.genesis.com",
+    us: "https://update.genesis.com/US/EN/home",
+    eu: "https://update.genesis.com/EU/EN/home",
   },
 } as const;
 
@@ -424,11 +427,15 @@ export function WorksDetailView() {
                 <div className="flex flex-col gap-[14px]">
                   <FigmaBtnChip
                     label="Official Hyundai Motors Navigation Update Website - KOREA"
-                    href={BRAND_LINKS.hyundai.kr}
+                    href={BRAND_LINKS.hyundai.korea}
                   />
                   <FigmaBtnChip
                     label="Official Hyundai Motors Navigation Update Website - USA"
                     href={BRAND_LINKS.hyundai.us}
+                  />
+                  <FigmaBtnChip
+                    label="Official Hyundai Motors Navigation Update Website - EU"
+                    href={BRAND_LINKS.hyundai.eu}
                   />
                 </div>
               </BrandRow>
@@ -436,11 +443,15 @@ export function WorksDetailView() {
                 <div className="flex flex-col gap-[14px]">
                   <FigmaBtnChip
                     label="Official Kia Navigation Update Website - KOREA"
-                    href={BRAND_LINKS.kia.kr}
+                    href={BRAND_LINKS.kia.korea}
                   />
                   <FigmaBtnChip
                     label="Official Kia Navigation Update Website - USA"
                     href={BRAND_LINKS.kia.us}
+                  />
+                  <FigmaBtnChip
+                    label="Official Kia Navigation Update Website - EU"
+                    href={BRAND_LINKS.kia.eu}
                   />
                 </div>
               </BrandRow>
@@ -448,11 +459,15 @@ export function WorksDetailView() {
                 <div className="flex flex-col gap-[14px]">
                   <FigmaBtnChip
                     label="Official Genesis Navigation Update Website - KOREA"
-                    href={BRAND_LINKS.genesis.kr}
+                    href={BRAND_LINKS.genesis.korea}
                   />
                   <FigmaBtnChip
                     label="Official Genesis Navigation Update Website - USA"
                     href={BRAND_LINKS.genesis.us}
+                  />
+                  <FigmaBtnChip
+                    label="Official Genesis Navigation Update Website - EU"
+                    href={BRAND_LINKS.genesis.eu}
                   />
                 </div>
               </BrandRow>
