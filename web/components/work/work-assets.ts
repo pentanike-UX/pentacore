@@ -1,15 +1,14 @@
 import { figmaHyundaiCase, figmaWorksViewDivider } from "./figma-work-assets";
 
-/** ST-FO 루프 풀스크린 에셋 — Figma MCP URL */
+/** ST-FO 루프 풀스크린 — `public/work/` 로컬 에셋 (Figma MCP URL 대체) */
 export const workImages = {
-  loop005Full: figmaHyundaiCase.stFo005Full,
-  loop024Full: figmaHyundaiCase.stFo024Full,
-  /** ST-FO-111 — 로컬 롱 스크롤 (`public/work/ST-FO-111_full.jpg`) */
-  loop111Full: "/work/ST-FO-111_full.jpg",
+  loop005Full: "/work/ST-FO-005_BIC_m_full.png",
+  loop024Full: "/work/ST-FO-024_m_full.png",
+  loop111Full: "/work/ST-FO-111_full.png",
 } as const;
 
-/** `ST-FO-111_full.jpg` 실제 픽셀 — 고해상도 에셋으로 교체 시 동기화 */
-export const ST_FO_111_FULL_INTRINSIC = { width: 286, height: 1024 } as const;
+/** `ST-FO-111_full.png` 원본 픽셀 — 에셋 교체 시 동기화 */
+export const ST_FO_111_FULL_INTRINSIC = { width: 2696, height: 9626 } as const;
 
 /** `/works_view` 정적 이미지 — Figma MCP + 로컬 PNG 일부 */
 export const hyundaiWorksViewImages = {

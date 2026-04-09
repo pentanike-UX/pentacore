@@ -365,13 +365,7 @@ export function WorksDetailView() {
             <div className="space-y-32 md:space-y-40 lg:space-y-48">
               <BrandRow
                 noDivider
-                title={
-                  <>
-                    <FigmaLogos variant="logo_HM" />
-                    <FigmaLogos variant="logo_GN" />
-                    <FigmaLogos variant="logo_KM" />
-                  </>
-                }
+                title={<FigmaLogos variant="logo_HM" />}
               >
                 <div className="flex flex-col gap-[14px]">
                   <FigmaBtnChip
