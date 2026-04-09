@@ -19,7 +19,10 @@ const TAGLINE = [
 
 const INTRO_CIRCLE_MS = 1200;
 const INTRO_TEXT_FADE_DELAY_MS = Math.round(INTRO_CIRCLE_MS * 0.42);
+/** 동영상 canplay 이후 최소 지연(ms) — 너무 빨리 넘어가지 않게 */
 const VIDEO_READY_TO_SHRINK_MS = 320;
+/** 인트로 로드 화면 최소 체류 — Skip 시에는 무시 */
+const INTRO_MIN_VISIBLE_MS = 3000;
 
 /** `web/public/video/hero.mp4` → `/video/hero.mp4` */
 const DEFAULT_VIDEO =
@@ -54,6 +57,8 @@ export function HomeExperience() {
   const bp = useBreakpoint();
   const videoRef = useRef<HTMLVideoElement>(null);
   const phaseRef = useRef<Phase>("intro-load");
+  const introStartedAtRef = useRef<number | null>(null);
+  const videoReadyAtRef = useRef<number | null>(null);
   const [phase, setPhase] = useState<Phase>("intro-load");
   const [videoReady, setVideoReady] = useState(false);
   const [circleScale, setCircleScale] = useState(1);
@@ -86,9 +91,18 @@ export function HomeExperience() {
   }, [phase]);
 
   useEffect(() => {
+    if (phase === "intro-load" && introStartedAtRef.current == null) {
+      introStartedAtRef.current = Date.now();
+    }
+  }, [phase]);
+
+  useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-    const onReady = () => setVideoReady(true);
+    const onReady = () => {
+      if (videoReadyAtRef.current == null) videoReadyAtRef.current = Date.now();
+      setVideoReady(true);
+    };
     /* canplaythrough는 대용량 파일에서 늦게 올 수 있어 canplay도 함께 사용 */
     el.addEventListener("canplaythrough", onReady);
     el.addEventListener("canplay", onReady);
@@ -99,10 +113,21 @@ export function HomeExperience() {
     };
   }, [videoSrc]);
 
-  /** 동영상 준비 후 원형 shrink — 뒤에는 마스크 없는 풀스크린 영상 */
+  /**
+   * 동영상 준비 후 shrink — `INTRO_MIN_VISIBLE_MS`와 `VIDEO_READY_TO_SHRINK_MS` 중
+   * 더 늦은 시점까지 대기(Skip은 `skipToShrink`로 즉시).
+   */
   useEffect(() => {
     if (phase !== "intro-load" || !videoReady) return;
-    const t = window.setTimeout(() => setPhase("intro-shrink"), VIDEO_READY_TO_SHRINK_MS);
+    const start = introStartedAtRef.current ?? Date.now();
+    if (introStartedAtRef.current == null) introStartedAtRef.current = start;
+    const videoAt = videoReadyAtRef.current ?? Date.now();
+    const deadline = Math.max(
+      start + INTRO_MIN_VISIBLE_MS,
+      videoAt + VIDEO_READY_TO_SHRINK_MS,
+    );
+    const delay = Math.max(0, deadline - Date.now());
+    const t = window.setTimeout(() => setPhase("intro-shrink"), delay);
     return () => window.clearTimeout(t);
   }, [phase, videoReady]);
 

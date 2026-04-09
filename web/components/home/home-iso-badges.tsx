@@ -1,3 +1,6 @@
+"use client";
+
+import { IntrinsicNaturalImageWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { cn } from "@/lib/utils";
 
 /** `public/home/home-cert-*.svg` — 푸터·레이아웃 공통 */
@@ -27,8 +30,6 @@ export function HomeIsoBadges({
   return (
     <div
       className={cn(
-        /* shrink-0: 푸터 flex 행에서 기본 flex-shrink로 너비가 0에 가깝게 줄어드는 것 방지 */
-        /* overflow-x-auto 제거: flex 행 안에서 min-width가 0으로 떨어져 뱃지가 한 장만 보이던 현상 방지 */
         "flex max-w-full min-w-max shrink-0 flex-row flex-wrap items-center gap-1.5 sm:flex-nowrap sm:gap-2.5 md:gap-4",
         justifyCls,
         className,
@@ -36,17 +37,17 @@ export function HomeIsoBadges({
       data-figma="footer iso_badges"
     >
       {HOME_ISO_BADGE_SRCS.map((src) => (
-        <img
-          key={src}
-          src={src}
-          alt=""
-          width={180}
-          height={180}
-          loading="lazy"
-          decoding="async"
-          className="h-auto w-auto max-h-[3.5rem] max-w-[3.5rem] shrink-0 object-contain"
-          aria-hidden
-        />
+        <span key={src} className="shrink-0" aria-hidden>
+          <IntrinsicNaturalImageWithSkeleton
+            src={src}
+            alt=""
+            width={180}
+            height={180}
+            sizes="56px"
+            unoptimized
+            imageClassName="max-h-[3.5rem] max-w-[3.5rem] object-contain"
+          />
+        </span>
       ))}
     </div>
   );

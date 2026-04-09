@@ -65,11 +65,3 @@ export const liquidGlassPortfolioRowHoverClassName = [
   "hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_8px_36px_rgba(15,23,42,0.1)]",
   "hover:ring-1 hover:ring-white/45",
 ].join(" ");
-
-/** portfolio_card_view `img_sub` — 링크 호버 시 글래스 오버레이 */
-export const liquidGlassImgSubHoverClassName = [
-  "transition-[backdrop-filter,background-color,box-shadow,transform] duration-300 ease-out",
-  "group-hover:backdrop-blur-[20px] group-hover:saturate-150",
-  "group-hover:bg-white/[0.28] group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_10px_40px_rgba(0,0,0,0.1)]",
-  "group-hover:ring-1 group-hover:ring-white/45",
-].join(" ");

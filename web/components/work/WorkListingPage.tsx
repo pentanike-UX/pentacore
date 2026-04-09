@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Toast } from "@base-ui/react/toast";
 import {
   interactivePressableTransformClassName,
-  liquidGlassImgSubHoverClassName,
   SUB_WORK_PAGE_BG,
 } from "@/lib/figma-liquid-glass";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
@@ -48,16 +47,13 @@ function PortfolioCardViewInner() {
     >
       <div
         data-figma="img_sub"
-        className={cn(
-          "isolate overflow-hidden rounded-[50px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]",
-          liquidGlassImgSubHoverClassName,
-        )}
+        className="isolate overflow-hidden rounded-[50px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgb(229,231,235)]"
       >
         <ImageFillWithSkeleton
           src="/work/img_sub.png"
           alt=""
           aspectRatio="1000/819"
-          className="bg-zinc-200/10"
+          className="bg-transparent"
           imageClassName="object-center"
           objectFit="contain"
           sizes={IMAGE_SIZES_CARD_820}
