@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -17,7 +18,11 @@ type Props = {
   jobTitle: string;
 };
 
+/** `main`의 `isolate` 아래에 두면 헤더(z-100)보다 위로 못 올라감 → body 포털 + 상위 z-index */
+const Z_OVERLAY = 500;
+
 export function HiringApplyDrawer({ open, onOpenChange, jobTitle }: Props) {
+  const [mounted, setMounted] = useState(false);
   const [entered, setEntered] = useState(false);
   const [name, setName] = useState("");
   const [portfolioUrl, setPortfolioUrl] = useState("");
@@ -56,7 +61,12 @@ export function HiringApplyDrawer({ open, onOpenChange, jobTitle }: Props) {
     };
   }, [open]);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!open) return null;
+  if (!mounted || typeof document === "undefined") return null;
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,12 +85,16 @@ export function HiringApplyDrawer({ open, onOpenChange, jobTitle }: Props) {
     );
   };
 
-  return (
-    <div className="fixed inset-0 z-[200]" role="presentation">
+  return createPortal(
+    <div
+      className="pointer-events-none fixed inset-0"
+      style={{ zIndex: Z_OVERLAY }}
+      role="presentation"
+    >
       <button
         type="button"
         className={cn(
-          "absolute inset-0 bg-black/45 transition-opacity duration-300",
+          "pointer-events-auto absolute inset-0 bg-black/45 transition-opacity duration-300",
           entered ? "opacity-100" : "opacity-0",
         )}
         aria-label="배경 닫기"
@@ -91,7 +105,11 @@ export function HiringApplyDrawer({ open, onOpenChange, jobTitle }: Props) {
         aria-modal="true"
         aria-labelledby="hiring-apply-title"
         className={cn(
-          "absolute right-0 top-0 flex h-[100dvh] w-full max-w-full flex-col bg-[rgb(229,231,235)] shadow-[-12px_0_40px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-out sm:max-w-[min(100%,26rem)] sm:border-l sm:border-zinc-300/80 md:max-w-[28rem]",
+          "pointer-events-auto absolute flex min-h-0 flex-col bg-[rgb(229,231,235)] shadow-[-16px_0_48px_rgba(0,0,0,0.14)] transition-transform duration-300 ease-out",
+          /* 모바일·태블릿: 우측 풀하이트 시트 */
+          "right-0 top-0 h-[100dvh] w-full max-w-full border-l border-zinc-300/80 sm:max-w-[min(100%,26rem)]",
+          /* 데스크톱: 여백 + 넓은 패널(헤더·푸터와 겹침 방지는 포털+z-index) */
+          "lg:inset-y-6 lg:right-8 lg:left-auto lg:h-[calc(100dvh-3rem)] lg:w-[min(42rem,calc(100vw-4rem))] lg:max-w-none lg:rounded-2xl lg:border lg:border-zinc-300/80 lg:shadow-2xl",
           entered ? "translate-x-0" : "translate-x-full",
         )}
       >
@@ -248,6 +266,7 @@ export function HiringApplyDrawer({ open, onOpenChange, jobTitle }: Props) {
           )}
         </form>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

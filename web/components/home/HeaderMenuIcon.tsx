@@ -21,9 +21,14 @@ export function HeaderMenuIcon({ open, light }: Props) {
 
   return (
     <span
-      className="pointer-events-none flex size-full items-center justify-center"
+      className="pointer-events-none flex size-full items-center justify-center [&_*]:pointer-events-none"
       aria-hidden
     >
+      {/*
+        바깥만 pointer-events-none이면 자식 motion.span은 기본 auto라 햄버거 막대가
+        히트 타깃이 됨(transform·서브픽셀로 시각과 어긋남). 모든 자손에 none을 걸어
+        클릭이 부모 <button>으로 일관되게 전달되게 함.
+      */}
       <span
         className="relative shrink-0"
         style={{ width: "1.25rem", height: stackH }}

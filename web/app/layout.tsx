@@ -23,8 +23,40 @@ const interDisplay = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PENTACORE",
-  description: "Pentacore crafts your future with technology and design.",
+  metadataBase: new URL("https://www.pentacore.co.kr"),
+  title: {
+    default: "PENTACORE | 내비·인비히클·웹 · 기술·디자인 스튜디오",
+    template: "%s | PENTACORE",
+  },
+  description:
+    "자동차·엔터프라이즈 파트너와 내비게이션, 인비히클, 웹을 설계·개발하는 스튜디오형 팀. 기술과 디자인으로 신뢰와 혁신을 잇습니다.",
+  keywords: [
+    "PENTACORE",
+    "펜타코어",
+    "내비게이션",
+    "인비히클",
+    "IVI",
+    "모빌리티",
+    "프로덕트 디자인",
+    "자동차 UX",
+  ],
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "/",
+    siteName: "PENTACORE",
+    title: "PENTACORE | 내비·인비히클·웹 · 기술·디자인 스튜디오",
+    description:
+      "자동차·엔터프라이즈 파트너와 내비게이션, 인비히클, 웹을 설계·개발하는 스튜디오형 팀. 기술과 디자인으로 신뢰와 혁신을 잇습니다.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PENTACORE | 내비·인비히클·웹 · 기술·디자인 스튜디오",
+    description:
+      "자동차·엔터프라이즈 파트너와 내비게이션, 인비히클, 웹을 설계·개발하는 스튜디오형 팀. 기술과 디자인으로 신뢰와 혁신을 잇습니다.",
+  },
 };
 
 export default function RootLayout({
