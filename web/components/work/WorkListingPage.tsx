@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { Toast } from "@base-ui/react/toast";
 import {
@@ -65,12 +66,33 @@ function PortfolioCardViewInner() {
 }
 
 function WorkPageBody() {
+  /** 모바일: 130% 스케일 카드 등으로 가로 스크롤만 억제(세로 스크롤은 유지) */
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => {
+      if (mq.matches) {
+        document.documentElement.style.overflowX = "hidden";
+        document.body.style.overflowX = "hidden";
+      } else {
+        document.documentElement.style.overflowX = "";
+        document.body.style.overflowX = "";
+      }
+    };
+    apply();
+    mq.addEventListener("change", apply);
+    return () => {
+      mq.removeEventListener("change", apply);
+      document.documentElement.style.overflowX = "";
+      document.body.style.overflowX = "";
+    };
+  }, []);
+
   return (
     <SubPageScaffold
       as="main"
       backgroundColor={SUB_WORK_PAGE_BG}
-      className="flex min-h-dvh flex-col text-zinc-950 antialiased"
-      contentClassName="flex min-h-dvh flex-col"
+      className="flex min-h-dvh flex-col overflow-x-hidden text-zinc-950 antialiased"
+      contentClassName="flex min-h-dvh flex-col overflow-x-hidden"
       data-figma="SUB_WORK"
     >
       {/* 단색 배경 금지: z-[2]가 `SubPageViewportGrid`(z-[1])를 가림 */}
@@ -118,22 +140,30 @@ function WorkPageBody() {
         </div>
 
         <div
-          className="relative left-1/2 mt-[10rem] w-screen max-w-[100vw] -translate-x-1/2 pl-[50vw] pr-6 md:mt-[12.5rem] md:pr-10 lg:mt-[15.625rem]"
+          className={cn(
+            "relative mb-[4.5rem] mt-[10rem] max-w-[100vw] md:mt-[12.5rem] lg:mt-[15.625rem]",
+            /* 모바일: 12컬 그리드 — 1칸 비우고 2~4열(3칸) */
+            "max-md:px-[1.5rem]",
+            "md:left-1/2 md:w-screen md:-translate-x-1/2 md:pl-[50vw] md:pr-10",
+            "pr-6",
+          )}
           data-figma="txt"
         >
-          <div className="max-w-[min(640px,calc(50vw-1.5rem))] md:max-w-[min(640px,calc(50vw-2.5rem))]">
-            <h3 className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:hidden">
-              {WORK_TXT_EN}
-            </h3>
-            <h2 className="hidden whitespace-pre-line text-3xl font-semibold tracking-tight text-zinc-950 md:block">
-              {WORK_TXT_EN}
-            </h2>
-            <p className="mt-4 whitespace-pre-line text-base font-normal leading-relaxed text-zinc-800 md:hidden">
-              {WORK_TXT_KO}
-            </p>
-            <p className="mt-6 hidden whitespace-pre-line text-lg font-normal leading-relaxed text-zinc-600 md:block">
-              {WORK_TXT_KO}
-            </p>
+          <div className="grid grid-cols-12 gap-x-5 md:block">
+            <div className="col-span-3 col-start-2 md:max-w-[min(640px,calc(50vw-2.5rem))]">
+              <h3 className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:hidden">
+                {WORK_TXT_EN}
+              </h3>
+              <h2 className="hidden whitespace-pre-line text-3xl font-semibold tracking-tight text-zinc-950 md:block">
+                {WORK_TXT_EN}
+              </h2>
+              <p className="mt-4 whitespace-pre-line text-base font-normal leading-relaxed text-zinc-800 md:hidden">
+                {WORK_TXT_KO}
+              </p>
+              <p className="mt-6 hidden whitespace-pre-line text-lg font-normal leading-relaxed text-zinc-600 md:block">
+                {WORK_TXT_KO}
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -146,8 +176,8 @@ function WorkPageBody() {
         <WorkThumbHmg className="relative z-0 overflow-visible" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex translate-y-1/2 justify-center overflow-visible px-6 md:px-10">
           <div className="pointer-events-auto flex w-full max-w-[820px] justify-center overflow-visible">
-            {/* 모바일: 카드가 작게 보여 140% 스케일 + origin-center로 뷰포트 가로 중앙 기준 확대 */}
-            <div className="w-full max-md:origin-center max-md:scale-[1.4] md:scale-100">
+            {/* 모바일: 카드 130% 스케일 + origin-center — 가로 오버플로는 페이지에서 overflow-x 숨김 */}
+            <div className="w-full max-md:origin-center max-md:scale-[1.3] md:scale-100">
               <ParallaxViewport yRange={[0, -20]} className="w-full overflow-visible">
                 <ParallaxLayer yRange={[16, -16]} className="w-full overflow-visible">
                   <PortfolioCardViewInner />
