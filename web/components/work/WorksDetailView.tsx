@@ -179,6 +179,57 @@ function Grid12({
 }
 
 /**
+ * sec_4 ST-FO-005/030: 컨테이너만 줄이면 30px radius가 상대적으로 과해짐.
+ * 324×800 Figma 수치를 유지한 뒤 `scale`로만 축소한다.
+ */
+function Scaled324x800PhoneFrame({ children }: { children: ReactNode }) {
+  return (
+    <div
+      className={cn(
+        "relative overflow-visible",
+        "aspect-[324/800] w-[calc(324px*0.56)] md:w-[calc(324px*0.72)]",
+        "lg:aspect-auto lg:h-auto lg:w-[324px]",
+      )}
+    >
+      <div
+        className={cn(
+          "absolute left-0 top-0 w-[324px] origin-top-left will-change-transform",
+          "scale-[0.56] md:scale-[0.72]",
+          "lg:relative lg:scale-100",
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * sec_5 ST-FO-111: 40px/20px 라운드·보더를 데스크톱 픽셀로 유지하고 뷰포트에 맞게 scale만 조정.
+ */
+function Scaled898x686DeviceFrame({ children }: { children: ReactNode }) {
+  return (
+    <div
+      className={cn(
+        "relative mx-auto w-full overflow-visible",
+        "aspect-[898/686] w-[min(100%,calc(898px*0.48))] md:w-[min(100%,calc(898px*0.68))]",
+        "lg:aspect-auto lg:h-auto lg:max-w-none",
+      )}
+    >
+      <div
+        className={cn(
+          "absolute left-0 top-0 w-[898px] max-w-none origin-top-left will-change-transform",
+          "scale-[0.48] md:scale-[0.68]",
+          "lg:relative lg:w-full lg:scale-100",
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/**
  * Figma `/works_view` (node 279:22974) — 라이트 베이스 + Rectangle 27 밴드, 섹션 순서·카피 정합.
  */
 export function WorksDetailView() {
@@ -487,33 +538,37 @@ export function WorksDetailView() {
                 {SEC4_BODY}
               </p>
               <div className="col-span-7 flex min-w-0 flex-row items-start justify-end gap-2 md:col-span-8 md:gap-4 lg:gap-12">
-                <div className="min-w-0 max-w-[324px] shrink-0 grow basis-0 lg:w-[324px] lg:shrink-0 lg:grow-0">
+                <div className="flex shrink-0 flex-col">
                   <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                     ST-FO-005_BIC_m
                   </p>
-                  <BorderedVerticalLoop
-                    borderWidth={11}
-                    aspectRatio="324/800"
-                    src={workImages.loop005Full}
-                    alt=""
-                    slowDuration={13}
-                    fastDuration={2.8}
-                    sdsFrame
-                  />
+                  <Scaled324x800PhoneFrame>
+                    <BorderedVerticalLoop
+                      borderWidth={11}
+                      aspectRatio="324/800"
+                      src={workImages.loop005Full}
+                      alt=""
+                      slowDuration={13}
+                      fastDuration={2.8}
+                      sdsFrame
+                    />
+                  </Scaled324x800PhoneFrame>
                 </div>
-                <div className="mt-8 min-w-0 max-w-[324px] shrink-0 grow basis-0 md:mt-12 lg:mt-[40.8125rem] lg:w-[324px] lg:shrink-0 lg:grow-0">
+                <div className="mt-8 flex shrink-0 flex-col md:mt-12 lg:mt-[40.8125rem]">
                   <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                     ST-FO-030_m
                   </p>
-                  <BorderedVerticalLoop
-                    borderWidth={11}
-                    aspectRatio="324/800"
-                    src={workImages.loop024Full}
-                    alt=""
-                    slowDuration={11}
-                    fastDuration={3}
-                    sdsFrame
-                  />
+                  <Scaled324x800PhoneFrame>
+                    <BorderedVerticalLoop
+                      borderWidth={11}
+                      aspectRatio="324/800"
+                      src={workImages.loop024Full}
+                      alt=""
+                      slowDuration={11}
+                      fastDuration={3}
+                      sdsFrame
+                    />
+                  </Scaled324x800PhoneFrame>
                 </div>
               </div>
             </div>
@@ -646,18 +701,20 @@ export function WorksDetailView() {
                 ST-FO-111
               </p>
               <div className="w-full min-w-0">
-                <BorderedVerticalLoop
-                  borderWidth={20}
-                  aspectRatio="898/686"
-                  src={workImages.loop111Full}
-                  alt=""
-                  slowDuration={16}
-                  fastDuration={3.5}
-                  stfo111Frame
-                  stfo111Shadow
-                  imgIntrinsicWidth={ST_FO_111_FULL_INTRINSIC.width}
-                  imgIntrinsicHeight={ST_FO_111_FULL_INTRINSIC.height}
-                />
+                <Scaled898x686DeviceFrame>
+                  <BorderedVerticalLoop
+                    borderWidth={20}
+                    aspectRatio="898/686"
+                    src={workImages.loop111Full}
+                    alt=""
+                    slowDuration={16}
+                    fastDuration={3.5}
+                    stfo111Frame
+                    stfo111Shadow
+                    imgIntrinsicWidth={ST_FO_111_FULL_INTRINSIC.width}
+                    imgIntrinsicHeight={ST_FO_111_FULL_INTRINSIC.height}
+                  />
+                </Scaled898x686DeviceFrame>
               </div>
               <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
                 Share Your Update Experience and View Insights – Update Review

@@ -49,17 +49,17 @@ export function WorkPortfolioGlassRow({ row, tripleLogos }: Props) {
           <FigmaLogos key={`${row.title}-${v}`} variant={v} />
         ))}
       </div>
-      <p className="w-full min-w-0 flex-1 text-left text-[18px] font-semibold leading-snug tracking-tight text-zinc-950 md:text-center">
+      <p className="w-full min-w-0 flex-1 text-left text-base font-semibold leading-snug tracking-tight text-zinc-950 md:text-center md:text-[18px]">
         {row.title}
       </p>
       <div className="flex w-full shrink-0 flex-wrap items-center justify-start md:w-[280px] md:justify-center lg:justify-end [&>span+span]:ml-2">
-        <span className="inline-flex h-7 min-w-[56px] items-center justify-center rounded-lg bg-zinc-950 px-2.5 text-base font-normal text-white">
+        <span className="inline-flex h-7 min-w-[56px] items-center justify-center rounded-lg bg-zinc-950 px-2.5 text-sm font-normal text-white md:text-base">
           {row.period}
         </span>
         {row.tags.map((t) => (
           <span
             key={`${row.title}-${t}`}
-            className="inline-flex h-7 items-center justify-center rounded-lg bg-zinc-950 px-2.5 text-base font-normal text-white"
+            className="inline-flex h-7 items-center justify-center rounded-lg bg-zinc-950 px-2.5 text-sm font-normal text-white md:text-base"
           >
             {t}
           </span>
