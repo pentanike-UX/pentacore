@@ -641,7 +641,7 @@ export function WorksDetailView() {
             >
               {SEC5_BODY}
             </p>
-            <div className="col-span-12 mt-[7.75rem] md:mt-[10rem] lg:mt-[12.5rem]">
+            <div className="col-span-12 mx-auto mt-[7.75rem] w-full max-w-[1280px] md:mt-[10rem] lg:mt-[12.5rem]">
               <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                 ST-FO-111
               </p>
