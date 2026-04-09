@@ -212,15 +212,17 @@ function Scaled898x686DeviceFrame({ children }: { children: ReactNode }) {
     <div
       className={cn(
         "relative mx-auto w-full overflow-visible",
-        "aspect-[898/686] w-[min(100%,calc(898px*0.48))] md:w-[min(100%,calc(898px*0.68))]",
-        "lg:aspect-auto lg:h-auto lg:max-w-none",
+        /* max-lg만 고정 폭+scale — lg에서 md 너비 규칙이 남으면 데스크톱이 ~610px로 고정됨 */
+        "aspect-[898/686] w-[min(100%,calc(898px*0.38))] max-lg:mx-auto",
+        "md:w-[min(100%,calc(898px*0.52))]",
+        "lg:aspect-auto lg:h-auto lg:w-full lg:max-w-none",
       )}
     >
       <div
         className={cn(
           "absolute left-0 top-0 w-[898px] max-w-none origin-top-left will-change-transform",
-          "scale-[0.48] md:scale-[0.68]",
-          "lg:relative lg:w-full lg:scale-100",
+          "scale-[0.38] md:scale-[0.52]",
+          "lg:relative lg:left-auto lg:top-auto lg:w-full lg:scale-100",
         )}
       >
         {children}
@@ -554,7 +556,7 @@ export function WorksDetailView() {
                     />
                   </Scaled324x800PhoneFrame>
                 </div>
-                <div className="mt-8 flex shrink-0 flex-col md:mt-12 lg:mt-[40.8125rem]">
+                <div className="mt-[132px] flex shrink-0 flex-col md:mt-12 lg:mt-[40.8125rem]">
                   <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                     ST-FO-030_m
                   </p>
@@ -691,7 +693,7 @@ export function WorksDetailView() {
               </h2>
             </div>
             <p
-              className="col-span-12 mt-[7.75rem] text-left text-base leading-relaxed md:mt-[10rem] lg:col-span-3 lg:col-start-5 lg:mt-[12.5rem]"
+              className="col-span-12 mt-[7.75rem] text-left text-base leading-relaxed md:mt-[10rem] lg:col-span-3 lg:col-start-1 lg:mt-[12.5rem]"
               style={{ color: TEXT }}
             >
               {SEC5_BODY}
