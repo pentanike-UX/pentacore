@@ -145,12 +145,15 @@ function WorkPageBody() {
       >
         <WorkThumbHmg className="relative z-0 overflow-visible" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex translate-y-1/2 justify-center overflow-visible px-6 md:px-10">
-          <div className="pointer-events-auto w-full max-w-[820px] overflow-visible">
-            <ParallaxViewport yRange={[0, -20]} className="w-full overflow-visible">
-              <ParallaxLayer yRange={[16, -16]} className="w-full overflow-visible">
-                <PortfolioCardViewInner />
-              </ParallaxLayer>
-            </ParallaxViewport>
+          <div className="pointer-events-auto flex w-full max-w-[820px] justify-center overflow-visible">
+            {/* 모바일: 카드가 작게 보여 140% 스케일 + origin-center로 뷰포트 가로 중앙 기준 확대 */}
+            <div className="w-full max-md:origin-center max-md:scale-[1.4] md:scale-100">
+              <ParallaxViewport yRange={[0, -20]} className="w-full overflow-visible">
+                <ParallaxLayer yRange={[16, -16]} className="w-full overflow-visible">
+                  <PortfolioCardViewInner />
+                </ParallaxLayer>
+              </ParallaxViewport>
+            </div>
           </div>
         </div>
       </div>
