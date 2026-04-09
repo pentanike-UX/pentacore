@@ -142,7 +142,7 @@ function WorkPageBody() {
         <div
           className={cn(
             "relative mb-[4.5rem] mt-[10rem] max-w-[100vw] md:mt-[12.5rem] lg:mt-[15.625rem]",
-            /* 모바일: 12컬 그리드 — 1칸 비우고 2~4열(3칸) */
+            /* 모바일: 12컬 그리드 — 2칸 비우고 3~5열(3칸) */
             "max-md:px-[1.5rem]",
             "md:left-1/2 md:w-screen md:-translate-x-1/2 md:pl-[50vw] md:pr-10",
             "pr-6",
@@ -150,7 +150,7 @@ function WorkPageBody() {
           data-figma="txt"
         >
           <div className="grid grid-cols-12 gap-x-5 md:block">
-            <div className="col-span-3 col-start-2 md:max-w-[min(640px,calc(50vw-2.5rem))]">
+            <div className="col-span-3 col-start-3 md:max-w-[min(640px,calc(50vw-2.5rem))]">
               <h3 className="whitespace-pre-line text-2xl font-semibold tracking-tight text-zinc-950 md:hidden">
                 {WORK_TXT_EN}
               </h3>
