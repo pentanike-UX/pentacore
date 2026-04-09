@@ -28,6 +28,10 @@ import { FigmaLogos } from "./FigmaLogos";
 const TEXT = "#1e1e1e";
 const MUTED = "#757575";
 
+/** 이미지 하단 캡션 — 12컬 중앙 8칸(col 3–10), 모바일·태블릿은 전폭·텍스트 가운데 */
+const WORKS_IMAGE_CAPTION_CLASS =
+  "col-span-12 mt-5 text-center text-xs font-normal leading-snug lg:col-span-8 lg:col-start-3";
+
 /**
  * 작품 상세(SUB_WORK): 섹션별 `translateY` 페럴렉스는 **레이아웃 박스는 그대로** 두고 그리기만 이동한다.
  * 스크롤 구간에 따라 아래 섹션이 위 섹션 위로 겹쳐 그려져 margin/padding이 “덮인 것처럼” 보인다(sec_2↔sec_3 등).
@@ -371,14 +375,11 @@ export function WorksDetailView() {
             alt="Genesis navigation update — home"
             ratio="964/731"
           />
-          <p
-            className="mt-5 text-xs font-normal leading-snug"
-            style={{ color: MUTED }}
-          >
-            Official U.S. Genesis Update Website – Home Screen
-          </p>
         </div>
           </div>
+          <p className={WORKS_IMAGE_CAPTION_CLASS} style={{ color: MUTED }}>
+            Official U.S. Genesis Update Website – Home Screen
+          </p>
         </Grid12>
         </ParallaxLayer>
       </section>
@@ -503,11 +504,11 @@ export function WorksDetailView() {
               alt="Latest update screen sample"
               ratio="938/726"
             />
-            <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
-              Official Notice Content Templating and UI Design – Latest Update
-              Screen
-            </p>
           </div>
+          <p className={WORKS_IMAGE_CAPTION_CLASS} style={{ color: MUTED }}>
+            Official Notice Content Templating and UI Design – Latest Update
+            Screen
+          </p>
         </Grid12>
         </ParallaxLayer>
       </section>
@@ -541,9 +542,6 @@ export function WorksDetailView() {
               </p>
               <div className="col-span-12 flex min-w-0 flex-row items-start justify-center gap-2 md:col-span-8 md:justify-end md:gap-4 lg:gap-12">
                 <div className="flex shrink-0 flex-col">
-                  <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
-                    ST-FO-005_BIC_m
-                  </p>
                   <Scaled324x800PhoneFrame>
                     <BorderedVerticalLoop
                       borderWidth={11}
@@ -557,9 +555,6 @@ export function WorksDetailView() {
                   </Scaled324x800PhoneFrame>
                 </div>
                 <div className="mt-[132px] flex shrink-0 flex-col md:mt-12 lg:mt-[40.8125rem]">
-                  <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
-                    ST-FO-030_m
-                  </p>
                   <Scaled324x800PhoneFrame>
                     <BorderedVerticalLoop
                       borderWidth={11}
@@ -597,39 +592,37 @@ export function WorksDetailView() {
               <br className="hidden sm:block" />
               —all in one step.
             </h2>
-            <div className="mt-[7.75rem] space-y-[7.75rem] md:mt-[10rem] md:space-y-[10rem] lg:mt-[12.5rem] lg:space-y-[12.5rem]">
-              <div>
-                <FigImage
-                  src={hyundaiWorksViewImages.flowStep1}
-                  alt="Select model — step 1"
-                  ratio="893/573"
-                />
-                <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
-                  Select Model – Step 1
-                </p>
-              </div>
-              <div>
-                <FigImage
-                  src={hyundaiWorksViewImages.flowStep2}
-                  alt="Select year — step 2"
-                  ratio="893/573"
-                />
-                <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
-                  Select Year – Step 2
-                </p>
-              </div>
-              <div>
-                <FigImage
-                  src={hyundaiWorksViewImages.flowStep3}
-                  alt="Results and download — step 3"
-                  ratio="893/573"
-                />
-                <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
-                  Results &amp; Download – Step 3
-                </p>
-              </div>
-            </div>
           </div>
+          <div className="col-span-12 mt-[7.75rem] md:mt-[10rem] lg:mt-[12.5rem]">
+            <FigImage
+              src={hyundaiWorksViewImages.flowStep1}
+              alt="Select model — step 1"
+              ratio="893/573"
+            />
+          </div>
+          <p className={WORKS_IMAGE_CAPTION_CLASS} style={{ color: MUTED }}>
+            Select Model – Step 1
+          </p>
+          <div className="col-span-12 mt-[7.75rem] md:mt-[10rem] lg:mt-[12.5rem]">
+            <FigImage
+              src={hyundaiWorksViewImages.flowStep2}
+              alt="Select year — step 2"
+              ratio="893/573"
+            />
+          </div>
+          <p className={WORKS_IMAGE_CAPTION_CLASS} style={{ color: MUTED }}>
+            Select Year – Step 2
+          </p>
+          <div className="col-span-12 mt-[7.75rem] md:mt-[10rem] lg:mt-[12.5rem]">
+            <FigImage
+              src={hyundaiWorksViewImages.flowStep3}
+              alt="Results and download — step 3"
+              ratio="893/573"
+            />
+          </div>
+          <p className={WORKS_IMAGE_CAPTION_CLASS} style={{ color: MUTED }}>
+            Results &amp; Download – Step 3
+          </p>
           </Grid12>
           </ParallaxLayer>
         </section>
@@ -665,10 +658,10 @@ export function WorksDetailView() {
                 alt="My page — check updates"
                 ratio="893/1117"
               />
-              <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
-                Check Updates for Your Vehicle – My Page Screen
-              </p>
             </div>
+            <p className={WORKS_IMAGE_CAPTION_CLASS} style={{ color: MUTED }}>
+              Check Updates for Your Vehicle – My Page Screen
+            </p>
           </Grid12>
           </ParallaxLayer>
         </section>
@@ -699,9 +692,6 @@ export function WorksDetailView() {
               {SEC5_BODY}
             </p>
             <div className="col-span-12 mx-auto mt-[7.75rem] w-full max-w-[1280px] md:mt-[10rem] lg:mt-[12.5rem]">
-              <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
-                ST-FO-111
-              </p>
               <div className="w-full min-w-0">
                 <Scaled898x686DeviceFrame>
                   <BorderedVerticalLoop
@@ -718,11 +708,11 @@ export function WorksDetailView() {
                   />
                 </Scaled898x686DeviceFrame>
               </div>
-              <p className="mt-5 text-xs leading-snug" style={{ color: MUTED }}>
-                Share Your Update Experience and View Insights – Update Review
-                Screen
-              </p>
             </div>
+            <p className={WORKS_IMAGE_CAPTION_CLASS} style={{ color: MUTED }}>
+              Share Your Update Experience and View Insights – Update Review
+              Screen
+            </p>
           </Grid12>
           </ParallaxLayer>
         </section>
