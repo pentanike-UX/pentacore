@@ -62,6 +62,12 @@ export function HeaderBar({
     () => false,
   );
 
+  /** `SubPageScrollTopButton` — 풀스크린 메뉴(딤, z-[90]) 시 FAB이 오버레이 아래로 가도록 동기화 */
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-header-nav-open", menuOpen);
+    return () => document.documentElement.removeAttribute("data-header-nav-open");
+  }, [menuOpen]);
+
   useEffect(() => {
     if (!visible) {
       setEntered(!slideInFromTop);
