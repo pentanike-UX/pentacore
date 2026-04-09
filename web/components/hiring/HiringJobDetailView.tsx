@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { useState } from "react";
 import { FixedImageWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
@@ -9,7 +10,9 @@ import {
   WORKS_LIST_BACK_ICON_SRC,
   WORKS_VIEW_PF_06_SRC,
 } from "@/components/work/figma-work-assets";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { HiringApplyDrawer } from "@/components/hiring/HiringApplyDrawer";
+import { HIRING_BACKEND_JOB_TITLE } from "@/components/hiring/hiring-assets";
 import { SUB_PAGE_COLUMN_GUTTER_X } from "@/lib/sub-page-gutters";
 import { cn } from "@/lib/utils";
 
@@ -64,6 +67,8 @@ const META_ROWS = [
  * 채용 상세 — `/works_view` 레이아웃 리듬을 참고한 구성(assumption: Figma 채용 상세 미정).
  */
 export function HiringJobDetailView() {
+  const [applyOpen, setApplyOpen] = useState(false);
+
   return (
     <SubPageScaffold
       as="main"
@@ -129,7 +134,7 @@ export function HiringJobDetailView() {
                 className="mt-5 text-[clamp(1.75rem,5vw,2.625rem)] font-bold leading-tight tracking-tight md:text-[42px]"
                 style={{ color: TEXT }}
               >
-                Back-end Developer
+                {HIRING_BACKEND_JOB_TITLE}
               </h1>
               <p className="mt-3 text-[15px] font-medium text-zinc-600">
                 Java · React 연계 서비스 개발
@@ -231,21 +236,32 @@ export function HiringJobDetailView() {
           <li>영어 기술 문서 독해 및 협업 가능 수준</li>
         </ul>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-zinc-900/10 pt-10 sm:flex-row sm:items-center">
-          <Link
-            href="/inquiry"
-            className={cn(
-              buttonVariants({ variant: "default", size: "lg" }),
-              "h-12 rounded-full border-0 bg-zinc-950 px-8 text-[15px] font-medium text-white hover:bg-zinc-800",
-            )}
+        <div className="mt-16 flex flex-col gap-4 border-t border-zinc-900/10 pt-10 sm:flex-row sm:items-center sm:justify-between">
+          <Button
+            type="button"
+            className="h-12 rounded-full border-0 bg-zinc-950 px-8 text-[15px] font-medium text-white hover:bg-zinc-800"
+            onClick={() => setApplyOpen(true)}
           >
-            지원·문의하기
-          </Link>
-          <p className="text-sm" style={{ color: MUTED }}>
-            실제 지원 채널 연결 전까지는 프로젝트 문의를 통해 연락 주세요.
+            지원하기
+          </Button>
+          <p className="max-w-md text-sm" style={{ color: MUTED }}>
+            파트너십·프로젝트 의뢰는{" "}
+            <Link
+              href="/inquiry"
+              className="font-medium text-zinc-800 underline decoration-zinc-400 underline-offset-2 hover:text-zinc-950"
+            >
+              프로젝트 문의
+            </Link>
+            를 이용해 주세요.
           </p>
         </div>
       </section>
+
+      <HiringApplyDrawer
+        open={applyOpen}
+        onOpenChange={setApplyOpen}
+        jobTitle={HIRING_BACKEND_JOB_TITLE}
+      />
     </SubPageScaffold>
   );
 }

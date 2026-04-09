@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
 import Link from "next/link";
-import { CheckCircle2, MessageCircle, PenLine } from "lucide-react";
+import { CheckCircle2, FileSearch, MessageCircle } from "lucide-react";
 import { SubPageScaffold } from "@/components/layout/SubPageScaffold";
 import { SubWorkStyleHero } from "@/components/subpages/SubWorkStyleHero";
 import { buttonVariants } from "@/components/ui/button";
@@ -205,10 +205,10 @@ export function HiringPageView() {
               {[
                 {
                   step: "01",
-                  title: "대화",
-                  body: "포트폴리오와 관심 분야를 중심으로 가볍게 이야기를 나눕니다.",
+                  title: "서류검토",
+                  body: "제출해 주신 이력서·경력 사항을 바탕으로 직무 적합성과 경험을 검토합니다.",
                   icon: (
-                    <MessageCircle
+                    <FileSearch
                       className="size-[26px]"
                       strokeWidth={1.35}
                       aria-hidden
@@ -217,10 +217,10 @@ export function HiringPageView() {
                 },
                 {
                   step: "02",
-                  title: "실무 과제",
-                  body: "짧은 과제로 협업 방식과 사고의 깊이를 함께 확인합니다.",
+                  title: "인터뷰",
+                  body: "포트폴리오와 관심 분야를 중심으로 가볍게 이야기를 나눕니다.",
                   icon: (
-                    <PenLine
+                    <MessageCircle
                       className="size-[26px]"
                       strokeWidth={1.35}
                       aria-hidden
