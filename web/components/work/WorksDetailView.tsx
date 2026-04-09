@@ -427,20 +427,23 @@ export function WorksDetailView() {
               Redefining the Future of Movement with Human-Centered Innovation
             </h2>
           </div>
-          {/* Philosophy 1: Grid12 직계 — lg에서 3칸·중앙(col 5–7), 본문 좌측 정렬 */}
-          <p
-            className="col-span-12 mt-[7.75rem] whitespace-pre-line text-left text-base leading-relaxed md:mt-[10rem] lg:col-span-3 lg:col-start-5 lg:mt-[12.5rem]"
-            style={{ color: TEXT }}
-          >
-            {SEC3_BODY_A}
-          </p>
-          {/* Philosophy 2: 동일 3칸 너비 */}
-          <p
-            className="col-span-12 mt-[2.5rem] whitespace-pre-line text-left text-base leading-relaxed md:mt-[3rem] lg:col-span-3 lg:col-start-5 lg:mt-[3.75rem]"
-            style={{ color: TEXT }}
-          >
-            {SEC3_BODY_B}
-          </p>
+          {/* Philosophy: sec_2와 동일 — lg+ 12칸을 2열로 분산 */}
+          <div className="col-span-12 mt-[7.75rem] md:mt-[10rem] lg:mt-[12.5rem]">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 xl:gap-x-24">
+              <p
+                className="whitespace-pre-line text-left text-base leading-relaxed"
+                style={{ color: TEXT }}
+              >
+                {SEC3_BODY_A}
+              </p>
+              <p
+                className="whitespace-pre-line text-left text-base leading-relaxed"
+                style={{ color: TEXT }}
+              >
+                {SEC3_BODY_B}
+              </p>
+            </div>
+          </div>
           <div className="col-span-12 mt-[9.25rem] w-full md:mt-[12rem] lg:mt-[15rem]">
             <FigImage
               src={hyundaiWorksViewImages.latestUpdateSample}
