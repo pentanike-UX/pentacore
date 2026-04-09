@@ -13,7 +13,10 @@ import {
   IntrinsicWidthImageWithSkeleton,
 } from "@/components/media/ImageWithSkeleton";
 import { IMAGE_SIZES_CARD_820 } from "@/lib/image-presets";
-import { SUB_PAGE_COLUMN_GUTTER_X } from "@/lib/sub-page-gutters";
+import {
+  SUB_HERO_HEADING_PAD_X,
+  SUB_PAGE_COLUMN_GUTTER_X,
+} from "@/lib/sub-page-gutters";
 import { cn } from "@/lib/utils";
 import { ParallaxLayer, ParallaxViewport } from "./Parallax";
 import { WORK_DETAIL_SLUG } from "./work-assets";
@@ -74,26 +77,26 @@ function WorkPageBody() {
       contentClassName="flex min-h-dvh flex-col"
       data-figma="SUB_WORK"
     >
-      <section
-        className="relative pb-10 pt-[4.5rem] sm:pt-[5.75rem] md:pb-14 md:pt-[7.75rem]"
-        style={{ backgroundColor: SUB_WORK_PAGE_BG }}
-      >
+      {/* 단색 배경 금지: z-[2]가 `SubPageViewportGrid`(z-[1])를 가림 */}
+      <section className="relative pb-10 pt-[4.5rem] sm:pt-[5.75rem] md:pb-14 md:pt-[7.75rem]">
         <div className="w-full">
-          <div
-            className="flex flex-col gap-0 uppercase"
-            data-figma="HERO"
-          >
-            <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:gap-[min(6rem,5.04vw)] lg:gap-[96.8px]">
-              <p className="shrink-0 text-[19.2px] font-semibold leading-none tracking-tight text-zinc-950">
-                (WORK)
+          <div className={cn(SUB_HERO_HEADING_PAD_X)}>
+            <div
+              className="flex flex-col gap-0 uppercase"
+              data-figma="HERO"
+            >
+              <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:gap-[min(6rem,5.04vw)] lg:gap-[96.8px]">
+                <p className="shrink-0 text-[19.2px] font-semibold leading-none tracking-tight text-zinc-950">
+                  (WORK)
+                </p>
+                <h1 className="font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-tight text-zinc-950">
+                  Builds with intent.
+                </h1>
+              </div>
+              <p className="mt-2 font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-tight text-zinc-950 md:mt-0">
+                Runs in reality.
               </p>
-              <h1 className="font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-tight text-zinc-950">
-                Builds with intent.
-              </h1>
             </div>
-            <p className="mt-2 font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-tight text-zinc-950 md:mt-0">
-              Runs in reality.
-            </p>
           </div>
 
           <div

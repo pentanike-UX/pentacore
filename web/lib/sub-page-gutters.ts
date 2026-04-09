@@ -7,3 +7,10 @@
  */
 export const SUB_PAGE_COLUMN_GUTTER_X =
   "px-[1.5rem] md:px-[2.5rem] lg:px-[2rem] min-[1301px]:px-0" as const;
+
+/**
+ * ABOUT / WORK / HIRING 히어로 — 라벨·대형 타이틀만 (본문 풀블리드·펜타그램 제외).
+ * lg+ 좌우 6.25rem (Figma). 그 아래는 본문 컬럼과 동일 스텝.
+ */
+export const SUB_HERO_HEADING_PAD_X =
+  "px-[1.5rem] md:px-[2.5rem] lg:px-[6.25rem]" as const;

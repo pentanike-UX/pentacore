@@ -1,8 +1,8 @@
 "use client";
 
+import { SUB_HERO_HEADING_PAD_X } from "@/lib/sub-page-gutters";
 import { cn } from "@/lib/utils";
 
-/** <lg는 기존 스케일 유지, lg+는 SUB_WORK HERO에서 좌우 0 → 1rem */
 type Props = {
   /** 예: (HIRING) */
   label: string;
@@ -35,7 +35,7 @@ export function SubWorkStyleHero({
       )}
       data-figma="SUB_WORK HERO pattern"
     >
-      <div className="w-full">
+      <div className={cn("w-full", SUB_HERO_HEADING_PAD_X)}>
         <div className="flex flex-col gap-0 uppercase">
           <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:gap-[min(6rem,5.04vw)] lg:gap-[96.8px]">
             <p className="shrink-0 text-[19.2px] font-semibold leading-none tracking-tight text-zinc-950">
