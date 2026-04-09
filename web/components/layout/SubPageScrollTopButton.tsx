@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 
 function subscribeHeaderNavOpen(onStoreChange: () => void) {
@@ -39,17 +40,24 @@ function BtnTopIcon({ className }: { className?: string }) {
   );
 }
 
-/** 딤(헤더 풀스크린 메뉴 `z-[90]`) 아래. 비딤 시 헤더·푸터(`z-[100]`·메뉴 열린 헤더 `z-[110]`) 위 */
+/**
+ * 딤(헤더 풀스크린 메뉴 `z-[90]`) 아래.
+ * 비딤: 헤더 `z-[100]`·메뉴 열린 헤더 `z-[110]` 위. 인라인 푸터는 형제 `z-10`이라
+ * 메인(`isolate`) 안에 두면 푸터 뒤로 깔림 → `body` 포털로 스택 분리.
+ */
 const Z_DIMMED = 85;
 const Z_TOP = 120;
 
 export function SubPageScrollTopButton() {
+  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const navDimmed = useSyncExternalStore(
     subscribeHeaderNavOpen,
     snapshotHeaderNavOpen,
     serverHeaderNavOpen,
   );
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 0);
@@ -62,7 +70,7 @@ export function SubPageScrollTopButton() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  return (
+  const node = (
     <button
       type="button"
       onClick={scrollTop}
@@ -84,4 +92,7 @@ export function SubPageScrollTopButton() {
       <BtnTopIcon className="block size-full" />
     </button>
   );
+
+  if (!mounted || typeof document === "undefined") return null;
+  return createPortal(node, document.body);
 }
