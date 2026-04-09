@@ -645,7 +645,7 @@ export function WorksDetailView() {
               <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                 ST-FO-111
               </p>
-              <div className="mx-auto w-full max-w-[938px]">
+              <div className="w-full min-w-0">
                 <BorderedVerticalLoop
                   borderWidth={20}
                   aspectRatio="898/686"
