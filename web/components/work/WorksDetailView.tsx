@@ -479,15 +479,15 @@ export function WorksDetailView() {
             </h2>
             </div>
 
-            <div className="col-span-12 mt-16 grid grid-cols-12 gap-y-16 lg:mt-24 lg:gap-x-8">
+            <div className="col-span-12 mt-16 grid grid-cols-12 gap-x-3 gap-y-0 md:gap-x-6 lg:mt-24 lg:gap-x-8">
               <p
-                className="col-span-12 max-w-[355px] text-base leading-relaxed lg:col-span-4"
+                className="col-span-5 min-w-0 text-sm leading-relaxed md:col-span-4 md:text-base lg:max-w-[355px]"
                 style={{ color: TEXT }}
               >
                 {SEC4_BODY}
               </p>
-              <div className="col-span-12 flex flex-col items-center gap-16 lg:col-span-8 lg:flex-row lg:items-start lg:justify-end lg:gap-12">
-                <div className="w-full max-w-[324px] shrink-0 lg:w-[324px]">
+              <div className="col-span-7 flex min-w-0 flex-row items-start justify-end gap-2 md:col-span-8 md:gap-4 lg:gap-12">
+                <div className="min-w-0 max-w-[324px] shrink-0 grow basis-0 lg:w-[324px] lg:shrink-0 lg:grow-0">
                   <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                     ST-FO-005_BIC_m
                   </p>
@@ -501,7 +501,7 @@ export function WorksDetailView() {
                     sdsFrame
                   />
                 </div>
-                <div className="w-full max-w-[324px] shrink-0 lg:mt-[40.8125rem] lg:w-[324px]">
+                <div className="mt-8 min-w-0 max-w-[324px] shrink-0 grow basis-0 md:mt-12 lg:mt-[40.8125rem] lg:w-[324px] lg:shrink-0 lg:grow-0">
                   <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                     ST-FO-030_m
                   </p>
@@ -668,36 +668,48 @@ export function WorksDetailView() {
           </ParallaxLayer>
         </section>
 
-        {/* HD / HAE + 크레딧 푸터 — 모바일 1열 · md 2열 · lg 4열 */}
+        {/* 크레딧 — 12컬럼 기준 col 7~12 좌측 정렬 (Figma 레퍼런스) */}
         <section
           className={cn(
             "mx-auto max-w-[1280px] py-14 pb-24 md:py-20 md:pb-32",
             SUB_PAGE_COLUMN_GUTTER_X,
           )}
-          data-figma="HD | HAE | Frame 1739335350"
+          data-figma="HD | HAE | credits"
           aria-label="클라이언트 및 크레딧"
         >
           <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
-            <div className="grid grid-cols-1 gap-y-14 md:grid-cols-2 md:gap-x-8 md:gap-y-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-12">
-              <div data-figma="HD HYUNDAI_MOTOR_GROUP">
+            <Grid12>
+              <p
+                className="col-span-12 text-[clamp(1.5rem,4vw,2.25rem)] font-bold leading-tight tracking-tight lg:col-span-6 lg:col-start-7"
+                style={{ color: TEXT }}
+              >
+                Thanks for watching.
+              </p>
+
+              <div
+                className="col-span-12 mt-16 space-y-12 lg:col-span-2 lg:col-start-7 lg:mt-20 lg:space-y-0"
+                data-figma="HYUNDAI MOTORS"
+              >
                 <p
                   className="text-sm font-bold uppercase tracking-tight"
                   style={{ color: TEXT }}
                 >
-                  HYUNDAI MOTOR GROUP
+                  HYUNDAI MOTORS
                 </p>
                 <dl className="mt-6 space-y-4 text-sm">
                   <div>
                     <dt style={{ color: MUTED }}>PM</dt>
-                    <dd className="font-semibold">Doo won Yoo</dd>
-                  </div>
-                  <div>
-                    <dt style={{ color: MUTED }}>Tech PL</dt>
-                    <dd className="font-semibold">Ji hoon Jung</dd>
+                    <dd className="mt-1 space-y-1 font-semibold">
+                      <div>Doo won Yoo</div>
+                      <div>Eun ji Jeong</div>
+                    </dd>
                   </div>
                 </dl>
               </div>
-              <div data-figma="HAE HYUNDAI_AUTOEVER">
+              <div
+                className="col-span-12 mt-12 space-y-0 lg:col-span-4 lg:col-start-9 lg:mt-20"
+                data-figma="HYUNDAI AUTOEVER"
+              >
                 <p
                   className="text-sm font-bold uppercase tracking-tight"
                   style={{ color: TEXT }}
@@ -706,52 +718,51 @@ export function WorksDetailView() {
                 </p>
                 <dl className="mt-6 space-y-4 text-sm">
                   <div>
-                    <dt style={{ color: MUTED }}>PMO</dt>
-                    <dd className="font-semibold">Se jong Lee</dd>
+                    <dt style={{ color: MUTED }}>PM</dt>
+                    <dd className="mt-1 font-semibold">Se jong Lee</dd>
                   </div>
                   <div>
                     <dt style={{ color: MUTED }}>Tech PL</dt>
-                    <dd className="font-semibold">Ji hoon Jung</dd>
+                    <dd className="mt-1 font-semibold">Ji hoon Jung</dd>
                   </div>
                 </dl>
               </div>
+
               <footer
-                className="md:col-span-2 lg:col-span-2"
-                data-figma="Frame 1739335350"
+                className="col-span-12 mt-16 space-y-8 lg:col-span-6 lg:col-start-7 lg:mt-20"
+                data-figma="PENTACORE credits"
               >
-                <div className="mx-auto max-w-[503px] space-y-14 md:mx-0 md:max-w-none md:space-y-16 lg:max-w-[min(100%,42rem)]">
-                  <p
-                    className="whitespace-pre-line text-[clamp(1.5rem,4vw,2.25rem)] font-normal leading-tight tracking-tight"
-                    style={{ color: TEXT }}
-                  >
-                    Thanks{"\n"}for watching.
-                  </p>
-                  <div className="space-y-6 text-sm leading-relaxed md:space-y-7">
-                    <CreditLine
-                      role="Project Lead (PM &amp; UX Lead)"
-                      names="Tae hun OH"
-                    />
-                    <CreditLine role="UIUX" names="Kyung hoon Park" />
-                    <CreditLine
-                      role="Front-end Developer"
-                      names="Kwang hee Kwon, Gun tae Lim"
-                    />
-                    <CreditLine role="Publisher" names="Ji seung Na" />
-                    <CreditLine
-                      role="Service Planner &amp; Delivery Coordinator"
-                      names="Tae hun OH, Seung ki Park"
-                    />
-                    <CreditLine
-                      role="Back-end Developer"
-                      names="Seok hyun Cho, Seon joo Kim, Eun hye Ahn, Ji yong Cheon, Jae hong Lee"
-                    />
-                  </div>
-                  <p className="text-xs font-light" style={{ color: TEXT }}>
-                    ⓒ PENTACORE.
-                  </p>
+                <p
+                  className="text-sm font-bold uppercase tracking-tight"
+                  style={{ color: TEXT }}
+                >
+                  PENTACORE
+                </p>
+                <div className="space-y-6 text-sm leading-relaxed md:space-y-7">
+                  <CreditLine
+                    role="Project Lead (PM &amp; UX Lead)"
+                    names="Tae hun Oh"
+                  />
+                  <CreditLine
+                    role="Service Planner &amp; Delivery Coordinator"
+                    names="Tae hun Oh, Seung ki Park"
+                  />
+                  <CreditLine role="UIUX" names="Kyung hoon Park" />
+                  <CreditLine
+                    role="Front-end Developer"
+                    names="Kwang hee Kwon, Gun tae Lim"
+                  />
+                  <CreditLine role="Publisher" names="Ji seung Na" />
+                  <CreditLine
+                    role="Back-end Developer"
+                    names="Seok hyun Cho, Seon joo Kim, Eun hye Ahn, Ji yong Cheon, Jae hong Lee"
+                  />
                 </div>
+                <p className="pt-8 text-xs font-light" style={{ color: TEXT }}>
+                  ⓒ PENTACORE.
+                </p>
               </footer>
-            </div>
+            </Grid12>
           </ParallaxLayer>
         </section>
       </ParallaxViewport>
@@ -763,7 +774,7 @@ function CreditLine({ role, names }: { role: string; names: string }) {
   return (
     <div>
       <p style={{ color: MUTED }}>{role}</p>
-      <p className="mt-1 font-medium" style={{ color: TEXT }}>
+      <p className="mt-1 font-semibold" style={{ color: TEXT }}>
         {names}
       </p>
     </div>
