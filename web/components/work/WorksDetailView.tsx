@@ -125,7 +125,7 @@ function BrandRow({
           : "border-t border-black/10 pt-14 first:border-t-0 first:pt-0",
       )}
     >
-      <div className="flex min-h-[50px] w-full max-w-[280px] shrink-0 flex-wrap items-center gap-[10px]">
+      <div className="flex min-h-[50px] w-full max-w-[280px] shrink-0 flex-wrap items-center gap-[10px] lg:max-w-[100px]">
         {typeof title === "string" ? (
           <span
             className="text-[15px] font-bold tracking-tight"
@@ -395,15 +395,15 @@ export function WorksDetailView() {
         <ParallaxLayer yRange={WORKS_DETAIL_PARALLAX_Y} className="w-full">
         <Grid12>
           <div className="col-span-12">
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0 xl:gap-x-24">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0">
               <p
-                className="whitespace-pre-line text-sm font-bold leading-relaxed"
+                className="col-span-12 whitespace-pre-line text-sm font-bold leading-relaxed lg:col-span-5"
                 style={{ color: TEXT }}
               >
                 {ROLES_BLOCK}
               </p>
               <p
-                className="max-w-[730px] text-base font-normal leading-relaxed lg:max-w-none"
+                className="col-span-12 max-w-[730px] text-base font-normal leading-relaxed lg:col-span-7 lg:col-start-6 lg:max-w-none"
                 style={{ color: TEXT }}
               >
                 {INTRO_BODY}
@@ -411,9 +411,9 @@ export function WorksDetailView() {
             </div>
           </div>
 
-          {/* 데스크톱(lg+): 12컬 중 5~12열 · 칩 영역 상·하 14rem 패딩(본문↔칩 구간 포함) */}
+          {/* 데스크톱(lg+): 6~12열 · 칩 영역 상·하 14rem 패딩(본문↔칩 구간 포함) */}
           <div
-            className="col-span-12 py-[8.75rem] md:py-[11.2rem] lg:col-span-8 lg:col-start-5 lg:py-[14rem]"
+            className="col-span-12 py-[8.75rem] md:py-[11.2rem] lg:col-span-7 lg:col-start-6 lg:py-[14rem]"
             data-figma="sec_2 chips"
           >
             <div className="space-y-32 md:space-y-40 lg:space-y-48">
@@ -645,9 +645,9 @@ export function WorksDetailView() {
                 Precision Updates, Powered by Your Registered Vehicle.
               </h2>
             </div>
-            {/* Philosophy: 우측 3칸(col 10–12) · 모바일 전폭 */}
+            {/* Philosophy: 데스크톱 6칸 너비 · 모바일 전폭 */}
             <p
-              className="col-span-12 mt-[4rem] text-left text-base leading-relaxed md:mt-[5rem] lg:col-span-3 lg:col-start-10 lg:mt-[6.25rem]"
+              className="col-span-12 mt-[4rem] text-left text-base leading-relaxed md:mt-[5rem] lg:col-span-6 lg:col-start-1 lg:mt-[6.25rem]"
               style={{ color: TEXT }}
             >
               {SEC4IN_BODY}
@@ -686,7 +686,7 @@ export function WorksDetailView() {
               </h2>
             </div>
             <p
-              className="col-span-12 mt-[7.75rem] text-left text-base leading-relaxed md:mt-[10rem] lg:col-span-3 lg:col-start-1 lg:mt-[12.5rem]"
+              className="col-span-12 mt-[7.75rem] text-left text-base leading-relaxed md:mt-[10rem] lg:col-span-6 lg:col-start-1 lg:mt-[12.5rem]"
               style={{ color: TEXT }}
             >
               {SEC5_BODY}
