@@ -32,3 +32,13 @@
 ## 릴리즈 직전
 - [ ] [11_release-log.md](./11_release-log.md)에 버전·요약 반영
 - [ ] [07_api-env.md](./07_api-env.md)와 실제 배포 환경 일치
+
+## pentacore 웹 (라우트 스모크)
+- [ ] `/` — 인트로·Skip·재방문 스킵(`localStorage`)·비디오 재생(또는 대체 URL)
+- [ ] `/about` — 레이아웃·스크롤·이미지
+- [ ] `/work` — 포트폴리오 행·모션 과부하 없음
+- [ ] `/works/hyundai-navigation` — 404 아님, 롱 스크롤 이미지
+- [ ] `/hiring`, `/hiring/backend-developer` — 지원 드로어·포털이 다른 레이어에 가리지 않음
+- [ ] `/inquiry` — 선택·제출 → mailto 열림(클라이언트에 메일 앱)
+- [ ] 햄버거 메뉴 — 아이콘 탭 시 오버레이 정상 (`HeaderMenuIcon` 히트 영역)
+- [ ] 메타 — 소스 보기 또는 공유 디버거로 `og:image`·`title`·canonical 의도 확인

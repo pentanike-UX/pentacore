@@ -6,8 +6,9 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+/** iOS Safari: input font-size < 16px 시 포커스 시 뷰포트 확대 */
 const inputClass =
-  "mt-1 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2.5 text-[15px] text-zinc-950 outline-none transition-shadow placeholder:text-zinc-400 focus-visible:border-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-900/15";
+  "mt-1 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2.5 text-base text-zinc-950 outline-none transition-shadow placeholder:text-zinc-400 focus-visible:border-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-900/15";
 
 const labelClass = "text-sm font-medium text-zinc-800";
 
@@ -197,7 +198,7 @@ export function HiringApplyDrawer({ open, onOpenChange, jobTitle }: Props) {
                   accept=".pdf,.doc,.docx,application/pdf"
                   className={cn(
                     inputClass,
-                    "cursor-pointer file:mr-3 file:rounded-md file:border-0 file:bg-zinc-200/80 file:px-3 file:py-1 file:text-sm file:font-medium file:text-zinc-800",
+                    "cursor-pointer file:mr-3 file:rounded-md file:border-0 file:bg-zinc-200/80 file:px-3 file:py-1 file:text-base file:font-medium file:text-zinc-800",
                   )}
                 />
               </div>
@@ -235,7 +236,7 @@ export function HiringApplyDrawer({ open, onOpenChange, jobTitle }: Props) {
                     onChange={() => setPortfolioErr(false)}
                     className={cn(
                       inputClass,
-                      "mt-1 cursor-pointer file:mr-3 file:rounded-md file:border-0 file:bg-zinc-200/80 file:px-3 file:py-1 file:text-sm file:font-medium file:text-zinc-800",
+                      "mt-1 cursor-pointer file:mr-3 file:rounded-md file:border-0 file:bg-zinc-200/80 file:px-3 file:py-1 file:text-base file:font-medium file:text-zinc-800",
                     )}
                   />
                 </label>

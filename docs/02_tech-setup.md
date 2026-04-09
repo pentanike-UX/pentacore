@@ -1,19 +1,30 @@
 # 기술 셋업
 
 ## 현재 상태
-- **프레임워크**: TODO (미선정)
-- **패키지 매니저**: npm (`package-lock.json` 존재; 루트에 최소 `package.json`으로 스크립트만 연동 가능)
-- **런타임**: TODO (Node 버전 등)
-- **배포**: TODO
+- **프레임워크**: Next.js **15.5** (App Router, Turbopack dev)
+- **UI**: React **19**, Tailwind CSS **3.4**, Framer Motion, `@base-ui/react`, shadcn 스타일 유틸(`components/ui`)
+- **폰트**: `next/font` — Geist, Noto Sans KR, Inter 900(디스플레이)
+- **패키지 매니저**: npm (`web/package-lock.json`)
+- **런타임**: Node **>= 20.9.0** (`web/package.json` engines)
+- **배포**: TODO (Vercel·자체 호스팅 등 확정 후 [07_api-env.md](./07_api-env.md) 갱신)
 
 ## 로컬 실행
 ```bash
-# TODO: 프레임워크 확정 후 채우기
-# 예: npm install && npm run dev
+cd web
+npm install
+npm run dev
+# http://localhost:3000
+```
+
+프로덕션 빌드:
+```bash
+cd web
+npm run build
+npm run start
 ```
 
 ## 권장 Node 버전
-<!-- TODO: 예: 20 LTS -->
+- **20 LTS 이상** (engines와 동일 권장)
 
 ## 환경 변수
 자세한 키 목록은 [07_api-env.md](./07_api-env.md).
@@ -62,5 +73,15 @@ npm run log:adr -- "결정 제목 한 줄"
 npm run hooks:install
 ```
 
-## 디렉터리 (예정)
-<!-- TODO: app/ 또는 src/ 구조 확정 후 업데이트 -->
+## 디렉터리 (웹 앱)
+```
+pentacore/
+├── web/                      # Next.js 앱 루트
+│   ├── app/                  # App Router: layout, page, opengraph-image, icon
+│   ├── components/           # 기능·레이아웃·UI 컴포넌트
+│   ├── hooks/                # useBreakpoint 등
+│   ├── lib/                  # 유틸·디자인 토큰성 상수
+│   └── public/               # 정적 에셋 (video/, work/ 등)
+├── docs/                     # 본 문서 세트
+└── scripts/                  # 로그·ADR 스크립트
+```

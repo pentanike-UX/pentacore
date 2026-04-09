@@ -2,7 +2,7 @@
   "name": "pentacore",
   "version": "0.0.0",
   "private": true,
-  "description": "TODO: 한 줄 설명",
+  "description": "PENTACORE 리포 — 문서·스크립트·web/ Next.js 사이트",
   "scripts": {
     "log:work": "./scripts/log-work.sh",
     "log:release": "./scripts/log-release.sh",

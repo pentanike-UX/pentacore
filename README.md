@@ -1,13 +1,17 @@
 # pentacore
 
 ## 개요
-앱 코드·프레임워크는 아직 없고, **문서·작업 로그·PR/이슈 템플릿·가벼운 자동화**만 갖춘 초기 상태다. 제품 한 줄 설명은 [docs/00_project-overview.md](docs/00_project-overview.md)의 TODO를 채운다.
+**PENTACORE** 공식 웹 애플리케이션이 `web/`에 있다 (Next.js 15, React 19). 브랜드 홈, 포트폴리오(Work·Works), About, Hiring, Inquiry를 포함한다. 제품 한 줄·IA·화면 상세는 [docs/00_project-overview.md](docs/00_project-overview.md), [docs/03_information-architecture.md](docs/03_information-architecture.md), [docs/04_screen-spec.md](docs/04_screen-spec.md)를 본다.
 
-## 개발 시작 순서 (권장)
-1. [docs/00_project-overview.md](docs/00_project-overview.md) · [docs/01_product-prd.md](docs/01_product-prd.md)로 방향 정리
-2. [docs/02_tech-setup.md](docs/02_tech-setup.md)에 스택·실행 방법 기록 후 프레임워크 도입
-3. [docs/03_information-architecture.md](docs/03_information-architecture.md) · [docs/04_screen-spec.md](docs/04_screen-spec.md)를 화면 작업과 함께 갱신
-4. API·환경은 [docs/07_api-env.md](docs/07_api-env.md), 데이터는 [docs/06_data-schema.md](docs/06_data-schema.md)
+## 빠른 시작
+```bash
+cd web
+npm install
+npm run dev
+```
+브라우저: `http://localhost:3000`  
+빌드: `npm run build && npm run start`  
+Node **20+** 권장 (`web/package.json` engines).
 
 ## 문서 우선순위
 | 순서 | 문서 |
@@ -45,5 +49,8 @@ npm run hooks:install
 - UI 작업: Figma MCP 연결 시 프레임·컴포넌트·annotation 먼저 확인; `docs/04`·`docs/05`와 SoT 유지.
 - 큰 설계 변경: 먼저 `docs/09_decision-log.md`에 ADR 추가를 요청할 수 있다.
 
+## 환경 변수
+- `NEXT_PUBLIC_HERO_VIDEO_URL` (선택) — 홈 히어로 영상. 미설정 시 `/video/hero.mp4`. 자세한 내용은 [docs/07_api-env.md](docs/07_api-env.md).
+
 ## package-lock.json
-이전에 루트에만 lock 파일이 있었을 수 있다. `package.json` 추가 후 필요하면 `npm install`로 lock을 정리한다.
+`web/package-lock.json`이 웹 앱의 잠금 파일이다. 루트 스크립트와 병행 시 각 디렉터리에서 `npm install`을 실행한다.
