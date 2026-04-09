@@ -532,14 +532,14 @@ export function WorksDetailView() {
             </h2>
             </div>
 
-            <div className="col-span-12 mt-16 grid grid-cols-12 gap-x-3 gap-y-0 md:gap-x-6 lg:mt-24 lg:gap-x-8">
+            <div className="col-span-12 mt-16 grid grid-cols-12 gap-x-3 gap-y-10 md:gap-y-0 md:gap-x-6 lg:mt-24 lg:gap-x-8">
               <p
-                className="col-span-5 min-w-0 text-sm leading-relaxed md:col-span-4 md:text-base lg:max-w-[355px]"
+                className="col-span-12 min-w-0 text-sm leading-relaxed md:col-span-4 md:text-base lg:max-w-[355px]"
                 style={{ color: TEXT }}
               >
                 {SEC4_BODY}
               </p>
-              <div className="col-span-7 flex min-w-0 flex-row items-start justify-end gap-2 md:col-span-8 md:gap-4 lg:gap-12">
+              <div className="col-span-12 flex min-w-0 flex-row items-start justify-center gap-2 md:col-span-8 md:justify-end md:gap-4 lg:gap-12">
                 <div className="flex shrink-0 flex-col">
                   <p className="mb-4 text-xs md:mb-5" style={{ color: MUTED }}>
                     ST-FO-005_BIC_m
