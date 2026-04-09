@@ -41,12 +41,12 @@ function BtnTopIcon({ className }: { className?: string }) {
 }
 
 /**
- * 딤(헤더 풀스크린 메뉴 `z-[90]`) 아래.
- * 비딤: 헤더 `z-[100]`·메뉴 열린 헤더 `z-[110]` 위. 인라인 푸터는 형제 `z-10`이라
- * 메인(`isolate`) 안에 두면 푸터 뒤로 깔림 → `body` 포털로 스택 분리.
+ * 딤: 헤더 풀스크린 메뉴 `z-[90]` 아래.
+ * 비딤: `z-[280]` — 푸터 `z-10`·헤더 `z-[100–110]`·커서 오버레이 `z-[200]` 위, 토스트 `z-[300]` 아래.
+ * `fixed` 단일 버튼 대신 전역 셸로 쌓임 맥락 고정 + 모바일 하단 여백으로 인라인 푸터와 겹침 완화.
  */
 const Z_DIMMED = 85;
-const Z_TOP = 120;
+const Z_TOP = 280;
 
 export function SubPageScrollTopButton() {
   const [mounted, setMounted] = useState(false);
@@ -71,26 +71,36 @@ export function SubPageScrollTopButton() {
   }, []);
 
   const node = (
-    <button
-      type="button"
-      onClick={scrollTop}
-      aria-label="맨 위로"
-      aria-hidden={!visible}
-      tabIndex={visible ? 0 : -1}
-      style={{ zIndex: navDimmed ? Z_DIMMED : Z_TOP }}
+    <div
       className={cn(
-        "fixed size-11 overflow-hidden rounded-full border-0 bg-transparent p-0",
-        "bottom-4 right-4 outline-none ring-offset-2 focus-visible:ring-2 focus-visible:ring-zinc-950",
-        "shadow-[0_10px_10px_rgba(0,0,0,0.2)]",
-        "origin-center transition-[transform,opacity] duration-200 ease-out",
-        "hover:scale-110 active:scale-100",
-        visible
-          ? "pointer-events-auto opacity-100"
-          : "pointer-events-none opacity-0",
+        "pointer-events-none fixed inset-0 flex items-end justify-end",
+        "p-4 pr-[max(1rem,env(safe-area-inset-right,0px))] pb-[max(1rem,env(safe-area-inset-bottom,0px))]",
+        /* 인라인 푸터(모바일) 높이만큼 위로 — 시각·탭 여유 */
+        "max-md:pb-[max(6.5rem,env(safe-area-inset-bottom,0px))]",
       )}
+      style={{ zIndex: navDimmed ? Z_DIMMED : Z_TOP }}
+      aria-hidden={!visible}
     >
-      <BtnTopIcon className="block size-full" />
-    </button>
+      <button
+        type="button"
+        onClick={scrollTop}
+        aria-label="맨 위로"
+        aria-hidden={!visible}
+        tabIndex={visible ? 0 : -1}
+        className={cn(
+          "pointer-events-auto size-11 shrink-0 overflow-hidden rounded-full border-0 bg-transparent p-0",
+          "outline-none ring-offset-2 focus-visible:ring-2 focus-visible:ring-zinc-950",
+          "shadow-[0_10px_10px_rgba(0,0,0,0.2)]",
+          "origin-center transition-[transform,opacity] duration-200 ease-out",
+          "hover:scale-110 active:scale-100",
+          visible
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0",
+        )}
+      >
+        <BtnTopIcon className="block size-full" />
+      </button>
+    </div>
   );
 
   if (!mounted || typeof document === "undefined") return null;

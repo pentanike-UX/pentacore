@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 import { Toast } from "@base-ui/react/toast";
 import {
@@ -66,27 +65,7 @@ function PortfolioCardViewInner() {
 }
 
 function WorkPageBody() {
-  /** 모바일: 130% 스케일 카드 등으로 가로 스크롤만 억제(세로 스크롤은 유지) */
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    const apply = () => {
-      if (mq.matches) {
-        document.documentElement.style.overflowX = "hidden";
-        document.body.style.overflowX = "hidden";
-      } else {
-        document.documentElement.style.overflowX = "";
-        document.body.style.overflowX = "";
-      }
-    };
-    apply();
-    mq.addEventListener("change", apply);
-    return () => {
-      mq.removeEventListener("change", apply);
-      document.documentElement.style.overflowX = "";
-      document.body.style.overflowX = "";
-    };
-  }, []);
-
+  /** 가로 오버플로: `SubPageScaffold`·`AppChrome`의 `overflow-x-hidden`으로 처리. `body`에 overflow를 걸면 `fixed` 포털 FAB가 푸터 뒤로 깔릴 수 있음. */
   return (
     <SubPageScaffold
       as="main"
@@ -176,7 +155,7 @@ function WorkPageBody() {
         <WorkThumbHmg className="relative z-0 overflow-visible" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex translate-y-1/2 justify-center overflow-visible px-6 md:px-10">
           <div className="pointer-events-auto flex w-full max-w-[820px] justify-center overflow-visible">
-            {/* 모바일: 카드 130% 스케일 + origin-center — 가로 오버플로는 페이지에서 overflow-x 숨김 */}
+            {/* 모바일: 카드 130% 스케일 + origin-center — 가로 오버플로는 `AppChrome`/`SubPageScaffold` overflow-x 숨김 */}
             <div className="w-full max-md:origin-center max-md:scale-[1.3] md:scale-100">
               <ParallaxViewport yRange={[0, -20]} className="w-full overflow-visible">
                 <ParallaxLayer yRange={[16, -16]} className="w-full overflow-visible">

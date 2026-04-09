@@ -31,8 +31,8 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
       <div
         className={
           subInlineFooter
-            ? "flex min-h-dvh flex-col pb-0"
-            : "min-h-dvh pb-32 md:pb-36"
+            ? "flex min-h-dvh flex-col overflow-x-hidden pb-0"
+            : "min-h-dvh overflow-x-hidden pb-32 md:pb-36"
         }
       >
         <div className={subInlineFooter ? "flex-1" : undefined}>{children}</div>
