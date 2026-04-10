@@ -25,7 +25,7 @@
 
 ## 내비게이션 패턴
 - **홈**: 상단 `HeaderBar`·하단 `FooterBar` (동영상 위 오버레이·글래스 스크롤 연동).
-- **서브페이지** (`/` 제외): `AppChrome`이 동일 헤더·푸터(라이트 서피스, 인라인 푸터) 제공.
+- **서브페이지** (`/` 제외): `AppChrome`이 동일 헤더·푸터(라이트 서피스, 인라인 푸터) 제공. `SubPageScaffold`로 감싼 본문에 **맨 위로** 플로팅 버튼(스크롤 시; 메뉴 오버레이와 z-order 연동 — `04_screen-spec` 공통).
 - **햄버거**: `HeaderMenuIcon` + `HeaderNavOverlay` 풀스크린 메뉴.
 - **워드마크**: `PentacoreWordmark` + `public/home/pentacore-symbol.svg` 등.
 
@@ -38,8 +38,8 @@
 | 리드 | 폼·이메일 | `/inquiry` |
 
 ## 심층 링크 / SEO
-- 전역 `metadata`·`metadataBase`: [04_screen-spec.md](./04_screen-spec.md) 홈 섹션·`web/app/layout.tsx` 참고.
-- 정적 OG·파비콘: `web/app/opengraph-image.png`, `icon.png`, `twitter-image.png`.
+- 전역 **`metadata`·`viewport`·`metadataBase`**: 통일 타이틀·디스크립션·키워드·OG·Twitter·이미지 **alt**·`theme-color`·`apple-touch-icon` — [04_screen-spec.md](./04_screen-spec.md) **공통**·`web/app/layout.tsx`.
+- 정적 OG·파비콘: `web/app/opengraph-image.png`, `icon.png`, `twitter-image.png`; Apple 터치 아이콘은 `web/public/apple-touch-icon.png`.
 - canonical 기본 `/` (루트); 하위 페이지별 `generateMetadata` 확장은 TODO.
 
 ## 변경 시

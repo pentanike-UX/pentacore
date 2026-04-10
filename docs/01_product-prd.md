@@ -23,10 +23,11 @@
 - 전역 내비: ABOUT / WORK / HIRING / PROJECT INQUIRY.
 - Work 목록·포트폴리오 행(로고·기간·태그); Works 상세 1건(정적 슬러그).
 - About, Hiring 목록·공고 상세(정적 슬러그), Inquiry 폼(mailto).
-- SEO: `metadata`, Open Graph·Twitter 카드, `app/icon.png`·`opengraph-image.png` 등.
+- SEO: 루트 `metadata`/`viewport`로 **통일된** 타이틀·디스크립션·키워드·Open Graph·Twitter Card; OG/Twitter **이미지 alt**; `theme-color`; `apple-touch-icon` 경로. 파일: `app/icon.png`, `opengraph-image.png`, `twitter-image.png` (상세는 `04_screen-spec` 공통).
 
 ### Should
 - 스크롤 연동 리퀴드 글래스 헤더/푸터, 브레이크포인트별 레이아웃(모바일·태블릿·데스크톱).
+- 서브페이지(`SubPageScaffold`): 스크롤 시 **맨 위로** 플로팅 버튼; 전역 메뉴(햄버거) 오버레이와 z-order 조화.
 - 이미지·동영상 로딩 스켈레톤 등 빈 화면 완화.
 
 ### Could
@@ -48,5 +49,5 @@
 ## 변경 이력
 | 날짜 | 변경 |
 |------|------|
-| 2026-04-08 | 초기 웹 구현 반영, PRD 범위 구체화 |
+| 2026-04-08 | 초기 웹 구현 반영, PRD 범위 구체화. 동일일 문서 동기화: SEO 통일 카피·OG/Twitter alt·theme-color·apple-touch-icon; 서브 FAB·가로 오버플로 정책; Work/Works 상세는 `04_screen-spec` |
 | (이전) | 초안 |

@@ -20,9 +20,22 @@
 
 ## 공통
 - **브레이크포인트** (`useBreakpoint`): `<768` mobile · `<1024` tablet · 그 외 desktop.
-- **루트 레이아웃**: `web/app/layout.tsx` — `AppChrome`, `GlobalCursorProvider`, 폰트 변수, **SEO 메타** (title template, Open Graph, Twitter, keywords, canonical `/`).
-- **파비콘·OG**: `web/app/icon.png`, `opengraph-image.png`, `twitter-image.png` (파일 기반 메타데이터).
+- **루트 레이아웃**: `web/app/layout.tsx` — `AppChrome`, `GlobalCursorProvider`, 폰트 변수, **`metadata` / `viewport` export**로 SEO·테마 컬러 관리.
+- **SEO 메타 (단일 소스 상수)** — `<title>` 기본값, `meta description`, `meta keywords`, `og:title`, `og:description`, `twitter:title`, `twitter:description`에 **동일 문구** 사용:
+  - **Title**: `PENTACORE | IT·AI 개발부터 서비스 운영까지, 기술·디자인 스튜디오`
+  - **Description**: 현대자동차그룹·삼성 등 파트너, 내비·인비히클·웹·AI 설계·개발·운영, IT 컨설팅·구축·연간운영까지 — 스튜디오형 팀 펜타코어 (전문 `layout.tsx` 참조).
+  - **Keywords**: `PENTACORE,펜타코어,IT개발에이전시,AI개발,서비스운영,내비게이션,인비히클,IVI,모빌리티,웹개발,프로덕트디자인,자동차UX,IT컨설팅,연간운영,SaaS,플랫폼구축`
+  - `title.template`: `%s | PENTACORE` 유지.
+  - `openGraph`: `type` website, `locale` ko_KR, `url` `/`(+ metadataBase), `siteName` PENTACORE, `images[]`: `/opengraph-image.png` + **`alt`** (OG 이미지 대체 텍스트).
+  - `twitter`: `summary_large_image`, 동일 title/description, `images`: `/twitter-image.png` + **alt**.
+  - `alternates.canonical`: `/`, `robots`: index/follow 유지.
+- **`viewport`**: `themeColor: #000000` (Next 15 — `metadata.themeColor` 비권장).
+- **아이콘**: `web/app/icon.png` (파비콘). **`icons.apple`**: `/apple-touch-icon.png` → `web/public/apple-touch-icon.png` (현재는 `icon.png` 복제; **권장 180×180** 교체 TODO).
+- **파비콘·OG·Twitter 이미지 파일**: `web/app/icon.png`, `opengraph-image.png`, `twitter-image.png` (파일 기반 라우트; 메타에서 OG/Twitter **경로·alt** 명시).
 - **metadataBase**: `https://www.pentacore.co.kr` — 배포 도메인과 다르면 수정.
+- **서브페이지 공통 (`SubPageScaffold`)**:
+  - **맨 위로 FAB** (`SubPageScrollTopButton`): 스크롤 시 표시, `createPortal` → `document.body`, 비딤 시 z 상단(헤더·인라인 푸터·미세 포인터 커서 레이어 위), **풀스크린 메뉴 열림** 시 `document.documentElement`의 `data-header-nav-open`과 연동해 딤(`HeaderNavOverlay` z) 아래로. 우하단 1rem, 원형 그림자 Y10·blur10·#000 20%, 호버 스케일 / 클릭 시 원복. 홈(`/`)에는 없음.
+  - **가로 오버플로**: `html`/`body`에 `overflow-x: hidden`을 직접 걸지 않음(`fixed` 포털·푸터 쌓임 깨짐 방지). **`AppChrome`** 메인 컬럼 래퍼와 **`SubPageScaffold`**에 `overflow-x-hidden`으로 억제.
 
 ---
 
@@ -61,7 +74,11 @@
 - **목적**: 실적 목록·로고·기간·태그, 브랜드 신뢰
 - **진입**: 내비·홈 카드
 - **반응형**: 글래스 행·루프·패럴랙스 강도 브레이크포인트별 조정
-- **주요 UI**: 포트폴리오 행, 토스트 스택(`WorkToastStack`) 등
+- **주요 UI**:
+  - **`portfolio_card_view`**: 썸 이미지 위 플로팅 카드 링크 — 모바일(`max-md`) **130%** 스케일·`origin-center`; 가로 넘침은 공통 `overflow-x` 정책으로 처리(위 공통 참조).
+  - **`txt`**: 히어로 하단 카피 — 모바일 12컬 그리드에서 **2칸 비우고 3열부터 끝까지**(`col-start-3`·`col-span-10`), 썸 스택과 **`mb-[4.5rem]`** 간격.
+  - **`portfolio_group`**: 모바일만 본문 타이포 한 단계 축소 — 행 제목 `text-sm`, 기간·태그 칩 `text-xs`; `md+`는 기존 크기.
+  - 포트폴리오 행, 토스트 스택(`WorkToastStack`) 등
 - **상태**: 스크롤·모션 중심; 별도 empty API 없음(정적 배열)
 - **액션**: 케이스로 이동 링크(구현된 경우)
 - **비고**: 데이터 소스 `WORK_PORTFOLIO_ROWS`
@@ -75,10 +92,13 @@
 - **목적**: 단일 대형 케이스 스토리텔링(롱 스크롤 이미지 등)
 - **진입**: Work에서 링크·직링크
 - **반응형**: 풀블리드 이미지·디바이더; `ST_FO_111_FULL_INTRINSIC` 등 치수 상수
-- **주요 UI**: 섹션 이미지, 플로우 스텝, 최신업데이트 샘플 PNG
+- **주요 UI**:
+  - **sec_2 칩** (`data-figma="sec_2 chips"`): Hyundai / Kia / Genesis 각각 **3링크** — 순서 **KOREA**(루트 `https://update.{brand}.com`) → **USA** (`/US/EN/home`) → **EU** (`/EU/EN/home`). 라벨: Official … Navigation Update Website - KOREA | USA | EU. (`BRAND_LINKS`, `FigmaBtnChip`)
+  - 섹션 이미지, 플로우 스텝, 최신업데이트 샘플 PNG
+  - **크레딧**(하단 HD / HAE / PENTACORE): HYUNDAI MOTORS 블록과 HYUNDAI AUTOEVER 블록 사이(스택 시) 상단 여백 **`mt-8`**, PENTACORE 크레딧 블록 내 `space-y-8`과 동일 스케일. **페이지 본문에는 `ⓒ PENTACORE` 없음** — 서브 `AppChrome` 인라인 푸터에만 저작권(중복 방지).
 - **상태**: 이미지 스켈레톤; 잘못된 슬러그 → `notFound()`
-- **액션**: 스크롤
-- **비고**: 신규 케이스 시 `WORK_DETAIL_SLUG`·`generateStaticParams`·뷰 동기화
+- **액션**: 스크롤, sec_2 외부 링크(칩)
+- **비고**: 신규 케이스 시 `WORK_DETAIL_SLUG`·`generateStaticParams`·뷰 동기화; 칩 URL·카피 변경 시 본 스펙·Figma 주석 동기화
 
 ---
 
@@ -128,6 +148,7 @@
 | 영역 | 코드 앵커 |
 |------|-----------|
 | 리퀴드 글래스 | `lib/figma-liquid-glass.ts`, 헤더/푸터 주석 |
+| 서브 맨 위로 FAB | `components/layout/SubPageScrollTopButton.tsx`, `SubPageScaffold.tsx` |
 | Work 에셋 | `components/work/figma-work-assets.ts`, `work-assets.ts` |
 | About 에셋 | `components/about/figma-about-assets.ts` |
 | 홈 레거시 MCP 경로 | `components/home/figma-assets.ts` (주석) |

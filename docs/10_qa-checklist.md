@@ -36,9 +36,10 @@
 ## pentacore 웹 (라우트 스모크)
 - [ ] `/` — 인트로·Skip·재방문 스킵(`localStorage`)·비디오 재생(또는 대체 URL)
 - [ ] `/about` — 레이아웃·스크롤·이미지
-- [ ] `/work` — 포트폴리오 행·모션 과부하 없음
-- [ ] `/works/hyundai-navigation` — 404 아님, 롱 스크롤 이미지
+- [ ] `/work` — 포트폴리오 행·모션 과부하 없음; 모바일 카드 130%·가로 스크롤 없음; `txt`·`portfolio_group` 레이아웃·타이포
+- [ ] `/works/hyundai-navigation` — 404 아님, 롱 스크롤 이미지; **sec_2 칩** KOREA/US/EU 링크 동작·라벨; 크레딧 구간에 **중복 © 없음**(푸터만)
 - [ ] `/hiring`, `/hiring/backend-developer` — 지원 드로어·포털이 다른 레이어에 가리지 않음
 - [ ] `/inquiry` — 선택·제출 → mailto 열림(클라이언트에 메일 앱)
 - [ ] 햄버거 메뉴 — 아이콘 탭 시 오버레이 정상 (`HeaderMenuIcon` 히트 영역)
-- [ ] 메타 — 소스 보기 또는 공유 디버거로 `og:image`·`title`·canonical 의도 확인
+- [ ] 메타 — 소스 보기 또는 공유 디버거로 `title`·`description`·`keywords`·`og:*`·`twitter:*`·**`og:image:alt`**·canonical(`metadataBase`) 의도 확인; **`theme-color`**·**`apple-touch-icon`**
+- [ ] 서브페이지(예 `/about`, `/work`) — 스크롤 후 **맨 위로 FAB** 노출·클릭 시 상단 이동; **햄버거 메뉴 열림** 시 FAB이 딤 아래로 가는지
