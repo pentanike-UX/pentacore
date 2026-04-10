@@ -771,7 +771,7 @@ export function WorksDetailView() {
                 </dl>
               </div>
               <div
-                className="col-span-12 mt-12 space-y-0 lg:col-span-4 lg:col-start-9 lg:mt-20"
+                className="col-span-12 mt-8 space-y-0 lg:col-span-4 lg:col-start-9 lg:mt-20"
                 data-figma="HYUNDAI AUTOEVER"
               >
                 <p
@@ -822,9 +822,6 @@ export function WorksDetailView() {
                     names="Seok hyun Cho, Seon joo Kim, Eun hye Ahn, Ji yong Cheon, Jae hong Lee"
                   />
                 </div>
-                <p className="pt-8 text-xs font-light" style={{ color: TEXT }}>
-                  ⓒ PENTACORE.
-                </p>
               </footer>
             </Grid12>
           </ParallaxLayer>
