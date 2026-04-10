@@ -3,23 +3,24 @@
 import { IntrinsicNaturalImageWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { cn } from "@/lib/utils";
 
-/** `public/home/home-cert-*.svg` — 푸터·레이아웃 공통 */
-export const HOME_ISO_BADGE_SRCS = [
-  "/home/home-cert-1.svg",
-  "/home/home-cert-2.svg",
-  "/home/home-cert-3.svg",
+/** 푸터 인증 뱃지 — `public/home/` (순서: IAF → KAB → KQA). Next `width`/`height`는 원본 비율용. */
+export const HOME_FOOTER_BADGES = [
+  { src: "/home/badge_iaf.svg", width: 152, height: 95 },
+  { src: "/home/badge_kab.png", width: 2286, height: 1539 },
+  { src: "/home/badge_kqa.svg", width: 736, height: 365 },
 ] as const;
 
-type IsoBadgesProps = {
-  className?: string;
-  /** flex 정렬: 홈 푸터는 start, 서브는 end */
-  justify?: "start" | "end" | "center";
-};
+/** @deprecated `HOME_FOOTER_BADGES` 사용 권장 */
+export const HOME_ISO_BADGE_SRCS = HOME_FOOTER_BADGES.map((b) => b.src);
 
 export function HomeIsoBadges({
   className,
   justify = "center",
-}: IsoBadgesProps) {
+}: {
+  className?: string;
+  /** flex 정렬: 홈 푸터는 start, 서브는 end */
+  justify?: "start" | "end" | "center";
+}) {
   const justifyCls =
     justify === "start"
       ? "justify-start"
@@ -36,16 +37,17 @@ export function HomeIsoBadges({
       )}
       data-figma="footer iso_badges"
     >
-      {HOME_ISO_BADGE_SRCS.map((src) => (
-        <span key={src} className="shrink-0" aria-hidden>
+      {HOME_FOOTER_BADGES.map((badge) => (
+        <span key={badge.src} className="inline-flex shrink-0 items-center" aria-hidden>
           <IntrinsicNaturalImageWithSkeleton
-            src={src}
+            src={badge.src}
             alt=""
-            width={180}
-            height={180}
-            sizes="56px"
+            width={badge.width}
+            height={badge.height}
+            sizes="50px"
             unoptimized
-            imageClassName="max-h-[3.5rem] max-w-[3.5rem] object-contain"
+            className="max-w-none"
+            imageClassName="h-[50px] max-h-[50px] w-auto max-w-none object-contain"
           />
         </span>
       ))}
