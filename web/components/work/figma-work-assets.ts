@@ -62,23 +62,22 @@ export const figmaBtnChip = {
 } as const;
 
 /** `/works_view` 중간구분 */
-export const figmaWorksViewDivider =
-  "https://www.figma.com/api/mcp/asset/8d5245c1-a8a7-48b4-9d24-888d92519516";
+export const figmaWorksViewDivider = "/work/hyundai_1.png";
 
 /** works_view 스크린·루프 */
 export const figmaHyundaiCase = {
   sec1Hero:
-    "https://www.figma.com/api/mcp/asset/33c68562-07c8-4e79-8092-723bc335816b",
+    "/work/hyundai_1.png",
   flowStep1:
-    "https://www.figma.com/api/mcp/asset/dcb2035c-7d0c-41bf-ae57-b9ca2372e733",
+    "/work/hyundai_4.png",
   flowStep2:
-    "https://www.figma.com/api/mcp/asset/0fcbc93f-2548-41ab-95f4-60262cba06ee",
+    "/work/hyundai_5.png",
   flowStep3:
-    "https://www.figma.com/api/mcp/asset/bcaf39ed-fbe0-4b6b-a68c-09c0012a9055",
+    "/work/hyundai_6.png",
   myPageFlow:
-    "https://www.figma.com/api/mcp/asset/54677547-3131-4c48-a873-872d1b76cf31",
+    "/work/hyundai_7.png",
   sec3LatestSample:
-    "https://www.figma.com/api/mcp/asset/33c68562-07c8-4e79-8092-723bc335816b",
+    "/work/hyundai_2.png",
   stFo005Full:
     "https://www.figma.com/api/mcp/asset/bb522fda-1375-4eca-87a1-3b319591570e",
   stFo024Full:
