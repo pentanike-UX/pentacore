@@ -59,7 +59,7 @@ function Grid12({
 const META_ROWS = [
   { label: "고용 형태", value: "정규직 (수습 3개월)" },
   { label: "기술 스택", value: "Java, React" },
-  { label: "근무", value: "서울 / 협의 (하이브리드)" },
+  { label: "근무", value: "서울" },
   { label: "지원", value: "이력서·포트폴리오·GitHub 링크" },
 ] as const;
 
@@ -199,7 +199,6 @@ export function HiringJobDetailView() {
           className="mt-6 max-w-[730px] list-disc space-y-2 pl-5 text-base leading-relaxed"
           style={{ color: TEXT }}
         >
-          <li>업데이트·배포 관련 REST API 설계 및 구현</li>
           <li>레거시 시스템과의 연동, 데이터 정합성·성능 이슈 대응</li>
           <li>React 기반 내부/파트너용 웹과의 API 계약 협업</li>
           <li>코드 리뷰, 테스트, 문서화</li>
@@ -218,7 +217,9 @@ export function HiringJobDetailView() {
           <li>Java(Spring 등) 기반 웹 서비스 개발 경력 3년 이상</li>
           <li>React로 화면·상태·API 연동을 구현해 본 경험</li>
           <li>SQL·트랜잭션·캐시 등 백엔드 기본기</li>
-          <li>Git 기반 협업, 이슈·PR 중심 커뮤니케이션</li>
+          <li>Git 기반 협업</li>
+          <li>지라·컨플루언스 협업툴 활용 커뮤니케이션</li>
+          <li>배치 프로그램 개발 경험</li>
         </ul>
 
         <h2
@@ -231,7 +232,7 @@ export function HiringJobDetailView() {
           className="mt-6 max-w-[730px] list-disc space-y-2 pl-5 text-base leading-relaxed"
           style={{ color: TEXT }}
         >
-          <li>클라우드·컨테이너 배포 경험</li>
+          <li>AWS 배포 경험</li>
           <li>자동차·모빌리티 도메인 경험</li>
           <li>영어 기술 문서 독해 및 협업 가능 수준</li>
         </ul>
