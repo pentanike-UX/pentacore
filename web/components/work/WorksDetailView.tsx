@@ -1,10 +1,12 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import {
   FixedImageWithSkeleton,
   ImageFillWithSkeleton,
+  ShimmerOverlay,
 } from "@/components/media/ImageWithSkeleton";
 import { IMAGE_SIZES_CONTENT_1280 } from "@/lib/image-presets";
 import { SUB_WORK_PAGE_BG } from "@/lib/figma-liquid-glass";
@@ -20,6 +22,7 @@ import {
 import {
   hyundaiWorksViewImages,
   ST_FO_111_FULL_INTRINSIC,
+  WORKS_SEC1_HERO_IMAGE,
   workImages,
 } from "./work-assets";
 import { FigmaBtnChip } from "./FigmaBtnChip";
@@ -145,6 +148,10 @@ function BrandRow({
   );
 }
 
+/**
+ * `public/work` PNG는 네이티브 `<img>`로 직접 링크 (`/_next/image`·긴 srcset 없음).
+ * 원격(Figma) URL만 `next/image` fill 사용.
+ */
 function FigImage({
   src,
   alt,
@@ -156,6 +163,42 @@ function FigImage({
   ratio: string;
   className?: string;
 }) {
+  const [loaded, setLoaded] = useState(false);
+  const onLoad = useCallback(() => {
+    setLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) setLoaded(true);
+  }, []);
+
+  if (src.startsWith("/work/")) {
+    return (
+      <div
+        className={cn(
+          "relative w-full overflow-hidden bg-transparent",
+          className,
+        )}
+        style={{ aspectRatio: ratio }}
+      >
+        {!loaded && <ShimmerOverlay />}
+        {/* eslint-disable-next-line @next/next/no-img-element -- 로컬 정적 PNG 직링크 의도 */}
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          onLoad={onLoad}
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-700 ease-out motion-reduce:duration-150",
+            loaded ? "opacity-100" : "opacity-0",
+          )}
+        />
+      </div>
+    );
+  }
+
   return (
     <ImageFillWithSkeleton
       src={src}
@@ -374,7 +417,7 @@ export function WorksDetailView() {
           <div className="col-span-12 flex justify-center lg:col-span-10 lg:col-start-2">
         <div className="w-full max-w-[964px]">
           <FigImage
-            src={hyundaiWorksViewImages.heroHome}
+            src={WORKS_SEC1_HERO_IMAGE}
             alt="Genesis navigation update — home"
             ratio="964/731"
           />

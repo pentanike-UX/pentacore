@@ -66,8 +66,8 @@ export const figmaWorksViewDivider = "/work/hyundai_1.png";
 
 /** works_view 스크린·루프 */
 export const figmaHyundaiCase = {
-  /** `/works_view` sec_1 — `work-assets`의 `heroHome`과 동일 에셋 */
-  sec1Hero: "/work/hyundai_2.png",
+  /** `/works_view` sec_1 — `work-assets`의 `WORKS_SEC1_HERO_IMAGE`와 동일 */
+  sec1Hero: "/work/hyundai_2.png" as const,
   flowStep1:
     "/work/hyundai_4.png",
   flowStep2:
