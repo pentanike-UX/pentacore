@@ -125,13 +125,13 @@ function BrandRow({
   return (
     <div
       className={cn(
-        "flex flex-col gap-6 md:flex-row md:gap-14",
+        "flex flex-col gap-6 md:flex-row md:items-center md:gap-14",
         noDivider
           ? "pt-0"
           : "border-t border-black/10 pt-14 first:border-t-0 first:pt-0",
       )}
     >
-      <div className="flex min-h-[50px] w-full max-w-[280px] shrink-0 flex-wrap items-center gap-[10px] lg:max-w-[100px]">
+      <div className="flex min-h-[72px] w-full max-w-[320px] shrink-0 flex-wrap items-center gap-[10px] md:min-h-[80px] lg:basis-[clamp(200px,30vw,300px)] lg:max-w-[300px] lg:flex-nowrap lg:items-center">
         {typeof title === "string" ? (
           <span
             className="text-[15px] font-bold tracking-tight"
@@ -465,7 +465,7 @@ export function WorksDetailView() {
             <div className="space-y-32 md:space-y-40 lg:space-y-48">
               <BrandRow
                 noDivider
-                title={<FigmaLogos variant="logo_HM" />}
+                title={<FigmaLogos variant="logo_HM" presentation="feature" />}
               >
                 <div className="flex flex-col gap-[14px]">
                   <FigmaBtnChip
@@ -482,7 +482,10 @@ export function WorksDetailView() {
                   />
                 </div>
               </BrandRow>
-              <BrandRow noDivider title={<FigmaLogos variant="logo_KM" />}>
+              <BrandRow
+                noDivider
+                title={<FigmaLogos variant="logo_KM" presentation="feature" />}
+              >
                 <div className="flex flex-col gap-[14px]">
                   <FigmaBtnChip
                     label="Official Kia Navigation Update Website - KOREA"
@@ -498,7 +501,10 @@ export function WorksDetailView() {
                   />
                 </div>
               </BrandRow>
-              <BrandRow noDivider title={<FigmaLogos variant="logo_GN" />}>
+              <BrandRow
+                noDivider
+                title={<FigmaLogos variant="logo_GN" presentation="feature" />}
+              >
                 <div className="flex flex-col gap-[14px]">
                   <FigmaBtnChip
                     label="Official Genesis Navigation Update Website - KOREA"

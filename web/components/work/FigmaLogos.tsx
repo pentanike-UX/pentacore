@@ -18,18 +18,31 @@ export type FigmaLogoVariant =
 type Props = {
   variant: FigmaLogoVariant;
   className?: string;
+  /**
+   * `row`: 포트폴리오 행 등 소형(기본).
+   * `feature`: `/works/hyundai-navigation` sec_2 등 — 동일 높이 기준으로 브랜드별 슬롯만 조정해 밀도감 맞춤.
+   */
+  presentation?: "row" | "feature";
 };
 
 /**
  * Figma `LOGOS` 레이아웃 근사 — 에셋은 `public/work/logo_*.png` (`figmaLogos`).
  */
-export function FigmaLogos({ variant, className }: Props) {
+export function FigmaLogos({
+  variant,
+  className,
+  presentation = "row",
+}: Props) {
+  const feat = presentation === "feature";
+
   switch (variant) {
     case "logo_HM":
       return (
         <div
           className={cn(
-            "relative flex h-[30px] w-[39px] flex-col items-center justify-center",
+            feat
+              ? "relative flex h-[76px] w-[min(100%,148px)] flex-col items-start justify-center sm:h-[84px] sm:w-[min(100%,164px)]"
+              : "relative flex h-[30px] w-[39px] flex-col items-center justify-center",
             className,
           )}
           data-figma="LOGOS logo_HM"
@@ -37,8 +50,12 @@ export function FigmaLogos({ variant, className }: Props) {
           <FillSlotImageWithSkeleton
             src={figmaLogos.logo_HM_Vector}
             alt=""
-            slotClassName="h-5 w-[39px] shrink-0"
-            sizes="96px"
+            slotClassName={
+              feat
+                ? "h-[64px] w-[min(100%,140px)] shrink-0 sm:h-[72px] sm:w-[156px]"
+                : "h-5 w-[39px] shrink-0"
+            }
+            sizes={feat ? "200px" : "96px"}
             imageClassName="object-contain object-center"
             unoptimized
           />
@@ -48,7 +65,9 @@ export function FigmaLogos({ variant, className }: Props) {
       return (
         <div
           className={cn(
-            "relative flex h-[30px] w-[81px] flex-col items-center justify-center overflow-hidden",
+            feat
+              ? "relative flex h-[76px] w-full max-w-[300px] flex-col items-start justify-center overflow-visible sm:h-[84px] sm:max-w-[320px]"
+              : "relative flex h-[30px] w-[81px] flex-col items-center justify-center overflow-hidden",
             className,
           )}
           data-figma="LOGOS logo_GN"
@@ -56,8 +75,12 @@ export function FigmaLogos({ variant, className }: Props) {
           <FillSlotImageWithSkeleton
             src={figmaLogos.logo_GN_Mask}
             alt=""
-            slotClassName="h-[22px] w-[81px] shrink-0"
-            sizes="180px"
+            slotClassName={
+              feat
+                ? "h-[52px] w-[min(100%,300px)] shrink-0 sm:h-[58px] sm:w-[308px]"
+                : "h-[22px] w-[81px] shrink-0"
+            }
+            sizes={feat ? "360px" : "180px"}
             imageClassName="object-contain object-center"
             unoptimized
           />
@@ -67,7 +90,9 @@ export function FigmaLogos({ variant, className }: Props) {
       return (
         <div
           className={cn(
-            "relative flex h-[30px] w-[49px] flex-col items-center justify-center",
+            feat
+              ? "relative flex h-[76px] w-full max-w-[240px] flex-col items-start justify-center sm:h-[84px] sm:max-w-[260px]"
+              : "relative flex h-[30px] w-[49px] flex-col items-center justify-center",
             className,
           )}
           data-figma="LOGOS logo_KM"
@@ -75,8 +100,12 @@ export function FigmaLogos({ variant, className }: Props) {
           <FillSlotImageWithSkeleton
             src={figmaLogos.logo_KM_Group}
             alt=""
-            slotClassName="h-[14px] w-[49px] shrink-0"
-            sizes="120px"
+            slotClassName={
+              feat
+                ? "h-[42px] w-[min(100%,236px)] shrink-0 sm:h-[46px] sm:w-[252px]"
+                : "h-[14px] w-[49px] shrink-0"
+            }
+            sizes={feat ? "280px" : "120px"}
             imageClassName="object-contain object-center"
             unoptimized
           />

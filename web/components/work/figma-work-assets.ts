@@ -55,10 +55,9 @@ export const figmaLogos = {
   logo_SS_Image: "/work/logo_SS.png",
 } as const;
 
-/** `btn_chip` (예: `279:23037`) */
+/** `btn_chip` (예: `279:23037`) — 외부 링크 화살표: `public/work/btn-chip-arrows.svg` */
 export const figmaBtnChip = {
-  externalIcon:
-    "https://www.figma.com/api/mcp/asset/b6659c0a-6bb7-40b6-b860-413ae1dac716",
+  externalIcon: "/work/btn-chip-arrows.svg",
 } as const;
 
 /** `/works_view` 중간구분 */
