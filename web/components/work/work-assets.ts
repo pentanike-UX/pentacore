@@ -13,7 +13,8 @@ export const ST_FO_111_FULL_INTRINSIC = { width: 2696, height: 9626 } as const;
 /** `/works_view` 정적 이미지 — Figma MCP + 로컬 PNG 일부 */
 export const hyundaiWorksViewImages = {
   sectionDivider: figmaWorksViewDivider,
-  heroHome: figmaHyundaiCase.sec1Hero,
+  /** `data-figma="sec_1"` 히어로 — `figmaHyundaiCase.sec1Hero`와 동일 경로 */
+  heroHome: "/work/hyundai_2.png",
   /** sec_3 — 최신업데이트 샘플 1: `public/work/latest-update-sample-1.png` (Figma/보내기명 `최신업데이트_샘플 1.png` 동일 에셋) */
   latestUpdateSample: "/work/latest-update-sample-1.png",
   flowStep1: figmaHyundaiCase.flowStep1,
