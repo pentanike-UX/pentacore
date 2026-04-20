@@ -6,7 +6,7 @@
 - **폰트**: `next/font` — Geist, Noto Sans KR, Inter 900(디스플레이)
 - **패키지 매니저**: npm (`web/package-lock.json`)
 - **런타임**: Node **>= 20.9.0** (`web/package.json` engines)
-- **배포**: TODO (Vercel·자체 호스팅 등 확정 후 [07_api-env.md](./07_api-env.md) 갱신)
+- **배포**: TODO (Vercel·자체 호스팅 등 확정 후 [07_api-env.md](./07_api-env.md) 갱신). nginx 등 리버스 프록시는 아래 **자체 호스팅·nginx** 참고.
 
 ## 로컬 실행
 ```bash
@@ -22,6 +22,25 @@ cd web
 npm run build
 npm run start
 ```
+
+## 자체 호스팅·nginx (`public` 동영상 등)
+
+`web/public/video/hero.mp4` → 브라우저 경로 `/video/hero.mp4`는 **Next `next start`만 쓰면** 정상적으로 `video/mp4`로 나간다.
+
+**nginx가 앞에 있을 때** `location ~* \.(png|jpg|…)$`처럼 **이미지만** 정적으로 빼고, `.mp4`·`.webm` 등은 `location /`의 `try_files … /index.html`에 걸리면 **MP4 URL이 HTML(SPA 폴백)과 동일 바이트·ETag로 응답**할 수 있다. 그 경우 브라우저는 `MEDIA_ERR_SRC_NOT_SUPPORTED` 등으로 재생에 실패한다.
+
+**대응**: 정적 확장자 목록에 비디오를 넣거나, 비디오 전용 `location`을 추가해 `root`(또는 `alias`) 아래 실파일을 `try_files $uri =404`로 서빙한다.
+
+```nginx
+# 예: 이미지·동영상을 한 블록에서 (경로는 환경에 맞게 조정)
+location ~* \.(png|jpg|jpeg|gif|ico|svg|mp4|webm|ogg|mov|m4v)$ {
+    root /path/to/app/web/public;
+    try_files $uri =404;
+    add_header Accept-Ranges bytes;
+}
+```
+
+설정 반영 후 `nginx -t` · `nginx -s reload`. (필요 시 `mp4` 지시어 등은 nginx 빌드·버전에 따른다.)
 
 ## 권장 Node 버전
 - **20 LTS 이상** (engines와 동일 권장)

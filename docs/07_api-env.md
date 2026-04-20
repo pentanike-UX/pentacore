@@ -15,6 +15,8 @@
 |--------|------|------|------------------|
 | `NEXT_PUBLIC_HERO_VIDEO_URL` | 아니오 | 홈 히어로 동영상 절대/경로 URL; 미설정 시 `/video/hero.mp4` | `https://cdn.example.com/hero.mp4` |
 
+nginx 등으로 `web/public`을 앞에서 서빙할 때 `.mp4`가 SPA 폴백 HTML로 나오면 재생이 깨진다. [기술 셋업 — 자체 호스팅·nginx](./02_tech-setup.md)를 본다.
+
 ## 로컬 `.env`
 - `web/` 기준 `.env.local` 사용 가능(Next 관례).
 - 저장소에 커밋하지 않는다.
