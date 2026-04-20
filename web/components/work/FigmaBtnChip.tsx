@@ -32,14 +32,16 @@ export function FigmaBtnChip({ label, href }: Props) {
         <span className="whitespace-nowrap text-[14px] font-bold text-[#1e1e1e]">
           Visit Website
         </span>
-        <FillSlotImageWithSkeleton
-          src={figmaBtnChip.externalIcon}
-          alt=""
-          slotClassName="size-5"
-          sizes="48px"
-          imageClassName="object-contain"
-          unoptimized
-        />
+        <span className="relative inline-block size-5 shrink-0">
+          <FillSlotImageWithSkeleton
+            src={figmaBtnChip.externalIcon}
+            alt=""
+            slotClassName="absolute left-[2px] top-[2px] size-4 shrink-0"
+            sizes="32px"
+            imageClassName="object-contain"
+            unoptimized
+          />
+        </span>
       </span>
     </a>
   );
