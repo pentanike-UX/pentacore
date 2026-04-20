@@ -41,7 +41,7 @@ export function FigmaLogos({
         <div
           className={cn(
             feat
-              ? "relative flex h-[76px] w-[min(100%,148px)] flex-col items-start justify-center sm:h-[84px] sm:w-[min(100%,164px)]"
+              ? "relative flex h-[76px] w-full flex-col items-start justify-center sm:h-[84px]"
               : "relative flex h-[30px] w-[39px] flex-col items-center justify-center",
             className,
           )}
@@ -52,7 +52,7 @@ export function FigmaLogos({
             alt=""
             slotClassName={
               feat
-                ? "h-[64px] w-[min(100%,140px)] shrink-0 sm:h-[72px] sm:w-[156px]"
+                ? "h-[64px] w-full shrink-0 sm:h-[72px]"
                 : "h-5 w-[39px] shrink-0"
             }
             sizes={feat ? "200px" : "96px"}
@@ -66,7 +66,7 @@ export function FigmaLogos({
         <div
           className={cn(
             feat
-              ? "relative flex h-[76px] w-full max-w-[300px] flex-col items-start justify-center overflow-visible sm:h-[84px] sm:max-w-[320px]"
+              ? "relative flex h-[76px] w-full flex-col items-start justify-center overflow-visible sm:h-[84px]"
               : "relative flex h-[30px] w-[81px] flex-col items-center justify-center overflow-hidden",
             className,
           )}
@@ -77,10 +77,10 @@ export function FigmaLogos({
             alt=""
             slotClassName={
               feat
-                ? "h-[52px] w-[min(100%,300px)] shrink-0 sm:h-[58px] sm:w-[308px]"
+                ? "h-[68px] w-full shrink-0 sm:h-[76px]"
                 : "h-[22px] w-[81px] shrink-0"
             }
-            sizes={feat ? "360px" : "180px"}
+            sizes={feat ? "400px" : "180px"}
             imageClassName="object-contain object-center"
             unoptimized
           />
@@ -91,7 +91,7 @@ export function FigmaLogos({
         <div
           className={cn(
             feat
-              ? "relative flex h-[76px] w-full max-w-[240px] flex-col items-start justify-center sm:h-[84px] sm:max-w-[260px]"
+              ? "relative flex h-[76px] w-full flex-col items-start justify-center sm:h-[84px]"
               : "relative flex h-[30px] w-[49px] flex-col items-center justify-center",
             className,
           )}
@@ -102,10 +102,10 @@ export function FigmaLogos({
             alt=""
             slotClassName={
               feat
-                ? "h-[42px] w-[min(100%,236px)] shrink-0 sm:h-[46px] sm:w-[252px]"
+                ? "h-[58px] w-full shrink-0 sm:h-[64px]"
                 : "h-[14px] w-[49px] shrink-0"
             }
-            sizes={feat ? "280px" : "120px"}
+            sizes={feat ? "320px" : "120px"}
             imageClassName="object-contain object-center"
             unoptimized
           />

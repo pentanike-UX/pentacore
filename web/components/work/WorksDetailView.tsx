@@ -125,13 +125,14 @@ function BrandRow({
   return (
     <div
       className={cn(
-        "flex flex-col gap-6 md:flex-row md:items-center md:gap-14",
+        "grid grid-cols-12 gap-x-5 gap-y-6 md:gap-x-8 lg:items-center lg:gap-y-0",
         noDivider
           ? "pt-0"
           : "border-t border-black/10 pt-14 first:border-t-0 first:pt-0",
       )}
     >
-      <div className="flex min-h-[72px] w-full max-w-[320px] shrink-0 flex-wrap items-center gap-[10px] md:min-h-[80px] lg:basis-[clamp(200px,30vw,300px)] lg:max-w-[300px] lg:flex-nowrap lg:items-center">
+      {/* 로고: 전역 12칸 중 6~7열 · CTA: 9~12열(8열은 1칸 공백) */}
+      <div className="col-span-12 flex min-h-[72px] w-full min-w-0 items-center md:min-h-[80px] lg:col-span-2 lg:col-start-6">
         {typeof title === "string" ? (
           <span
             className="text-[15px] font-bold tracking-tight"
@@ -143,7 +144,9 @@ function BrandRow({
           title
         )}
       </div>
-      <div className="min-w-0 flex-1">{children}</div>
+      <div className="col-span-12 min-w-0 lg:col-span-4 lg:col-start-9">
+        {children}
+      </div>
     </div>
   );
 }
@@ -457,9 +460,9 @@ export function WorksDetailView() {
             </div>
           </div>
 
-          {/* 데스크톱(lg+): 6~12열 · 칩 영역 상·하 14rem 패딩(본문↔칩 구간 포함) */}
+          {/* 브랜드 행: 전역 12칸 그리드에 맞춤(로고 6~7열, 8열 공백, CTA 9~12열) · 상·하 14rem 패딩 */}
           <div
-            className="col-span-12 py-[8.75rem] md:py-[11.2rem] lg:col-span-7 lg:col-start-6 lg:py-[14rem]"
+            className="col-span-12 py-[8.75rem] md:py-[11.2rem] lg:py-[14rem]"
             data-figma="sec_2 chips"
           >
             <div className="space-y-32 md:space-y-40 lg:space-y-48">
