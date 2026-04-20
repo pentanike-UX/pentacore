@@ -67,7 +67,7 @@ export const figmaWorksViewDivider = "/work/hyundai_1.png";
 /** works_view 스크린·루프 */
 export const figmaHyundaiCase = {
   sec1Hero:
-    "/work/hyundai_1.png",
+    "/work/hyundai_2.png",
   flowStep1:
     "/work/hyundai_4.png",
   flowStep2:
