@@ -131,7 +131,7 @@ function BrandRow({
           : "border-t border-black/10 pt-14 first:border-t-0 first:pt-0",
       )}
     >
-      {/* 로고: 전역 12칸 중 6~7열 · CTA: 9~12열(8열은 1칸 공백) */}
+      {/* 로고: 6~7열 · CTA: 8열부터 12열까지 */}
       <div className="col-span-12 flex min-h-[72px] w-full min-w-0 items-center md:min-h-[80px] lg:col-span-2 lg:col-start-6">
         {typeof title === "string" ? (
           <span
@@ -144,7 +144,7 @@ function BrandRow({
           title
         )}
       </div>
-      <div className="col-span-12 min-w-0 lg:col-span-4 lg:col-start-9">
+      <div className="col-span-12 min-w-0 lg:col-span-5 lg:col-start-8">
         {children}
       </div>
     </div>
@@ -460,7 +460,7 @@ export function WorksDetailView() {
             </div>
           </div>
 
-          {/* 브랜드 행: 전역 12칸 그리드에 맞춤(로고 6~7열, 8열 공백, CTA 9~12열) · 상·하 14rem 패딩 */}
+          {/* 브랜드 행: 전역 12칸(로고 6~7열, CTA 8~12열) · 상·하 14rem 패딩 */}
           <div
             className="col-span-12 py-[8.75rem] md:py-[11.2rem] lg:py-[14rem]"
             data-figma="sec_2 chips"
