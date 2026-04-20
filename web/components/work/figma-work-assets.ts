@@ -40,22 +40,19 @@ export const figmaPentagramSmall = {
   b: "https://www.figma.com/api/mcp/asset/c5810893-66de-4d21-b580-d58f2c1d3303",
 } as const;
 
-/** LOGOS 컴포넌트 세트 `274:22224` */
+/**
+ * LOGOS 컴포넌트 세트 `274:22224` — 소스는 `public/work/logo_*.png` (Figma MCP URL 만료 방지).
+ * 키 이름은 `FigmaLogos`·기존 import와의 호환을 위해 유지.
+ */
 export const figmaLogos = {
-  logo_HM_Vector:
-    "https://www.figma.com/api/mcp/asset/da0f662d-e7cc-4fa6-8437-7d637c7595ef",
-  logo_GN_Mask:
-    "https://www.figma.com/api/mcp/asset/42590dac-b4d6-4258-bc35-084b9462308a",
-  logo_KM_Group:
-    "https://www.figma.com/api/mcp/asset/7878c57f-4d73-4ad6-a8e7-85590e2b3fce",
-  logo_HAE_Mask:
-    "https://www.figma.com/api/mcp/asset/f8b742f6-3275-4996-8882-71109d2f857e",
-  logo_HMS_Mask:
-    "https://www.figma.com/api/mcp/asset/786f1856-8cb5-43f4-88bb-d9d339122863",
-  logo_SKE_Mask:
-    "https://www.figma.com/api/mcp/asset/f9143a52-05a3-4c5b-9478-7c3af30b965a",
-  logo_SS_Image:
-    "https://www.figma.com/api/mcp/asset/6b9aa770-490b-49f6-ad4e-b87bc80fd92b",
+  logo_HM_Vector: "/work/logo_HM.png",
+  logo_GN_Mask: "/work/logo_GN.png",
+  logo_KM_Group: "/work/logo_KM.png",
+  logo_HAE_Mask: "/work/logo_HAE.png",
+  logo_HMS_Mask: "/work/logo_HMS.png",
+  logo_LGE_Image: "/work/logo_LGE.png",
+  logo_SKE_Mask: "/work/logo_SKE.png",
+  logo_SS_Image: "/work/logo_SS.png",
 } as const;
 
 /** `btn_chip` (예: `279:23037`) */

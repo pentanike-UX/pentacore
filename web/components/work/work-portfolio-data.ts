@@ -77,7 +77,7 @@ export const WORK_PORTFOLIO_ROWS: readonly WorkPortfolioRow[] = [
     title: "LG전자 모션인식 리모콘 UI 및 캐주얼 게임 개발",
     period: "2016",
     tags: ["구축", "연간운영"],
-    logos: ["logo_SS"],
+    logos: ["logo_LGE"],
   },
   {
     title: "삼성에버랜드 홈페이지 리뉴얼 구축",

@@ -1,10 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import {
-  FillSlotImageWithSkeleton,
-  ShimmerOverlay,
-} from "@/components/media/ImageWithSkeleton";
+import { FillSlotImageWithSkeleton } from "@/components/media/ImageWithSkeleton";
 import { cn } from "@/lib/utils";
 import { figmaLogos } from "./figma-work-assets";
 
@@ -15,6 +11,7 @@ export type FigmaLogoVariant =
   | "logo_KM"
   | "logo_HAE"
   | "logo_HMS"
+  | "logo_LGE"
   | "logo_SKE"
   | "logo_SS";
 
@@ -23,35 +20,8 @@ type Props = {
   className?: string;
 };
 
-/** Figma crop 좌표 고정 — `next/image` 대신 `img` + 스켈레톤 */
-function LogoSsCroppedWithSkeleton() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setLoaded(true);
-    }
-  }, []);
-
-  return (
-    <div className="relative h-4 w-[102px] shrink-0 overflow-hidden">
-      {!loaded && <ShimmerOverlay className="rounded-sm" />}
-      {/* eslint-disable-next-line @next/next/no-img-element -- Figma crop 좌표 고정 */}
-      <img
-        src={figmaLogos.logo_SS_Image}
-        alt=""
-        className={cn(
-          "absolute left-[-6.49%] top-[-49.09%] h-[197%] w-[112.97%] max-w-none transition-opacity duration-500 ease-out motion-reduce:duration-150",
-          loaded ? "opacity-100" : "opacity-0",
-        )}
-        draggable={false}
-        onLoad={() => setLoaded(true)}
-      />
-    </div>
-  );
-}
-
 /**
- * Figma `LOGOS` — Dev Mode 스펙(마스크·뷰포트) 그대로 근사.
+ * Figma `LOGOS` 레이아웃 근사 — 에셋은 `public/work/logo_*.png` (`figmaLogos`).
  */
 export function FigmaLogos({ variant, className }: Props) {
   switch (variant) {
@@ -67,7 +37,7 @@ export function FigmaLogos({ variant, className }: Props) {
           <FillSlotImageWithSkeleton
             src={figmaLogos.logo_HM_Vector}
             alt=""
-            slotClassName="h-5 w-[39.255px] shrink-0"
+            slotClassName="h-5 w-[39px] shrink-0"
             sizes="96px"
             imageClassName="object-contain object-center"
             unoptimized
@@ -83,22 +53,14 @@ export function FigmaLogos({ variant, className }: Props) {
           )}
           data-figma="LOGOS logo_GN"
         >
-          <div
-            className="relative h-[23.333px] w-[90.667px] shrink-0"
-            style={{
-              WebkitMaskImage: `url('${figmaLogos.logo_GN_Mask}')`,
-              maskImage: `url('${figmaLogos.logo_GN_Mask}')`,
-              WebkitMaskSize: "81.296px 17.714px",
-              maskSize: "81.296px 17.714px",
-              WebkitMaskPosition: "4.667px 2.81px",
-              maskPosition: "4.667px 2.81px",
-              WebkitMaskRepeat: "no-repeat",
-              maskRepeat: "no-repeat",
-              transform: "translate(-4.67px, -2.81px)",
-            }}
-          >
-            <div className="size-full bg-black" />
-          </div>
+          <FillSlotImageWithSkeleton
+            src={figmaLogos.logo_GN_Mask}
+            alt=""
+            slotClassName="h-[22px] w-[81px] shrink-0"
+            sizes="180px"
+            imageClassName="object-contain object-center"
+            unoptimized
+          />
         </div>
       );
     case "logo_KM":
@@ -113,7 +75,7 @@ export function FigmaLogos({ variant, className }: Props) {
           <FillSlotImageWithSkeleton
             src={figmaLogos.logo_KM_Group}
             alt=""
-            slotClassName="h-[11.429px] w-[48.296px] shrink-0"
+            slotClassName="h-[14px] w-[49px] shrink-0"
             sizes="120px"
             imageClassName="object-contain object-center"
             unoptimized
@@ -129,17 +91,14 @@ export function FigmaLogos({ variant, className }: Props) {
           )}
           data-figma="LOGOS logo_HAE"
         >
-          <div
-            className="relative h-[21.094px] w-[69.531px] shrink-0"
-            style={{
-              WebkitMaskImage: `url('${figmaLogos.logo_HAE_Mask}')`,
-              maskImage: `url('${figmaLogos.logo_HAE_Mask}')`,
-              WebkitMaskSize: "70px 20px",
-              maskSize: "70px 20px",
-            }}
-          >
-            <div className="size-full bg-black" />
-          </div>
+          <FillSlotImageWithSkeleton
+            src={figmaLogos.logo_HAE_Mask}
+            alt=""
+            slotClassName="h-5 w-[70px] shrink-0"
+            sizes="160px"
+            imageClassName="object-contain object-center"
+            unoptimized
+          />
         </div>
       );
     case "logo_HMS":
@@ -151,17 +110,33 @@ export function FigmaLogos({ variant, className }: Props) {
           )}
           data-figma="LOGOS logo_HMS"
         >
-          <div
-            className="relative h-5 w-[87px] shrink-0"
-            style={{
-              WebkitMaskImage: `url('${figmaLogos.logo_HMS_Mask}')`,
-              maskImage: `url('${figmaLogos.logo_HMS_Mask}')`,
-              WebkitMaskSize: "87px 20px",
-              maskSize: "87px 20px",
-            }}
-          >
-            <div className="size-full bg-black" />
-          </div>
+          <FillSlotImageWithSkeleton
+            src={figmaLogos.logo_HMS_Mask}
+            alt=""
+            slotClassName="h-5 w-[87px] shrink-0"
+            sizes="200px"
+            imageClassName="object-contain object-center"
+            unoptimized
+          />
+        </div>
+      );
+    case "logo_LGE":
+      return (
+        <div
+          className={cn(
+            "relative flex h-[30px] w-[88px] flex-col items-center justify-center overflow-hidden",
+            className,
+          )}
+          data-figma="LOGOS logo_LGE"
+        >
+          <FillSlotImageWithSkeleton
+            src={figmaLogos.logo_LGE_Image}
+            alt=""
+            slotClassName="h-5 w-[88px] shrink-0"
+            sizes="200px"
+            imageClassName="object-contain object-center"
+            unoptimized
+          />
         </div>
       );
     case "logo_SKE":
@@ -173,29 +148,33 @@ export function FigmaLogos({ variant, className }: Props) {
           )}
           data-figma="LOGOS logo_SKE"
         >
-          <div
-            className="relative h-[30px] w-[62.484px] shrink-0"
-            style={{
-              WebkitMaskImage: `url('${figmaLogos.logo_SKE_Mask}')`,
-              maskImage: `url('${figmaLogos.logo_SKE_Mask}')`,
-              WebkitMaskSize: "62.484px 30px",
-              maskSize: "62.484px 30px",
-            }}
-          >
-            <div className="size-full bg-black" />
-          </div>
+          <FillSlotImageWithSkeleton
+            src={figmaLogos.logo_SKE_Mask}
+            alt=""
+            slotClassName="h-[26px] w-[63px] shrink-0"
+            sizes="140px"
+            imageClassName="object-contain object-center"
+            unoptimized
+          />
         </div>
       );
     case "logo_SS":
       return (
         <div
           className={cn(
-            "relative flex h-[30px] flex-col items-center justify-center",
+            "relative flex h-[30px] w-[102px] flex-col items-center justify-center overflow-hidden",
             className,
           )}
           data-figma="LOGOS logo_SS"
         >
-          <LogoSsCroppedWithSkeleton />
+          <FillSlotImageWithSkeleton
+            src={figmaLogos.logo_SS_Image}
+            alt=""
+            slotClassName="h-5 w-[102px] shrink-0"
+            sizes="220px"
+            imageClassName="object-contain object-center"
+            unoptimized
+          />
         </div>
       );
     default:
